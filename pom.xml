@@ -18,6 +18,7 @@
     </parent>
 
     <modules>
+        <module>morn-boot-core</module>
         <module>morn-boot-autoconfigure</module>
         <module>morn-boot-validator</module>
     </modules>
