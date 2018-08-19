@@ -1,0 +1,10 @@
+{
+  "properties": [
+    {
+      "name": "morn.boot.validator.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Enable validator features for the application.",
+      "defaultValue": false
+    }
+  ]
+}
