@@ -1,6 +1,12 @@
 {
   "properties": [
     {
+      "name": "morn.boot.exception.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Enable exception features for the application.",
+      "defaultValue": false
+    },
+    {
       "name": "morn.boot.validator.enabled",
       "type": "java.lang.Boolean",
       "description": "Enable validator features for the application.",

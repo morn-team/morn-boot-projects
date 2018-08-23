@@ -1,7 +1,6 @@
 package site.morn.boot.autoconfigure;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -13,6 +12,5 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ConditionalOnProperty(prefix = "morn.boot.validator", value = "enabled", havingValue = "true")
-@ComponentScan(basePackages = {"site.morn.boot"})
-public class MornBootValidatorAutoConfiguration {
+public class ValidatorAutoConfiguration {
 }
