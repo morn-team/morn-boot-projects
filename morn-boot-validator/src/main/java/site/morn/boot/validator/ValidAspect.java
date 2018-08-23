@@ -31,8 +31,9 @@ public class ValidAspect {
         this.validator = validator;
     }
 
-    @Pointcut("@annotation(org.springframework.web.bind.annotation.PostMapping)")
-    public void request() {
+    //    @Pointcut("@annotation(org.springframework.web.bind.annotation.PostMapping)")
+    @Pointcut("@annotation(org.springframework.web.bind.annotation.ExceptionHandler)")
+    public void pointcut() {
 
     }
 
@@ -41,13 +42,13 @@ public class ValidAspect {
 //
 //    }
 
-    @Before("request()")
+    @Before("pointcut()")
     public void validBefore(JoinPoint point) {
         log.info("ValidAspect.validBefore");
         Object[] args = point.getArgs();
     }
 
-    @Around("request()")
+    @Around("pointcut()")
     public Object aroundValid(ProceedingJoinPoint point) {
         log.info("ValidAspect.aroundValid");
         try {
@@ -58,7 +59,7 @@ public class ValidAspect {
         }
     }
 
-    @AfterReturning(pointcut = "request()")
+    @AfterReturning(pointcut = "pointcut()")
     public void requestReturning(JoinPoint point) {
         log.info("ValidAspect.requestReturning");
     }
