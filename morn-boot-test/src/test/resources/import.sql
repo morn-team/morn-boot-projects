@@ -1,0 +1,1 @@
+INSERT INTO user (id, username, password, nickname,date) VALUES (1, 'admin', 'bmeB4000', 'admin', NOW());
