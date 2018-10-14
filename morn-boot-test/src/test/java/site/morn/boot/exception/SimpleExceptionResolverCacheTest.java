@@ -25,7 +25,7 @@ import java.util.List;
 public class SimpleExceptionResolverCacheTest {
 
     @Autowired
-    private ExceptionResolverCache simpleExceptionResolverCache;
+    private ExceptionResolverCache exceptionResolverCache;
 
     @Before
     public void setUp() throws Exception {
@@ -33,8 +33,8 @@ public class SimpleExceptionResolverCacheTest {
 
     @Test
     public void find() {
-        List<ExceptionResolver> resolversFirst = simpleExceptionResolverCache.find("test");
-        List<ExceptionResolver> resolversSecond = simpleExceptionResolverCache.find("test");
+        List<ExceptionResolver> resolversFirst = exceptionResolverCache.find("test");
+        List<ExceptionResolver> resolversSecond = exceptionResolverCache.find("test");
     }
 
     @Test
@@ -45,6 +45,6 @@ public class SimpleExceptionResolverCacheTest {
     public void putResolver() {
         SimpleAnnotationExceptionResolver resolver = new SimpleAnnotationExceptionResolver();
         resolver.setTags(new String[]{"test"});
-        simpleExceptionResolverCache.put(resolver);
+        exceptionResolverCache.put(resolver);
     }
 }

@@ -43,18 +43,18 @@ public class SimpleExceptionResolverCache implements ExceptionResolverCache {
         return null;
     }
 
-//    @Override
-//    public void put(List<AnnotationExceptionResolver> resolvers) {
-//        store.addAll(resolvers);
-//    }
-
-//    @Override
-//    public void put(AnnotationExceptionResolver resolver) {
-//        store.add(resolver);
-//    }
+    @Override
+    public void put(List<AnnotationExceptionResolver> resolvers) {
+        store.addAll(resolvers);
+    }
 
     @Override
-    public void put(List<?> resolvers) {
-        store.addAll((List<AnnotationExceptionResolver>) resolvers);
+    public void put(AnnotationExceptionResolver resolver) {
+        store.add(resolver);
     }
+
+//    @Override
+//    public void put(List<?> resolvers) {
+//        store.addAll((List<AnnotationExceptionResolver>) resolvers);
+//    }
 }

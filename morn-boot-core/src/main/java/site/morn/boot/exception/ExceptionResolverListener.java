@@ -46,7 +46,7 @@ public class ExceptionResolverListener {
             annotationExceptionResolver.setTags(tag.tags());
             annotationExceptionResolver.setTargets(tag.targets());
             annotationExceptionResolver.setResolver(resolver);
-//            cache.put(annotationExceptionResolver);
+            cache.put(annotationExceptionResolver);
         }
     }
 
