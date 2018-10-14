@@ -20,7 +20,7 @@
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot</artifactId>
+      <artifactId>spring-boot-starter</artifactId>
       <optional>true</optional>
     </dependency>
     <!--Morn-->
