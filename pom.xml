@@ -22,6 +22,7 @@
     <module>morn-boot-autoconfigure</module>
     <module>morn-boot-validator</module>
     <module>morn-boot-test</module>
+    <module>morn-boot-web</module>
   </modules>
 
   <properties>
@@ -44,16 +45,6 @@
         <version>${boot.version}</version>
         <type>pom</type>
         <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot</artifactId>
-        <version>${boot.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-autoconfigure</artifactId>
-        <version>${boot.version}</version>
       </dependency>
       <dependency>
         <groupId>org.springframework.boot</groupId>
