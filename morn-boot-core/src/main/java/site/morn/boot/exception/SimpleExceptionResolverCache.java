@@ -1,6 +1,5 @@
 package site.morn.boot.exception;
 
-import site.timely.exception.AnnotationExceptionResolver;
 import site.timely.exception.ExceptionResolver;
 import site.timely.exception.ExceptionResolverCache;
 
@@ -19,7 +18,7 @@ public class SimpleExceptionResolverCache implements ExceptionResolverCache {
     /**
      * 仓库
      */
-    private List<AnnotationExceptionResolver> store = new ArrayList<>();
+    private List<ExceptionResolver> store = new ArrayList<>();
 
     //    @Cacheable(value = DEFAULT_CACHE, key = "'TAG.'+T(org.springframework.util.StringUtils).arrayToCommaDelimitedString(#tag)")
     @Override
@@ -44,17 +43,7 @@ public class SimpleExceptionResolverCache implements ExceptionResolverCache {
     }
 
     @Override
-    public void put(List<AnnotationExceptionResolver> resolvers) {
-        store.addAll(resolvers);
-    }
-
-    @Override
-    public void put(AnnotationExceptionResolver resolver) {
+    public void put(ExceptionResolver resolver) {
         store.add(resolver);
     }
-
-//    @Override
-//    public void put(List<?> resolvers) {
-//        store.addAll((List<AnnotationExceptionResolver>) resolvers);
-//    }
 }
