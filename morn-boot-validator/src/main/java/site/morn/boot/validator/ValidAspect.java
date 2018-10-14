@@ -3,7 +3,11 @@ package site.morn.boot.validator;
 import lombok.extern.java.Log;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Validator;
@@ -24,43 +28,43 @@ public class ValidAspect {
 //    private final ExecutableValidator methodValidator = factory.getValidator().forExecutables();
 //    private final Validator beanValidator = factory.getValidator();
 
-    private final Validator validator;
+  private final Validator validator;
 
-    @Autowired
-    public ValidAspect(Validator validator) {
-        this.validator = validator;
-    }
+  @Autowired
+  public ValidAspect(Validator validator) {
+    this.validator = validator;
+  }
 
-    //    @Pointcut("@annotation(org.springframework.web.bind.annotation.PostMapping)")
-    @Pointcut("@annotation(org.springframework.web.bind.annotation.ExceptionHandler)")
-    public void pointcut() {
+  //    @Pointcut("@annotation(org.springframework.web.bind.annotation.PostMapping)")
+  @Pointcut("@annotation(org.springframework.web.bind.annotation.ExceptionHandler)")
+  public void pointcut() {
 
-    }
+  }
 
 //    @Pointcut("@annotation(javax.validation.Valid)")
 //    public void valid() {
 //
 //    }
 
-    @Before("pointcut()")
-    public void validBefore(JoinPoint point) {
-        log.info("ValidAspect.validBefore");
-        Object[] args = point.getArgs();
-    }
+  @Before("pointcut()")
+  public void validBefore(JoinPoint point) {
+    log.info("ValidAspect.validBefore");
+    Object[] args = point.getArgs();
+  }
 
-    @Around("pointcut()")
-    public Object aroundValid(ProceedingJoinPoint point) {
-        log.info("ValidAspect.aroundValid");
-        try {
-            return point.proceed();
-        } catch (Throwable throwable) {
-            throwable.printStackTrace();
-            return null;
-        }
+  @Around("pointcut()")
+  public Object aroundValid(ProceedingJoinPoint point) {
+    log.info("ValidAspect.aroundValid");
+    try {
+      return point.proceed();
+    } catch (Throwable throwable) {
+      throwable.printStackTrace();
+      return null;
     }
+  }
 
-    @AfterReturning(pointcut = "pointcut()")
-    public void requestReturning(JoinPoint point) {
-        log.info("ValidAspect.requestReturning");
-    }
+  @AfterReturning(pointcut = "pointcut()")
+  public void requestReturning(JoinPoint point) {
+    log.info("ValidAspect.requestReturning");
+  }
 }

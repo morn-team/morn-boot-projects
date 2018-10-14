@@ -1,6 +1,7 @@
 package site.morn.boot.exception;
 
 
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,8 +11,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import site.timely.exception.ExceptionResolver;
 import site.timely.exception.ExceptionResolverCache;
 import site.timely.exception.SimpleAnnotationExceptionResolver;
-
-import java.util.List;
 
 /**
  * 异常解释器缓存测试
@@ -24,27 +23,27 @@ import java.util.List;
 @SpringBootTest
 public class SimpleExceptionResolverCacheTest {
 
-    @Autowired
-    private ExceptionResolverCache exceptionResolverCache;
+  @Autowired
+  private ExceptionResolverCache exceptionResolverCache;
 
-    @Before
-    public void setUp() throws Exception {
-    }
+  @Before
+  public void setUp() throws Exception {
+  }
 
-    @Test
-    public void find() {
-        List<ExceptionResolver> resolversFirst = exceptionResolverCache.find("test");
-        List<ExceptionResolver> resolversSecond = exceptionResolverCache.find("test");
-    }
+  @Test
+  public void find() {
+    List<ExceptionResolver> resolversFirst = exceptionResolverCache.find("test");
+    List<ExceptionResolver> resolversSecond = exceptionResolverCache.find("test");
+  }
 
-    @Test
-    public void putResolvers() {
-    }
+  @Test
+  public void putResolvers() {
+  }
 
-    @Test
-    public void putResolver() {
-        SimpleAnnotationExceptionResolver resolver = new SimpleAnnotationExceptionResolver();
-        resolver.setTags(new String[]{"test"});
-        exceptionResolverCache.put(resolver);
-    }
+  @Test
+  public void putResolver() {
+    SimpleAnnotationExceptionResolver resolver = new SimpleAnnotationExceptionResolver();
+    resolver.setTags(new String[]{"test"});
+    exceptionResolverCache.put(resolver);
+  }
 }

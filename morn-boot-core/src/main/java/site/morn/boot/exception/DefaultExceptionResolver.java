@@ -12,8 +12,9 @@ import site.timely.tag.annotation.Tag;
  */
 @Tag
 public class DefaultExceptionResolver implements ExceptionResolver {
-    @Override
-    public Object resolve(Throwable throwable) {
-        return null;
-    }
+
+  @Override
+  public Object resolve(Throwable throwable) {
+    return null;
+  }
 }

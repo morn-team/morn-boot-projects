@@ -13,4 +13,5 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConditionalOnProperty(prefix = "morn.boot.validator", value = "enabled", havingValue = "true")
 public class ValidatorAutoConfiguration {
+
 }

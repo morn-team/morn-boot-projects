@@ -1,9 +1,12 @@
 package site.morn.boot.translate.annotation;
 
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import org.springframework.stereotype.Component;
 import site.timely.translate.TranslateHolder;
-
-import java.lang.annotation.*;
 
 /**
  * 翻译器注解
@@ -17,17 +20,18 @@ import java.lang.annotation.*;
 @Documented
 @Component
 public @interface MornTranslator {
-    /**
-     * 获取翻译器名称
-     *
-     * @return 翻译器名称
-     */
-    String name() default TranslateHolder.DEFAULT;
 
-    /**
-     * 获取Bean名称
-     *
-     * @return Bean名称
-     */
-    String value() default "";
+  /**
+   * 获取翻译器名称
+   *
+   * @return 翻译器名称
+   */
+  String name() default TranslateHolder.DEFAULT;
+
+  /**
+   * 获取Bean名称
+   *
+   * @return Bean名称
+   */
+  String value() default "";
 }

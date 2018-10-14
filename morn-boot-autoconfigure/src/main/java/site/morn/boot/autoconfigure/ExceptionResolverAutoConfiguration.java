@@ -25,31 +25,32 @@ import site.timely.exception.ExceptionResolverCache;
 @ConditionalOnProperty(prefix = "morn.boot.exception", value = "enabled", havingValue = "true")
 public class ExceptionResolverAutoConfiguration {
 
-    @Bean
-    @ConditionalOnMissingBean
-    public ExceptionResolver exceptionResolver() {
-        return new DefaultExceptionResolver();
-    }
+  @Bean
+  @ConditionalOnMissingBean
+  public ExceptionResolver exceptionResolver() {
+    return new DefaultExceptionResolver();
+  }
 
-    /**
-     * 注册异常解析器缓存
-     *
-     * @return 异常解析器缓存
-     */
-    @Bean
-    @ConditionalOnMissingBean
-    @ConditionalOnBean(CacheManager.class)
-    public ExceptionResolverCache exceptionResolverCache() {
-        return new SimpleExceptionResolverCache();
-    }
+  /**
+   * 注册异常解析器缓存
+   *
+   * @return 异常解析器缓存
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  @ConditionalOnBean(CacheManager.class)
+  public ExceptionResolverCache exceptionResolverCache() {
+    return new SimpleExceptionResolverCache();
+  }
 
-    /**
-     * 注册异常解析监听器
-     *
-     * @return 异常解析监听器
-     */
-    @Bean
-    public ExceptionResolverListener exceptionResolverListener(ExceptionResolverCache exceptionResolverCache) {
-        return new ExceptionResolverListener(exceptionResolverCache);
-    }
+  /**
+   * 注册异常解析监听器
+   *
+   * @return 异常解析监听器
+   */
+  @Bean
+  public ExceptionResolverListener exceptionResolverListener(
+      ExceptionResolverCache exceptionResolverCache) {
+    return new ExceptionResolverListener(exceptionResolverCache);
+  }
 }

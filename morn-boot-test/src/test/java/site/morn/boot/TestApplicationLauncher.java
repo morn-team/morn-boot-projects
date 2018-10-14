@@ -9,7 +9,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableCaching
 @EnableTransactionManagement
 public class TestApplicationLauncher {
-    public static void main(String[] args) {
-        SpringApplication.run(TestApplicationLauncher.class, args);
-    }
+
+  public static void main(String[] args) {
+    SpringApplication.run(TestApplicationLauncher.class, args);
+  }
 }

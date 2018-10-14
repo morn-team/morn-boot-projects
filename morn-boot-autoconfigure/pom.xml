@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>morn-boot-projects</artifactId>
-        <groupId>site.morn.boot</groupId>
-        <version>1.0.0.SNAPSHOT</version>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>morn-boot-projects</artifactId>
+    <groupId>site.morn.boot</groupId>
+    <version>1.0.0.SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>morn-boot-autoconfigure</artifactId>
+  <artifactId>morn-boot-autoconfigure</artifactId>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-autoconfigure</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <!--Morn-->
-        <dependency>
-            <groupId>site.morn</groupId>
-            <artifactId>morn-core</artifactId>
-            <version>${morn.version}</version>
-            <optional>true</optional>
-        </dependency>
-        <!--Morn Boot-->
-        <dependency>
-            <groupId>site.morn.boot</groupId>
-            <artifactId>morn-boot-core</artifactId>
-            <version>${morn.version}</version>
-            <optional>true</optional>
-        </dependency>
-    </dependencies>
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-autoconfigure</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <!--Morn-->
+    <dependency>
+      <groupId>site.morn</groupId>
+      <artifactId>morn-core</artifactId>
+      <version>${morn.version}</version>
+      <optional>true</optional>
+    </dependency>
+    <!--Morn Boot-->
+    <dependency>
+      <groupId>site.morn.boot</groupId>
+      <artifactId>morn-boot-core</artifactId>
+      <version>${morn.version}</version>
+      <optional>true</optional>
+    </dependency>
+  </dependencies>
 
 </project>

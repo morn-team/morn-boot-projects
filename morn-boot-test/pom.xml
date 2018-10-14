@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>morn-boot-projects</artifactId>
-        <groupId>site.morn.boot</groupId>
-        <version>1.0.0.SNAPSHOT</version>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>morn-boot-projects</artifactId>
+    <groupId>site.morn.boot</groupId>
+    <version>1.0.0.SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>morn-boot-test</artifactId>
+  <artifactId>morn-boot-test</artifactId>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <!--MySQL-->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-        <!--Morn Boot-->
-        <dependency>
-            <groupId>site.morn.boot</groupId>
-            <artifactId>morn-boot-autoconfigure</artifactId>
-            <version>${morn.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>site.morn.boot</groupId>
-            <artifactId>morn-boot-core</artifactId>
-            <version>${morn.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>site.morn.boot</groupId>
-            <artifactId>morn-boot-validator</artifactId>
-            <version>${morn.version}</version>
-        </dependency>
-    </dependencies>
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <!--MySQL-->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+    </dependency>
+    <!--Morn Boot-->
+    <dependency>
+      <groupId>site.morn.boot</groupId>
+      <artifactId>morn-boot-autoconfigure</artifactId>
+      <version>${morn.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>site.morn.boot</groupId>
+      <artifactId>morn-boot-core</artifactId>
+      <version>${morn.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>site.morn.boot</groupId>
+      <artifactId>morn-boot-validator</artifactId>
+      <version>${morn.version}</version>
+    </dependency>
+  </dependencies>
 
 </project>
