@@ -22,7 +22,7 @@ import site.timely.exception.ExceptionResolverCache;
  */
 @Configuration
 @ConditionalOnClass({ExceptionResolver.class, CacheManager.class})
-@ConditionalOnProperty(prefix = "morn.boot.exception", value = "enabled", havingValue = "true")
+@ConditionalOnProperty(prefix = "morn.exception", value = "enabled", havingValue = "true")
 public class ExceptionResolverAutoConfiguration {
 
   @Bean

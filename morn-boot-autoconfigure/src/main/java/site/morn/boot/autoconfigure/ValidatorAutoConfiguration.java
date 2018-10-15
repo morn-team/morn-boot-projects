@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
  * @since 1.0
  */
 @Configuration
-@ConditionalOnProperty(prefix = "morn.boot.validator", value = "enabled", havingValue = "true")
+@ConditionalOnProperty(prefix = "morn.validator", value = "enabled", havingValue = "true")
 public class ValidatorAutoConfiguration {
 
 }
