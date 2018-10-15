@@ -4,7 +4,6 @@ import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
-import site.morn.boot.translate.annotation.MornTranslator;
 import site.timely.translate.Translator;
 
 /**
@@ -14,7 +13,6 @@ import site.timely.translate.Translator;
  * @version 1.0.0, 2018/8/19
  * @since 1.0
  */
-@MornTranslator
 public class DefaultSpringTranslator implements Translator {
 
   private final MessageSource messageSource;
