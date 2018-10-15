@@ -1,7 +1,7 @@
 package site.morn.boot.exception;
 
 import java.util.Map;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.boot.context.event.ApplicationPreparedEvent;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.boot.context.event.ApplicationStartingEvent;
@@ -20,7 +20,7 @@ import site.timely.tag.annotation.Tag;
  * @version 1.0.0, 2018/8/20
  * @since 1.0
  */
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class ExceptionResolverListener {
 
   private final ExceptionResolverCache cache;
