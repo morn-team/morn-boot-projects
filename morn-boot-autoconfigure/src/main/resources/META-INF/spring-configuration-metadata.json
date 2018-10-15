@@ -7,6 +7,12 @@
       "defaultValue": false
     },
     {
+      "name": "morn.translator.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Enable translator features for the application.",
+      "defaultValue": false
+    },
+    {
       "name": "morn.boot.validator.enabled",
       "type": "java.lang.Boolean",
       "description": "Enable validator features for the application.",
