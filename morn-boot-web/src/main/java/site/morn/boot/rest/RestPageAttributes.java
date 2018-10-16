@@ -14,6 +14,13 @@ import site.timely.rest.RestPageableAttributes;
 public interface RestPageAttributes<P extends RestPageableAttributes, M> {
 
   /**
+   * 获取REST分页参数
+   *
+   * @return REST分页参数
+   */
+  P getPageable();
+
+  /**
    * 设置REST分页参数
    *
    * @param pageable 分页参数
@@ -22,11 +29,11 @@ public interface RestPageAttributes<P extends RestPageableAttributes, M> {
   RestPageAttributes<P, M> setPageable(P pageable);
 
   /**
-   * 获取REST分页参数
+   * 获取数据模型
    *
-   * @return REST分页参数
+   * @return 数据模型
    */
-  P getPageable();
+  M getModel();
 
   /**
    * 设置数据模型
@@ -35,13 +42,6 @@ public interface RestPageAttributes<P extends RestPageableAttributes, M> {
    * @return REST分页请求
    */
   RestPageAttributes<P, M> setModel(M model);
-
-  /**
-   * 获取数据模型
-   *
-   * @return 数据模型
-   */
-  M getModel();
 
   /**
    * 生成JPA分页请求
