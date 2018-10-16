@@ -6,7 +6,7 @@
 
   <groupId>site.morn.boot</groupId>
   <artifactId>morn-boot-projects</artifactId>
-  <version>1.0.0.SNAPSHOT</version>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <description>Morn Boot Projects - 基于Spring Boot的系列开发工具包</description>
@@ -32,7 +32,7 @@
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
 
-    <morn.version>1.0.0.SNAPSHOT</morn.version>
+    <morn.version>1.0.0-SNAPSHOT</morn.version>
     <boot.version>1.5.15.RELEASE</boot.version>
     <lombok.version>1.16.22</lombok.version>
   </properties>
@@ -74,7 +74,7 @@
     <profile>
       <id>sonatype-nexus-snapshots</id>
       <properties>
-        <morn.version>1.0.0.SNAPSHOT</morn.version>
+        <morn.version>1.0.0-SNAPSHOT</morn.version>
       </properties>
     </profile>
     <profile>
