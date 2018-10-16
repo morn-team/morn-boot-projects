@@ -36,6 +36,10 @@ public class ExceptionResolverListener {
    */
   @EventListener
   public void prepared(ApplicationPreparedEvent event) {
+  }
+
+  @EventListener
+  public void ready(ApplicationReadyEvent event) {
     ConfigurableApplicationContext context = event.getApplicationContext();
     Map<String, ExceptionResolver> resolverMap = context.getBeansOfType(ExceptionResolver.class);
     for (ExceptionResolver resolver : resolverMap.values()) {
@@ -47,9 +51,5 @@ public class ExceptionResolverListener {
       annotationExceptionResolver.setResolver(resolver);
       cache.put(annotationExceptionResolver);
     }
-  }
-
-  @EventListener
-  public void ready(ApplicationReadyEvent event) {
   }
 }
