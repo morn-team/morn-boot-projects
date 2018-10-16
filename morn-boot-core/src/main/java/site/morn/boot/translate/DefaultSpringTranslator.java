@@ -24,11 +24,11 @@ public class DefaultSpringTranslator implements Translator {
 
   @Override
   public String translate(String code, Object... args) {
-    return messageSource.getMessage(code, args, LocaleContextHolder.getLocale());
+    return messageSource.getMessage(code, args, code, LocaleContextHolder.getLocale());
   }
 
   @Override
   public String translate(Locale locale, String code, Object... args) {
-    return messageSource.getMessage(code, args, locale);
+    return messageSource.getMessage(code, args, code, locale);
   }
 }
