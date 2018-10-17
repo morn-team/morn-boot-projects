@@ -2,7 +2,7 @@ package site.morn.boot.rest;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import site.timely.rest.RestPageableAttributes;
+import site.morn.rest.RestPageableAttributes;
 
 /**
  * REST分页请求

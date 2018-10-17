@@ -8,9 +8,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import site.timely.exception.ExceptionInterpreter;
-import site.timely.exception.ExceptionInterpreterCache;
-import site.timely.exception.SimpleAnnotationExceptionInterpreterHolder;
+import site.morn.exception.ExceptionInterpreter;
+import site.morn.exception.ExceptionInterpreterCache;
+import site.morn.exception.SimpleAnnotationExceptionInterpreterHolder;
 
 /**
  * 异常解释器缓存测试

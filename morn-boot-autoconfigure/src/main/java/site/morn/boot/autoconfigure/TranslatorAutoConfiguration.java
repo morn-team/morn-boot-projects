@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import site.morn.boot.translate.DefaultSpringTranslator;
 import site.morn.boot.translate.TranslatorListener;
-import site.timely.translate.Translator;
+import site.morn.translate.Translator;
 
 /**
  * 翻译器自动化配置

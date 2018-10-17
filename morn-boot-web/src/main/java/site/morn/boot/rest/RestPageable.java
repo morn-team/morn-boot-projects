@@ -1,7 +1,7 @@
 package site.morn.boot.rest;
 
-import site.timely.core.CriteriaMap;
-import site.timely.rest.RestPageableAttributes;
+import site.morn.core.CriteriaMap;
+import site.morn.rest.RestPageableAttributes;
 
 /**
  * REST分页参数

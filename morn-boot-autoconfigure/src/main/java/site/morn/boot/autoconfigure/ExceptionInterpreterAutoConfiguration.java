@@ -7,13 +7,13 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import site.morn.boot.exception.DefaultExceptionInterpreter;
 import site.morn.boot.exception.DefaultExceptionProcessor;
 import site.morn.boot.exception.ExceptionInterpreterListener;
 import site.morn.boot.exception.SimpleExceptionInterpreterCache;
-import site.timely.exception.ExceptionInterpreter;
-import site.timely.exception.ExceptionInterpreterCache;
-import site.timely.exception.ExceptionProcessor;
+import site.morn.boot.exception.interpreter.BindExceptionInterpreter;
+import site.morn.exception.ExceptionInterpreter;
+import site.morn.exception.ExceptionInterpreterCache;
+import site.morn.exception.ExceptionProcessor;
 
 /**
  * 异常解析器自动化配置
@@ -28,16 +28,9 @@ import site.timely.exception.ExceptionProcessor;
 public class ExceptionInterpreterAutoConfiguration {
 
   @Bean
-  @ConditionalOnMissingBean
+  @ConditionalOnProperty(prefix = "morn.exception.bind", value = "enabled", havingValue = "true")
   public ExceptionInterpreter exceptionInterpreter() {
-    return new DefaultExceptionInterpreter();
-  }
-
-  @Bean
-  @ConditionalOnMissingBean
-  public ExceptionProcessor exceptionProcessor(
-      ExceptionInterpreterCache exceptionInterpreterCache) {
-    return new DefaultExceptionProcessor(exceptionInterpreterCache);
+    return new BindExceptionInterpreter();
   }
 
   /**
@@ -50,6 +43,19 @@ public class ExceptionInterpreterAutoConfiguration {
   @ConditionalOnBean(CacheManager.class)
   public ExceptionInterpreterCache exceptionInterpreterCache() {
     return new SimpleExceptionInterpreterCache();
+  }
+
+  /**
+   * 注册异常处理器
+   *
+   * @param exceptionInterpreterCache 异常解释器缓存
+   * @return 异常处理器
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  public ExceptionProcessor exceptionProcessor(
+      ExceptionInterpreterCache exceptionInterpreterCache) {
+    return new DefaultExceptionProcessor(exceptionInterpreterCache);
   }
 
   /**

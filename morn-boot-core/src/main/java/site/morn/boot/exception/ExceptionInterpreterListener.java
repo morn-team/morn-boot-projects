@@ -8,10 +8,10 @@ import org.springframework.boot.context.event.ApplicationStartingEvent;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.AnnotationUtils;
-import site.timely.exception.ExceptionInterpreter;
-import site.timely.exception.ExceptionInterpreterCache;
-import site.timely.exception.SimpleAnnotationExceptionInterpreterHolder;
-import site.timely.tag.annotation.Tag;
+import site.morn.exception.ExceptionInterpreter;
+import site.morn.exception.ExceptionInterpreterCache;
+import site.morn.exception.SimpleAnnotationExceptionInterpreterHolder;
+import site.morn.tag.annotation.Tag;
 
 /**
  * 异常解析监听器

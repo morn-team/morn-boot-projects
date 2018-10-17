@@ -8,8 +8,8 @@ import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.StringUtils;
 import site.morn.boot.core.annotation.Name;
-import site.timely.translate.TranslateHolder;
-import site.timely.translate.Translator;
+import site.morn.translate.TranslateHolder;
+import site.morn.translate.Translator;
 
 /**
  * 翻译监听器

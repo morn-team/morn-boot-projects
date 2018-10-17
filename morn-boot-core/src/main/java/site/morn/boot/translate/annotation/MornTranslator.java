@@ -6,7 +6,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import org.springframework.stereotype.Component;
-import site.timely.translate.TranslateHolder;
+import site.morn.translate.TranslateHolder;
 
 /**
  * 翻译器注解

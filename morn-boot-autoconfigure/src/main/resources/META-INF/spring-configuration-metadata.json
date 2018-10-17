@@ -7,6 +7,12 @@
       "defaultValue": false
     },
     {
+      "name": "morn.exception.bind.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Enable bind exception interpreter features for the application.",
+      "defaultValue": true
+    },
+    {
       "name": "morn.translator.enabled",
       "type": "java.lang.Boolean",
       "description": "Enable translator features for the application.",

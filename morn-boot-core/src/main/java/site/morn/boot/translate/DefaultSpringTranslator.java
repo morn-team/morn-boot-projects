@@ -4,7 +4,7 @@ import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
-import site.timely.translate.Translator;
+import site.morn.translate.Translator;
 
 /**
  * 默认Spring翻译器
