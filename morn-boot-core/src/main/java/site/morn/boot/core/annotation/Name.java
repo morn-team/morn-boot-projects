@@ -1,5 +1,7 @@
 package site.morn.boot.core.annotation;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import org.springframework.core.annotation.AliasFor;
 
 /**
@@ -9,6 +11,7 @@ import org.springframework.core.annotation.AliasFor;
  * @version 1.0.0, 2018/10/15
  * @since 1.0
  */
+@Retention(RetentionPolicy.RUNTIME)
 public @interface Name {
 
   /**
