@@ -8,9 +8,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import site.timely.exception.ExceptionResolver;
-import site.timely.exception.ExceptionResolverCache;
-import site.timely.exception.SimpleAnnotationExceptionResolver;
+import site.timely.exception.ExceptionInterpreter;
+import site.timely.exception.ExceptionInterpreterCache;
+import site.timely.exception.SimpleAnnotationExceptionInterpreterHolder;
 
 /**
  * 异常解释器缓存测试
@@ -21,10 +21,10 @@ import site.timely.exception.SimpleAnnotationExceptionResolver;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class SimpleExceptionResolverCacheTest {
+public class SimpleExceptionInterpreterCacheTest {
 
   @Autowired
-  private ExceptionResolverCache exceptionResolverCache;
+  private ExceptionInterpreterCache exceptionInterpreterCache;
 
   @Before
   public void setUp() throws Exception {
@@ -32,8 +32,8 @@ public class SimpleExceptionResolverCacheTest {
 
   @Test
   public void find() {
-    List<ExceptionResolver> resolversFirst = exceptionResolverCache.find("test");
-    List<ExceptionResolver> resolversSecond = exceptionResolverCache.find("test");
+    List<ExceptionInterpreter> resolversFirst = exceptionInterpreterCache.find("test");
+    List<ExceptionInterpreter> resolversSecond = exceptionInterpreterCache.find("test");
   }
 
   @Test
@@ -42,8 +42,8 @@ public class SimpleExceptionResolverCacheTest {
 
   @Test
   public void putResolver() {
-    SimpleAnnotationExceptionResolver resolver = new SimpleAnnotationExceptionResolver();
+    SimpleAnnotationExceptionInterpreterHolder resolver = new SimpleAnnotationExceptionInterpreterHolder();
     resolver.setTags(new String[]{"test"});
-    exceptionResolverCache.put(resolver);
+    exceptionInterpreterCache.put(resolver);
   }
 }

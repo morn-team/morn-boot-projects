@@ -8,9 +8,9 @@ import org.springframework.boot.context.event.ApplicationStartingEvent;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.AnnotationUtils;
-import site.timely.exception.ExceptionResolver;
-import site.timely.exception.ExceptionResolverCache;
-import site.timely.exception.SimpleAnnotationExceptionResolver;
+import site.timely.exception.ExceptionInterpreter;
+import site.timely.exception.ExceptionInterpreterCache;
+import site.timely.exception.SimpleAnnotationExceptionInterpreterHolder;
 import site.timely.tag.annotation.Tag;
 
 /**
@@ -21,9 +21,9 @@ import site.timely.tag.annotation.Tag;
  * @since 1.0
  */
 @AllArgsConstructor
-public class ExceptionResolverListener {
+public class ExceptionInterpreterListener {
 
-  private final ExceptionResolverCache cache;
+  private final ExceptionInterpreterCache cache;
 
   @EventListener
   public void starting(ApplicationStartingEvent event) {
@@ -41,11 +41,12 @@ public class ExceptionResolverListener {
   @EventListener
   public void ready(ApplicationReadyEvent event) {
     ConfigurableApplicationContext context = event.getApplicationContext();
-    Map<String, ExceptionResolver> resolverMap = context.getBeansOfType(ExceptionResolver.class);
-    for (ExceptionResolver resolver : resolverMap.values()) {
-      Class<? extends ExceptionResolver> resolverClass = resolver.getClass();
+    Map<String, ExceptionInterpreter> resolverMap = context
+        .getBeansOfType(ExceptionInterpreter.class);
+    for (ExceptionInterpreter resolver : resolverMap.values()) {
+      Class<? extends ExceptionInterpreter> resolverClass = resolver.getClass();
       Tag tag = AnnotationUtils.findAnnotation(resolverClass, Tag.class);
-      SimpleAnnotationExceptionResolver annotationExceptionResolver = new SimpleAnnotationExceptionResolver();
+      SimpleAnnotationExceptionInterpreterHolder annotationExceptionResolver = new SimpleAnnotationExceptionInterpreterHolder();
       annotationExceptionResolver.setTags(tag.tags());
       annotationExceptionResolver.setTargets(tag.targets());
       annotationExceptionResolver.setResolver(resolver);
