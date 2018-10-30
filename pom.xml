@@ -46,27 +46,6 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-web</artifactId>
-        <version>${boot.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-data-jpa</artifactId>
-        <version>${boot.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-data-rest</artifactId>
-        <version>${boot.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>site.morn</groupId>
-        <artifactId>morn-validator</artifactId>
-        <version>${morn.version}</version>
-      </dependency>
     </dependencies>
   </dependencyManagement>
 
