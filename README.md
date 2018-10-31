@@ -10,6 +10,10 @@
 ## Getting Help
 MornBoot没有强制依赖SpringBoot，你必须在项目中引入SpringBoot相关包，好处是你可以自由选择依赖版本。建议SpringBoot版本为1.5.X+，目前为止MornBoot的兼容性是很好的，可以在低版本中运行。
 
+## Definitions
+- `[dev]`表示该功能正在开发中
+- `[expect]`表示该功能将在后续版本中推出
+
 ## Quick Start
 除了`morn-boot-autoconfigure`外都是可选包。Download the jar through Maven:
 
@@ -46,7 +50,7 @@ morn.translator.enabled=true
 morn.exception.enabled=true
 #自动处理数据绑定异常
 morn.exception.bind.enabled=true
-#自动处理MySQL异常（开发中）
+#自动处理MySQL异常 [expect]
 morn.exception.mysql.enabled=true
 ```
 
@@ -62,28 +66,30 @@ morn.exception.enabled=true
 morn.exception.bind.enabled=true
 ```
 
-实体类：User.java
+Entity - 使用javax.validation注解约束属性
 
 ```
 @NotNull
-@Size(min = 4, max = 32) // 支持javax.validation注解
+@Size(min = 4, max = 32)
 private String username;
 
 @NotNull
-@Size(min = 4, max = 32) // 支持javax.validation注解
+@Size(min = 4, max = 32)
 private String password;
 ```
 
-控制器：LoginController.java
+Controller - 使用Valid注解校验参数
 
 ```
 @PostMapping("/login")
 public Object login(@Valid User user) {
-    return Rests.ok(); // 这里可以是任意返回值
+    return Rests.ok(); // 校验失败时，此处代码不会执行
 }
 ```
 
-异常处理类：
+ExceptionHandler - 使用ExceptionMessage解析校验结果
+
+> 通常使用Spring容器注入ExceptionMessage
 
 ```
 @ExceptionHandler
@@ -92,7 +98,8 @@ public Object doResolveException(Exception e) {
   // 解析异常
   ExceptionMessage exceptionMessage = exceptionProcessor.process(e);
   System.out.println(exceptionMessage.getMessage());
-  return Rests.ok(); // 这里可以是任意返回值
+  return Rests.buildError().from(exceptionMessage); // [dev] 返回json格式的提示信息 
+  // [expect] 在后续版本中，不需要在ExceptionHandler编写任何代码，即可处理此类异常
 }
 ```
 
@@ -107,8 +114,12 @@ curl -X POST \
 
 输出结果：
 
+> 输出内容支持国际化，属性的国际化将在后续版本中支持
+
 ```
 user.password个数必须在4和32之间,user.username不能为null
+
+密码个数必须在4和32之间,用户名不能为null [dev]
 ```
 
 ### Rests
@@ -129,13 +140,15 @@ Rests.error();
 // 3
 List<User> users = searchUser();
 Rests.ok(users);
-// 4
-Rests.buildOk().convert(Foo.class);
+// 4 [dev]
+Rests.buildOk().from(foo);
+// 5 [dev]
+Rests.buildOk().to(Foo.class);
 ```
 
 Result
 
-```
+```json
 // 1
 {
     "code": "morn.ok",
@@ -151,6 +164,13 @@ Result
     "message": "操作失败"
 }
 // 3
+{
+    "code": "morn.ok",
+    "data": [/*user1*/{}, /*user2*/{}],
+    "level": "info",
+    "success": true,
+    "message": "操作成功"
+}
 // 4
 ```
 
