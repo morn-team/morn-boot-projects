@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
+import site.morn.bean.annotation.Target;
 import site.morn.exception.ExceptionInterpreter;
 import site.morn.exception.ExceptionMessage;
-import site.morn.tag.annotation.Tag;
 
 /**
  * 默认异常解释器
@@ -16,7 +16,7 @@ import site.morn.tag.annotation.Tag;
  * @version 1.0.0, 2018/8/21
  * @since 1.0
  */
-@Tag(targets = {BindException.class})
+@Target(BindException.class)
 public class BindExceptionInterpreter implements ExceptionInterpreter {
 
   @Override

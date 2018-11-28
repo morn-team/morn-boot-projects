@@ -8,10 +8,10 @@ import org.springframework.boot.context.event.ApplicationStartingEvent;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.AnnotationUtils;
+import site.morn.bean.annotation.Tag;
 import site.morn.exception.ExceptionInterpreter;
 import site.morn.exception.ExceptionInterpreterCache;
 import site.morn.exception.SimpleAnnotationExceptionInterpreterHolder;
-import site.morn.tag.annotation.Tag;
 
 /**
  * 异常解析监听器
@@ -46,9 +46,10 @@ public class ExceptionInterpreterListener {
     for (ExceptionInterpreter resolver : resolverMap.values()) {
       Class<? extends ExceptionInterpreter> resolverClass = resolver.getClass();
       Tag tag = AnnotationUtils.findAnnotation(resolverClass, Tag.class);
+//      Target target = AnnotationUtils.findAnnotation(resolverClass, Target.class);
       SimpleAnnotationExceptionInterpreterHolder annotationExceptionResolver = new SimpleAnnotationExceptionInterpreterHolder();
       annotationExceptionResolver.setTags(tag.tags());
-      annotationExceptionResolver.setTargets(tag.targets());
+//      annotationExceptionResolver.setTargets(tag.targets());
       annotationExceptionResolver.setResolver(resolver);
       cache.put(annotationExceptionResolver);
     }

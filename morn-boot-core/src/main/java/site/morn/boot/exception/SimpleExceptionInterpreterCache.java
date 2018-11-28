@@ -35,13 +35,13 @@ public class SimpleExceptionInterpreterCache implements ExceptionInterpreterCach
   @Override
   public List<ExceptionInterpreter> find(Class<?>... targets) {
     return store.stream().filter(resolver -> {
-      for (Class<?> resolverTarget : resolver.getTargets()) {
-        for (Class<?> target : targets) {
-          if (target.isAssignableFrom(resolverTarget)) {
-            return true;
-          }
-        }
-      }
+//      for (Class<?> resolverTarget : resolver.getTargets()) {
+//        for (Class<?> target : targets) {
+//          if (target.isAssignableFrom(resolverTarget)) {
+//            return true;
+//          }
+//        }
+//      }
       return false;
     }).map(AnnotationExceptionInterpreterHolder::getExceptionInterpreter)
         .collect(Collectors.toList());
