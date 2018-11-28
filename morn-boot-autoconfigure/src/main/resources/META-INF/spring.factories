@@ -1,5 +1,6 @@
 #÷∏∂®≈‰÷√¿‡
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  site.morn.boot.autoconfigure.BeanAutoConfiguration,\
   site.morn.boot.autoconfigure.ExceptionInterpreterAutoConfiguration,\
   site.morn.boot.autoconfigure.TranslatorAutoConfiguration,\
   site.morn.boot.autoconfigure.ValidatorAutoConfiguration
