@@ -18,10 +18,11 @@
   </parent>
 
   <modules>
-    <module>morn-boot-core</module>
     <module>morn-boot-autoconfigure</module>
-    <module>morn-boot-validator</module>
+    <module>morn-boot-core</module>
+    <module>morn-boot-jpa</module>
     <module>morn-boot-test</module>
+    <module>morn-boot-validator</module>
     <module>morn-boot-web</module>
   </modules>
 
@@ -45,6 +46,11 @@
         <version>${boot.version}</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>${lombok.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
