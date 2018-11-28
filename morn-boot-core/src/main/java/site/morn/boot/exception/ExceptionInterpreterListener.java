@@ -48,7 +48,7 @@ public class ExceptionInterpreterListener {
       Tag tag = AnnotationUtils.findAnnotation(resolverClass, Tag.class);
 //      Target target = AnnotationUtils.findAnnotation(resolverClass, Target.class);
       SimpleAnnotationExceptionInterpreterHolder annotationExceptionResolver = new SimpleAnnotationExceptionInterpreterHolder();
-      annotationExceptionResolver.setTags(tag.tags());
+      annotationExceptionResolver.setTags(tag.value());
 //      annotationExceptionResolver.setTargets(tag.targets());
       annotationExceptionResolver.setResolver(resolver);
       cache.put(annotationExceptionResolver);
