@@ -1,7 +1,7 @@
 package site.morn.boot.exception.interpreter;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
@@ -25,13 +25,11 @@ public class BindExceptionInterpreter implements ExceptionInterpreter {
     BindException bindException = (BindException) throwable;
     // 获取全部属性错误
     List<FieldError> errors = bindException.getFieldErrors();
-    List<String> messages = new ArrayList<>();
-    for (FieldError error : errors) {
-      messages.add(generateMessage(error));
-    }
-    ExceptionMessage exceptionMessage = new ExceptionMessage();
-    exceptionMessage.setMessage(StringUtils.collectionToCommaDelimitedString(messages));
-    return exceptionMessage;
+    // 生成错误消息文本
+    List<String> messages = errors.stream().map(this::generateMessage).collect(Collectors.toList());
+    // 构建异常消息
+    return ExceptionMessage.builder()
+        .message(StringUtils.collectionToCommaDelimitedString(messages)).build();
   }
 
   /**
