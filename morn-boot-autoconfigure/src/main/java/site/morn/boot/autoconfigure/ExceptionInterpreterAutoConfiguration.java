@@ -24,6 +24,11 @@ import site.morn.exception.ExceptionProcessor;
 @ConditionalOnProperty(prefix = "morn.exception", value = "enabled", havingValue = "true")
 public class ExceptionInterpreterAutoConfiguration {
 
+  /**
+   * 注册数据绑定异常解释器
+   *
+   * @return 数据绑定异常解释器
+   */
   @Bean
   @ConditionalOnProperty(prefix = "morn.exception.bind", value = "enabled", havingValue = "true")
   public ExceptionInterpreter exceptionInterpreter() {

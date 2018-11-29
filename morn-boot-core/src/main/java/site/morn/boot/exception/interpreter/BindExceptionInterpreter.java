@@ -10,11 +10,12 @@ import site.morn.exception.ExceptionInterpreter;
 import site.morn.exception.ExceptionMessage;
 
 /**
- * 默认异常解释器
+ * 数据绑定异常解释器
+ *
+ * <p>处理Spring validation 相关异常
  *
  * @author timely-rain
- * @version 1.0.0, 2018/8/21
- * @since 1.0
+ * @since 1.0.0, 2018/8/21
  */
 @Target(BindException.class)
 public class BindExceptionInterpreter implements ExceptionInterpreter {
