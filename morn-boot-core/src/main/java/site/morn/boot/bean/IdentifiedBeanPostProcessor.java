@@ -37,16 +37,23 @@ public class IdentifiedBeanPostProcessor implements BeanPostProcessor {
     return bean;
   }
 
-  @Override
-  public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+  /**
+   * 生成实例持有者
+   *
+   * @param bean 实例
+   * @param <T> 实例类型
+   * @return 实例持有者
+   */
+  public static <T> IdentifiedBeanHolder<T> generateBeanHolder(T bean) {
     // 获取所有实例标识注解
-    Name name = AnnotationUtils.findAnnotation(bean.getClass(), Name.class);
-    Tag tag = AnnotationUtils.findAnnotation(bean.getClass(), Tag.class);
-    Target target = AnnotationUtils.findAnnotation(bean.getClass(), Target.class);
-    log.info(beanName);
+    Class<?> beanClass = bean.getClass();
+    Name name = AnnotationUtils.findAnnotation(beanClass, Name.class);
+    Tag tag = AnnotationUtils.findAnnotation(beanClass, Tag.class);
+    Target target = AnnotationUtils.findAnnotation(beanClass, Target.class);
     if (Objects.isNull(name) && Objects.isNull(tag) && Objects.isNull(target)) {
-      return bean;
+      return null;
     }
+
     // 构建实例标识信息
     BeanIdentifyBuilder identifyBuilder = BeanIdentify.builder();
     if (Objects.nonNull(name)) {
@@ -59,9 +66,20 @@ public class IdentifiedBeanPostProcessor implements BeanPostProcessor {
       identifyBuilder.target(target.value());
     }
     // 构建标识实例持有者
-    IdentifiedBeanHolder<Object> beanHolder = new IdentifiedBeanHolder<>();
+    IdentifiedBeanHolder<T> beanHolder = new IdentifiedBeanHolder<>();
     beanHolder.setIdentify(identifyBuilder.build());
     beanHolder.setBean(bean);
+    return beanHolder;
+  }
+
+  @Override
+  public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+    // 获取所有实例标识注解
+    IdentifiedBeanHolder<Object> beanHolder = generateBeanHolder(bean);
+    if (Objects.isNull(beanHolder)) {
+      return bean;
+    }
+    log.info("注册标识实例：" + beanName);
     // 缓存实例
     identifiedBeanCache.register(beanHolder);
     return bean;
