@@ -34,7 +34,7 @@ public class SimpleIdentifiedBeanCache implements IdentifiedBeanCache {
   @Cacheable(value = DEFAULT_CACHE, key = "#identify.toString()")
   @SuppressWarnings("unchecked")
   @Override
-  public <T> List<T> search(Class<T> type, AnnotationIdentify identify) {
+  public <T> List<T> beans(Class<T> type, AnnotationIdentify identify) {
     Stream<IdentifiedBeanHolder> stream = holders.stream();
     // 按类型过滤beanHolder
     stream = stream.filter(

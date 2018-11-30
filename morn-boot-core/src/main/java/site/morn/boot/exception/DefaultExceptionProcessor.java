@@ -26,7 +26,7 @@ public class DefaultExceptionProcessor implements ExceptionProcessor {
   public <T extends Exception> ExceptionMessage process(T exception) {
     // 从缓存中获取异常解释器
     List<ExceptionInterpreter> exceptionInterpreters = beanCache
-        .searchByTarget(ExceptionInterpreter.class, exception.getClass());
+        .beans(ExceptionInterpreter.class, exception.getClass());
     if (CollectionUtils.isEmpty(exceptionInterpreters)) {
       return null;
     }

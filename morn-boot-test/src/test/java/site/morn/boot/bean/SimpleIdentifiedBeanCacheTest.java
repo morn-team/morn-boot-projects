@@ -17,6 +17,12 @@ import site.morn.bean.annotation.Tag;
 import site.morn.bean.annotation.Target;
 import site.morn.util.ArrayUtils;
 
+/**
+ * 实例缓存单元测试
+ *
+ * @author timely-rain
+ * @since 1.0.0, 2018/11/30
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -44,21 +50,21 @@ public class SimpleIdentifiedBeanCacheTest {
   @Test
   public void searchByName() {
     // 测试Name
-    List<Object> name = identifiedBeanCache.searchByName(Object.class, "testBeanA");
+    List<Object> name = identifiedBeanCache.bean(Object.class, "testBeanA");
     Assert.assertEquals(1, name.size());
   }
 
   @Test
   public void searchByTags() {
     // 测试Tags
-    List<Object> odd = identifiedBeanCache.searchByTags(Object.class, "odd");
+    List<Object> odd = identifiedBeanCache.beans(Object.class, "odd");
     Assert.assertEquals(2, odd.size());
   }
 
   @Test
   public void searchByTarget() {
     // 测试Target
-    List<Object> target = identifiedBeanCache.searchByTarget(Object.class, TestBeanB.class);
+    List<Object> target = identifiedBeanCache.beans(Object.class, TestBeanB.class);
     Assert.assertEquals(2, target.size());
   }
 
@@ -68,7 +74,7 @@ public class SimpleIdentifiedBeanCacheTest {
     BeanIdentify beanIdentify = BeanIdentify.builder().tags(ArrayUtils.merge("odd"))
         .target(TestBeanB.class)
         .build();
-    List<Object> search = identifiedBeanCache.search(Object.class, beanIdentify);
+    List<Object> search = identifiedBeanCache.beans(Object.class, beanIdentify);
     Assert.assertEquals(2, search.size());
   }
 
