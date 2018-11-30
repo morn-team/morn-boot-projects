@@ -35,16 +35,16 @@ public class SimpleIdentifiedBeanCacheTest {
   private IdentifiedBeanCache identifiedBeanCache;
 
   @Test
-  public void register() {
+  public void cache() {
     Assert.assertNotNull(identifiedBeanCache);
     // 实例化Bean
     TestBeanA testBeanA = new TestBeanA();
     TestBeanB testBeanB = new TestBeanB();
     TestBeanC testBeanC = new TestBeanC();
     // 注册Bean
-    identifiedBeanCache.register(IdentifiedBeanPostProcessor.generateBeanHolder(testBeanA));
-    identifiedBeanCache.register(IdentifiedBeanPostProcessor.generateBeanHolder(testBeanB));
-    identifiedBeanCache.register(IdentifiedBeanPostProcessor.generateBeanHolder(testBeanC));
+    identifiedBeanCache.cache(IdentifiedBeanPostProcessor.generateBeanHolder(testBeanA));
+    identifiedBeanCache.cache(IdentifiedBeanPostProcessor.generateBeanHolder(testBeanB));
+    identifiedBeanCache.cache(IdentifiedBeanPostProcessor.generateBeanHolder(testBeanC));
   }
 
   @Test

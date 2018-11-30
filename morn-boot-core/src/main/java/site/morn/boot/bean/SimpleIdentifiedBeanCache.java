@@ -27,7 +27,7 @@ public class SimpleIdentifiedBeanCache implements IdentifiedBeanCache {
   private List<IdentifiedBeanHolder> holders = Collections.synchronizedList(new ArrayList<>());
 
   @Override
-  public <T> void register(IdentifiedBeanHolder<T> holder) {
+  public <T> void cache(IdentifiedBeanHolder<T> holder) {
     holders.add(holder);
   }
 

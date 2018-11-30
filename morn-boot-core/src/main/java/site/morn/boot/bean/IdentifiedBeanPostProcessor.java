@@ -81,7 +81,7 @@ public class IdentifiedBeanPostProcessor implements BeanPostProcessor {
     }
     log.info("注册标识实例：" + beanName);
     // 缓存实例
-    identifiedBeanCache.register(beanHolder);
+    identifiedBeanCache.cache(beanHolder);
     return bean;
   }
 }
