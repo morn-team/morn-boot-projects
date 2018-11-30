@@ -50,8 +50,8 @@ public class SimpleIdentifiedBeanCacheTest {
   @Test
   public void searchByName() {
     // 测试Name
-    List<Object> name = identifiedBeanCache.bean(Object.class, "testBeanA");
-    Assert.assertEquals(1, name.size());
+    Object name = identifiedBeanCache.bean(Object.class, "testBeanA");
+    Assert.assertTrue(name instanceof TestBeanA);
   }
 
   @Test
