@@ -1,4 +1,4 @@
-package site.morn.boot;
+package site.morn;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

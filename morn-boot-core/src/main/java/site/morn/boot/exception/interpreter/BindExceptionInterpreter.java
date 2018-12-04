@@ -1,22 +1,23 @@
 package site.morn.boot.exception.interpreter;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
+import site.morn.bean.annotation.Target;
 import site.morn.exception.ExceptionInterpreter;
 import site.morn.exception.ExceptionMessage;
-import site.morn.tag.annotation.Tag;
 
 /**
- * 默认异常解释器
+ * 数据绑定异常解释器
+ *
+ * <p>处理Spring validation 相关异常
  *
  * @author timely-rain
- * @version 1.0.0, 2018/8/21
- * @since 1.0
+ * @since 1.0.0, 2018/8/21
  */
-@Tag(targets = {BindException.class})
+@Target(BindException.class)
 public class BindExceptionInterpreter implements ExceptionInterpreter {
 
   @Override
@@ -24,13 +25,11 @@ public class BindExceptionInterpreter implements ExceptionInterpreter {
     BindException bindException = (BindException) throwable;
     // 获取全部属性错误
     List<FieldError> errors = bindException.getFieldErrors();
-    List<String> messages = new ArrayList<>();
-    for (FieldError error : errors) {
-      messages.add(generateMessage(error));
-    }
-    ExceptionMessage exceptionMessage = new ExceptionMessage();
-    exceptionMessage.setMessage(StringUtils.collectionToCommaDelimitedString(messages));
-    return exceptionMessage;
+    // 生成错误消息文本
+    List<String> messages = errors.stream().map(this::generateMessage).collect(Collectors.toList());
+    // 构建异常消息
+    return ExceptionMessage.builder()
+        .message(StringUtils.collectionToCommaDelimitedString(messages)).build();
   }
 
   /**

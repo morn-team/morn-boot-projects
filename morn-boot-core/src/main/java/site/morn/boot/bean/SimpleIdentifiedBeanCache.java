@@ -1,7 +1,6 @@
 package site.morn.boot.bean;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -28,14 +27,14 @@ public class SimpleIdentifiedBeanCache implements IdentifiedBeanCache {
   private List<IdentifiedBeanHolder> holders = Collections.synchronizedList(new ArrayList<>());
 
   @Override
-  public <T> void register(IdentifiedBeanHolder<T> holder) {
+  public <T> void cache(IdentifiedBeanHolder<T> holder) {
     holders.add(holder);
   }
 
   @Cacheable(value = DEFAULT_CACHE, key = "#identify.toString()")
   @SuppressWarnings("unchecked")
   @Override
-  public <T> Collection<T> search(Class<T> type, AnnotationIdentify identify) {
+  public <T> List<T> beans(Class<T> type, AnnotationIdentify identify) {
     Stream<IdentifiedBeanHolder> stream = holders.stream();
     // 按类型过滤beanHolder
     stream = stream.filter(

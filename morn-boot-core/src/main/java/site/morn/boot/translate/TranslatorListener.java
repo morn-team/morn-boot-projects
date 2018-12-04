@@ -7,7 +7,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.StringUtils;
-import site.morn.boot.core.annotation.Name;
+import site.morn.bean.annotation.Name;
 import site.morn.translate.TranslateHolder;
 import site.morn.translate.Translator;
 
