@@ -23,12 +23,16 @@
       <artifactId>spring-boot-starter</artifactId>
       <optional>true</optional>
     </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-aspects</artifactId>
+      <optional>true</optional>
+    </dependency>
     <!--Morn-->
     <dependency>
       <groupId>site.morn</groupId>
       <artifactId>morn-core</artifactId>
       <version>${morn.version}</version>
     </dependency>
-    <!--Morn Boot-->
   </dependencies>
 </project>
