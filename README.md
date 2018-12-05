@@ -25,7 +25,7 @@ MornBoot没有强制依赖SpringBoot，你必须在项目中引入SpringBoot相�
 当前版本：`1.0.0-SNAPSHOT`
 
 ```xml
-<!--支持自动化配置-->
+<!--自动化配置-->
 <dependency>
   <groupId>site.morn.boot</groupId>
   <artifactId>morn-boot-autoconfigure</artifactId>
@@ -57,7 +57,7 @@ List<Object> search = identifiedBeanCache.beans(Object.class, beanIdentify);
 
 ### [Exception Interpreter 异常解释][Exception]
 
-Morn Boot可以对常见异常进行自动处理，当代码执行异常时，会自动捕获异常并解释为友好的提示信息。
+MornBoot可以对常见异常进行自动处理，当代码执行异常时，会自动捕获异常并解释为友好的提示信息。
 
 MySQL唯一约束提示
 
