@@ -28,7 +28,7 @@ public class DefaultOperationConverter implements OperationConverter {
   @Override
   public Operation generic(OperateMeta operateMeta) {
     // 拼接国际化编码
-    String messageCode = operateMeta.getModule() + "." + operateMeta.getName();
+    String messageCode = "log." + operateMeta.getModule() + "." + operateMeta.getName();
     // 生成操作内容
     String content = translator.translate(messageCode, operateMeta.getArguments());
     return Operation.builder().success(operateMeta.isSuccess())
