@@ -3,6 +3,7 @@ package site.morn.boot.log;
 import java.util.Map;
 import org.springframework.stereotype.Component;
 import site.morn.log.OperateAction;
+import site.morn.log.OperateArguments;
 import site.morn.log.OperateGroup;
 
 /**
@@ -13,15 +14,18 @@ import site.morn.log.OperateGroup;
  */
 @Component
 @OperateGroup("user")
-public class TestUserController {
+class TestUserController {
 
   @OperateAction("add")
-  public Map<String, Object> addUser(Map<String, Object> user) {
+  Map<String, Object> addUser(Map<String, Object> user) {
+    OperateArguments.add(user.get("username"));
     return user;
   }
 
   @OperateAction("update")
-  public Map<String, Object> updateUser(Map<String, Object> user) {
+  Map<String, Object> updateUser(Map<String, Object> user) {
+    OperateArguments.add(user.get("username"));
+    OperateArguments.add(user.get("password"));
     throw new RuntimeException("异常测试");
   }
 }
