@@ -16,6 +16,9 @@ import site.morn.translate.Translator;
 @Tag("converter")
 public class DefaultOperationConverter implements OperationConverter {
 
+  /**
+   * 翻译器
+   */
   private final Translator translator;
 
   public DefaultOperationConverter(Translator translator) {
@@ -24,7 +27,9 @@ public class DefaultOperationConverter implements OperationConverter {
 
   @Override
   public Operation generic(OperateMeta operateMeta) {
+    // 拼接国际化编码
     String messageCode = operateMeta.getModule() + "." + operateMeta.getName();
+    // 生成操作内容
     String content = translator.translate(messageCode, operateMeta.getArguments());
     return Operation.builder().success(operateMeta.isSuccess())
         .module(operateMeta.getModule()).content(content).date(new Date()).build();

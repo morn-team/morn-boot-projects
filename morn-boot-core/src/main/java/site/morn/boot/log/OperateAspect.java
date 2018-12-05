@@ -11,6 +11,7 @@ import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.Assert;
 import site.morn.bean.IdentifiedBeanCache;
 import site.morn.log.OperateAction;
+import site.morn.log.OperateArguments;
 import site.morn.log.OperateGroup;
 import site.morn.log.OperateMeta;
 import site.morn.log.OperateMeta.OperateMetaBuilder;
@@ -44,19 +45,19 @@ public class OperateAspect {
 
   @Around("pointcut()")
   public Object aroundOperate(ProceedingJoinPoint point) throws Throwable {
-    MethodSignature methodSignature = (MethodSignature) point.getSignature();
-    log.info("执行操作日志切面：" + methodSignature.getName());
     OperateMetaBuilder operateMetaBuilder = resolveOperatePoint(point);
     try {
       // 执行目标方法，并记录执行结果
       Object returned = point.proceed();
-      operateMetaBuilder.arguments(point.getArgs());
       operateMetaBuilder.success(true);
       return returned;
     } catch (Throwable throwable) {
       operateMetaBuilder.success(false);
       throw throwable;
     } finally {
+      // 读取操作日志参数
+      operateMetaBuilder.arguments(OperateArguments.getAll().toArray());
+      OperateArguments.clear();
       // 将操作日志元数据，转换为操作日志实例
       OperateMeta operateMeta = operateMetaBuilder.build();
       List<OperationConverter> converters = beanCache.beans(OperationConverter.class);
@@ -78,12 +79,14 @@ public class OperateAspect {
    * @return 操作日志构建器
    */
   private OperateMetaBuilder resolveOperatePoint(ProceedingJoinPoint point) {
+    // 获取操作组注解
     OperateGroup operateGroup = AnnotationUtils
         .findAnnotation(point.getTarget().getClass(), OperateGroup.class);
     // 获取操作行为注解
     MethodSignature methodSignature = (MethodSignature) point.getSignature();
     OperateAction operateAction = AnnotationUtils
         .findAnnotation(methodSignature.getMethod(), OperateAction.class);
+    // 构建操作日志元数据
     return OperateMeta.builder().module(operateGroup.value()).name(operateAction.value())
         .excepts(operateAction.excepts());
   }
