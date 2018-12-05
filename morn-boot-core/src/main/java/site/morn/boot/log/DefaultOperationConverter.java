@@ -13,7 +13,7 @@ import site.morn.translate.Translator;
  * @author timely-rain
  * @since 1.0.0, 2018/12/4
  */
-@Tag("converter")
+@Tag
 public class DefaultOperationConverter implements OperationConverter {
 
   /**
@@ -31,7 +31,9 @@ public class DefaultOperationConverter implements OperationConverter {
     String messageCode = "log." + operateMeta.getModule() + "." + operateMeta.getName();
     // 生成操作内容
     String content = translator.translate(messageCode, operateMeta.getArguments());
+    // 操作时间
+    Date date = new Date();
     return Operation.builder().success(operateMeta.isSuccess())
-        .module(operateMeta.getModule()).content(content).date(new Date()).build();
+        .module(operateMeta.getModule()).content(content).date(date).build();
   }
 }
