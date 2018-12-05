@@ -20,7 +20,6 @@
   <modules>
     <module>morn-boot-autoconfigure</module>
     <module>morn-boot-core</module>
-    <module>morn-boot-jpa</module>
     <module>morn-boot-test</module>
     <module>morn-boot-validator</module>
     <module>morn-boot-web</module>
