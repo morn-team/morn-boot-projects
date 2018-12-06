@@ -20,7 +20,7 @@ public class DefaultExceptionProcessor implements ExceptionProcessor {
   /**
    * 异常解释器缓存
    */
-  private IdentifiedBeanCache beanCache;
+  private final IdentifiedBeanCache beanCache;
 
   @Override
   public <T extends Exception> ExceptionMessage process(T exception) {
