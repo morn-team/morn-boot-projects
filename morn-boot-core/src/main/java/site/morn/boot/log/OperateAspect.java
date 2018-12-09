@@ -62,7 +62,7 @@ public class OperateAspect {
       OperateMeta operateMeta = operateMetaBuilder.build();
       List<OperationConverter> converters = beanCache.beans(OperationConverter.class);
       Assert.notEmpty(converters, "请注册操作日志转换器：" + OperationConverter.class.getName());
-      Operation operation = converters.get(0).generic(operateMeta);
+      Operation operation = converters.get(0).convert(operateMeta);
       // 处理操作日志
       List<OperationProcessor> processors = beanCache.beans(OperationProcessor.class);
       Assert.notEmpty(processors, "请注册操作日志处理器：" + OperationProcessor.class.getName());
