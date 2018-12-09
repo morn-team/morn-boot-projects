@@ -1,8 +1,7 @@
 package site.morn.boot.exception;
 
-import java.util.List;
+import java.util.Objects;
 import lombok.AllArgsConstructor;
-import org.springframework.util.CollectionUtils;
 import site.morn.bean.IdentifiedBeanCache;
 import site.morn.exception.ExceptionInterpreter;
 import site.morn.exception.ExceptionMessage;
@@ -25,13 +24,11 @@ public class DefaultExceptionProcessor implements ExceptionProcessor {
   @Override
   public <T extends Exception> ExceptionMessage process(T exception) {
     // 从缓存中获取异常解释器
-    List<ExceptionInterpreter> exceptionInterpreters = beanCache
-        .beans(ExceptionInterpreter.class, exception.getClass());
-    if (CollectionUtils.isEmpty(exceptionInterpreters)) {
+    ExceptionInterpreter exceptionInterpreter = beanCache
+        .bean(ExceptionInterpreter.class, exception.getClass());
+    if (Objects.isNull(exceptionInterpreter)) {
       return null;
     }
-    // 默认使用第一个解释器处理异常
-    ExceptionInterpreter exceptionInterpreter = exceptionInterpreters.get(0);
     return exceptionInterpreter.resolve(exception);
   }
 }
