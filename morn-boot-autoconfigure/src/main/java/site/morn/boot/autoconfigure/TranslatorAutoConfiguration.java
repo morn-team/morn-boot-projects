@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import site.morn.bean.IdentifiedBeanCache;
 import site.morn.boot.translate.DefaultSpringTranslator;
+import site.morn.boot.translate.TranslateInitializer;
 import site.morn.translate.Translator;
 
 /**
@@ -31,5 +32,17 @@ public class TranslatorAutoConfiguration {
   @ConditionalOnMissingBean
   public Translator translator(MessageSource messageSource, IdentifiedBeanCache beanCache) {
     return new DefaultSpringTranslator(messageSource, beanCache);
+  }
+
+  /**
+   * 注册翻译初始化器
+   *
+   * @param translator 翻译
+   * @return 翻译初始化器
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  public TranslateInitializer translateInitializer(Translator translator) {
+    return new TranslateInitializer(translator);
   }
 }
