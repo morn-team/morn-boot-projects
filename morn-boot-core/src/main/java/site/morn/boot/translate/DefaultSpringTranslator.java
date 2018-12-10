@@ -1,6 +1,8 @@
 package site.morn.boot.translate;
 
 import java.util.Locale;
+import java.util.Objects;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import site.morn.bean.IdentifiedBeanCache;
@@ -15,6 +17,7 @@ import site.morn.translate.Translator;
  * @version 1.0.0, 2018/8/19
  * @since 1.0
  */
+@Slf4j
 public class DefaultSpringTranslator implements Translator {
 
   /**
@@ -43,9 +46,14 @@ public class DefaultSpringTranslator implements Translator {
     return messageSource.getMessage(code, args, code, locale);
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   public <T> T translate(Transfer transfer, Class<T> cls) {
     TranslateChanger<T> translateChanger = beanCache.bean(TranslateChanger.class, cls);
+    if (Objects.isNull(translateChanger)) {
+      log.debug("无法获取作用于'" + cls.getSimpleName() + "'的翻译器");
+      return null;
+    }
     return translateChanger.change(transfer);
   }
 }
