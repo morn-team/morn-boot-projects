@@ -4,8 +4,8 @@ import java.util.Objects;
 import lombok.AllArgsConstructor;
 import site.morn.bean.IdentifiedBeanCache;
 import site.morn.exception.ExceptionInterpreter;
-import site.morn.exception.ExceptionMessage;
 import site.morn.exception.ExceptionProcessor;
+import site.morn.exception.Warning;
 
 /**
  * 默认异常处理器
@@ -22,7 +22,7 @@ public class DefaultExceptionProcessor implements ExceptionProcessor {
   private final IdentifiedBeanCache beanCache;
 
   @Override
-  public <T extends Exception> ExceptionMessage process(T exception) {
+  public <T extends Exception> Warning process(T exception) {
     // 从缓存中获取异常解释器
     ExceptionInterpreter exceptionInterpreter = beanCache
         .bean(ExceptionInterpreter.class, exception.getClass());
