@@ -6,6 +6,7 @@ import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import site.morn.bean.IdentifiedBeanCache;
+import site.morn.boot.bean.BeanCacheInitializer;
 import site.morn.boot.bean.IdentifiedBeanPostProcessor;
 import site.morn.boot.bean.SimpleIdentifiedBeanCache;
 
@@ -45,5 +46,17 @@ public class BeanAutoConfiguration {
   public IdentifiedBeanPostProcessor identifiedBeanPostProcessor(
       IdentifiedBeanCache identifiedBeanCache) {
     return new IdentifiedBeanPostProcessor(identifiedBeanCache);
+  }
+
+  /**
+   * 注册实例缓存初始化器
+   *
+   * @param identifiedBeanCache 实例缓存
+   * @return 实例缓存初始化器
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  public BeanCacheInitializer beanCacheInitializer(IdentifiedBeanCache identifiedBeanCache) {
+    return new BeanCacheInitializer(identifiedBeanCache);
   }
 }

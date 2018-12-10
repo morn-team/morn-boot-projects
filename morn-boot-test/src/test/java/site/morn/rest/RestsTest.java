@@ -133,7 +133,7 @@ public class RestsTest {
   public class BaiduConverter implements RestConverter<BaiduMessage> {
 
     @Override
-    public BaiduMessage generic(RestMessage restMessage) {
+    public BaiduMessage convert(RestMessage restMessage) {
       BaiduMessage baiduMessage = new BaiduMessage();
       baiduMessage.setError(restMessage.code());
       baiduMessage.setMsg(restMessage.message());
@@ -141,7 +141,7 @@ public class RestsTest {
     }
 
     @Override
-    public RestMessage prototype(BaiduMessage baiduMessage) {
+    public RestMessage revert(BaiduMessage baiduMessage) {
       RestMessage restMessage = new SimpleRestMessage();
       restMessage.success(isSuccess(baiduMessage));
       restMessage.code(baiduMessage.getError());

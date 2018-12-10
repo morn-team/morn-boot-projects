@@ -6,8 +6,9 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import site.morn.bean.IdentifiedBeanCache;
 import site.morn.boot.translate.DefaultSpringTranslator;
-import site.morn.boot.translate.TranslatorListener;
+import site.morn.boot.translate.TranslateInitializer;
 import site.morn.translate.Translator;
 
 /**
@@ -29,17 +30,19 @@ public class TranslatorAutoConfiguration {
    */
   @Bean
   @ConditionalOnMissingBean
-  public Translator translator(MessageSource messageSource) {
-    return new DefaultSpringTranslator(messageSource);
+  public Translator translator(MessageSource messageSource, IdentifiedBeanCache beanCache) {
+    return new DefaultSpringTranslator(messageSource, beanCache);
   }
 
   /**
-   * 注册翻译监听器
+   * 注册翻译初始化器
    *
-   * @return 翻译监听器
+   * @param translator 翻译
+   * @return 翻译初始化器
    */
   @Bean
-  public TranslatorListener translatorListener() {
-    return new TranslatorListener();
+  @ConditionalOnMissingBean
+  public TranslateInitializer translateInitializer(Translator translator) {
+    return new TranslateInitializer(translator);
   }
 }

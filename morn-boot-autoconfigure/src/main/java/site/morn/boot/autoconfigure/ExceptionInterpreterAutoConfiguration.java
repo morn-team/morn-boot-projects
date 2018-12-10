@@ -9,8 +9,11 @@ import org.springframework.context.annotation.Configuration;
 import site.morn.bean.IdentifiedBeanCache;
 import site.morn.boot.exception.DefaultExceptionProcessor;
 import site.morn.boot.exception.interpreter.BindExceptionInterpreter;
+import site.morn.exception.DefaultExceptionChanger;
 import site.morn.exception.ExceptionInterpreter;
 import site.morn.exception.ExceptionProcessor;
+import site.morn.translate.TranslateChanger;
+import site.morn.translate.Translator;
 
 /**
  * 异常解析器自动化配置
@@ -46,5 +49,16 @@ public class ExceptionInterpreterAutoConfiguration {
   public ExceptionProcessor exceptionProcessor(
       IdentifiedBeanCache identifiedBeanCache) {
     return new DefaultExceptionProcessor(identifiedBeanCache);
+  }
+
+  /**
+   * 注册异常消息转换器
+   *
+   * @param translator 翻译器
+   * @return 异常消息转换器
+   */
+  @Bean
+  public TranslateChanger translateChanger(Translator translator) {
+    return new DefaultExceptionChanger(translator);
   }
 }
