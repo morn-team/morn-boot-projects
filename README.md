@@ -1,3 +1,4 @@
+[Message]:https://github.com/morn-team/morn-boot-projects/wiki/Application-Message-%E5%BA%94%E7%94%A8%E6%B6%88%E6%81%AF
 [Bean]:https://github.com/morn-team/morn-boot-projects/wiki/Bean-Enhance-%E5%AE%9E%E4%BE%8B%E5%A2%9E%E5%BC%BA
 [Exception]:https://github.com/morn-team/morn-boot-projects/wiki/Exception-Interpreter-%E5%BC%82%E5%B8%B8%E8%A7%A3%E9%87%8A
 [Operation]:https://github.com/morn-team/morn-boot-projects/wiki/Operation-Log-%E6%93%8D%E4%BD%9C%E6%97%A5%E5%BF%97
@@ -24,7 +25,7 @@ MornBoot没有强制依赖SpringBoot，你必须在项目中引入SpringBoot相�
 
 当前版本：`1.0.0-SNAPSHOT`
 
-```xml
+```
 <!--自动化配置-->
 <dependency>
   <groupId>site.morn.boot</groupId>
@@ -40,6 +41,18 @@ MornBoot没有强制依赖SpringBoot，你必须在项目中引入SpringBoot相�
 ```
 
 ## Function
+
+### [Application Message 应用消息][Message]
+
+MornBoot提供快速构建应用提示消息和应用异常的工具类。使用`ApplicationMessages`生成应用消息：
+
+```
+ApplicationMessage message = ApplicationMessages.translate("login.password-is-null");
+log.info(message.toString());
+// ApplicationMessage(code=login.password-is-null, message=登录密码不能为空, solution=请输入登录密码)
+```
+
+[更多示例][Message]
 
 ### [Bean Enhance 实例增强][Bean]
 
