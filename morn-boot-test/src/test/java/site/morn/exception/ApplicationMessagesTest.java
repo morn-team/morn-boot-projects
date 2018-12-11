@@ -23,7 +23,7 @@ public class ApplicationMessagesTest {
 
   @Test
   public void message() {
-    ApplicationMessage message = ApplicationMessages.message("login.password-is-null", "timely");
+    ApplicationMessage message = ApplicationMessages.translate("login.password-is-null", "timely");
     Assert.assertNotNull("异常消息构建失败", message);
     log.info(message.toString());
     Assert.assertNotNull(message.getSolution());
