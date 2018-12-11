@@ -9,14 +9,14 @@ import site.morn.translate.Translator;
 import site.morn.translate.Translators;
 
 /**
- * 默认异常消息转换器
+ * 默认应用消息转换器
  *
  * @author timely-rain
  * @since 1.0.0, 2018/12/10
  */
 @RequiredArgsConstructor
 @Target(ApplicationMessage.class)
-public class DefaultExceptionChanger implements TranslateChanger<ApplicationMessage> {
+public class DefaultApplicationMessageChanger implements TranslateChanger<ApplicationMessage> {
 
   /**
    * 警告前缀
@@ -47,7 +47,7 @@ public class DefaultExceptionChanger implements TranslateChanger<ApplicationMess
     // 翻译
     String message = translator.translate(messageCode, transfer.getArgs());
     String solution = translator.translate(solutionCode, transfer.getArgs());
-    // 构建异常消息
+    // 构建应用消息
     return ApplicationMessage.builder().code(code).message(message).solution(solution).build();
   }
 }
