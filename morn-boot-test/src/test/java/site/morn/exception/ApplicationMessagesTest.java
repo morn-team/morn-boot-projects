@@ -19,11 +19,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class WarningsTest {
+public class ApplicationMessagesTest {
 
   @Test
   public void message() {
-    Warning message = Warnings.message("login.password-is-null", "timely");
+    ApplicationMessage message = ApplicationMessages.message("login.password-is-null", "timely");
     Assert.assertNotNull("异常消息构建失败", message);
     log.info(message.toString());
     Assert.assertNotNull(message.getSolution());

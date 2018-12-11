@@ -2,7 +2,7 @@ package site.morn.boot.exception;
 
 import lombok.RequiredArgsConstructor;
 import site.morn.bean.annotation.Target;
-import site.morn.exception.Warning;
+import site.morn.exception.ApplicationMessage;
 import site.morn.translate.Transfer;
 import site.morn.translate.TranslateChanger;
 import site.morn.translate.Translator;
@@ -15,8 +15,8 @@ import site.morn.translate.Translators;
  * @since 1.0.0, 2018/12/10
  */
 @RequiredArgsConstructor
-@Target(Warning.class)
-public class DefaultExceptionChanger implements TranslateChanger<Warning> {
+@Target(ApplicationMessage.class)
+public class DefaultExceptionChanger implements TranslateChanger<ApplicationMessage> {
 
   /**
    * 警告前缀
@@ -39,7 +39,7 @@ public class DefaultExceptionChanger implements TranslateChanger<Warning> {
   private final Translator translator;
 
   @Override
-  public Warning change(Transfer transfer) {
+  public ApplicationMessage change(Transfer transfer) {
     String code = transfer.getCode();
     // 格式化国际编码
     String messageCode = Translators.formatCode(PREFIX, code, MESSAGE_SUFFIX);
@@ -48,6 +48,6 @@ public class DefaultExceptionChanger implements TranslateChanger<Warning> {
     String message = translator.translate(messageCode, transfer.getArgs());
     String solution = translator.translate(solutionCode, transfer.getArgs());
     // 构建异常消息
-    return Warning.builder().code(code).message(message).solution(solution).build();
+    return ApplicationMessage.builder().code(code).message(message).solution(solution).build();
   }
 }
