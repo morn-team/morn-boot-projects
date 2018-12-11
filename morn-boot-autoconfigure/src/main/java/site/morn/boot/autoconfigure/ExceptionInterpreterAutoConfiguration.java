@@ -7,9 +7,9 @@ import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import site.morn.bean.IdentifiedBeanCache;
+import site.morn.boot.exception.DefaultApplicationMessageChanger;
 import site.morn.boot.exception.DefaultExceptionProcessor;
 import site.morn.boot.exception.interpreter.BindExceptionInterpreter;
-import site.morn.exception.DefaultExceptionChanger;
 import site.morn.exception.ExceptionInterpreter;
 import site.morn.exception.ExceptionProcessor;
 import site.morn.translate.TranslateChanger;
@@ -58,7 +58,8 @@ public class ExceptionInterpreterAutoConfiguration {
    * @return 异常消息转换器
    */
   @Bean
+  @ConditionalOnMissingBean
   public TranslateChanger translateChanger(Translator translator) {
-    return new DefaultExceptionChanger(translator);
+    return new DefaultApplicationMessageChanger(translator);
   }
 }
