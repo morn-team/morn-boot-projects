@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import site.morn.bean.IdentifiedBeanCache;
 import site.morn.boot.exception.DefaultApplicationMessageChanger;
 import site.morn.boot.exception.DefaultExceptionProcessor;
+import site.morn.boot.exception.interpreter.ApplicationExceptionInterpreter;
 import site.morn.boot.exception.interpreter.BindExceptionInterpreter;
 import site.morn.exception.ExceptionInterpreter;
 import site.morn.exception.ExceptionProcessor;
@@ -26,17 +27,6 @@ import site.morn.translate.Translator;
 @ConditionalOnClass({ExceptionInterpreter.class, CacheManager.class})
 @ConditionalOnProperty(prefix = "morn.exception", value = "enabled", havingValue = "true")
 public class ExceptionInterpreterAutoConfiguration {
-
-  /**
-   * 注册数据绑定异常解释器
-   *
-   * @return 数据绑定异常解释器
-   */
-  @Bean
-  @ConditionalOnProperty(prefix = "morn.exception.bind", value = "enabled", havingValue = "true")
-  public ExceptionInterpreter exceptionInterpreter() {
-    return new BindExceptionInterpreter();
-  }
 
   /**
    * 注册异常处理器
@@ -61,5 +51,27 @@ public class ExceptionInterpreterAutoConfiguration {
   @ConditionalOnMissingBean
   public TranslateChanger translateChanger(Translator translator) {
     return new DefaultApplicationMessageChanger(translator);
+  }
+
+  /**
+   * 注册应用异常解释器
+   *
+   * @return 应用异常解释器
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  public ExceptionInterpreter applicationExceptionInterpreter() {
+    return new ApplicationExceptionInterpreter();
+  }
+
+  /**
+   * 注册数据绑定异常解释器
+   *
+   * @return 数据绑定异常解释器
+   */
+  @Bean
+  @ConditionalOnProperty(prefix = "morn.exception.bind", value = "enabled", havingValue = "true")
+  public ExceptionInterpreter bindExceptionInterpreter() {
+    return new BindExceptionInterpreter();
   }
 }
