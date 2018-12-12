@@ -35,7 +35,7 @@ public class ApplicationMessagesTest {
     try {
       message.thrown();
       Assert.fail("异常构建失败");
-    } catch (ApplicationExceptin e) {
+    } catch (ApplicationException e) {
       Assert.assertNotNull("异常构建成功：", e.getMessage());
       log.error(e.getMessage(), e);
       log.error("状态码：{}", e.getCode());
