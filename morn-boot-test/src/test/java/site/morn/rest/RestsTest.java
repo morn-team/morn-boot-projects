@@ -58,14 +58,14 @@ public class RestsTest {
   public void ok() {
     RestMessage restMessage = Rests.ok();
     log.info(restMessage.toString());
-    Assert.assertEquals(Rests.CODE_OK, restMessage.code());
+    Assert.assertEquals(Rests.CODE_OK, restMessage.getCode());
   }
 
   @Test
   public void ok1() {
     RestMessage restMessage = Rests.ok("Success");
     log.info(restMessage.toString());
-    Assert.assertEquals("Success", restMessage.message());
+    Assert.assertEquals("Success", restMessage.getMessage());
   }
 
   @Test
@@ -73,21 +73,21 @@ public class RestsTest {
     Object data = new Object();
     RestMessage restMessage = Rests.ok(data);
     log.info(restMessage.toString());
-    Assert.assertEquals(data, restMessage.data());
+    Assert.assertEquals(data, restMessage.getData());
   }
 
   @Test
   public void error() {
     RestMessage restMessage = Rests.error();
     log.info(restMessage.toString());
-    Assert.assertEquals(Rests.CODE_ERROR, restMessage.code());
+    Assert.assertEquals(Rests.CODE_ERROR, restMessage.getCode());
   }
 
   @Test
   public void error1() {
     RestMessage restMessage = Rests.error("morn.test");
     log.info(restMessage.toString());
-    Assert.assertEquals("morn.test", restMessage.code());
+    Assert.assertEquals("morn.test", restMessage.getCode());
   }
 
   @Test
@@ -135,17 +135,17 @@ public class RestsTest {
     @Override
     public BaiduMessage convert(RestMessage restMessage) {
       BaiduMessage baiduMessage = new BaiduMessage();
-      baiduMessage.setError(restMessage.code());
-      baiduMessage.setMsg(restMessage.message());
+      baiduMessage.setError(restMessage.getCode());
+      baiduMessage.setMsg(restMessage.getMessage());
       return baiduMessage;
     }
 
     @Override
     public RestMessage revert(BaiduMessage baiduMessage) {
       RestMessage restMessage = new SimpleRestMessage();
-      restMessage.success(isSuccess(baiduMessage));
-      restMessage.code(baiduMessage.getError());
-      restMessage.message(baiduMessage.getMsg());
+      restMessage.setSuccess(isSuccess(baiduMessage));
+      restMessage.setCode(baiduMessage.getError());
+      restMessage.setMessage(baiduMessage.getMsg());
       return restMessage;
     }
 
