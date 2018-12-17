@@ -10,7 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
- * 警告构建器单元测试
+ * 应用消息构建器单元测试
  *
  * @author timely-rain
  * @since 1.0.0, 2018/12/10
@@ -24,7 +24,7 @@ public class ApplicationMessagesTest {
   @Test
   public void message() {
     ApplicationMessage message = ApplicationMessages.translate("login.password-is-null");
-    Assert.assertNotNull("异常消息构建失败", message);
+    Assert.assertNotNull("应用消息构建失败", message);
     log.info(message.toString());
     Assert.assertNotNull(message.getSolution());
   }

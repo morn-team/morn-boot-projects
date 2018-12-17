@@ -19,7 +19,7 @@ import site.morn.translate.Translators;
 public class DefaultApplicationMessageChanger implements TranslateChanger<ApplicationMessage> {
 
   /**
-   * 警告前缀
+   * 消息前缀
    */
   private static final String PREFIX = "error";
 
