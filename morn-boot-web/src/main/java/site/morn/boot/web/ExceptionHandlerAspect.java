@@ -62,7 +62,7 @@ public class ExceptionHandlerAspect {
     ApplicationMessage message = interpreter.resolve(exception);
     // 将应用消息转换为REST模型
     return Rests.buildError().code(message.getCode())
-        .message(message.getMessage()).generate();
+        .message(message.getMessage()).build();
   }
 
   private Object proceed(ProceedingJoinPoint point) {
