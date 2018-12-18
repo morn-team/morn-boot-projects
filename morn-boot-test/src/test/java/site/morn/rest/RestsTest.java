@@ -46,14 +46,14 @@ public class RestsTest {
   public void successMessage() {
     RestMessage restMessage = RestBuilders.successMessage();
     log.info(restMessage.toString());
-    Assert.assertEquals("rest.success", restMessage.getCode());
+    Assert.assertEquals("success", restMessage.getCode());
   }
 
   @Test
   public void successMessage1() {
     RestMessage restMessage = RestBuilders.successMessage("Success");
     log.info(restMessage.toString());
-    Assert.assertEquals("Success", restMessage.getMessage());
+    Assert.assertEquals("Success", restMessage.getCode());
   }
 
   @Test
@@ -68,14 +68,14 @@ public class RestsTest {
   public void failureMessage() {
     RestMessage restMessage = RestBuilders.failureMessage();
     log.info(restMessage.toString());
-    Assert.assertEquals("rest.success", restMessage.getCode());
+    Assert.assertEquals("failure", restMessage.getCode());
   }
 
   @Test
   public void failureMessage1() {
-    RestMessage restMessage = RestBuilders.failureMessage("rest.test");
+    RestMessage restMessage = RestBuilders.failureMessage("test");
     log.info(restMessage.toString());
-    Assert.assertEquals("rest.test", restMessage.getCode());
+    Assert.assertEquals("test", restMessage.getCode());
   }
 
   @Test
