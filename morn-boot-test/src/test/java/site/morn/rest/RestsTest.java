@@ -43,51 +43,39 @@ public class RestsTest {
   }
 
   @Test
-  public void buildOk() {
-  }
-
-  @Test
-  public void buildError() {
-  }
-
-  @Test
-  public void buildError1() {
-  }
-
-  @Test
-  public void ok() {
-    RestMessage restMessage = Rests.ok();
+  public void successMessage() {
+    RestMessage restMessage = RestBuilders.successMessage();
     log.info(restMessage.toString());
-    Assert.assertEquals(Rests.CODE_OK, restMessage.getCode());
+    Assert.assertEquals("rest.success", restMessage.getCode());
   }
 
   @Test
-  public void ok1() {
-    RestMessage restMessage = Rests.ok("Success");
+  public void successMessage1() {
+    RestMessage restMessage = RestBuilders.successMessage("Success");
     log.info(restMessage.toString());
     Assert.assertEquals("Success", restMessage.getMessage());
   }
 
   @Test
-  public void ok2() {
+  public void successMessage2() {
     Object data = new Object();
-    RestMessage restMessage = Rests.ok(data);
+    RestMessage restMessage = RestBuilders.successMessage(data);
     log.info(restMessage.toString());
     Assert.assertEquals(data, restMessage.getData());
   }
 
   @Test
-  public void error() {
-    RestMessage restMessage = Rests.error();
+  public void failureMessage() {
+    RestMessage restMessage = RestBuilders.failureMessage();
     log.info(restMessage.toString());
-    Assert.assertEquals(Rests.CODE_ERROR, restMessage.getCode());
+    Assert.assertEquals("rest.success", restMessage.getCode());
   }
 
   @Test
-  public void error1() {
-    RestMessage restMessage = Rests.error("morn.test");
+  public void failureMessage1() {
+    RestMessage restMessage = RestBuilders.failureMessage("rest.test");
     log.info(restMessage.toString());
-    Assert.assertEquals("morn.test", restMessage.getCode());
+    Assert.assertEquals("rest.test", restMessage.getCode());
   }
 
   @Test
@@ -102,7 +90,7 @@ public class RestsTest {
 
   @Test
   public void to() {
-    BaiduMessage baiduMessage = Rests.buildOk().to(BaiduMessage.class);
+    BaiduMessage baiduMessage = RestBuilders.successBuilder().to(BaiduMessage.class);
     log.info(baiduMessage.toString());
     Assert.assertNotNull(baiduMessage);
   }

@@ -12,7 +12,7 @@ import org.springframework.http.MediaType;
 import site.morn.bean.IdentifiedBeanCache;
 import site.morn.exception.ApplicationMessage;
 import site.morn.exception.ExceptionInterpreter;
-import site.morn.rest.Rests;
+import site.morn.rest.RestBuilders;
 
 /**
  * 全局异常处理切面
@@ -35,7 +35,6 @@ public class ExceptionHandlerAspect {
    */
   @Pointcut("@annotation(org.springframework.web.bind.annotation.ExceptionHandler)")
   public void pointcut() {
-    throw new UnsupportedOperationException("全局异常处理切点：切点方法不允许调用");
   }
 
   @Around("pointcut()")
@@ -61,8 +60,8 @@ public class ExceptionHandlerAspect {
     // 将异常解释为应用消息
     ApplicationMessage message = interpreter.resolve(exception);
     // 将应用消息转换为REST模型
-    return Rests.buildError().code(message.getCode())
-        .message(message.getMessage()).build();
+    return RestBuilders.errorBuilder().code(message.getCode()).message(message.getMessage())
+        .build();
   }
 
   private Object proceed(ProceedingJoinPoint point) {
