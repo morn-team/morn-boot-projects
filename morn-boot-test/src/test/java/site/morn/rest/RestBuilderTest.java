@@ -1,5 +1,7 @@
 package site.morn.rest;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +19,7 @@ import site.morn.bean.IdentifiedBeanCache;
 import site.morn.bean.IdentifiedBeanHolder;
 import site.morn.bean.annotation.Target;
 import site.morn.boot.bean.IdentifiedBeanPostProcessor;
+import site.morn.rest.RestMessage.Level;
 import site.morn.rest.convert.RestConverter;
 
 /**
@@ -51,9 +54,9 @@ public class RestBuilderTest {
 
   @Test
   public void successMessage1() {
-    RestMessage restMessage = RestBuilders.successMessage("Success");
+    RestMessage restMessage = RestBuilders.successMessage("test");
     log.info(restMessage.toString());
-    Assert.assertEquals("Success", restMessage.getCode());
+    Assert.assertEquals("test", restMessage.getCode());
   }
 
   @Test
@@ -62,6 +65,17 @@ public class RestBuilderTest {
     RestMessage restMessage = RestBuilders.successMessage(data);
     log.info(restMessage.toString());
     Assert.assertEquals(data, restMessage.getData());
+  }
+
+  @Test
+  public void successMessage3() {
+    Map<Object, Object> data = new HashMap<>();
+    data.put("Foo", "Foo value");
+    data.put("Bar", "Bar value");
+    RestMessage restMessage = RestBuilders.infoBuilder().code("test").level(Level.WARNING)
+        .message("This is test message.").data(data).build();
+    log.info(restMessage.toString());
+    Assert.assertEquals("This is test message.", restMessage.getMessage());
   }
 
   @Test
@@ -123,7 +137,7 @@ public class RestBuilderTest {
     @Override
     public BaiduMessage convert(RestMessage restMessage) {
       BaiduMessage baiduMessage = new BaiduMessage();
-      baiduMessage.setError(restMessage.getCode());
+      baiduMessage.setError(restMessage.isSuccess() ? "0" : "-1");
       baiduMessage.setMsg(restMessage.getMessage());
       return baiduMessage;
     }
@@ -131,7 +145,9 @@ public class RestBuilderTest {
     @Override
     public RestMessage revert(BaiduMessage baiduMessage) {
       RestMessage restMessage = new SimpleRestMessage();
-      restMessage.setSuccess(isSuccess(baiduMessage));
+      boolean success = isSuccess(baiduMessage);
+      restMessage.setSuccess(success);
+      restMessage.setLevel(success ? Level.INFO : Level.ERROR);
       restMessage.setCode(baiduMessage.getError());
       restMessage.setMessage(baiduMessage.getMsg());
       return restMessage;
