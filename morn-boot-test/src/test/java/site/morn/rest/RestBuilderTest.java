@@ -29,7 +29,7 @@ import site.morn.rest.convert.RestConverter;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class RestsTest {
+public class RestBuilderTest {
 
   @Autowired
   private IdentifiedBeanCache beanCache;
@@ -83,7 +83,7 @@ public class RestsTest {
     BaiduMessage baiduMessage = new BaiduMessage();
     baiduMessage.setError("0");
     baiduMessage.setMsg("操作成功");
-    RestMessage restMessage = Rests.from(baiduMessage);
+    RestMessage restMessage = RestBuilder.from(baiduMessage);
     log.info(restMessage.toString());
     Assert.assertNotNull(restMessage);
   }

@@ -3,8 +3,8 @@ package site.morn.boot.rest;
 import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import site.morn.bean.IdentifiedBeanCache;
+import site.morn.rest.RestBuilder;
 import site.morn.rest.RestProperties;
-import site.morn.rest.Rests;
 import site.morn.translate.Translator;
 
 /**
@@ -33,6 +33,6 @@ public class RestInitializer {
 
   @PostConstruct
   public void initRest() {
-    Rests.initialize(identifiedBeanCache, translator, restProperties);
+    RestBuilder.initialize(identifiedBeanCache, translator, restProperties);
   }
 }
