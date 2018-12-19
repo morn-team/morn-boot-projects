@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import site.morn.bean.IdentifiedBeanCache;
 import site.morn.boot.web.ExceptionHandlerAspect;
+import site.morn.exception.ExceptionProcessor;
 
 /**
  * Web自动化配置
@@ -28,7 +28,7 @@ public class WebAutoConfiguration {
    */
   @Bean
   @ConditionalOnMissingBean
-  public ExceptionHandlerAspect exceptionHandlerAspect(IdentifiedBeanCache beanCache) {
-    return new ExceptionHandlerAspect(beanCache);
+  public ExceptionHandlerAspect exceptionHandlerAspect(ExceptionProcessor exceptionProcessor) {
+    return new ExceptionHandlerAspect(exceptionProcessor);
   }
 }

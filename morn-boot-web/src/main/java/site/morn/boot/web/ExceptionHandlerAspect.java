@@ -9,9 +9,8 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.http.MediaType;
-import site.morn.bean.IdentifiedBeanCache;
 import site.morn.exception.ApplicationMessage;
-import site.morn.exception.ExceptionInterpreter;
+import site.morn.exception.ExceptionProcessor;
 import site.morn.rest.RestBuilders;
 
 /**
@@ -26,9 +25,9 @@ import site.morn.rest.RestBuilders;
 public class ExceptionHandlerAspect {
 
   /**
-   * 实例缓存
+   * 异常处理器
    */
-  private final IdentifiedBeanCache beanCache;
+  private final ExceptionProcessor exceptionProcessor;
 
   /**
    * 全局异常处理切点
@@ -50,20 +49,23 @@ public class ExceptionHandlerAspect {
       log.warn("全局异常处理失败：ExceptionHandler必须包含Exception或其子类类型的参数");
       return proceed(point);
     }
-    // 获取异常解释器
-    ExceptionInterpreter interpreter = beanCache
-        .bean(ExceptionInterpreter.class, exception.getClass());
-    if (Objects.isNull(interpreter)) {
-      log.debug("全局异常处理失败：尚未发现处理{}的异常解释器", exception.getClass().getSimpleName());
+    // 将异常解释为应用消息
+    ApplicationMessage message = exceptionProcessor.process(exception);
+    if (Objects.isNull(message)) {
+      log.debug("全局异常处理失败：无法处理{}", exception.getClass().getSimpleName());
       return proceed(point);
     }
-    // 将异常解释为应用消息
-    ApplicationMessage message = interpreter.resolve(exception);
     // 将应用消息转换为REST模型
     return RestBuilders.errorBuilder().code(message.getCode()).message(message.getMessage())
         .build();
   }
 
+  /**
+   * 执行切点
+   *
+   * @param point 切点
+   * @return 切点返回值
+   */
   private Object proceed(ProceedingJoinPoint point) {
     try {
       return point.proceed();
@@ -73,6 +75,15 @@ public class ExceptionHandlerAspect {
     }
   }
 
+  /**
+   * 获取指定参数
+   *
+   * @param arguments 参数数组
+   * @param cls 参数类型
+   * @param <T> 参数泛型
+   * @return 指定参数
+   */
+  @SuppressWarnings("unchecked")
   private <T> T getArgument(Object[] arguments, Class<T> cls) {
     for (Object argument : arguments) {
       if (Objects.isNull(argument)) {
