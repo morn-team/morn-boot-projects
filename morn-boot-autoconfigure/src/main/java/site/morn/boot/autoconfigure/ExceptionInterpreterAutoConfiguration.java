@@ -48,12 +48,12 @@ public class ExceptionInterpreterAutoConfiguration {
   }
 
   /**
-   * 注册数据绑定异常解释器
+   * 注册数据校验异常解释器
    *
-   * @return 数据绑定异常解释器
+   * @return 数据校验异常解释器
    */
   @Bean
-  @ConditionalOnProperty(prefix = "morn.exception-interpreter.bind", value = "enabled", havingValue = "true")
+  @ConditionalOnProperty(prefix = "morn.exception-interpreter.validate", value = "enabled", havingValue = "true")
   public ExceptionInterpreter bindExceptionInterpreter() {
     return new BindExceptionInterpreter();
   }

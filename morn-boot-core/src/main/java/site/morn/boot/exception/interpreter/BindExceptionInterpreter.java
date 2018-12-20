@@ -10,7 +10,7 @@ import site.morn.exception.ApplicationMessage;
 import site.morn.exception.ExceptionInterpreter;
 
 /**
- * 数据绑定异常解释器
+ * 数据校验异常解释器
  *
  * <p>处理Spring validation 相关异常
  *
