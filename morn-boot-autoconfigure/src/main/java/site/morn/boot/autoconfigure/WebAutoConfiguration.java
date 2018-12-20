@@ -1,6 +1,7 @@
 package site.morn.boot.autoconfigure;
 
 import javax.servlet.Servlet;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -28,6 +29,7 @@ public class WebAutoConfiguration {
    */
   @Bean
   @ConditionalOnMissingBean
+  @ConditionalOnBean(ExceptionProcessor.class)
   public ExceptionHandlerAspect exceptionHandlerAspect(ExceptionProcessor exceptionProcessor) {
     return new ExceptionHandlerAspect(exceptionProcessor);
   }
