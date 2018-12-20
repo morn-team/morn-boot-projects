@@ -1,6 +1,5 @@
 package site.morn.exception;
 
-import org.springframework.stereotype.Component;
 import site.morn.bean.annotation.Target;
 import site.morn.translate.Transfer;
 import site.morn.translate.TranslateChanger;
@@ -11,7 +10,7 @@ import site.morn.translate.TranslateChanger;
  * @author timely-rain
  * @since 1.0.0, 2018/12/11
  */
-@Component
+//@Component
 @Target(ApplicationMessage.class)
 public class TestApplicationMessageChanger implements TranslateChanger<ApplicationMessage> {
 
