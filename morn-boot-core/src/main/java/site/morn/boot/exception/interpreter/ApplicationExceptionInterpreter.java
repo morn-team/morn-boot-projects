@@ -18,9 +18,7 @@ public class ApplicationExceptionInterpreter implements ExceptionInterpreter {
 
   @Override
   public ApplicationMessage resolve(Throwable throwable) {
-    if (throwable instanceof ApplicationException) {
-      return ((ApplicationException) throwable).getApplicationMessage();
-    }
-    return null;
+    ApplicationException applicationException = (ApplicationException) throwable;
+    return applicationException.getApplicationMessage();
   }
 }
