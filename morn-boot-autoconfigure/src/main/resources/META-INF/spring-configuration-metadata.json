@@ -25,10 +25,34 @@
       "defaultValue": false
     },
     {
+      "name": "morn.rest.prefix",
+      "type": "java.lang.String",
+      "description": "The default prefix for REST Message.",
+      "defaultValue": "rest"
+    },
+    {
+      "name": "morn.rest.success-code",
+      "type": "java.lang.String",
+      "description": "The default success code for REST Message.",
+      "defaultValue": "success"
+    },
+    {
+      "name": "morn.rest.failure-code",
+      "type": "java.lang.String",
+      "description": "The default failure code for REST Message.",
+      "defaultValue": "failure"
+    },
+    {
+      "name": "morn.rest.message-suffix",
+      "type": "java.lang.String",
+      "description": "The default message suffix for REST Message.",
+      "defaultValue": "message"
+    },
+    {
       "name": "morn.translator.enabled",
       "type": "java.lang.Boolean",
       "description": "Enable translator features for the application.",
-      "defaultValue": false
+      "defaultValue": true
     },
     {
       "name": "morn.validator.enabled",

@@ -1,5 +1,7 @@
 package site.morn.rest;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +19,7 @@ import site.morn.bean.IdentifiedBeanCache;
 import site.morn.bean.IdentifiedBeanHolder;
 import site.morn.bean.annotation.Target;
 import site.morn.boot.bean.IdentifiedBeanPostProcessor;
+import site.morn.rest.RestMessage.Level;
 import site.morn.rest.convert.RestConverter;
 
 /**
@@ -29,7 +32,7 @@ import site.morn.rest.convert.RestConverter;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class RestsTest {
+public class RestBuilderTest {
 
   @Autowired
   private IdentifiedBeanCache beanCache;
@@ -43,51 +46,50 @@ public class RestsTest {
   }
 
   @Test
-  public void buildOk() {
-  }
-
-  @Test
-  public void buildError() {
-  }
-
-  @Test
-  public void buildError1() {
-  }
-
-  @Test
-  public void ok() {
-    RestMessage restMessage = Rests.ok();
+  public void successMessage() {
+    RestMessage restMessage = RestBuilders.successMessage();
     log.info(restMessage.toString());
-    Assert.assertEquals(Rests.CODE_OK, restMessage.code());
+    Assert.assertEquals("success", restMessage.getCode());
   }
 
   @Test
-  public void ok1() {
-    RestMessage restMessage = Rests.ok("Success");
+  public void successMessage1() {
+    RestMessage restMessage = RestBuilders.successMessage("test");
     log.info(restMessage.toString());
-    Assert.assertEquals("Success", restMessage.message());
+    Assert.assertEquals("test", restMessage.getCode());
   }
 
   @Test
-  public void ok2() {
+  public void successMessage2() {
     Object data = new Object();
-    RestMessage restMessage = Rests.ok(data);
+    RestMessage restMessage = RestBuilders.successMessage(data);
     log.info(restMessage.toString());
-    Assert.assertEquals(data, restMessage.data());
+    Assert.assertEquals(data, restMessage.getData());
   }
 
   @Test
-  public void error() {
-    RestMessage restMessage = Rests.error();
+  public void successMessage3() {
+    Map<Object, Object> data = new HashMap<>();
+    data.put("Foo", "Foo value");
+    data.put("Bar", "Bar value");
+    RestMessage restMessage = RestBuilders.infoBuilder().code("test").level(Level.WARNING)
+        .message("This is test message.").data(data).build();
     log.info(restMessage.toString());
-    Assert.assertEquals(Rests.CODE_ERROR, restMessage.code());
+    Assert.assertEquals("This is test message.", restMessage.getMessage());
   }
 
   @Test
-  public void error1() {
-    RestMessage restMessage = Rests.error("morn.test");
+  public void failureMessage() {
+    RestMessage restMessage = RestBuilders.failureMessage();
     log.info(restMessage.toString());
-    Assert.assertEquals("morn.test", restMessage.code());
+    Assert.assertEquals("failure", restMessage.getCode());
+  }
+
+  @Test
+  public void failureMessage1() {
+    RestMessage restMessage = RestBuilders.failureMessage("test");
+    log.info(restMessage.toString());
+    Assert.assertEquals("test", restMessage.getCode());
   }
 
   @Test
@@ -95,14 +97,14 @@ public class RestsTest {
     BaiduMessage baiduMessage = new BaiduMessage();
     baiduMessage.setError("0");
     baiduMessage.setMsg("操作成功");
-    RestMessage restMessage = Rests.from(baiduMessage);
+    RestMessage restMessage = RestBuilder.from(baiduMessage);
     log.info(restMessage.toString());
     Assert.assertNotNull(restMessage);
   }
 
   @Test
   public void to() {
-    BaiduMessage baiduMessage = Rests.buildOk().to(BaiduMessage.class);
+    BaiduMessage baiduMessage = RestBuilders.successBuilder().to(BaiduMessage.class);
     log.info(baiduMessage.toString());
     Assert.assertNotNull(baiduMessage);
   }
@@ -135,17 +137,19 @@ public class RestsTest {
     @Override
     public BaiduMessage convert(RestMessage restMessage) {
       BaiduMessage baiduMessage = new BaiduMessage();
-      baiduMessage.setError(restMessage.code());
-      baiduMessage.setMsg(restMessage.message());
+      baiduMessage.setError(restMessage.isSuccess() ? "0" : "-1");
+      baiduMessage.setMsg(restMessage.getMessage());
       return baiduMessage;
     }
 
     @Override
     public RestMessage revert(BaiduMessage baiduMessage) {
       RestMessage restMessage = new SimpleRestMessage();
-      restMessage.success(isSuccess(baiduMessage));
-      restMessage.code(baiduMessage.getError());
-      restMessage.message(baiduMessage.getMsg());
+      boolean success = isSuccess(baiduMessage);
+      restMessage.setSuccess(success);
+      restMessage.setLevel(success ? Level.INFO : Level.ERROR);
+      restMessage.setCode(baiduMessage.getError());
+      restMessage.setMessage(baiduMessage.getMsg());
       return restMessage;
     }
 

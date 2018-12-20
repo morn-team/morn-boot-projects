@@ -47,7 +47,7 @@
     </dependency>
     <dependency>
       <groupId>site.morn.boot</groupId>
-      <artifactId>morn-boot-validator</artifactId>
+      <artifactId>morn-boot-web</artifactId>
       <version>${morn.version}</version>
     </dependency>
   </dependencies>

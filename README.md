@@ -25,19 +25,21 @@ MornBoot没有强制依赖SpringBoot，你必须在项目中引入SpringBoot相�
 
 当前版本：`1.0.0-SNAPSHOT`
 
-```
-<!--自动化配置-->
-<dependency>
-  <groupId>site.morn.boot</groupId>
-  <artifactId>morn-boot-autoconfigure</artifactId>
-  <version>${morn.version}</version>
-</dependency>
-<!--核心库-->
-<dependency>
-  <groupId>site.morn.boot</groupId>
-  <artifactId>morn-boot-core</artifactId>
-  <version>${morn.version}</version>
-</dependency>
+```xml
+<dependencies>
+  <!--自动化配置-->
+  <dependency>
+    <groupId>site.morn.boot</groupId>
+    <artifactId>morn-boot-autoconfigure</artifactId>
+    <version>${morn.version}</version>
+  </dependency>
+  <!--核心库-->
+  <dependency>
+    <groupId>site.morn.boot</groupId>
+    <artifactId>morn-boot-core</artifactId>
+    <version>${morn.version}</version>
+  </dependency>
+</dependencies>
 ```
 
 ## Function
@@ -118,17 +120,18 @@ public class UserController {
 构建消息
 
 ```
-Rests.ok();
+RestBuilders.successMessage();
 ```
 
 输出结果
 
 ```
 {
-    "code": "morn.ok",
+    "code": "success",
+    "data": null,
     "level": "info",
-    "success": true,
-    "message": "操作成功"
+    "message": "操作成功",
+    "success": true
 }
 ```
 

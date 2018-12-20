@@ -12,9 +12,15 @@
   <artifactId>morn-boot-autoconfigure</artifactId>
 
   <dependencies>
+    <!--Spring Boot-->
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-autoconfigure</artifactId>
+      <artifactId>spring-boot-starter</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
       <optional>true</optional>
     </dependency>
     <!--Morn-->
@@ -31,6 +37,21 @@
       <version>${morn.version}</version>
       <optional>true</optional>
     </dependency>
+    <dependency>
+      <groupId>site.morn.boot</groupId>
+      <artifactId>morn-boot-web</artifactId>
+      <version>${morn.version}</version>
+      <optional>true</optional>
+    </dependency>
   </dependencies>
+
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+  </build>
 
 </project>
