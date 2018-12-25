@@ -22,7 +22,7 @@ import site.morn.exception.ExceptionInterpreter;
 public class ValidateExceptionInterpreter implements ExceptionInterpreter {
 
   @Override
-  public ApplicationMessage resolve(Throwable throwable) {
+  public ApplicationMessage resolve(Throwable throwable, Object... args) {
     BindException bindException = (BindException) throwable;
     // 获取全部属性错误
     List<FieldError> errors = bindException.getFieldErrors();
