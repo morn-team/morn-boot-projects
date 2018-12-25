@@ -7,6 +7,7 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import site.morn.bean.annotation.Target;
 import site.morn.exception.ApplicationMessage;
+import site.morn.exception.ApplicationMessages;
 import site.morn.exception.ExceptionInterpreter;
 
 /**
@@ -27,9 +28,9 @@ public class BindExceptionInterpreter implements ExceptionInterpreter {
     List<FieldError> errors = bindException.getFieldErrors();
     // 生成错误消息文本
     List<String> messages = errors.stream().map(this::generateMessage).collect(Collectors.toList());
+    String message = StringUtils.collectionToCommaDelimitedString(messages);
     // 构建异常消息
-    return ApplicationMessage.builder()
-        .message(StringUtils.collectionToCommaDelimitedString(messages)).build();
+    return ApplicationMessages.buildMessage("validate", message, null);
   }
 
   /**

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.util.StringUtils;
 import site.morn.bean.annotation.Target;
 import site.morn.exception.ApplicationMessage;
+import site.morn.exception.ApplicationMessages;
 import site.morn.exception.ExceptionProperties;
 import site.morn.translate.Transfer;
 import site.morn.translate.TranslateChanger;
@@ -43,6 +44,6 @@ public class DefaultApplicationMessageChanger implements TranslateChanger<Applic
     String message = translator.translate(messageCode, transfer.getArgs());
     String solution = translator.translate(solutionCode, transfer.getArgs());
     // 构建应用消息
-    return ApplicationMessage.builder().code(code).message(message).solution(solution).build();
+    return ApplicationMessages.buildMessage(code, message, solution);
   }
 }

@@ -17,7 +17,7 @@ public class TestApplicationMessageChanger implements TranslateChanger<Applicati
   @Override
   public ApplicationMessage change(Transfer transfer) {
     // 构建应用消息
-    return ApplicationMessage.builder().code(transfer.getCode()).message("This is message.")
-        .solution("This is solution.").build();
+    return ApplicationMessages
+        .buildMessage(transfer.getCode(), "This is message.", "This is solution.");
   }
 }
