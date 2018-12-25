@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import site.morn.bean.IdentifiedBeanCache;
 import site.morn.boot.exception.DefaultExceptionProcessor;
 import site.morn.boot.exception.interpreter.ApplicationExceptionInterpreter;
-import site.morn.boot.exception.interpreter.BindExceptionInterpreter;
+import site.morn.boot.exception.interpreter.ValidateExceptionInterpreter;
 import site.morn.exception.ExceptionInterpreter;
 import site.morn.exception.ExceptionProcessor;
 
@@ -54,7 +54,7 @@ public class ExceptionInterpreterAutoConfiguration {
    */
   @Bean
   @ConditionalOnProperty(prefix = "morn.exception-interpreter.validate", value = "enabled", havingValue = "true")
-  public ExceptionInterpreter bindExceptionInterpreter() {
-    return new BindExceptionInterpreter();
+  public ExceptionInterpreter validateExceptionInterpreter() {
+    return new ValidateExceptionInterpreter();
   }
 }

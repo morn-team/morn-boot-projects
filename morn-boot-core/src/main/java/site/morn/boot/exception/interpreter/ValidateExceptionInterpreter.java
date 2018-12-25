@@ -19,7 +19,7 @@ import site.morn.exception.ExceptionInterpreter;
  * @since 1.0.0, 2018/8/21
  */
 @Target(BindException.class)
-public class BindExceptionInterpreter implements ExceptionInterpreter {
+public class ValidateExceptionInterpreter implements ExceptionInterpreter {
 
   @Override
   public ApplicationMessage resolve(Throwable throwable) {
