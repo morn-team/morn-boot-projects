@@ -23,6 +23,7 @@
     <module>morn-boot-interpreter</module>
     <module>morn-boot-test</module>
     <module>morn-boot-web</module>
+    <module>morn-boot-websocket</module>
   </modules>
 
   <properties>
