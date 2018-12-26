@@ -7,9 +7,11 @@ import javax.websocket.WebSocketContainer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.simp.stomp.StompHeaders;
+import org.springframework.messaging.simp.stomp.StompSession;
 import org.springframework.messaging.simp.stomp.StompSessionHandler;
 import org.springframework.messaging.simp.stomp.StompSessionHandlerAdapter;
 import org.springframework.scheduling.concurrent.DefaultManagedTaskScheduler;
+import org.springframework.util.concurrent.ListenableFuture;
 import org.springframework.web.socket.client.WebSocketClient;
 import org.springframework.web.socket.client.standard.StandardWebSocketClient;
 import org.springframework.web.socket.messaging.WebSocketStompClient;
@@ -44,7 +46,9 @@ public class TestStompClient2 {
 
       String url = "ws://localhost:8080/stomp/";
       StompSessionHandler sessionHandler = new StompMessageHandler();
-      stompClient.connect(url, sessionHandler);
+      ListenableFuture<StompSession> future = stompClient.connect(url, sessionHandler);
+      StompSession stompSession = future.get();
+      stompSession.send("/app/talk", "123");
     } catch (Exception e) {
       log.error(e.getMessage(), e);
     }
