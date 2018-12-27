@@ -7,8 +7,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import site.morn.boot.exception.ApplicationMessageConverter;
 import site.morn.boot.exception.DefaultApplicationMessageChanger;
 import site.morn.exception.ExceptionProperties;
+import site.morn.rest.convert.RestConverter;
 import site.morn.translate.TranslateChanger;
 import site.morn.translate.Translator;
 
@@ -45,5 +47,16 @@ public class ExceptionAutoConfiguration {
   public TranslateChanger translateChanger(Translator translator,
       ExceptionProperties exceptionProperties) {
     return new DefaultApplicationMessageChanger(translator, exceptionProperties);
+  }
+
+  /**
+   * 注册应用消息转换器
+   *
+   * @return 应用消息转换器
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  public RestConverter restConverter() {
+    return new ApplicationMessageConverter();
   }
 }
