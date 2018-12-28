@@ -33,11 +33,6 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-websocket</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.projectodd.stilts</groupId>
-      <artifactId>stilts-stomp-client</artifactId>
-      <version>0.1.40</version>
-    </dependency>
     <!--MySQL-->
     <dependency>
       <groupId>mysql</groupId>
