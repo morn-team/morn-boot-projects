@@ -6,7 +6,7 @@
 
   <groupId>site.morn.boot</groupId>
   <artifactId>morn-boot-projects</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <description>Morn Boot Projects - 基于Spring Boot的系列开发工具包</description>
@@ -53,21 +53,6 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-
-  <profiles>
-    <profile>
-      <id>sonatype-nexus-snapshots</id>
-      <properties>
-        <morn.version>1.0.0-SNAPSHOT</morn.version>
-      </properties>
-    </profile>
-    <profile>
-      <id>sonatype-oss-release</id>
-      <properties>
-        <morn.version>1.0.0-RELEASE</morn.version>
-      </properties>
-    </profile>
-  </profiles>
 
   <build>
     <pluginManagement>
@@ -132,6 +117,15 @@
           <serverId>ossrh</serverId>
           <nexusUrl>https://oss.sonatype.org/</nexusUrl>
           <autoReleaseAfterClose>true</autoReleaseAfterClose>
+        </configuration>
+      </plugin>
+      <!--Maven版本管理插件-->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+        <version>2.3</version>
+        <configuration>
+          <generateBackupPoms>false</generateBackupPoms>
         </configuration>
       </plugin>
     </plugins>
