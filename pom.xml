@@ -6,7 +6,7 @@
 
   <groupId>site.morn.boot</groupId>
   <artifactId>morn-boot-projects</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <packaging>pom</packaging>
 
   <description>Morn Boot Projects - 基于Spring Boot的系列开发工具包</description>
@@ -63,7 +63,7 @@
       </properties>
     </profile>
     <profile>
-      <id>sonatype-nexus-staging</id>
+      <id>sonatype-oss-release</id>
       <properties>
         <morn.version>1.0.0-RELEASE</morn.version>
       </properties>
@@ -122,6 +122,18 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+      <!--发布插件，自动Release-->
+      <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <version>1.6.8</version>
+        <extensions>true</extensions>
+        <configuration>
+          <serverId>ossrh</serverId>
+          <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+          <autoReleaseAfterClose>true</autoReleaseAfterClose>
+        </configuration>
       </plugin>
     </plugins>
   </build>
