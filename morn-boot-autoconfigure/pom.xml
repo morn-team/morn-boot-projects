@@ -27,20 +27,20 @@
     <dependency>
       <groupId>site.morn</groupId>
       <artifactId>morn-core</artifactId>
-      <version>${morn.version}</version>
+      <version>${project.version}</version>
       <optional>true</optional>
     </dependency>
     <!--Morn Boot-->
     <dependency>
       <groupId>site.morn.boot</groupId>
       <artifactId>morn-boot-core</artifactId>
-      <version>${morn.version}</version>
+      <version>${project.version}</version>
       <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>site.morn.boot</groupId>
       <artifactId>morn-boot-web</artifactId>
-      <version>${morn.version}</version>
+      <version>${project.version}</version>
       <optional>true</optional>
     </dependency>
   </dependencies>

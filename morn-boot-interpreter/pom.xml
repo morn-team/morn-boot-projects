@@ -32,7 +32,7 @@
     <dependency>
       <groupId>site.morn.boot</groupId>
       <artifactId>morn-boot-core</artifactId>
-      <version>${morn.version}</version>
+      <version>${project.version}</version>
     </dependency>
   </dependencies>
 
