@@ -34,6 +34,7 @@
 
     <boot.version>1.5.15.RELEASE</boot.version>
     <lombok.version>1.16.22</lombok.version>
+    <shiro.version>1.3.2</shiro.version>
   </properties>
 
   <dependencyManagement>
