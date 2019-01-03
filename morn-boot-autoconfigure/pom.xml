@@ -56,6 +56,12 @@
       <version>${shiro.version}</version>
       <optional>true</optional>
     </dependency>
+    <!--Jackson Hibernate-->
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-hibernate5</artifactId>
+      <optional>true</optional>
+    </dependency>
   </dependencies>
 
   <build>
