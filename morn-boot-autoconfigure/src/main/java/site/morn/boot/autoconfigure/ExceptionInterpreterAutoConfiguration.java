@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import site.morn.bean.IdentifiedBeanCache;
 import site.morn.boot.exception.DefaultExceptionProcessor;
 import site.morn.boot.exception.interpreter.ApplicationExceptionInterpreter;
+import site.morn.boot.exception.interpreter.ShiroExceptionInterpreter;
 import site.morn.boot.exception.interpreter.ValidateExceptionInterpreter;
 import site.morn.exception.ExceptionInterpreter;
 import site.morn.exception.ExceptionProcessor;
@@ -56,5 +57,17 @@ public class ExceptionInterpreterAutoConfiguration {
   @ConditionalOnProperty(prefix = "morn.exception-interpreter.validate", value = "enabled", havingValue = "true")
   public ExceptionInterpreter validateExceptionInterpreter() {
     return new ValidateExceptionInterpreter();
+  }
+
+  /**
+   * 注册Shiro异常解释器
+   *
+   * @return Shiro异常解释器
+   */
+  @Bean
+  @ConditionalOnClass(org.apache.shiro.mgt.SecurityManager.class)
+  @ConditionalOnProperty(prefix = "morn.exception-interpreter.shiro", value = "enabled", havingValue = "true")
+  public ExceptionInterpreter shiroExceptionInterpreter() {
+    return new ShiroExceptionInterpreter();
   }
 }

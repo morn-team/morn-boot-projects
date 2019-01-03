@@ -43,6 +43,12 @@
       "defaultValue": false
     },
     {
+      "name": "morn.exception-interpreter.shiro.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Enable Shiro exception interpreter features for the application.",
+      "defaultValue": false
+    },
+    {
       "name": "morn.operate.enabled",
       "type": "java.lang.Boolean",
       "description": "Enable operation log features for the application.",
