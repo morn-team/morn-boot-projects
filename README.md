@@ -23,23 +23,27 @@ MornBoot没有强制依赖SpringBoot，你必须在项目中引入SpringBoot相�
 
 ## Quick Start
 
-当前版本：`1.0.0-SNAPSHOT`
+当前版本：`1.0.0`
 
 ```xml
-<dependencies>
-  <!--自动化配置-->
-  <dependency>
-    <groupId>site.morn.boot</groupId>
-    <artifactId>morn-boot-autoconfigure</artifactId>
-    <version>${morn.version}</version>
-  </dependency>
-  <!--核心库-->
-  <dependency>
-    <groupId>site.morn.boot</groupId>
-    <artifactId>morn-boot-core</artifactId>
-    <version>${morn.version}</version>
-  </dependency>
-</dependencies>
+<!--自动化配置-->
+<dependency>
+  <groupId>site.morn.boot</groupId>
+  <artifactId>morn-boot-autoconfigure</artifactId>
+  <version>${morn.version}</version>
+</dependency>
+<!--核心库-->
+<dependency>
+  <groupId>site.morn.boot</groupId>
+  <artifactId>morn-boot-core</artifactId>
+  <version>${morn.version}</version>
+</dependency>
+<!--Web-->
+<dependency>
+  <groupId>site.morn.boot</groupId>
+  <artifactId>morn-boot-web</artifactId>
+  <version>${morn.version}</version>
+</dependency>
 ```
 
 ## Function
@@ -49,7 +53,7 @@ MornBoot没有强制依赖SpringBoot，你必须在项目中引入SpringBoot相�
 MornBoot提供快速构建应用提示消息和应用异常的工具类。使用`ApplicationMessages`生成应用消息：
 
 ```
-ApplicationMessage message = ApplicationMessages.translate("login.password-is-null");
+ApplicationMessage message = ApplicationMessages.translateMessage("login.password-is-null");
 log.info(message.toString());
 // ApplicationMessage(code=login.password-is-null, message=登录密码不能为空, solution=请输入登录密码)
 ```
