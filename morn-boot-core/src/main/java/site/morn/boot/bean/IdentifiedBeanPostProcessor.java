@@ -2,7 +2,6 @@ package site.morn.boot.bean;
 
 import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.core.annotation.AnnotationUtils;
 import site.morn.bean.BeanIdentify;
@@ -29,12 +28,6 @@ public class IdentifiedBeanPostProcessor implements BeanPostProcessor {
 
   public IdentifiedBeanPostProcessor(IdentifiedBeanCache identifiedBeanCache) {
     this.identifiedBeanCache = identifiedBeanCache;
-  }
-
-  @Override
-  public Object postProcessBeforeInitialization(Object bean, String beanName)
-      throws BeansException {
-    return bean;
   }
 
   /**
@@ -73,7 +66,12 @@ public class IdentifiedBeanPostProcessor implements BeanPostProcessor {
   }
 
   @Override
-  public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+  public Object postProcessBeforeInitialization(Object bean, String beanName) {
+    return bean;
+  }
+
+  @Override
+  public Object postProcessAfterInitialization(Object bean, String beanName) {
     // 获取所有实例标识注解
     IdentifiedBeanHolder<Object> beanHolder = generateBeanHolder(bean);
     if (Objects.isNull(beanHolder)) {

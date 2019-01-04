@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Stomp</title>
+  <script src="https://cdn.bootcss.com/sockjs-client/1.3.0/sockjs.js"></script>
+  <script src="https://cdn.bootcss.com/stomp.js/2.3.3/stomp.js"></script>
+</head>
+<body>
+<script>
+
+  var stompClient = null;
+
+  function connect() {
+    //链接Socket的endpoint名称为endpointWisely
+    var socket = new SockJS('http://localhost:8080/stomp');
+    //使用STOMP子协议的WebSocket客户端
+    stompClient = Stomp.over(socket);
+    //链接WebSocket服务端
+    stompClient.connect({}, function (frame) {
+      console.log('Connected:' + frame);
+      //通过stompClient.subscribe订阅/topic/getResponse目标发送的消息，即控制器中的@SendTo
+      stompClient.subscribe('/topic/talk', function (response) {
+        console.log(response);
+      });
+      sendName();
+    }, function (error) {
+      debugger
+    });
+  }
+
+  function disconnect() {
+    if (stompClient != null) {
+      stompClient.disconnect();
+    }
+    console.log("Disconnecteed");
+  }
+
+  function sendName() {
+    stompClient.send("/app/talk", {}, JSON.stringify({message: "123"}));
+  }
+
+  connect();
+
+</script>
+</body>
+</html>

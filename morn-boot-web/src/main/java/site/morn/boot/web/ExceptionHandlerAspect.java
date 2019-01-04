@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import site.morn.exception.ApplicationMessage;
 import site.morn.exception.ExceptionProcessor;
 import site.morn.rest.RestBuilders;
+import site.morn.util.ArrayUtils;
 
 /**
  * 全局异常处理切面
@@ -39,12 +40,12 @@ public class ExceptionHandlerAspect {
   @Around("pointcut()")
   public Object aroundHandler(ProceedingJoinPoint point) {
     // 获取ExceptionHandler的响应参数
-    HttpServletResponse response = getArgument(point.getArgs(), HttpServletResponse.class);
+    HttpServletResponse response = ArrayUtils.first(point.getArgs(), HttpServletResponse.class);
     if (Objects.nonNull(response)) {
       response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
     }
     // 获取ExceptionHandler的异常参数
-    Exception exception = getArgument(point.getArgs(), Exception.class);
+    Exception exception = ArrayUtils.first(point.getArgs(), Exception.class);
     if (Objects.isNull(exception)) {
       log.warn("全局异常处理失败：ExceptionHandler必须包含Exception或其子类类型的参数");
       return proceed(point);
@@ -73,26 +74,5 @@ public class ExceptionHandlerAspect {
       log.error(throwable.getMessage(), throwable);
       return null;
     }
-  }
-
-  /**
-   * 获取指定参数
-   *
-   * @param arguments 参数数组
-   * @param cls 参数类型
-   * @param <T> 参数泛型
-   * @return 指定参数
-   */
-  @SuppressWarnings("unchecked")
-  private <T> T getArgument(Object[] arguments, Class<T> cls) {
-    for (Object argument : arguments) {
-      if (Objects.isNull(argument)) {
-        continue;
-      }
-      if (cls.isAssignableFrom(argument.getClass())) {
-        return (T) argument;
-      }
-    }
-    return null;
   }
 }

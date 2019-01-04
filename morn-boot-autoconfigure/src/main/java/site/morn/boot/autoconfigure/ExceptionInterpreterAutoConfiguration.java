@@ -7,25 +7,22 @@ import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import site.morn.bean.IdentifiedBeanCache;
-import site.morn.boot.exception.DefaultApplicationMessageChanger;
 import site.morn.boot.exception.DefaultExceptionProcessor;
 import site.morn.boot.exception.interpreter.ApplicationExceptionInterpreter;
-import site.morn.boot.exception.interpreter.BindExceptionInterpreter;
+import site.morn.boot.exception.interpreter.ShiroExceptionInterpreter;
+import site.morn.boot.exception.interpreter.ValidateExceptionInterpreter;
 import site.morn.exception.ExceptionInterpreter;
 import site.morn.exception.ExceptionProcessor;
-import site.morn.translate.TranslateChanger;
-import site.morn.translate.Translator;
 
 /**
  * 异常解析器自动化配置
  *
  * @author timely-rain
- * @version 1.0.0, 2018/8/20
- * @since 1.0
+ * @since 1.0.0, 2018/8/20
  */
 @Configuration
 @ConditionalOnClass({ExceptionInterpreter.class, CacheManager.class})
-@ConditionalOnProperty(prefix = "morn.exception", value = "enabled", havingValue = "true")
+@ConditionalOnProperty(prefix = "morn.exception-interpreter", value = "enabled", havingValue = "true")
 public class ExceptionInterpreterAutoConfiguration {
 
   /**
@@ -36,21 +33,8 @@ public class ExceptionInterpreterAutoConfiguration {
    */
   @Bean
   @ConditionalOnMissingBean
-  public ExceptionProcessor exceptionProcessor(
-      IdentifiedBeanCache identifiedBeanCache) {
+  public ExceptionProcessor exceptionProcessor(IdentifiedBeanCache identifiedBeanCache) {
     return new DefaultExceptionProcessor(identifiedBeanCache);
-  }
-
-  /**
-   * 注册异常消息转换器
-   *
-   * @param translator 翻译器
-   * @return 异常消息转换器
-   */
-  @Bean
-  @ConditionalOnMissingBean
-  public TranslateChanger translateChanger(Translator translator) {
-    return new DefaultApplicationMessageChanger(translator);
   }
 
   /**
@@ -65,13 +49,25 @@ public class ExceptionInterpreterAutoConfiguration {
   }
 
   /**
-   * 注册数据绑定异常解释器
+   * 注册数据校验异常解释器
    *
-   * @return 数据绑定异常解释器
+   * @return 数据校验异常解释器
    */
   @Bean
-  @ConditionalOnProperty(prefix = "morn.exception.bind", value = "enabled", havingValue = "true")
-  public ExceptionInterpreter bindExceptionInterpreter() {
-    return new BindExceptionInterpreter();
+  @ConditionalOnProperty(prefix = "morn.exception-interpreter.validate", value = "enabled", havingValue = "true")
+  public ExceptionInterpreter validateExceptionInterpreter() {
+    return new ValidateExceptionInterpreter();
+  }
+
+  /**
+   * 注册Shiro异常解释器
+   *
+   * @return Shiro异常解释器
+   */
+  @Bean
+  @ConditionalOnClass(org.apache.shiro.mgt.SecurityManager.class)
+  @ConditionalOnProperty(prefix = "morn.exception-interpreter.shiro", value = "enabled", havingValue = "true")
+  public ExceptionInterpreter shiroExceptionInterpreter() {
+    return new ShiroExceptionInterpreter();
   }
 }

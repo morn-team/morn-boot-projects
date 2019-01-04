@@ -4,12 +4,48 @@
       "name": "morn.exception.enabled",
       "type": "java.lang.Boolean",
       "description": "Enable exception features for the application.",
+      "defaultValue": true
+    },
+    {
+      "name": "morn.exception.prefix",
+      "type": "java.lang.String",
+      "description": "The default prefix for Exception Message.",
+      "defaultValue": "error"
+    },
+    {
+      "name": "morn.exception.default-code",
+      "type": "java.lang.String",
+      "description": "The default code for Exception Message.",
+      "defaultValue": "failure"
+    },
+    {
+      "name": "morn.exception.solution-suffix",
+      "type": "java.lang.String",
+      "description": "The default solution suffix for Exception Message.",
+      "defaultValue": "solution"
+    },
+    {
+      "name": "morn.exception.message-suffix",
+      "type": "java.lang.String",
+      "description": "The default message suffix for Exception Message.",
+      "defaultValue": "message"
+    },
+    {
+      "name": "morn.exception-interpreter.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Enable exception interpreter features for the application.",
       "defaultValue": false
     },
     {
-      "name": "morn.exception.bind.enabled",
+      "name": "morn.exception-interpreter.validate.enabled",
       "type": "java.lang.Boolean",
-      "description": "Enable bind exception interpreter features for the application.",
+      "description": "Enable validate exception interpreter features for the application.",
+      "defaultValue": false
+    },
+    {
+      "name": "morn.exception-interpreter.shiro.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Enable Shiro exception interpreter features for the application.",
       "defaultValue": false
     },
     {

@@ -20,6 +20,7 @@
   <modules>
     <module>morn-boot-autoconfigure</module>
     <module>morn-boot-core</module>
+    <module>morn-boot-interpreter</module>
     <module>morn-boot-test</module>
     <module>morn-boot-web</module>
   </modules>
@@ -31,9 +32,9 @@
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
 
-    <morn.version>1.0.0-SNAPSHOT</morn.version>
     <boot.version>1.5.15.RELEASE</boot.version>
     <lombok.version>1.16.22</lombok.version>
+    <shiro.version>1.3.2</shiro.version>
   </properties>
 
   <dependencyManagement>
@@ -52,21 +53,6 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-
-  <profiles>
-    <profile>
-      <id>sonatype-nexus-snapshots</id>
-      <properties>
-        <morn.version>1.0.0-SNAPSHOT</morn.version>
-      </properties>
-    </profile>
-    <profile>
-      <id>sonatype-nexus-staging</id>
-      <properties>
-        <morn.version>1.0.0-RELEASE</morn.version>
-      </properties>
-    </profile>
-  </profiles>
 
   <build>
     <pluginManagement>
@@ -120,6 +106,27 @@
             </goals>
           </execution>
         </executions>
+      </plugin>
+      <!--发布插件，自动Release-->
+      <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <version>1.6.8</version>
+        <extensions>true</extensions>
+        <configuration>
+          <serverId>sonatype-nexus-staging</serverId>
+          <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+          <autoReleaseAfterClose>true</autoReleaseAfterClose>
+        </configuration>
+      </plugin>
+      <!--Maven版本管理插件-->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>versions-maven-plugin</artifactId>
+        <version>2.3</version>
+        <configuration>
+          <generateBackupPoms>false</generateBackupPoms>
+        </configuration>
       </plugin>
     </plugins>
   </build>

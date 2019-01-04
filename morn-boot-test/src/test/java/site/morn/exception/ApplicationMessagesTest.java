@@ -23,7 +23,7 @@ public class ApplicationMessagesTest {
 
   @Test
   public void message() {
-    ApplicationMessage message = ApplicationMessages.translate("login.password-is-null");
+    ApplicationMessage message = ApplicationMessages.translateMessage("login.password-is-null");
     Assert.assertNotNull("应用消息构建失败", message);
     log.info(message.toString());
     Assert.assertNotNull(message.getSolution());
@@ -31,7 +31,7 @@ public class ApplicationMessagesTest {
 
   @Test
   public void thrown() {
-    ApplicationMessage message = ApplicationMessages.translate("login.password-is-null");
+    ApplicationMessage message = ApplicationMessages.translateMessage("login.password-is-null");
     try {
       message.thrown();
       Assert.fail("异常构建失败");

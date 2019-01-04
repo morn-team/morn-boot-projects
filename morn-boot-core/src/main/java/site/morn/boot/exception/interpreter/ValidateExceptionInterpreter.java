@@ -7,10 +7,11 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import site.morn.bean.annotation.Target;
 import site.morn.exception.ApplicationMessage;
+import site.morn.exception.ApplicationMessages;
 import site.morn.exception.ExceptionInterpreter;
 
 /**
- * 数据绑定异常解释器
+ * 数据校验异常解释器
  *
  * <p>处理Spring validation 相关异常
  *
@@ -18,18 +19,18 @@ import site.morn.exception.ExceptionInterpreter;
  * @since 1.0.0, 2018/8/21
  */
 @Target(BindException.class)
-public class BindExceptionInterpreter implements ExceptionInterpreter {
+public class ValidateExceptionInterpreter implements ExceptionInterpreter {
 
   @Override
-  public ApplicationMessage resolve(Throwable throwable) {
+  public ApplicationMessage resolve(Throwable throwable, Object... args) {
     BindException bindException = (BindException) throwable;
     // 获取全部属性错误
     List<FieldError> errors = bindException.getFieldErrors();
     // 生成错误消息文本
     List<String> messages = errors.stream().map(this::generateMessage).collect(Collectors.toList());
+    String message = StringUtils.collectionToCommaDelimitedString(messages);
     // 构建异常消息
-    return ApplicationMessage.builder()
-        .message(StringUtils.collectionToCommaDelimitedString(messages)).build();
+    return ApplicationMessages.buildMessage("validate", message, null);
   }
 
   /**

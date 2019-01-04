@@ -17,10 +17,8 @@ import site.morn.exception.ExceptionInterpreter;
 public class ApplicationExceptionInterpreter implements ExceptionInterpreter {
 
   @Override
-  public ApplicationMessage resolve(Throwable throwable) {
-    if (throwable instanceof ApplicationException) {
-      return ((ApplicationException) throwable).getApplicationMessage();
-    }
-    return null;
+  public ApplicationMessage resolve(Throwable throwable, Object... args) {
+    ApplicationException applicationException = (ApplicationException) throwable;
+    return applicationException.getApplicationMessage();
   }
 }

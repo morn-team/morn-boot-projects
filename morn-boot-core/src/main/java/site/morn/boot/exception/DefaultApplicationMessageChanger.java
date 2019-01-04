@@ -1,8 +1,11 @@
 package site.morn.boot.exception;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.util.StringUtils;
 import site.morn.bean.annotation.Target;
 import site.morn.exception.ApplicationMessage;
+import site.morn.exception.ApplicationMessages;
+import site.morn.exception.ExceptionProperties;
 import site.morn.translate.Transfer;
 import site.morn.translate.TranslateChanger;
 import site.morn.translate.Translator;
@@ -19,35 +22,28 @@ import site.morn.translate.Translators;
 public class DefaultApplicationMessageChanger implements TranslateChanger<ApplicationMessage> {
 
   /**
-   * 消息前缀
-   */
-  private static final String PREFIX = "error";
-
-  /**
-   * 消息后缀
-   */
-  private static final String MESSAGE_SUFFIX = "message";
-
-  /**
-   * 解决方案后缀
-   */
-  private static final String SOLUTION_SUFFIX = "solution";
-
-  /**
    * 翻译器
    */
   private final Translator translator;
 
+  /**
+   * 异常配置项
+   */
+  private final ExceptionProperties properties;
+
   @Override
   public ApplicationMessage change(Transfer transfer) {
-    String code = transfer.getCode();
+    String code = StringUtils.isEmpty(transfer.getCode()) ? properties.getDefaultCode()
+        : transfer.getCode();
     // 格式化国际编码
-    String messageCode = Translators.formatCode(PREFIX, code, MESSAGE_SUFFIX);
-    String solutionCode = Translators.formatCode(PREFIX, code, SOLUTION_SUFFIX);
+    String messageCode = Translators
+        .formatCode(properties.getPrefix(), code, properties.getMessageSuffix());
+    String solutionCode = Translators
+        .formatCode(properties.getPrefix(), code, properties.getSolutionSuffix());
     // 翻译
     String message = translator.translate(messageCode, transfer.getArgs());
     String solution = translator.translate(solutionCode, transfer.getArgs());
     // 构建应用消息
-    return ApplicationMessage.builder().code(code).message(message).solution(solution).build();
+    return ApplicationMessages.buildMessage(code, message, solution);
   }
 }
