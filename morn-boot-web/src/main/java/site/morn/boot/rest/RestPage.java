@@ -1,7 +1,6 @@
 package site.morn.boot.rest;
 
-import site.morn.core.CriteriaAttributes;
-import site.morn.rest.RestPageableAttributes;
+import site.morn.core.CriteriaMap;
 
 /**
  * REST分页请求
@@ -10,12 +9,12 @@ import site.morn.rest.RestPageableAttributes;
  * @see RestPageAttributes REST分页请求
  * @since 1.0.0, 2018/7/10
  */
-public class RestPage<M> implements RestPageAttributes<RestPageableAttributes, M> {
+public class RestPage<M> implements RestPageAttributes<RestPageable, M, CriteriaMap> {
 
   /**
    * 分页参数
    */
-  private RestPageableAttributes pageable;
+  private RestPageable pageable;
 
   /**
    * 数据模型
@@ -25,19 +24,19 @@ public class RestPage<M> implements RestPageAttributes<RestPageableAttributes, M
   /**
    * 附加数据
    */
-  private CriteriaAttributes attach;
+  private CriteriaMap attach;
 
   public RestPage() {
     pageable = new RestPageable();
   }
 
   @Override
-  public RestPageableAttributes getPageable() {
+  public RestPageable getPageable() {
     return pageable;
   }
 
   @Override
-  public RestPage<M> setPageable(RestPageableAttributes pageable) {
+  public RestPage<M> setPageable(RestPageable pageable) {
     this.pageable = pageable;
     return this;
   }
@@ -54,12 +53,12 @@ public class RestPage<M> implements RestPageAttributes<RestPageableAttributes, M
   }
 
   @Override
-  public CriteriaAttributes getAttach() {
+  public CriteriaMap getAttach() {
     return attach;
   }
 
   @Override
-  public RestPage<M> setAttach(CriteriaAttributes attach) {
+  public RestPage<M> setAttach(CriteriaMap attach) {
     this.attach = attach;
     return this;
   }

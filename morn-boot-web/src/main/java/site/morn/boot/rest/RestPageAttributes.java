@@ -11,7 +11,7 @@ import site.morn.rest.RestPageableAttributes;
  * @author timely-rain
  * @since 1.0.0, 2018/7/10
  */
-public interface RestPageAttributes<P extends RestPageableAttributes, M> {
+public interface RestPageAttributes<P extends RestPageableAttributes, M, A extends CriteriaAttributes> {
 
   /**
    * 获取REST分页参数
@@ -26,7 +26,7 @@ public interface RestPageAttributes<P extends RestPageableAttributes, M> {
    * @param pageable 分页参数
    * @return REST分页请求
    */
-  RestPageAttributes<P, M> setPageable(P pageable);
+  RestPageAttributes<P, M, A> setPageable(P pageable);
 
   /**
    * 获取数据模型
@@ -41,14 +41,14 @@ public interface RestPageAttributes<P extends RestPageableAttributes, M> {
    * @param model 数据模型
    * @return REST分页请求
    */
-  RestPageAttributes<P, M> setModel(M model);
+  RestPageAttributes<P, M, A> setModel(M model);
 
   /**
    * 获取附加数据
    *
    * @return 附加数据
    */
-  CriteriaAttributes getAttach();
+  A getAttach();
 
   /**
    * 设置附加数据
@@ -56,7 +56,7 @@ public interface RestPageAttributes<P extends RestPageableAttributes, M> {
    * @param attach 附加数据
    * @return REST分页请求
    */
-  RestPageAttributes<P, M> setAttach(CriteriaAttributes attach);
+  RestPageAttributes<P, M, A> setAttach(A attach);
 
   /**
    * 生成JPA分页请求
