@@ -2,14 +2,14 @@ package site.morn.boot.rest;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import site.morn.core.CriteriaAttributes;
 import site.morn.rest.RestPageableAttributes;
 
 /**
  * REST分页请求
  *
  * @author timely-rain
- * @version 1.0.0, 2018/7/10
- * @since 1.0
+ * @since 1.0.0, 2018/7/10
  */
 public interface RestPageAttributes<P extends RestPageableAttributes, M> {
 
@@ -42,6 +42,21 @@ public interface RestPageAttributes<P extends RestPageableAttributes, M> {
    * @return REST分页请求
    */
   RestPageAttributes<P, M> setModel(M model);
+
+  /**
+   * 获取附加数据
+   *
+   * @return 附加数据
+   */
+  CriteriaAttributes getAttach();
+
+  /**
+   * 设置附加数据
+   *
+   * @param attach 附加数据
+   * @return REST分页请求
+   */
+  RestPageAttributes<P, M> setAttach(CriteriaAttributes attach);
 
   /**
    * 生成JPA分页请求
