@@ -3,7 +3,6 @@ package site.morn.boot.jpa;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
-import javax.persistence.criteria.Predicate;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 import org.springframework.data.jpa.domain.Specification;
@@ -44,14 +43,15 @@ public final class SpecificationBuilder<M> {
           .builder(builder)
           .pair(pair);
       JpaPredicate predicate = new JpaPredicate().builder(builder);
-      return function.predicate(predicate, condition, reference);
+      function.predicate(predicate, condition, reference);
+      return predicate.clause();
     });
   }
 
   @FunctionalInterface
   public interface SpecificationFunction {
 
-    Predicate predicate(JpaPredicate predicate, JpaBatchCondition condition, Reference reference);
+    void predicate(JpaPredicate predicate, JpaBatchCondition condition, Reference reference);
   }
 
   @RequiredArgsConstructor
