@@ -4,7 +4,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import lombok.Builder;
 
 /**
  * site.morn.boot.jpa
@@ -12,17 +12,16 @@ import javax.persistence.criteria.Root;
  * @author timely-rain
  * @since 1.0.0, 2019/1/13
  */
-public abstract class JpaConditionSupport<T, D> implements JpaBatchCondition<T>,
-    JpaConditionPair<D>,
-    JpaConditionValue {
-
-  private Root<T> root;
+@Builder
+public class JpaConditionSupport<T, M> implements JpaBatchCondition<T> {
 
   private Path<T> path;
 
   private CriteriaQuery<?> query;
 
   private CriteriaBuilder builder;
+
+  private JpaConditionPair<M> pair;
 
   @Override
   public Predicate[] equalAll() {
@@ -41,16 +40,6 @@ public abstract class JpaConditionSupport<T, D> implements JpaBatchCondition<T>,
 
   @Override
   public Predicate in(String name) {
-    return null;
-  }
-
-  @Override
-  public JpaConditionPair withNamePair(String pathName, String model) {
-    return null;
-  }
-
-  @Override
-  public <V> JpaConditionPair withValuePair(String pathName, V value) {
     return null;
   }
 

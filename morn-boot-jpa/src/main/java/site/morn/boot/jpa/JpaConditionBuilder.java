@@ -8,7 +8,7 @@ package site.morn.boot.jpa;
  */
 public class JpaConditionBuilder {
 
-  public static <T, M> JpaModelCondition<T, M> modelCondition() {
-    return new JpaModelCondition<>();
-  }
+//  public static <T> JpaCondition<T> modelCondition() {
+//    return new JpaConditionSupport<>(pair);
+//  }
 }
