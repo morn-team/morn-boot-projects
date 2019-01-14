@@ -2,8 +2,9 @@ package site.morn.boot.jpa;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 import org.springframework.data.jpa.domain.Specification;
 
@@ -14,25 +15,20 @@ import org.springframework.data.jpa.domain.Specification;
  * @since 1.0.0, 2019/1/13
  */
 @Accessors(chain = true, fluent = true)
-public final class SpecificationBuilder<T, A> {
+public final class SpecificationBuilder<M> {
 
-  private T model;
-
-  private A attach;
-
-  private Root<T> root;
-
-  private CriteriaQuery<?> query;
-
-  private CriteriaBuilder builder;
-
-  private Predicate predicate = null;
+  private JpaConditionPair<M> pair;
 
   private SpecificationBuilder() {
   }
 
-  public static <T, A> SpecificationBuilder<T, A> builder() {
+  public static <T> SpecificationBuilder<T> builder() {
     return new SpecificationBuilder<>();
+  }
+
+  public SpecificationBuilder<M> pair(JpaConditionPair<M> pair) {
+    this.pair = pair;
+    return this;
   }
 
   /**
@@ -40,23 +36,31 @@ public final class SpecificationBuilder<T, A> {
    *
    * @return JPA查询规格
    */
-  public Specification<T> build() {
-    return ((r, cq, cb) ->
+  public Specification<M> specification(SpecificationFunction function) {
+    return ((root, query, builder) ->
     {
-      this.root = r;
-      this.query = cq;
-      this.builder = cb;
-      return predicate;
+      Reference reference = new Reference(root, query, builder);
+      JpaBatchCondition condition = new JpaConditionSupport<M>().path(root).query(query)
+          .builder(builder)
+          .pair(pair);
+      JpaPredicate predicate = new JpaPredicate().builder(builder);
+      return function.predicate(predicate, condition, reference);
     });
   }
 
-  public SpecificationBuilder<T, A> model(T model) {
-    this.model = model;
-    return this;
+  @FunctionalInterface
+  public interface SpecificationFunction {
+
+    Predicate predicate(JpaPredicate predicate, JpaBatchCondition condition, Reference reference);
   }
 
-  public SpecificationBuilder<T, A> attach(A attach) {
-    this.attach = attach;
-    return this;
+  @RequiredArgsConstructor
+  public static class Reference {
+
+    private final Path<?> path;
+
+    private final CriteriaQuery<?> query;
+
+    private final CriteriaBuilder builder;
   }
 }

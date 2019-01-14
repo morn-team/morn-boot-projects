@@ -12,9 +12,9 @@ import site.morn.util.OptionalCollection;
  */
 public interface JpaConditionPair<M> {
 
-  JpaConditionPair withModel(M model);
+  JpaConditionPair model(M model);
 
-  JpaConditionPair withAttach(Map<String, Object> attach);
+  JpaConditionPair attach(Map<String, Object> attach);
 
   JpaConditionPair withNamePair(String pathName, String model);
 

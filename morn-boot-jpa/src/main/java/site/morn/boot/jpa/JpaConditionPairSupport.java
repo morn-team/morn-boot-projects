@@ -13,12 +13,12 @@ import site.morn.util.OptionalCollection;
 public class JpaConditionPairSupport<M> implements JpaConditionPair<M> {
 
   @Override
-  public JpaConditionPair withModel(M model) {
+  public JpaConditionPair model(M model) {
     return null;
   }
 
   @Override
-  public JpaConditionPair withAttach(Map<String, Object> attach) {
+  public JpaConditionPair attach(Map<String, Object> attach) {
     return null;
   }
 

@@ -8,7 +8,7 @@ import javax.persistence.criteria.Predicate;
  * @author timely-rain
  * @since 1.0.0, 2019/1/13
  */
-public interface JpaCondition<T> {
+public interface JpaCondition {
 
   Predicate equal(String name);
 

@@ -4,7 +4,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
-import lombok.Builder;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
 /**
  * site.morn.boot.jpa
@@ -12,10 +13,11 @@ import lombok.Builder;
  * @author timely-rain
  * @since 1.0.0, 2019/1/13
  */
-@Builder
-public class JpaConditionSupport<T, M> implements JpaBatchCondition<T> {
+@Accessors(chain = true, fluent = true)
+@Setter
+public class JpaConditionSupport<M> implements JpaBatchCondition {
 
-  private Path<T> path;
+  private Path<?> path;
 
   private CriteriaQuery<?> query;
 

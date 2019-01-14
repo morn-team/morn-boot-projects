@@ -10,7 +10,7 @@ import javax.persistence.criteria.Predicate;
  * @author timely-rain
  * @since 1.0.0, 2019/1/13
  */
-public interface JpaBatchCondition<T> extends JpaCondition<T> {
+public interface JpaBatchCondition extends JpaCondition {
 
   Predicate[] equalAll();
 
