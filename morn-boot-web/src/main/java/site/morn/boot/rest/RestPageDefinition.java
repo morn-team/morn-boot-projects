@@ -3,7 +3,7 @@ package site.morn.boot.rest;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import site.morn.core.CriteriaAttributes;
-import site.morn.rest.RestPageableAttributes;
+import site.morn.rest.RestPageableDefinition;
 
 /**
  * REST分页请求
@@ -11,7 +11,7 @@ import site.morn.rest.RestPageableAttributes;
  * @author timely-rain
  * @since 1.0.0, 2018/7/10
  */
-public interface RestPageAttributes<P extends RestPageableAttributes, M, A extends CriteriaAttributes> {
+public interface RestPageDefinition<P extends RestPageableDefinition, M, A extends CriteriaAttributes> {
 
   /**
    * 获取REST分页参数
@@ -26,7 +26,7 @@ public interface RestPageAttributes<P extends RestPageableAttributes, M, A exten
    * @param pageable 分页参数
    * @return REST分页请求
    */
-  RestPageAttributes<P, M, A> setPageable(P pageable);
+  RestPageDefinition<P, M, A> setPageable(P pageable);
 
   /**
    * 获取数据模型
@@ -41,7 +41,7 @@ public interface RestPageAttributes<P extends RestPageableAttributes, M, A exten
    * @param model 数据模型
    * @return REST分页请求
    */
-  RestPageAttributes<P, M, A> setModel(M model);
+  RestPageDefinition<P, M, A> setModel(M model);
 
   /**
    * 获取附加数据
@@ -56,7 +56,7 @@ public interface RestPageAttributes<P extends RestPageableAttributes, M, A exten
    * @param attach 附加数据
    * @return REST分页请求
    */
-  RestPageAttributes<P, M, A> setAttach(A attach);
+  RestPageDefinition<P, M, A> setAttach(A attach);
 
   /**
    * 生成JPA分页请求
@@ -64,7 +64,7 @@ public interface RestPageAttributes<P extends RestPageableAttributes, M, A exten
    * @return JPA分页请求
    */
   default PageRequest generatePageRequest() {
-    RestPageableAttributes pageable = getPageable();
+    RestPageableDefinition pageable = getPageable();
     return new PageRequest(pageable.getPage(), pageable.getSize());
   }
 
@@ -74,7 +74,7 @@ public interface RestPageAttributes<P extends RestPageableAttributes, M, A exten
    * @return JPA分页请求
    */
   default PageRequest generatePageRequest(Sort sort) {
-    RestPageableAttributes pageable = getPageable();
+    RestPageableDefinition pageable = getPageable();
     return new PageRequest(pageable.getPage(), pageable.getSize(), sort);
   }
 }

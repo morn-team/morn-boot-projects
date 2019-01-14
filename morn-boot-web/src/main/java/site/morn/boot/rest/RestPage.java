@@ -1,15 +1,16 @@
 package site.morn.boot.rest;
 
 import site.morn.core.CriteriaMap;
+import site.morn.rest.RestPageable;
 
 /**
  * REST分页请求
  *
  * @author timely-rain
- * @see RestPageAttributes REST分页请求
+ * @see RestPageDefinition REST分页请求
  * @since 1.0.0, 2018/7/10
  */
-public class RestPage<M> implements RestPageAttributes<RestPageable, M, CriteriaMap> {
+public class RestPage<M> implements RestPageDefinition<RestPageable, M, CriteriaMap> {
 
   /**
    * 分页参数
