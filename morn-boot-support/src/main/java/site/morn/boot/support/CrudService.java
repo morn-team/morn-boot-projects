@@ -6,7 +6,7 @@ import site.morn.boot.rest.RestPage;
 import site.morn.rest.RestModel;
 
 /**
- * site.morn.boot.support
+ * 基础服务
  *
  * @author TianGanLin
  * @since 0.0.1-SNAPSHOT, 2019/1/14

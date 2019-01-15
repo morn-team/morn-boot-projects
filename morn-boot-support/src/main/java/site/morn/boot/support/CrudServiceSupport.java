@@ -1,8 +1,9 @@
 package site.morn.boot.support;
 
 import java.io.Serializable;
+import javax.annotation.Resource;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
@@ -11,17 +12,17 @@ import site.morn.core.CriteriaMap;
 import site.morn.rest.RestModel;
 
 /**
- * site.morn.boot.support
+ * 基础服务实现
  *
  * @author TianGanLin
  * @since 0.0.1-SNAPSHOT, 2019/1/14
  */
 @Slf4j
-public abstract class CrudServiceSupport<T, I extends Serializable, R extends JpaRepository<T, I>>
-    implements CrudService<T, I> {
+@Getter
+public abstract class CrudServiceSupport<T, I extends Serializable> implements CrudService<T, I> {
 
-  @Autowired
-  protected R repository;
+  @Resource
+  protected JpaRepository<T, I> repository;
 
   @Override
   public <S extends T> S add(RestModel<S> restModel) {

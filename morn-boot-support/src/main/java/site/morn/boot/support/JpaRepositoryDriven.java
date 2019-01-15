@@ -10,7 +10,5 @@ import java.io.Serializable;
  */
 public interface JpaRepositoryDriven<T, I extends Serializable> {
 
-  JpaRepository<T, I> getRepository();
-
   void setRepository(JpaRepository<T, I> repository);
 }
