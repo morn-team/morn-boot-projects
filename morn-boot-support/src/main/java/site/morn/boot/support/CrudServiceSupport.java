@@ -64,5 +64,12 @@ public abstract class CrudServiceSupport<T, I extends Serializable> implements C
 
   }
 
-  public abstract Specification<T> searchSpecification(T model, CriteriaMap attach);
+  /**
+   * 构建搜索条件
+   *
+   * @param model 数据模型
+   * @param attach 附加数据
+   * @return 搜索条件
+   */
+  protected abstract Specification<T> searchSpecification(T model, CriteriaMap attach);
 }
