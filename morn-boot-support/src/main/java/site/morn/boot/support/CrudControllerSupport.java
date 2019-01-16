@@ -9,8 +9,9 @@ import javax.annotation.Resource;
  * @author timely-rain
  * @since 1.0.0, 2019/1/15
  */
-public class CrudControllerSupport<T, I extends Serializable> implements CrudController<T, I> {
+public class CrudControllerSupport<T, I extends Serializable, S extends CrudService<T, I>>
+    implements CrudController<T, I> {
 
   @Resource
-  protected CrudService<T, I> service;
+  protected S service;
 }
