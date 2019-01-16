@@ -1,32 +1,27 @@
 package site.morn.boot.rest;
 
 import site.morn.core.CriteriaMap;
+import site.morn.rest.RestModel;
+import site.morn.rest.RestPageable;
+import site.morn.util.TypeUtils;
 
 /**
  * REST分页请求
  *
  * @author timely-rain
- * @see RestPageAttributes REST分页请求
+ * @see RestPageDefinition REST分页请求
  * @since 1.0.0, 2018/7/10
  */
-public class RestPage<M> implements RestPageAttributes<RestPageable, M, CriteriaMap> {
+public class RestPage<M> extends RestModel<M> implements
+    RestPageDefinition<RestPageable, M, CriteriaMap> {
 
   /**
    * 分页参数
    */
   private RestPageable pageable;
 
-  /**
-   * 数据模型
-   */
-  private M model;
-
-  /**
-   * 附加数据
-   */
-  private CriteriaMap attach;
-
   public RestPage() {
+    super();
     pageable = new RestPageable();
   }
 
@@ -36,30 +31,9 @@ public class RestPage<M> implements RestPageAttributes<RestPageable, M, Criteria
   }
 
   @Override
-  public RestPage<M> setPageable(RestPageable pageable) {
+  public <T extends RestPageDefinition<RestPageable, M, CriteriaMap>> T setPageable(
+      RestPageable pageable) {
     this.pageable = pageable;
-    return this;
-  }
-
-  @Override
-  public M getModel() {
-    return model;
-  }
-
-  @Override
-  public RestPage<M> setModel(M model) {
-    this.model = model;
-    return this;
-  }
-
-  @Override
-  public CriteriaMap getAttach() {
-    return attach;
-  }
-
-  @Override
-  public RestPage<M> setAttach(CriteriaMap attach) {
-    this.attach = attach;
-    return this;
+    return TypeUtils.as(this);
   }
 }
