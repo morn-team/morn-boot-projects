@@ -21,8 +21,7 @@ import site.morn.exception.ExceptionProcessor;
  * @since 1.0.0, 2018/12/12
  */
 @Configuration
-@ConditionalOnClass({Servlet.class, DispatcherServlet.class,
-    WebMvcConfigurerAdapter.class})
+@ConditionalOnClass({Servlet.class, DispatcherServlet.class, WebMvcConfigurerAdapter.class})
 public class WebAutoConfiguration {
 
   /**
@@ -43,7 +42,7 @@ public class WebAutoConfiguration {
    * @return Jackson消息转换器
    */
   @Bean
-  @ConditionalOnClass(Hibernate5Module.class)
+  @ConditionalOnClass(name = "com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module")
   public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
     MappingJackson2HttpMessageConverter messageConverter = new MappingJackson2HttpMessageConverter();
     ObjectMapper objectMapper = messageConverter.getObjectMapper();
