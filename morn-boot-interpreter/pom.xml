@@ -24,15 +24,22 @@
       <optional>true</optional>
     </dependency>
     <dependency>
+      <groupId>site.morn.boot</groupId>
+      <artifactId>morn-boot-core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <!--Shiro-->
+    <dependency>
       <groupId>org.apache.shiro</groupId>
       <artifactId>shiro-core</artifactId>
       <version>${shiro.version}</version>
       <optional>true</optional>
     </dependency>
+    <!--javax.validation-->
     <dependency>
-      <groupId>site.morn.boot</groupId>
-      <artifactId>morn-boot-core</artifactId>
-      <version>${project.version}</version>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+      <optional>true</optional>
     </dependency>
   </dependencies>
 
