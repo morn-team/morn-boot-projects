@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import site.morn.rest.RestMessage;
 import site.morn.rest.RestModel;
 import site.morn.util.TypeUtils;
 import site.morn.validate.group.Add;
+import site.morn.validate.group.Delete;
 import site.morn.validate.group.Put;
 import site.morn.validate.group.Search;
 import site.morn.validate.group.Update;
@@ -69,10 +71,9 @@ public class CrudControllerSupport<T, I extends Serializable, S extends CrudServ
   /**
    * 删除
    */
-  @DeleteMapping
-  public RestMessage delete(
-      @Validated({Update.class, Put.class}) @RequestBody RestModel<T> restModel) {
-    service().delete(restModel);
+  @DeleteMapping("/{id}")
+  public RestMessage delete(@Validated({Delete.class}) @PathVariable I id) {
+    service().delete(id);
     return RestBuilders.successMessage();
   }
 

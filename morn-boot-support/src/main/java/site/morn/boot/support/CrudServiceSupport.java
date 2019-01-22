@@ -68,7 +68,8 @@ public abstract class CrudServiceSupport<T, I extends Serializable, R extends Jp
 
   @Override
   public <S extends T> void delete(RestModel<S> restModel) {
-
+    S model = restModel.getModel();
+    repository.delete(model);
   }
 
   @Override
