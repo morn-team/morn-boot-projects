@@ -13,7 +13,9 @@ import site.morn.rest.RestBuilders;
 import site.morn.rest.RestMessage;
 import site.morn.rest.RestModel;
 import site.morn.util.TypeUtils;
+import site.morn.validate.group.Add;
 import site.morn.validate.group.Put;
+import site.morn.validate.group.Search;
 import site.morn.validate.group.Update;
 
 /**
@@ -39,9 +41,8 @@ public class CrudControllerSupport<T, I extends Serializable, S extends CrudServ
    * 新增
    */
   @PostMapping
-  public RestMessage add(@Validated @RequestBody RestModel<T> restModel) {
-    service().add(restModel);
-    return RestBuilders.successMessage();
+  public RestMessage add(@Validated(Add.class) @RequestBody RestModel<T> restModel) {
+    return save(restModel);
   }
 
   /**
@@ -50,8 +51,7 @@ public class CrudControllerSupport<T, I extends Serializable, S extends CrudServ
   @PutMapping
   public RestMessage update(
       @Validated({Update.class, Put.class}) @RequestBody RestModel<T> restModel) {
-    service().add(restModel);
-    return RestBuilders.successMessage();
+    return save(restModel);
   }
 
   /**
@@ -61,7 +61,7 @@ public class CrudControllerSupport<T, I extends Serializable, S extends CrudServ
    * @return REST消息
    */
   @PostMapping("search")
-  public RestMessage search(RestPage<T> restPage) {
+  public RestMessage search(@Validated(Search.class) RestPage<T> restPage) {
     Page<T> page = service.search(restPage);
     return RestBuilders.successMessage(page);
   }
@@ -74,5 +74,13 @@ public class CrudControllerSupport<T, I extends Serializable, S extends CrudServ
       @Validated({Update.class, Put.class}) @RequestBody RestModel<T> restModel) {
     service().delete(restModel);
     return RestBuilders.successMessage();
+  }
+
+  /**
+   * 新增/更新
+   */
+  private RestMessage save(RestModel<T> restModel) {
+    T user = service().add(restModel);
+    return RestBuilders.successMessage(user);
   }
 }
