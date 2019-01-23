@@ -63,7 +63,7 @@ public class CrudControllerSupport<T, I extends Serializable, S extends CrudServ
    * @return REST消息
    */
   @PostMapping("search")
-  public RestMessage search(@Validated(Search.class) RestPage<T> restPage) {
+  public RestMessage search(@Validated(Search.class) @RequestBody RestPage<T> restPage) {
     Page<T> page = service.search(restPage);
     return RestBuilders.successMessage(page);
   }
