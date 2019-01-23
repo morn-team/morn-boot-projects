@@ -3,7 +3,7 @@ package site.morn.boot.jpa;
 import javax.persistence.criteria.Predicate;
 
 /**
- * site.morn.boot.jpa
+ * JPA查询条件
  *
  * @author timely-rain
  * @since 1.0.0, 2019/1/13
