@@ -31,6 +31,12 @@
       "defaultValue": "message"
     },
     {
+      "name": "morn.exception-aspect.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Enable exception global aspect features for the application.",
+      "defaultValue": false
+    },
+    {
       "name": "morn.exception-interpreter.enabled",
       "type": "java.lang.Boolean",
       "description": "Enable exception interpreter features for the application.",
