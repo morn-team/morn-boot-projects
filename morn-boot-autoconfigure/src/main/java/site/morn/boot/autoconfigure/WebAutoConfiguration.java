@@ -39,16 +39,24 @@ public class WebAutoConfiguration {
   }
 
   /**
-   * 注册Jackson消息转换器
-   *
-   * @return Jackson消息转换器
+   * JacksonHibernate模块配置
    */
-  @Bean
-  @ConditionalOnClass(name = "com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module")
-  public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
-    MappingJackson2HttpMessageConverter messageConverter = new MappingJackson2HttpMessageConverter();
-    ObjectMapper objectMapper = messageConverter.getObjectMapper();
-    objectMapper.registerModule(new Hibernate5Module());
-    return messageConverter;
+  @Configuration
+  @ConditionalOnClass(Hibernate5Module.class)
+  public static class JacksonHibernateModuleConfiguration {
+
+    /**
+     * 注册Jackson消息转换器
+     *
+     * @return Jackson消息转换器
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
+      MappingJackson2HttpMessageConverter messageConverter = new MappingJackson2HttpMessageConverter();
+      ObjectMapper objectMapper = messageConverter.getObjectMapper();
+      objectMapper.registerModule(new Hibernate5Module());
+      return messageConverter;
+    }
   }
 }
