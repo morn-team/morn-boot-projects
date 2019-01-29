@@ -6,9 +6,11 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import site.morn.bean.IdentifiedBeanCache;
 import site.morn.boot.exception.DefaultExceptionProcessor;
 import site.morn.boot.exception.interpreter.ApplicationExceptionInterpreter;
+import site.morn.boot.exception.interpreter.MethodValidateExceptionInterpreter;
 import site.morn.boot.exception.interpreter.ShiroExceptionInterpreter;
 import site.morn.boot.exception.interpreter.ValidateExceptionInterpreter;
 import site.morn.boot.exception.interpreter.ValidationExceptionInterpreter;
@@ -82,5 +84,17 @@ public class ExceptionInterpreterAutoConfiguration {
   @ConditionalOnProperty(prefix = "morn.exception-interpreter.validate", value = "enabled", havingValue = "true")
   public ExceptionInterpreter validationExceptionInterpreter() {
     return new ValidationExceptionInterpreter();
+  }
+
+  /**
+   * 注册数据校验异常解释器
+   *
+   * @return 数据校验异常解释器
+   */
+  @Bean
+  @ConditionalOnClass(MethodArgumentNotValidException.class)
+  @ConditionalOnProperty(prefix = "morn.exception-interpreter.validate", value = "enabled", havingValue = "true")
+  public ExceptionInterpreter methodValidateExceptionInterpreter() {
+    return new MethodValidateExceptionInterpreter();
   }
 }

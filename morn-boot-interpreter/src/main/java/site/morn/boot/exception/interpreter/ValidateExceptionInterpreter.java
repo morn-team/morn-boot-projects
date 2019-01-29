@@ -1,8 +1,6 @@
 package site.morn.boot.exception.interpreter;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import site.morn.bean.annotation.Target;
@@ -24,23 +22,10 @@ public class ValidateExceptionInterpreter implements ExceptionInterpreter {
   @Override
   public ApplicationMessage resolve(Throwable throwable, Object... args) {
     BindException bindException = (BindException) throwable;
-    // 获取全部属性错误
-    List<FieldError> errors = bindException.getFieldErrors();
     // 生成错误消息文本
-    List<String> messages = errors.stream().map(this::generateMessage).collect(Collectors.toList());
-    String message = StringUtils.collectionToCommaDelimitedString(messages);
+    List<FieldError> errors = bindException.getFieldErrors();
+    String message = ExceptionInterpreterUtils.generateMessages(errors);
     // 构建异常消息
     return ApplicationMessages.buildMessage("validate", message, null);
-  }
-
-  /**
-   * 生成错误信息
-   *
-   * @param fieldError 属性错误
-   * @return 错误信息
-   */
-  private String generateMessage(FieldError fieldError) {
-    return fieldError.getObjectName() + "." + fieldError.getField() + fieldError
-        .getDefaultMessage();
   }
 }
