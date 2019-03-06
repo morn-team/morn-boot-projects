@@ -60,9 +60,10 @@ public class RestPageUtils {
     String[] pairs = sort.split(",");
     for (String pair : pairs) {
       String[] split = pair.trim().split("\\s+");
-      String name = split[0];
-      Direction direction = Direction.fromStringOrNull(split[1]);
-      Order order = new Order(direction, name);
+      String property = split[0];
+      String dir = split.length == 1 ? "" : split[1];
+      Direction direction = Direction.fromStringOrNull(dir);
+      Order order = new Order(direction, property);
       orders.add(order);
     }
     return new Sort(orders);
