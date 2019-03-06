@@ -41,8 +41,10 @@ public class DefaultApplicationMessageChanger implements TranslateChanger<Applic
     String solutionCode = Translators
         .formatCode(properties.getPrefix(), code, properties.getSolutionSuffix());
     // 翻译
-    String message = translator.translate(messageCode, transfer.getArgs());
-    String solution = translator.translate(solutionCode, transfer.getArgs());
+    String message = translator
+        .translate(messageCode, transfer.getArgs(), transfer.getDefaultMessage());
+    String solution = translator
+        .translate(solutionCode, transfer.getArgs(), transfer.getDefaultMessage());
     // 构建应用消息
     return ApplicationMessages.buildMessage(code, message, solution);
   }
