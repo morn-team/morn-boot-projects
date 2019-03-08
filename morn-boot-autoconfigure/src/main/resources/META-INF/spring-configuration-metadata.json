@@ -97,6 +97,18 @@
       "defaultValue": true
     },
     {
+      "name": "morn.translator.language",
+      "type": "java.lang.String",
+      "description": "The default i18n language.",
+      "defaultValue": "zh"
+    },
+    {
+      "name": "morn.translator.country",
+      "type": "java.lang.String",
+      "description": "The default i18n country.",
+      "defaultValue": ""
+    },
+    {
       "name": "morn.validator.enabled",
       "type": "java.lang.Boolean",
       "description": "Enable validator features for the application.",
