@@ -40,7 +40,6 @@ public class OperateAspect {
    */
   @Pointcut("@annotation(site.morn.log.OperateAction)")
   public void pointcut() {
-    log.debug("This is operation pointcut.");
   }
 
   @Around("pointcut()")
@@ -49,6 +48,7 @@ public class OperateAspect {
     try {
       // 执行目标方法，并记录执行结果
       Object returned = point.proceed();
+      operateMetaBuilder.methodReturned(returned);
       operateMetaBuilder.success(true);
       return returned;
     } catch (Throwable throwable) {
@@ -63,6 +63,7 @@ public class OperateAspect {
       List<OperationConverter> converters = beanCache.beans(OperationConverter.class);
       Assert.notEmpty(converters, "请注册操作日志转换器：" + OperationConverter.class.getName());
       Operation operation = converters.get(0).convert(operateMeta);
+      operation.setMeta(operateMeta); // 携带元数据
       // 处理操作日志
       List<OperationProcessor> processors = beanCache.beans(OperationProcessor.class);
       Assert.notEmpty(processors, "请注册操作日志处理器：" + OperationProcessor.class.getName());
@@ -87,7 +88,7 @@ public class OperateAspect {
     OperateAction operateAction = AnnotationUtils
         .findAnnotation(methodSignature.getMethod(), OperateAction.class);
     // 构建操作日志元数据
-    return OperateMeta.builder().module(operateGroup.value()).name(operateAction.value())
-        .excepts(operateAction.excepts());
+    return OperateMeta.builder().methodArgs(point.getArgs()).module(operateGroup.value())
+        .name(operateAction.value()).excepts(operateAction.excepts());
   }
 }
