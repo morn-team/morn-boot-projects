@@ -45,6 +45,7 @@ public class OperateAspect {
   @Around("pointcut()")
   public Object aroundOperate(ProceedingJoinPoint point) throws Throwable {
     OperateMetaBuilder operateMetaBuilder = resolveOperatePoint(point);
+    operateMetaBuilder.source(point); // 记录日志来源
     try {
       // 执行目标方法，并记录执行结果
       Object returned = point.proceed();
@@ -63,12 +64,11 @@ public class OperateAspect {
       List<OperationConverter> converters = beanCache.beans(OperationConverter.class);
       Assert.notEmpty(converters, "请注册操作日志转换器：" + OperationConverter.class.getName());
       Operation operation = converters.get(0).convert(operateMeta);
-      operation.setMeta(operateMeta); // 携带元数据
       // 处理操作日志
       List<OperationProcessor> processors = beanCache.beans(OperationProcessor.class);
       Assert.notEmpty(processors, "请注册操作日志处理器：" + OperationProcessor.class.getName());
       for (OperationProcessor processor : processors) {
-        processor.accept(operation);
+        processor.handle(operateMeta, operation);
       }
     }
   }
