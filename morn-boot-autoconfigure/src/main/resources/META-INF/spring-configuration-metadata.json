@@ -61,12 +61,6 @@
       "defaultValue": false
     },
     {
-      "name": "morn.operate.default-converter.enabled",
-      "type": "java.lang.Boolean",
-      "description": "Enable default operation converter features for the application.",
-      "defaultValue": false
-    },
-    {
       "name": "morn.rest.prefix",
       "type": "java.lang.String",
       "description": "The default prefix for REST Message.",
