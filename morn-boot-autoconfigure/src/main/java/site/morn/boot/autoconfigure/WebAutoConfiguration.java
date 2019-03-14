@@ -6,6 +6,7 @@ import javax.servlet.Servlet;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -32,21 +33,30 @@ public class WebAutoConfiguration {
   @Bean
   @ConditionalOnMissingBean
   @ConditionalOnBean(ExceptionProcessor.class)
+  @ConditionalOnProperty(prefix = "morn.exception-aspect", value = "enabled", havingValue = "true")
   public ExceptionHandlerAspect exceptionHandlerAspect(ExceptionProcessor exceptionProcessor) {
     return new ExceptionHandlerAspect(exceptionProcessor);
   }
 
   /**
-   * 注册Jackson消息转换器
-   *
-   * @return Jackson消息转换器
+   * JacksonHibernate模块配置
    */
-  @Bean
-  @ConditionalOnClass(name = "com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module")
-  public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
-    MappingJackson2HttpMessageConverter messageConverter = new MappingJackson2HttpMessageConverter();
-    ObjectMapper objectMapper = messageConverter.getObjectMapper();
-    objectMapper.registerModule(new Hibernate5Module());
-    return messageConverter;
+  @Configuration
+  @ConditionalOnClass(Hibernate5Module.class)
+  public static class JacksonHibernateModuleConfiguration {
+
+    /**
+     * 注册Jackson消息转换器
+     *
+     * @return Jackson消息转换器
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
+      MappingJackson2HttpMessageConverter messageConverter = new MappingJackson2HttpMessageConverter();
+      ObjectMapper objectMapper = messageConverter.getObjectMapper();
+      objectMapper.registerModule(new Hibernate5Module());
+      return messageConverter;
+    }
   }
 }

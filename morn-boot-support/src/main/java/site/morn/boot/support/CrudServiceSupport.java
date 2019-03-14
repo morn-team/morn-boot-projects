@@ -1,15 +1,16 @@
 package site.morn.boot.support;
 
 import java.io.Serializable;
-import javax.annotation.Resource;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import site.morn.boot.rest.RestPage;
 import site.morn.core.CriteriaMap;
 import site.morn.rest.RestModel;
+import site.morn.util.TypeUtils;
 
 /**
  * 基础服务实现
@@ -19,14 +20,23 @@ import site.morn.rest.RestModel;
  */
 @Slf4j
 @Getter
-public abstract class CrudServiceSupport<T, I extends Serializable> implements CrudService<T, I> {
+public abstract class CrudServiceSupport<T, I extends Serializable, R extends JpaRepository<T, I>>
+    implements CrudService<T, I> {
 
-  @Resource
-  protected JpaRepository<T, I> repository;
+  @Autowired
+  private JpaRepository<T, I> repository;
+
+  /**
+   * 数据访问对象
+   */
+  protected R repository() {
+    return TypeUtils.as(repository);
+  }
 
   @Override
   public <S extends T> S add(RestModel<S> restModel) {
-    return null;
+    S model = restModel.getModel();
+    return repository.save(model);
   }
 
   @Override
@@ -41,27 +51,29 @@ public abstract class CrudServiceSupport<T, I extends Serializable> implements C
 
   @Override
   public <S extends T> S update(RestModel<S> restModel) {
-    return null;
+    S model = restModel.getModel();
+    return repository.save(model);
   }
 
   @Override
   public <S extends T> S patch(RestModel<S> restModel) {
-    return null;
+    S model = restModel.getModel();
+    return repository.save(model);
   }
 
   @Override
   public void delete(I id) {
-
+    repository.delete(id);
   }
 
   @Override
   public <S extends T> void delete(RestModel<S> restModel) {
-
+    S model = restModel.getModel();
+    repository.delete(model);
   }
 
   @Override
   public void delete(Iterable<? extends I> ids) {
-
   }
 
   /**

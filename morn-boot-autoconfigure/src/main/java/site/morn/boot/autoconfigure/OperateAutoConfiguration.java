@@ -1,5 +1,6 @@
 package site.morn.boot.autoconfigure;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,12 +26,13 @@ public class OperateAutoConfiguration {
    * @return 操作日志切面
    */
   @Bean
+  @ConditionalOnMissingBean
   public OperateAspect operateAspect(IdentifiedBeanCache beanCache) {
     return new OperateAspect(beanCache);
   }
 
   @Bean
-  @ConditionalOnProperty(prefix = "morn.operate.default-converter", value = "enabled", havingValue = "true")
+  @ConditionalOnMissingBean
   public OperationConverter operationConverter(Translator translator) {
     return new DefaultOperationConverter(translator);
   }
