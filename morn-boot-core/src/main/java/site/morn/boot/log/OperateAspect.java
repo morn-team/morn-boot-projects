@@ -1,6 +1,7 @@
 package site.morn.boot.log;
 
 import java.util.List;
+import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -88,7 +89,11 @@ public class OperateAspect {
     OperateAction operateAction = AnnotationUtils
         .findAnnotation(methodSignature.getMethod(), OperateAction.class);
     // 构建操作日志元数据
-    return OperateMeta.builder().methodArgs(point.getArgs()).module(operateGroup.value())
+    OperateMetaBuilder builder = OperateMeta.builder().methodArgs(point.getArgs())
         .name(operateAction.value()).excepts(operateAction.excepts());
+    if (Objects.nonNull(operateGroup)) {
+      builder.module(operateGroup.value());
+    }
+    return builder;
   }
 }
