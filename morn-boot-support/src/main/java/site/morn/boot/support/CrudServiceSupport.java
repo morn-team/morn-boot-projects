@@ -1,6 +1,7 @@
 package site.morn.boot.support;
 
 import java.io.Serializable;
+import java.util.List;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,12 +42,21 @@ public abstract class CrudServiceSupport<T, I extends Serializable, R extends Jp
 
   @Override
   public Page<T> search(RestPage<T> restPage) {
-    log.info("搜索列表");
+    log.info("分页搜索");
     PageRequest pageRequest = restPage.generatePageRequest();// 分页请求
     CriteriaMap attach = restPage.getAttach(); // 附加数据
     T model = restPage.getModel(); // 数据模型
     Specification<T> specification = searchSpecification(model, attach);// 查询条件
     return repository.findAll(specification, pageRequest); // 分页查询
+  }
+
+  @Override
+  public List<T> searchAll(RestModel<T> restModel) {
+    log.info("全部搜索");
+    CriteriaMap attach = restModel.getAttach(); // 附加数据
+    T model = restModel.getModel(); // 数据模型
+    Specification<T> specification = searchSpecification(model, attach);// 查询条件
+    return repository.findAll(specification); // 分页查询
   }
 
   @Override
