@@ -40,7 +40,7 @@ public class JpaCommon<M> {
   private JpaBatchCondition condition;
 
   public JpaCommon<M> attach(Map<String, Object> attach) {
-    this.attach(new CriteriaMap(attach));
+    this.attach = new CriteriaMap(attach);
     return this;
   }
 
