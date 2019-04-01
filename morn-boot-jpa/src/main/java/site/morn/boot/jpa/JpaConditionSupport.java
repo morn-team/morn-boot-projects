@@ -1,5 +1,6 @@
 package site.morn.boot.jpa;
 
+import java.util.Optional;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
@@ -8,7 +9,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 
 /**
- * site.morn.boot.jpa
+ * JPA查询条件
  *
  * @author timely-rain
  * @since 1.0.0, 2019/1/13
@@ -23,7 +24,7 @@ public class JpaConditionSupport<M> implements JpaBatchCondition {
 
   private CriteriaBuilder builder;
 
-  private JpaConditionPair<M> pair;
+  private JpaParameter<M> parameter;
 
   @Override
   public Predicate[] equalAll() {
@@ -32,7 +33,8 @@ public class JpaConditionSupport<M> implements JpaBatchCondition {
 
   @Override
   public Predicate equal(String name) {
-    return null;
+    Optional<Object> optional = parameter.getOptional(name);
+    return optional.map(o -> builder.equal(getPath(name), o)).orElse(null);
   }
 
   @Override

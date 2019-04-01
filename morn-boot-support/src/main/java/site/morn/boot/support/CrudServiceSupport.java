@@ -35,7 +35,8 @@ public abstract class CrudServiceSupport<T, I extends Serializable, R extends Jp
 
   @Override
   public <S extends T> S add(RestModel<S> restModel) {
-    return null;
+    S model = restModel.getModel();
+    return repository.save(model);
   }
 
   @Override
@@ -50,27 +51,29 @@ public abstract class CrudServiceSupport<T, I extends Serializable, R extends Jp
 
   @Override
   public <S extends T> S update(RestModel<S> restModel) {
-    return null;
+    S model = restModel.getModel();
+    return repository.save(model);
   }
 
   @Override
   public <S extends T> S patch(RestModel<S> restModel) {
-    return null;
+    S model = restModel.getModel();
+    return repository.save(model);
   }
 
   @Override
   public void delete(I id) {
-
+    repository.delete(id);
   }
 
   @Override
   public <S extends T> void delete(RestModel<S> restModel) {
-
+    S model = restModel.getModel();
+    repository.delete(model);
   }
 
   @Override
   public void delete(Iterable<? extends I> ids) {
-
   }
 
   /**

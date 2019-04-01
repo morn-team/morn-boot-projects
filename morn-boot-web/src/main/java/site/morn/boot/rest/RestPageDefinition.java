@@ -2,6 +2,7 @@ package site.morn.boot.rest;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.util.StringUtils;
 import site.morn.core.CriteriaAttributes;
 import site.morn.rest.RestModelDefinition;
 import site.morn.rest.RestPageableDefinition;
@@ -31,13 +32,28 @@ public interface RestPageDefinition<P extends RestPageableDefinition, M, A exten
   <T extends RestPageDefinition<P, M, A>> T setPageable(P pageable);
 
   /**
+   * 生成排序信息
+   *
+   * @return 排序信息
+   */
+  default Sort generateSort() {
+    RestPageableDefinition pageable = getPageable();
+    String sort = pageable.getSort();
+    return RestPageUtils.generateSort(sort);
+  }
+
+  /**
    * 生成JPA分页请求
    *
    * @return JPA分页请求
    */
   default PageRequest generatePageRequest() {
     RestPageableDefinition pageable = getPageable();
-    return new PageRequest(pageable.getPage(), pageable.getSize());
+    if (StringUtils.isEmpty(pageable.getSort())) {
+      return new PageRequest(pageable.getPage(), pageable.getSize());
+    }
+    Sort sort = generateSort();
+    return new PageRequest(pageable.getPage(), pageable.getSize(), sort);
   }
 
   /**

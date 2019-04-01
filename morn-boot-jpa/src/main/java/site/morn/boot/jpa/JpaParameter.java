@@ -5,20 +5,20 @@ import java.util.Optional;
 import site.morn.util.OptionalCollection;
 
 /**
- * site.morn.boot.jpa
+ * JPA查询参数
  *
  * @author timely-rain
  * @since 1.0.0, 2019/1/13
  */
-public interface JpaConditionPair<M> {
+public interface JpaParameter<M> {
 
-  JpaConditionPair model(M model);
+  JpaParameter model(M model);
 
-  JpaConditionPair attach(Map<String, Object> attach);
+  JpaParameter attach(Map<String, Object> attach);
 
-  JpaConditionPair withNamePair(String pathName, String model);
+  JpaParameter withNamePair(String pathName, String model);
 
-  <V> JpaConditionPair withValuePair(String pathName, V value);
+  <V> JpaParameter withValuePair(String pathName, V value);
 
   <V> Optional<V> getOptional(String name);
 

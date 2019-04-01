@@ -1,6 +1,7 @@
 package site.morn.boot.log;
 
 import java.util.List;
+import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -40,15 +41,16 @@ public class OperateAspect {
    */
   @Pointcut("@annotation(site.morn.log.OperateAction)")
   public void pointcut() {
-    log.debug("This is operation pointcut.");
   }
 
   @Around("pointcut()")
   public Object aroundOperate(ProceedingJoinPoint point) throws Throwable {
     OperateMetaBuilder operateMetaBuilder = resolveOperatePoint(point);
+    operateMetaBuilder.source(point); // 记录日志来源
     try {
       // 执行目标方法，并记录执行结果
       Object returned = point.proceed();
+      operateMetaBuilder.methodReturned(returned);
       operateMetaBuilder.success(true);
       return returned;
     } catch (Throwable throwable) {
@@ -67,7 +69,7 @@ public class OperateAspect {
       List<OperationProcessor> processors = beanCache.beans(OperationProcessor.class);
       Assert.notEmpty(processors, "请注册操作日志处理器：" + OperationProcessor.class.getName());
       for (OperationProcessor processor : processors) {
-        processor.accept(operation);
+        processor.handle(operateMeta, operation);
       }
     }
   }
@@ -87,7 +89,11 @@ public class OperateAspect {
     OperateAction operateAction = AnnotationUtils
         .findAnnotation(methodSignature.getMethod(), OperateAction.class);
     // 构建操作日志元数据
-    return OperateMeta.builder().module(operateGroup.value()).name(operateAction.value())
-        .excepts(operateAction.excepts());
+    OperateMetaBuilder builder = OperateMeta.builder().methodArgs(point.getArgs())
+        .name(operateAction.value()).excepts(operateAction.excepts());
+    if (Objects.nonNull(operateGroup)) {
+      builder.module(operateGroup.value());
+    }
+    return builder;
   }
 }

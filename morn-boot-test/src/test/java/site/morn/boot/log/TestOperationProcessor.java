@@ -3,6 +3,7 @@ package site.morn.boot.log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import site.morn.bean.annotation.Tag;
+import site.morn.log.OperateMeta;
 import site.morn.log.Operation;
 import site.morn.log.OperationProcessor;
 
@@ -18,7 +19,7 @@ import site.morn.log.OperationProcessor;
 public class TestOperationProcessor implements OperationProcessor {
 
   @Override
-  public void accept(Operation operation) {
+  public void handle(OperateMeta operateMeta, Operation operation) {
     log.info("保存操作日志：" + operation);
   }
 }

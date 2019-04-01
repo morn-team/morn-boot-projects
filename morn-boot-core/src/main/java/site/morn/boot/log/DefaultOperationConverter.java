@@ -33,7 +33,12 @@ public class DefaultOperationConverter implements OperationConverter {
     String content = translator.translate(messageCode, operateMeta.getArguments());
     // 操作时间
     Date date = new Date();
-    return Operation.builder().success(operateMeta.isSuccess())
-        .module(operateMeta.getModule()).content(content).date(date).build();
+    // 构建操作日志实例
+    Operation operation = new Operation();
+    operation.setSuccess(operateMeta.isSuccess());
+    operation.setModule(operateMeta.getModule());
+    operation.setContent(content);
+    operation.setDate(date);
+    return operation;
   }
 }
