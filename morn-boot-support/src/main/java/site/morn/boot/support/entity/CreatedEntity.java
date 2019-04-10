@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
@@ -27,6 +29,7 @@ public class CreatedEntity {
    */
   @Column
   @CreatedDate
+  @Temporal(TemporalType.DATE)
   protected Date createTime;
 
   /**
@@ -34,5 +37,6 @@ public class CreatedEntity {
    */
   @Column
   @LastModifiedDate
+  @Temporal(TemporalType.DATE)
   protected Date modifyTime;
 }
