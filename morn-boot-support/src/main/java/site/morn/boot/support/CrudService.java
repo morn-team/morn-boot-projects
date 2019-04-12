@@ -1,6 +1,7 @@
 package site.morn.boot.support;
 
 import java.io.Serializable;
+import java.util.List;
 import org.springframework.data.domain.Page;
 import site.morn.boot.rest.RestPage;
 import site.morn.rest.RestModel;
@@ -23,12 +24,20 @@ public interface CrudService<T, I extends Serializable> {
   <S extends T> S add(RestModel<S> restModel);
 
   /**
-   * 查询
+   * 分页查询
    *
    * @param restPage REST分页请求
    * @return 分页结果集
    */
   Page<T> search(RestPage<T> restPage);
+
+  /**
+   * 全部查询
+   *
+   * @param restModel REST分页请求
+   * @return 分页结果集
+   */
+  List<T> searchAll(RestModel<T> restModel);
 
   /**
    * 全量更新

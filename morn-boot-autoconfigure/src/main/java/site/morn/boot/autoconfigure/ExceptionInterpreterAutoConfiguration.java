@@ -6,7 +6,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import site.morn.bean.IdentifiedBeanCache;
 import site.morn.boot.exception.DefaultExceptionProcessor;
 import site.morn.boot.exception.interpreter.ApplicationExceptionInterpreter;
@@ -46,55 +45,63 @@ public class ExceptionInterpreterAutoConfiguration {
    * @return 应用异常解释器
    */
   @Bean
-  @ConditionalOnMissingBean
   public ExceptionInterpreter applicationExceptionInterpreter() {
     return new ApplicationExceptionInterpreter();
   }
 
   /**
-   * 注册Shiro异常解释器
-   *
-   * @return Shiro异常解释器
+   * Shiro相关配置
    */
-  @Bean
-  @ConditionalOnClass(org.apache.shiro.mgt.SecurityManager.class)
+  @Configuration
+  @ConditionalOnClass({SecurityManager.class, ShiroExceptionInterpreter.class})
   @ConditionalOnProperty(prefix = "morn.exception-interpreter.shiro", value = "enabled", havingValue = "true")
-  public ExceptionInterpreter shiroExceptionInterpreter() {
-    return new ShiroExceptionInterpreter();
+  public class ShiroConfiguration {
+
+    /**
+     * 注册Shiro异常解释器
+     *
+     * @return Shiro异常解释器
+     */
+    @Bean
+    public ExceptionInterpreter shiroExceptionInterpreter() {
+      return new ShiroExceptionInterpreter();
+    }
   }
 
-  /**
-   * 注册数据校验异常解释器
-   *
-   * @return 数据校验异常解释器
-   */
-  @Bean
+  @Configuration
+  @ConditionalOnClass({ValidateExceptionInterpreter.class, ValidationExceptionInterpreter.class,
+      MethodValidateExceptionInterpreter.class})
   @ConditionalOnProperty(prefix = "morn.exception-interpreter.validate", value = "enabled", havingValue = "true")
-  public ExceptionInterpreter validateExceptionInterpreter() {
-    return new ValidateExceptionInterpreter();
-  }
+  public class ValidateConfiguration {
 
-  /**
-   * 注册数据校验异常解释器
-   *
-   * @return 数据校验异常解释器
-   */
-  @Bean
-  @ConditionalOnClass(name = "javax.validation.ConstraintViolationException")
-  @ConditionalOnProperty(prefix = "morn.exception-interpreter.validate", value = "enabled", havingValue = "true")
-  public ExceptionInterpreter validationExceptionInterpreter() {
-    return new ValidationExceptionInterpreter();
-  }
+    /**
+     * 注册数据校验异常解释器
+     *
+     * @return 数据校验异常解释器
+     */
+    @Bean
+    public ExceptionInterpreter validateExceptionInterpreter() {
+      return new ValidateExceptionInterpreter();
+    }
 
-  /**
-   * 注册数据校验异常解释器
-   *
-   * @return 数据校验异常解释器
-   */
-  @Bean
-  @ConditionalOnClass(MethodArgumentNotValidException.class)
-  @ConditionalOnProperty(prefix = "morn.exception-interpreter.validate", value = "enabled", havingValue = "true")
-  public ExceptionInterpreter methodValidateExceptionInterpreter() {
-    return new MethodValidateExceptionInterpreter();
+    /**
+     * 注册数据校验异常解释器
+     *
+     * @return 数据校验异常解释器
+     */
+    @Bean
+    public ExceptionInterpreter validationExceptionInterpreter() {
+      return new ValidationExceptionInterpreter();
+    }
+
+    /**
+     * 注册数据校验异常解释器
+     *
+     * @return 数据校验异常解释器
+     */
+    @Bean
+    public ExceptionInterpreter methodValidateExceptionInterpreter() {
+      return new MethodValidateExceptionInterpreter();
+    }
   }
 }

@@ -14,22 +14,22 @@ public class JpaParameterSupport<M> implements JpaParameter<M> {
 
   @Override
   public JpaParameter model(M model) {
-    return null;
+    return this;
   }
 
   @Override
   public JpaParameter attach(Map<String, Object> attach) {
-    return null;
+    return this;
   }
 
   @Override
   public JpaParameter withNamePair(String pathName, String model) {
-    return null;
+    return this;
   }
 
   @Override
   public <V> JpaParameter withValuePair(String pathName, V value) {
-    return null;
+    return this;
   }
 
   @Override
