@@ -36,6 +36,6 @@ public class ReviserEntity extends CreatorEntity {
    */
   @Column
   @LastModifiedDate
-  @Temporal(TemporalType.DATE)
+  @Temporal(TemporalType.TIMESTAMP)
   protected Date modifyTime;
 }

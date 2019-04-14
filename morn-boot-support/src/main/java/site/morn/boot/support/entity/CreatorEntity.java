@@ -36,6 +36,6 @@ public class CreatorEntity {
    */
   @Column
   @CreatedDate
-  @Temporal(TemporalType.DATE)
+  @Temporal(TemporalType.TIMESTAMP)
   protected Date createTime;
 }
