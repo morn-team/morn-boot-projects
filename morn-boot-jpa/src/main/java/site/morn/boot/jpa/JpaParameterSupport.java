@@ -2,6 +2,7 @@ package site.morn.boot.jpa;
 
 import java.beans.PropertyDescriptor;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import org.springframework.beans.BeanUtils;
 import site.morn.core.CriteriaMap;
@@ -34,7 +35,9 @@ public class JpaParameterSupport<M> implements JpaParameter<M> {
 
   @Override
   public JpaParameter attach(Map<String, Object> attach) {
-    this.attach.putAll(attach);
+    if (Objects.nonNull(attach)) {
+      this.attach.putAll(attach);
+    }
     return this;
   }
 

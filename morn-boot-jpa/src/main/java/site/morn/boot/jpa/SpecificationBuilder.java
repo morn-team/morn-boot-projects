@@ -33,6 +33,10 @@ public final class SpecificationBuilder<M> {
     }
   }
 
+  public static <T> SpecificationBuilder<T> withParameter(T model) {
+    return withParameter(model, null);
+  }
+
   public static <T> SpecificationBuilder<T> withParameter(T model, CriteriaMap attach) {
     return new SpecificationBuilder<>(model, attach, null);
   }
