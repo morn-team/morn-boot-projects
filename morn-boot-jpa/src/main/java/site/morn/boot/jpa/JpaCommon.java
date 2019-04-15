@@ -27,7 +27,7 @@ public class JpaCommon<M> {
 
   private JpaParameter<M> parameter;
 
-  private Path<?> path;
+  private Path<M> path;
 
   private CriteriaQuery<?> query;
 
