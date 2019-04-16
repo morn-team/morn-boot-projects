@@ -28,13 +28,13 @@ public class JpaParameterSupport<M> implements JpaParameter<M> {
   private CriteriaMap attach = new CriteriaMap();
 
   @Override
-  public JpaParameter model(M model) {
+  public JpaParameter<M> model(M model) {
     this.model = model;
     return this;
   }
 
   @Override
-  public JpaParameter attach(Map<String, Object> attach) {
+  public JpaParameter<M> attach(Map<String, Object> attach) {
     if (Objects.nonNull(attach)) {
       this.attach.putAll(attach);
     }
@@ -42,12 +42,12 @@ public class JpaParameterSupport<M> implements JpaParameter<M> {
   }
 
   @Override
-  public JpaParameter withNamePair(String pathName, String model) {
+  public JpaParameter<M> withNamePair(String pathName, String model) {
     return this;
   }
 
   @Override
-  public <V> JpaParameter withValuePair(String pathName, V value) {
+  public <V> JpaParameter<M> withValuePair(String pathName, V value) {
     attach.put(pathName, value);
     return this;
   }
@@ -59,6 +59,11 @@ public class JpaParameterSupport<M> implements JpaParameter<M> {
     Optional<V> modelValue = Optional.ofNullable(TypeUtils.as(value)); // 优先从model中获取值
     V attachValue = modelValue.orElse(attach.getExpect(name)); // 否则从attach中获取值
     return Optional.ofNullable(attachValue);
+  }
+
+  @Override
+  public Optional<String> getStringOptional(String name) {
+    return getOptional(name);
   }
 
   @Override

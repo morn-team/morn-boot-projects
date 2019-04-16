@@ -1,18 +1,16 @@
 package site.morn.boot.jpa;
 
+import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Stream;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.Attribute;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.springframework.util.Assert;
-import site.morn.util.TypeUtils;
 
 /**
  * JPA查询条件
@@ -24,29 +22,56 @@ import site.morn.util.TypeUtils;
 @Setter
 public class JpaConditionSupport<M> implements JpaBatchCondition {
 
-  private Path<M> path;
-
-  private CriteriaQuery<?> query;
-
-  private CriteriaBuilder builder;
+  private JpaReference<M> reference;
 
   private JpaParameter<M> parameter;
 
   @Override
   public Predicate[] equalAll() {
-    Stream<Predicate> predicateStream = attributeStream().map(Attribute::getName).map(this::equal);
-    return JpaConditionUtils.array(predicateStream);
+    Stream<Predicate> predicateStream = reference.attributeStream().map(Attribute::getName)
+        .map(this::equal);
+    return JpaPredicate.array(predicateStream);
   }
 
   @Override
   public Predicate equal(String name) {
     Optional<Object> optional = parameter.getOptional(name);
-    return optional.map(o -> builder.equal(path.get(name), o)).orElse(null);
+    return optional.map(o -> builder().equal(path().get(name), o)).orElse(null);
   }
 
   @Override
-  public Predicate like(String name, String prefix, String suffix) {
-    return null;
+  public Predicate contain(String name) {
+    return contain(name, name);
+  }
+
+  @Override
+  public Predicate contain(String name, String valueName) {
+    Path<String> attribute = path().get(name);
+    Optional<String> optional = parameter.getOptional(valueName);
+    String value = optional.orElse("");
+    return contain(attribute, value);
+  }
+
+  @Override
+  public Predicate contain(Expression<String> attribute, String value) {
+    String contains = JpaConditionUtils.contains(value);
+    return like(attribute, contains);
+  }
+
+  @Override
+  public Predicate startWith(String name) {
+    Path<String> attribute = path().get(name);
+    String value = parameter.getStringOptional(name).orElse("");
+    String startWith = JpaConditionUtils.startWith(value);
+    return like(attribute, startWith);
+  }
+
+  @Override
+  public Predicate endWith(String name) {
+    Path<String> attribute = path().get(name);
+    String value = parameter.getStringOptional(name).orElse("");
+    String endWith = JpaConditionUtils.endWith(value);
+    return like(attribute, endWith);
   }
 
   @Override
@@ -55,23 +80,29 @@ public class JpaConditionSupport<M> implements JpaBatchCondition {
   }
 
   /**
-   * 获取实体类属性
+   * 模糊搜索
    *
-   * @return 属性集合
+   * @param attribute 实体属性
+   * @param expression 查询表达式
+   * @return 条件断言
    */
-  private Set<Attribute<? super M, ?>> attributes() {
-    Assert.isInstanceOf(Root.class, path);
-    Root<M> root = TypeUtils.as(path);
-    return root.getModel().getAttributes();
+  private Predicate like(Expression<String> attribute, String expression) {
+    if (Objects.isNull(expression)) {
+      return null;
+    }
+    return JpaConditionUtils.predicate(attribute, expression, builder()::like);
   }
 
-  /**
-   * 获得实体类属性Stream
-   *
-   * @return Stream<Attribute>
-   */
-  private Stream<Attribute<? super M, ?>> attributeStream() {
-    return attributes().stream();
+  private Path<M> path() {
+    return reference.path();
+  }
+
+  private CriteriaQuery<?> query() {
+    return reference.query();
+  }
+
+  private CriteriaBuilder builder() {
+    return reference.builder();
   }
 
 }

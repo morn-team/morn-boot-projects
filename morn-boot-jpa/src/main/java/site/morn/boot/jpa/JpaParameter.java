@@ -12,15 +12,17 @@ import site.morn.util.OptionalCollection;
  */
 public interface JpaParameter<M> {
 
-  JpaParameter model(M model);
+  JpaParameter<M> model(M model);
 
-  JpaParameter attach(Map<String, Object> attach);
+  JpaParameter<M> attach(Map<String, Object> attach);
 
-  JpaParameter withNamePair(String pathName, String model);
+  JpaParameter<M> withNamePair(String pathName, String model);
 
-  <V> JpaParameter withValuePair(String pathName, V value);
+  <V> JpaParameter<M> withValuePair(String pathName, V value);
 
   <V> Optional<V> getOptional(String name);
+
+  Optional<String> getStringOptional(String name);
 
   <V> OptionalCollection<V> getCollectionOptional(String name);
 }

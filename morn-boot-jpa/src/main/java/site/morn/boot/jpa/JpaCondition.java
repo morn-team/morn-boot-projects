@@ -1,5 +1,6 @@
 package site.morn.boot.jpa;
 
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 
 /**
@@ -12,7 +13,15 @@ public interface JpaCondition {
 
   Predicate equal(String name);
 
-  Predicate like(String name, String prefix, String suffix);
-
   Predicate in(String name);
+
+  Predicate contain(String name);
+
+  Predicate contain(String name, String valueName);
+
+  Predicate contain(Expression<String> attribute, String value);
+
+  Predicate startWith(String name);
+
+  Predicate endWith(String name);
 }

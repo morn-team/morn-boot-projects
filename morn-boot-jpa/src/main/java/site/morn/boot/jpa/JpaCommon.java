@@ -33,7 +33,7 @@ public class JpaCommon<M> {
 
   private CriteriaBuilder builder;
 
-  private JpaReference reference;
+  private JpaReference<M> reference;
 
   private JpaPredicate predicate;
 
@@ -65,7 +65,7 @@ public class JpaCommon<M> {
     Assert.notNull(path, "path is null.");
     Assert.notNull(query, "query is null.");
     Assert.notNull(builder, "builder is null.");
-    reference = new JpaReference(path, query, builder);
+    reference = new JpaReference<>(path, query, builder);
     return reference;
   }
 
@@ -88,12 +88,9 @@ public class JpaCommon<M> {
    * @return JPA查询条件
    */
   public JpaBatchCondition buildCondition() {
-    Assert.notNull(path, "path is null.");
-    Assert.notNull(query, "query is null.");
-    Assert.notNull(builder, "builder is null.");
+    Assert.notNull(reference, "reference is null.");
     Assert.notNull(parameter, "parameter is null.");
-    condition = new JpaConditionSupport<M>().path(path).query(query).builder(builder)
-        .parameter(parameter);
+    condition = new JpaConditionSupport<M>().reference(reference).parameter(parameter);
     return condition;
   }
 }

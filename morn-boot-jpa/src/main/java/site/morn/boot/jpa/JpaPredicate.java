@@ -13,12 +13,38 @@ import javax.persistence.criteria.Predicate;
  */
 public class JpaPredicate {
 
+  /**
+   * 查询构建器
+   */
   private final CriteriaBuilder builder;
 
+  /**
+   * 条件断言
+   */
   private Predicate predicate;
 
   public JpaPredicate(CriteriaBuilder builder) {
     this.builder = builder;
+  }
+
+  /**
+   * 将非空断言流转为数组
+   *
+   * @param predicates 断言数组
+   * @return 断言数组
+   */
+  public static Predicate[] array(Predicate[] predicates) {
+    return array(Stream.of(predicates));
+  }
+
+  /**
+   * 将非空断言流转为数组
+   *
+   * @param stream 断言流
+   * @return 断言数组
+   */
+  public static Predicate[] array(Stream<Predicate> stream) {
+    return stream.filter(Objects::nonNull).toArray(Predicate[]::new);
   }
 
   /**
@@ -73,10 +99,19 @@ public class JpaPredicate {
     return this;
   }
 
+  /**
+   * 获取条件断言
+   */
   public Predicate get() {
     return predicate;
   }
 
+  /**
+   * 过滤空选项
+   *
+   * @param restrictions 条件断言数组
+   * @return 条件断言数组
+   */
   private Predicate[] filterNotNull(Predicate... restrictions) {
     return Stream.of(restrictions).filter(Objects::nonNull).toArray(Predicate[]::new);
   }
