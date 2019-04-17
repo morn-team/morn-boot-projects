@@ -3,11 +3,13 @@ package site.morn.boot.jpa;
 
 import java.util.Objects;
 import java.util.Set;
-import java.util.function.Predicate;
+import java.util.function.BiFunction;
 import java.util.stream.Stream;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.Attribute;
 import lombok.Getter;
@@ -32,6 +34,22 @@ public class JpaReference<M> {
   private final CriteriaQuery<?> query;
 
   private final CriteriaBuilder builder;
+
+  /**
+   * 构建条件断言
+   *
+   * @param name 属性名称
+   * @param value 属性值
+   * @param function 条件断言构建方法
+   * @param <T> 属性类型
+   * @param <V> 值类型
+   * @return 条件断言
+   */
+  public <T, V> Predicate predicate(String name, V value,
+      BiFunction<Expression<T>, V, Predicate> function) {
+    Expression<T> expression = path.get(name);
+    return JpaConditionUtils.predicate(expression, value, function);
+  }
 
   public <T> Root<T> root() {
     return TypeUtils.as(path);
@@ -63,7 +81,7 @@ public class JpaReference<M> {
    * @return Stream<Attribute>
    */
   public Stream<Attribute<? super M, ?>> attributeStreamIncludes(String... names) {
-    Predicate<Attribute> includes = attribute -> Stream.of(names)
+    java.util.function.Predicate<Attribute> includes = attribute -> Stream.of(names)
         .anyMatch(s -> Objects.equals(s, attribute.getName()));
     return attributes().stream().filter(includes);
   }

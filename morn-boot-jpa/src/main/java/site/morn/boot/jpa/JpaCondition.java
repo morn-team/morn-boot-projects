@@ -13,6 +13,8 @@ public interface JpaCondition {
 
   Predicate equal(String name);
 
+  Predicate notEqual(String name);
+
   Predicate in(String name);
 
   Predicate contain(String name);

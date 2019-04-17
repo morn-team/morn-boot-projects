@@ -4,6 +4,7 @@ import java.beans.PropertyDescriptor;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 import org.springframework.beans.BeanUtils;
 import site.morn.core.CriteriaMap;
 import site.morn.util.OptionalCollection;
@@ -69,6 +70,17 @@ public class JpaParameterSupport<M> implements JpaParameter<M> {
   @Override
   public <V> OptionalCollection<V> getCollectionOptional(String name) {
     return null;
+  }
+
+  @Override
+  public <V, R> R mapOptional(String name, Function<V, R> mapper) {
+    Optional<V> optional = getOptional(name);
+    return mapOptional(optional, mapper);
+  }
+
+  @Override
+  public <V, R> R mapOptional(Optional<V> optional, Function<V, R> mapper) {
+    return optional.map(mapper).orElse(null);
   }
 
   /**
