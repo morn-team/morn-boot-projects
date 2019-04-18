@@ -4,6 +4,7 @@ import java.util.Objects;
 import java.util.stream.Stream;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
+import site.morn.util.ArrayUtils;
 
 /**
  * JPA查询断言
@@ -55,7 +56,11 @@ public class JpaPredicate {
    * @see CriteriaBuilder
    */
   public Predicate mergeAnd(Predicate... restrictions) {
-    return builder.and(filterNotNull(restrictions));
+    Predicate[] predicates = array(restrictions);
+    if (ArrayUtils.isEmpty(predicates)) {
+      return null;
+    }
+    return builder.and(predicates);
   }
 
   /**
@@ -66,7 +71,11 @@ public class JpaPredicate {
    * @see CriteriaBuilder
    */
   public Predicate mergeOr(Predicate... restrictions) {
-    return builder.or(filterNotNull(restrictions));
+    Predicate[] predicates = array(restrictions);
+    if (ArrayUtils.isEmpty(predicates)) {
+      return null;
+    }
+    return builder.or(predicates);
   }
 
   /**
@@ -78,7 +87,7 @@ public class JpaPredicate {
    */
   public JpaPredicate applyAnd(Predicate... restrictions) {
     // 过滤空值
-    Predicate[] predicates = filterNotNull(restrictions);
+    Predicate[] predicates = array(restrictions);
     Predicate and = builder.and(predicates);
     predicate = Objects.isNull(predicate) ? and : builder.and(predicate, and);
     return this;
@@ -93,7 +102,7 @@ public class JpaPredicate {
    */
   public JpaPredicate applyOr(Predicate... restrictions) {
     // 过滤空值
-    Predicate[] predicates = filterNotNull(restrictions);
+    Predicate[] predicates = array(restrictions);
     Predicate or = builder.or(predicates);
     predicate = Objects.isNull(predicate) ? or : builder.or(predicate, or);
     return this;
@@ -104,16 +113,6 @@ public class JpaPredicate {
    */
   public Predicate get() {
     return predicate;
-  }
-
-  /**
-   * 过滤空选项
-   *
-   * @param restrictions 条件断言数组
-   * @return 条件断言数组
-   */
-  private Predicate[] filterNotNull(Predicate... restrictions) {
-    return Stream.of(restrictions).filter(Objects::nonNull).toArray(Predicate[]::new);
   }
 
 }

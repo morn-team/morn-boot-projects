@@ -117,9 +117,8 @@ public class JpaConditionUtils {
    * @param <T> 实体类类型
    * @return 属性值
    */
-  public static <T> Object getPropertyValue(T model,
-      PropertyDescriptor descriptor) {
-    if (Objects.isNull(model)) {
+  public static <T> Object getPropertyValue(T model, PropertyDescriptor descriptor) {
+    if (Objects.isNull(model) || Objects.isNull(descriptor)) {
       return null;
     }
     Method reader = descriptor.getReadMethod();
