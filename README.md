@@ -6,6 +6,9 @@
 [Validation]:https://github.com/morn-team/morn-boot-projects/wiki/Validation-%E6%95%B0%E6%8D%AE%E6%A0%A1%E9%AA%8C
 
 # Morn Boot Projects
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/973f6c34502a461f86aecdf88d8b989f)](https://app.codacy.com/app/morn-team/morn-boot-projects?utm_source=github.com&utm_medium=referral&utm_content=morn-team/morn-boot-projects&utm_campaign=Badge_Grade_Dashboard)
+
 基于SpringBoot的系列开发工具包，MornBoot不是SpringBoot的替代品，而是其向业务方向延伸。MornBoot初衷是提供简洁的、可拓展的通用业务实现，为SpringBoot项目提供一个良好的开端。MornBoot侧重于开发风格、标准、规范，提供可供参考的优秀实践。
 
 ## Features
