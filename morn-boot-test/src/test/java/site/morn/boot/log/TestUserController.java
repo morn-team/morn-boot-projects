@@ -5,6 +5,8 @@ import org.springframework.stereotype.Component;
 import site.morn.log.OperateAction;
 import site.morn.log.OperateArguments;
 import site.morn.log.OperateGroup;
+import site.morn.rest.RestBuilders;
+import site.morn.rest.RestMessage;
 
 /**
  * 测试用户控制器
@@ -14,16 +16,16 @@ import site.morn.log.OperateGroup;
  */
 @Component
 @OperateGroup("user")
-class TestUserController {
+public class TestUserController {
 
   @OperateAction("add")
-  Map<String, Object> addUser(Map<String, Object> user) {
+  public RestMessage addUser(Map<String, Object> user) {
     OperateArguments.add(user.get("username"));
-    return user;
+    return RestBuilders.successMessage();
   }
 
   @OperateAction("update")
-  Map<String, Object> updateUser(Map<String, Object> user) {
+  public Map<String, Object> updateUser(Map<String, Object> user) {
     OperateArguments.add(user.get("username"));
     OperateArguments.add(user.get("password"));
     throw new RuntimeException("异常测试");
