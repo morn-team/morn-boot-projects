@@ -39,12 +39,22 @@ public class JpaConditionSupport<M> implements JpaBatchCondition {
 
   @Override
   public Predicate equal(String name) {
-    return innerBuilder().predicate(name, builder()::equal);
+    return equal(name, name);
+  }
+
+  @Override
+  public Predicate equal(String name, String valueName) {
+    return innerBuilder().namesPredicate(name, valueName, builder()::equal);
   }
 
   @Override
   public Predicate notEqual(String name) {
-    return innerBuilder().predicate(name, builder()::notEqual);
+    return notEqual(name, name);
+  }
+
+  @Override
+  public Predicate notEqual(String name, String valueName) {
+    return innerBuilder().namesPredicate(name, valueName, builder()::notEqual);
   }
 
   @Override
@@ -55,13 +65,7 @@ public class JpaConditionSupport<M> implements JpaBatchCondition {
   @Override
   public Predicate contain(String name, String valueName) {
     Path<String> attribute = path().get(name);
-    String value = parameter.getStringOptional(valueName).orElse("");
-    return contain(attribute, value);
-  }
-
-  @Override
-  public Predicate contain(Expression<String> attribute, String value) {
-    String contains = JpaConditionUtils.contains(value);
+    String contains = parameter.mapOptional(name, JpaConditionUtils::contains);
     return like(attribute, contains);
   }
 
@@ -86,22 +90,22 @@ public class JpaConditionSupport<M> implements JpaBatchCondition {
   }
 
   /**
-   * 模糊搜索
+   * 获取内置条件构建器
    *
-   * @param attribute 实体属性
-   * @param expression 查询表达式
-   * @return 条件断言
+   * @return 内置条件构建器
    */
-  private Predicate like(Expression<String> attribute, String expression) {
-    return JpaConditionUtils.predicate(attribute, expression, builder()::like);
+  public InnerBuilder innerBuilder() {
+    if (Objects.isNull(innerBuilder)) {
+      innerBuilder = new InnerBuilder();
+    }
+    return innerBuilder;
   }
-
 
   public CriteriaBuilder builder() {
     return reference.builder();
   }
 
-  public CriteriaQuery<?> query() {
+  public CriteriaQuery query() {
     return reference.query();
   }
 
@@ -114,34 +118,45 @@ public class JpaConditionSupport<M> implements JpaBatchCondition {
   }
 
   /**
-   * 获取内置条件构建器
+   * 模糊搜索
    *
-   * @return 内置条件构建器
+   * @param attribute 实体属性
+   * @param s 查询表达式
+   * @return 条件断言
    */
-  public InnerBuilder innerBuilder() {
-    if (Objects.isNull(innerBuilder)) {
-      innerBuilder = new InnerBuilder();
-    }
-    return innerBuilder;
+  private Predicate like(Expression<String> attribute, String s) {
+    return innerBuilder().mapPredicate(attribute, s, builder()::like);
   }
 
+  /**
+   * 内置条件构建器
+   */
   public class InnerBuilder {
 
-    private <T, V> Predicate predicate(String name,
+    private <T, V> Predicate namePredicate(String name,
         BiFunction<Expression<T>, V, Predicate> function) {
-      Expression<T> expression = path().get(name);
-      Optional<V> optional = parameter.getOptional(name);
-      return predicate(expression, optional, function);
+      return namesPredicate(name, name, function);
     }
 
-    private <T, V> Predicate predicate(String name, V value,
+    private <T, V> Predicate namesPredicate(String name, String valueName,
         BiFunction<Expression<T>, V, Predicate> function) {
       Expression<T> expression = path().get(name);
-      Optional<V> optional = Optional.ofNullable(value);
-      return predicate(expression, optional, function);
+      Optional<V> optional = parameter.getOptional(valueName);
+      return referencePredicate(expression, optional, function);
     }
 
-    private <T, V> Predicate predicate(Expression<T> expression, Optional<V> valueOptional,
+    private <T, V> Predicate mapPredicate(String name, V value,
+        BiFunction<Expression<T>, V, Predicate> function) {
+      Expression<T> expression = path().get(name);
+      return mapPredicate(expression, value, function);
+    }
+
+    private <T, V> Predicate mapPredicate(Expression<T> expression, V value,
+        BiFunction<Expression<T>, V, Predicate> function) {
+      return JpaConditionUtils.predicate(expression, value, function);
+    }
+
+    private <T, V> Predicate referencePredicate(Expression<T> expression, Optional<V> valueOptional,
         BiFunction<Expression<T>, V, Predicate> function) {
       return parameter
           .mapOptional(valueOptional, o -> JpaConditionUtils.predicate(expression, o, function));
