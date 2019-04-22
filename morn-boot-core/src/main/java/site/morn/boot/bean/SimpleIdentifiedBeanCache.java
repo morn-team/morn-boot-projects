@@ -54,8 +54,10 @@ public class SimpleIdentifiedBeanCache implements IdentifiedBeanCache {
     }
     // 按目标过滤实例
     if (Objects.nonNull(identify.getTarget())) {
-      holderStream = holderStream.filter(
-          holder -> holder.getIdentify().getTarget().isAssignableFrom(identify.getTarget()));
+      holderStream = holderStream.filter(holder -> {
+        Class<?> target = holder.getIdentify().getTarget();
+        return Objects.nonNull(target) && target.isAssignableFrom(identify.getTarget());
+      });
     }
     // 提取实例集合
     Stream<T> beans = holderStream.map(IdentifiedBeanHolder::getBean);

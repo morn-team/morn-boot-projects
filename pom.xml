@@ -100,11 +100,18 @@
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.7.9</version>
         <executions>
           <execution>
             <goals>
               <goal>prepare-agent</goal>
-              <goal>report</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>default-report</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report-aggregate</goal>
             </goals>
           </execution>
         </executions>
