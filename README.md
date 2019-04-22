@@ -52,16 +52,6 @@ MornBoot没有强制依赖SpringBoot，你必须在项目中引入SpringBoot相�
 
 ## Function
 
-[Message]:https://github.com/morn-team/morn-boot-projects/wiki/Application-Message-%E5%BA%94%E7%94%A8%E6%B6%88%E6%81%AF
-[Bean]:https://github.com/morn-team/morn-boot-projects/wiki/Bean-Enhance-%E5%AE%9E%E4%BE%8B%E5%A2%9E%E5%BC%BA
-[Exception]:https://github.com/morn-team/morn-boot-projects/wiki/Exception-Interpreter-%E5%BC%82%E5%B8%B8%E8%A7%A3%E9%87%8A
-[JPA]:https://github.com/morn-team/morn-boot-projects/wiki/JPA-Assist-%E6%8C%81%E4%B9%85%E5%8C%96%E8%BE%85%E5%8A%A9
-[Operation]:https://github.com/morn-team/morn-boot-projects/wiki/Operation-Log-%E6%93%8D%E4%BD%9C%E6%97%A5%E5%BF%97
-[REST]:https://github.com/morn-team/morn-boot-projects/wiki/REST-Model---%E7%BB%9F%E4%B8%80REST%E6%A8%A1%E5%9E%8B
-[Validation]:https://github.com/morn-team/morn-boot-projects/wiki/Validation-%E6%95%B0%E6%8D%AE%E6%A0%A1%E9%AA%8C
-
-MornBoot初衷是提供简洁的、可拓展的通用业务实现，为`SpringBoot`项目提供一个良好的开端。MornBoot侧重于开发风格、标准、规范，提供可供参考的优秀实践。
-
 ### [Application Message 应用消息][Message]
 
 MornBoot提供快速构建应用提示消息和应用异常的工具类。使用`ApplicationMessages`生成应用消息：
