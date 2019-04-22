@@ -6,7 +6,7 @@
 
   <groupId>site.morn.boot</groupId>
   <artifactId>morn-boot-projects</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <description>Morn Boot Projects - 基于Spring Boot的系列开发工具包</description>
@@ -26,6 +26,13 @@
     <module>morn-boot-test</module>
     <module>morn-boot-web</module>
   </modules>
+
+  <scm>
+    <url>https://github.com/morn-team/morn-boot-projects</url>
+    <connection>scm:git:https://github.com/morn-team/morn-boot-projects.git</connection>
+    <developerConnection>scm:git:https://github.com/morn-team/morn-boot-projects.git
+    </developerConnection>
+  </scm>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -91,6 +98,24 @@
           </execution>
         </executions>
       </plugin>
+      <!--Javadoc-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.7</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+            <configuration>
+              <!--不校验-->
+              <additionalparam>-Xdoclint:none</additionalparam>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
       <!--静态检查插件-->
       <plugin>
         <groupId>org.sonarsource.scanner.maven</groupId>
@@ -116,7 +141,16 @@
           </execution>
         </executions>
       </plugin>
-      <!--发布插件，自动Release-->
+      <!--发布插件-->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.5.3</version>
+        <configuration>
+          <tagNameFormat>v${project.version}</tagNameFormat>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>org.sonatype.plugins</groupId>
         <artifactId>nexus-staging-maven-plugin</artifactId>
