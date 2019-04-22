@@ -79,13 +79,39 @@ public class JpaPredicate {
   }
 
   /**
-   * 拼接And条件至WHERE语句 merge the And restrictions to WHERE clause
+   * 追加And条件
    *
    * @param restrictions 查询条件
-   * @return JPA Condition
+   * @return JPA查询断言
+   * @see CriteriaBuilder
+   * @deprecated 语义不明确 {@link this#appendAnd(Predicate...)}
+   */
+  @Deprecated
+  public JpaPredicate applyAnd(Predicate... restrictions) {
+    return appendAnd(restrictions);
+  }
+
+  /**
+   * 追加Or条件
+   *
+   * @param restrictions 查询条件
+   * @return JPA查询断言
+   * @see CriteriaBuilder
+   * @deprecated 语义不明确 {@link this#appendOr(Predicate...)} (Predicate...)}
+   */
+  @Deprecated
+  public JpaPredicate applyOr(Predicate... restrictions) {
+    return appendOr(restrictions);
+  }
+
+  /**
+   * 追加And条件
+   *
+   * @param restrictions 查询条件
+   * @return JPA查询断言
    * @see CriteriaBuilder
    */
-  public JpaPredicate applyAnd(Predicate... restrictions) {
+  public JpaPredicate appendAnd(Predicate... restrictions) {
     // 过滤空值
     Predicate[] predicates = array(restrictions);
     Predicate and = builder.and(predicates);
@@ -94,13 +120,13 @@ public class JpaPredicate {
   }
 
   /**
-   * 拼接Or条件至WHERE语句 merge the Or restrictions to WHERE clause
+   * 追加Or条件
    *
    * @param restrictions 查询条件
-   * @return JPA Condition
+   * @return JPA查询断言
    * @see CriteriaBuilder
    */
-  public JpaPredicate applyOr(Predicate... restrictions) {
+  public JpaPredicate appendOr(Predicate... restrictions) {
     // 过滤空值
     Predicate[] predicates = array(restrictions);
     Predicate or = builder.or(predicates);
