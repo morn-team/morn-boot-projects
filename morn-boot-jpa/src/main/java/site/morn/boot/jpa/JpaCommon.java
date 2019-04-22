@@ -1,6 +1,7 @@
 package site.morn.boot.jpa;
 
 import java.util.Map;
+import java.util.Objects;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
@@ -40,7 +41,11 @@ public class JpaCommon<M> {
   private JpaBatchCondition condition;
 
   public JpaCommon<M> attach(Map<String, Object> attach) {
-    this.attach = new CriteriaMap(attach);
+    if (Objects.isNull(attach)) {
+      this.attach = new CriteriaMap();
+    } else {
+      this.attach = new CriteriaMap(attach);
+    }
     return this;
   }
 

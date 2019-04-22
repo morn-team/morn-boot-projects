@@ -14,6 +14,7 @@ import site.morn.boot.rest.RestPage;
 import site.morn.core.CriteriaMap;
 import site.morn.rest.RestModel;
 import site.morn.util.TypeUtils;
+import site.morn.validate.persistent.PersistValidateUtils;
 
 /**
  * 基础服务实现
@@ -75,12 +76,15 @@ public abstract class CrudServiceSupport<T, I extends Serializable, R extends Jp
 
   @Override
   public void delete(I id) {
+    T model = repository().findOne(id);
+    PersistValidateUtils.validateDelete(model); // 数据删除校验
     repository.delete(id);
   }
 
   @Override
   public <S extends T> void delete(RestModel<S> restModel) {
     S model = restModel.getModel();
+    PersistValidateUtils.validateDelete(model); // 数据删除校验
     repository.delete(model);
   }
 
