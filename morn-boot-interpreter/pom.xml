@@ -31,7 +31,6 @@
     <dependency>
       <groupId>site.morn.boot</groupId>
       <artifactId>morn-boot-core</artifactId>
-      <version>${project.version}</version>
     </dependency>
     <!--Shiro-->
     <dependency>

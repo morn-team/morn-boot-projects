@@ -42,17 +42,14 @@
     <dependency>
       <groupId>site.morn.boot</groupId>
       <artifactId>morn-boot-autoconfigure</artifactId>
-      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>site.morn.boot</groupId>
       <artifactId>morn-boot-core</artifactId>
-      <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>site.morn.boot</groupId>
       <artifactId>morn-boot-web</artifactId>
-      <version>${project.version}</version>
     </dependency>
   </dependencies>
 

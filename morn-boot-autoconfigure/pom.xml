@@ -30,30 +30,20 @@
       <artifactId>spring-boot-starter-web</artifactId>
       <optional>true</optional>
     </dependency>
-    <!--Morn-->
-    <dependency>
-      <groupId>site.morn</groupId>
-      <artifactId>morn-core</artifactId>
-      <version>${project.version}</version>
-      <optional>true</optional>
-    </dependency>
     <!--Morn Boot-->
     <dependency>
       <groupId>site.morn.boot</groupId>
       <artifactId>morn-boot-core</artifactId>
-      <version>${project.version}</version>
       <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>site.morn.boot</groupId>
       <artifactId>morn-boot-interpreter</artifactId>
-      <version>${project.version}</version>
       <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>site.morn.boot</groupId>
       <artifactId>morn-boot-web</artifactId>
-      <version>${project.version}</version>
       <optional>true</optional>
     </dependency>
     <!--Shiro-->
