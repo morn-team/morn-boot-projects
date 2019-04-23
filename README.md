@@ -27,7 +27,9 @@ MornBoot没有强制依赖SpringBoot，你必须在项目中引入SpringBoot相�
 
 ## Quick Start
 
-当前版本：`1.0.1`
+### RELEASE版本: `1.0.1`
+
+Maven Dependency
 
 ```
 <!--自动化配置-->
@@ -48,6 +50,34 @@ MornBoot没有强制依赖SpringBoot，你必须在项目中引入SpringBoot相�
   <artifactId>morn-boot-web</artifactId>
   <version>${morn.version}</version>
 </dependency>
+```
+
+### 快照版本: `1.0.2-SNAPSHOT`
+
+> 如果想体验最新功能，可以使用快照版本。快照版本需要配置`Sonatype`快照仓库，并确保你的本地Mirror不会覆盖SNAPSHOT仓库。
+
+```
+<repositories>
+  <repository>
+    <id>sonatype-nexus-staging</id>
+    <name>Nexus Release Repository</name>
+    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    <releases>
+      <enabled>true</enabled>
+    </releases>
+  </repository>
+  <repository>
+    <id>sonatype-nexus-snapshots</id>
+    <name>Sonatype Nexus Snapshots</name>
+    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    <releases>
+      <enabled>false</enabled>
+    </releases>
+    <snapshots>
+      <enabled>true</enabled>
+    </snapshots>
+  </repository>
+</repositories>
 ```
 
 ## Function
