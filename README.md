@@ -24,10 +24,9 @@ MornBoot是基于SpringBoot的标准API框架，致力于为JavaWeb项目提供�
 ## Features
 
 * “零配置”轻量级框架
-* 提供通用API完成任何项目
+* 相同API，不同结果呈现
 * 极简风格代码，良好可读性
 * 友好的IDE提示信息
-* 支持自定义扩展
 
 
 ## Getting Help
