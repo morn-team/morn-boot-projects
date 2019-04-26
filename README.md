@@ -16,12 +16,14 @@
 [![LICENSE](https://img.shields.io/github/license/morn-team/morn-boot-projects.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 
-MornBoot是基于SpringBoot的JavaWeb开发框架，致力于为JavaWeb项目提供标准化API。MornBoot初衷是提供简洁的、可拓展的通用功能实现，为SpringBoot项目提供一个良好的开端。MornBoot侧重于开发风格、标准、规范，提供开箱即用的优秀实践。
+MornBoot是基于SpringBoot的标准API框架，致力于为JavaWeb项目提供标准化API。MornBoot初衷是提供简洁的、可拓展的通用功能实现，为SpringBoot项目提供一个良好的开端。MornBoot侧重于开发风格、标准、规范，提供开箱即用的优秀实践。
+
+> 如果你的所有项目都使用同一套API开发，那么更新、维护将变得多么简单！
 
 
 ## Features
 
-* “零”配置实现通用业务
+* “零配置”轻量级框架
 * 提供通用API完成任何项目
 * 极简风格代码，良好可读性
 * 友好的IDE提示信息
@@ -29,10 +31,12 @@ MornBoot是基于SpringBoot的JavaWeb开发框架，致力于为JavaWeb项目提
 
 
 ## Getting Help
+
 MornBoot没有强制依赖SpringBoot，你必须在项目中引入SpringBoot相关包，好处是你可以自由选择依赖版本。建议SpringBoot版本为1.5.X+，尚未测试最低兼容版本。
 
 
 ## Definitions
+
 - `[dev]`表示该功能正在开发中
 - `[expect]`表示该功能将在后续版本中推出
 
