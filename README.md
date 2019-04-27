@@ -13,7 +13,7 @@
 [![Build Status](https://travis-ci.com/morn-team/morn-boot-projects.svg?branch=master)](https://travis-ci.com/morn-team/morn-boot-projects)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/973f6c34502a461f86aecdf88d8b989f)](https://app.codacy.com/app/morn-team/morn-boot-projects?utm_source=github.com&utm_medium=referral&utm_content=morn-team/morn-boot-projects&utm_campaign=Badge_Grade_Dashboard)
 [![codecov](https://codecov.io/gh/morn-team/morn-boot-projects/branch/master/graph/badge.svg)](https://codecov.io/gh/morn-team/morn-boot-projects)
-[![LICENSE](https://img.shields.io/github/license/morn-team/morn-boot-projects.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+[![LICENSE](https://img.shields.io/badge/license-Apache--2.0-brightgreen.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 
 MornBoot是基于SpringBoot的标准API框架，致力于为JavaWeb项目提供标准化API。MornBoot初衷是提供简洁的、可拓展的通用功能实现，为SpringBoot项目提供一个良好的开端。MornBoot侧重于开发风格、标准、规范，提供开箱即用的优秀实践。
