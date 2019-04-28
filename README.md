@@ -6,24 +6,39 @@
 [REST]:https://github.com/morn-team/morn-boot-projects/wiki/REST-Model---%E7%BB%9F%E4%B8%80REST%E6%A8%A1%E5%9E%8B
 [Validation]:https://github.com/morn-team/morn-boot-projects/wiki/Validation-%E6%95%B0%E6%8D%AE%E6%A0%A1%E9%AA%8C
 
+
 # Morn Boot Projects
+ 
+[![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
+[![Build Status](https://travis-ci.com/morn-team/morn-boot-projects.svg?branch=master)](https://travis-ci.com/morn-team/morn-boot-projects)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/973f6c34502a461f86aecdf88d8b989f)](https://app.codacy.com/app/morn-team/morn-boot-projects?utm_source=github.com&utm_medium=referral&utm_content=morn-team/morn-boot-projects&utm_campaign=Badge_Grade_Dashboard)
+[![codecov](https://codecov.io/gh/morn-team/morn-boot-projects/branch/master/graph/badge.svg)](https://codecov.io/gh/morn-team/morn-boot-projects)
+[![LICENSE](https://img.shields.io/badge/license-Apache--2.0-brightgreen.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 
-[![Build Status](https://travis-ci.com/morn-team/morn-boot-projects.svg?branch=master)](https://travis-ci.com/morn-team/morn-boot-projects) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/973f6c34502a461f86aecdf88d8b989f)](https://app.codacy.com/app/morn-team/morn-boot-projects?utm_source=github.com&utm_medium=referral&utm_content=morn-team/morn-boot-projects&utm_campaign=Badge_Grade_Dashboard) [![codecov](https://codecov.io/gh/morn-team/morn-boot-projects/branch/master/graph/badge.svg)](https://codecov.io/gh/morn-team/morn-boot-projects)
+MornBoot是基于SpringBoot的标准API框架，致力于为JavaWeb项目提供标准化API。MornBoot初衷是提供简洁的、可拓展的通用功能实现，为SpringBoot项目提供一个良好的开端。MornBoot侧重于开发风格、标准、规范，提供开箱即用的优秀实践。
 
-基于SpringBoot的系列开发工具包，MornBoot不是SpringBoot的替代品，而是其向业务方向延伸。MornBoot初衷是提供简洁的、可拓展的通用业务实现，为SpringBoot项目提供一个良好的开端。MornBoot侧重于开发风格、标准、规范，提供可供参考的优秀实践。
+> 如果你的所有项目都使用同一套API开发，那么更新、维护将变得多么简单！
+
 
 ## Features
-* “零”配置实现通用业务
+
+* “零配置”轻量级框架
+* 相同API，不同结果呈现
 * 极简风格代码，良好可读性
 * 友好的IDE提示信息
-* 支持自定义扩展
+
 
 ## Getting Help
+
 MornBoot没有强制依赖SpringBoot，你必须在项目中引入SpringBoot相关包，好处是你可以自由选择依赖版本。建议SpringBoot版本为1.5.X+，尚未测试最低兼容版本。
 
+
 ## Definitions
+
 - `[dev]`表示该功能正在开发中
 - `[expect]`表示该功能将在后续版本中推出
+
 
 ## Quick Start
 
@@ -79,6 +94,7 @@ Maven Dependency
   </repository>
 </repositories>
 ```
+
 
 ## Function
 
