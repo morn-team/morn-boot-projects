@@ -62,11 +62,11 @@ public class OperateAspect {
       OperateArguments.clear();
       // 将操作日志元数据，转换为操作日志实例
       OperateMeta operateMeta = operateMetaBuilder.build();
-      List<OperationConverter> converters = beanCache.beans(OperationConverter.class);
+      List<OperationConverter> converters = beanCache.tagBeans(OperationConverter.class);
       Assert.notEmpty(converters, "请注册操作日志转换器：" + OperationConverter.class.getName());
       Operation operation = converters.get(0).convert(operateMeta);
       // 处理操作日志
-      List<OperationProcessor> processors = beanCache.beans(OperationProcessor.class);
+      List<OperationProcessor> processors = beanCache.tagBeans(OperationProcessor.class);
       Assert.notEmpty(processors, "请注册操作日志处理器：" + OperationProcessor.class.getName());
       for (OperationProcessor processor : processors) {
         processor.handle(operateMeta, operation);

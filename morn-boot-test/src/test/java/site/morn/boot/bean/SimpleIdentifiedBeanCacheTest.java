@@ -50,21 +50,21 @@ public class SimpleIdentifiedBeanCacheTest {
   @Test
   public void searchByName() {
     // 测试Name
-    Object name = identifiedBeanCache.bean(Object.class, "testBeanA");
+    Object name = identifiedBeanCache.nameBean(Object.class, "testBeanA");
     Assert.assertTrue(name instanceof TestBeanA);
   }
 
   @Test
   public void searchByTags() {
     // 测试Tags
-    List<Object> odd = identifiedBeanCache.beans(Object.class, "odd");
+    List<Object> odd = identifiedBeanCache.tagBeans(Object.class, "odd");
     Assert.assertEquals(2, odd.size());
   }
 
   @Test
   public void searchByTarget() {
     // 测试Target
-    List<Object> target = identifiedBeanCache.beans(Object.class, TestBeanB.class);
+    List<Object> target = identifiedBeanCache.targetBeans(Object.class, TestBeanB.class);
     Assert.assertEquals(2, target.size());
   }
 

@@ -54,7 +54,7 @@ public class DefaultSpringTranslator implements Translator {
   @SuppressWarnings("unchecked")
   @Override
   public <T> T translate(Transfer transfer, Class<T> cls) {
-    TranslateChanger<T> translateChanger = beanCache.bean(TranslateChanger.class, cls);
+    TranslateChanger<T> translateChanger = beanCache.targetBean(TranslateChanger.class, cls);
     if (Objects.isNull(translateChanger)) {
       log.debug("无法获取作用于'{}'的翻译器", cls.getSimpleName());
       return null;
