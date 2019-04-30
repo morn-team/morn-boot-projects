@@ -19,6 +19,7 @@ import site.morn.log.OperateMeta.OperateMetaBuilder;
 import site.morn.log.Operation;
 import site.morn.log.OperationConverter;
 import site.morn.log.OperationProcessor;
+import site.morn.util.BeanFunctionUtils;
 
 /**
  * 操作切面
@@ -62,9 +63,7 @@ public class OperateAspect {
       OperateArguments.clear();
       // 将操作日志元数据，转换为操作日志实例
       OperateMeta operateMeta = operateMetaBuilder.build();
-      List<OperationConverter> converters = beanCache.tagBeans(OperationConverter.class);
-      Assert.notEmpty(converters, "请注册操作日志转换器：" + OperationConverter.class.getName());
-      Operation operation = converters.get(0).convert(operateMeta);
+      Operation operation = BeanFunctionUtils.convert(OperationConverter.class, operateMeta);
       // 处理操作日志
       List<OperationProcessor> processors = beanCache.tagBeans(OperationProcessor.class);
       Assert.notEmpty(processors, "请注册操作日志处理器：" + OperationProcessor.class.getName());
