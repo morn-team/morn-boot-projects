@@ -7,7 +7,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import site.morn.bean.IdentifiedBeanCache;
 import site.morn.translate.Transfer;
-import site.morn.translate.TranslateChanger;
+import site.morn.translate.TranslateConverter;
 import site.morn.translate.Translator;
 
 /**
@@ -54,11 +54,11 @@ public class DefaultSpringTranslator implements Translator {
   @SuppressWarnings("unchecked")
   @Override
   public <T> T translate(Transfer transfer, Class<T> cls) {
-    TranslateChanger<T> translateChanger = beanCache.targetBean(TranslateChanger.class, cls);
-    if (Objects.isNull(translateChanger)) {
+    TranslateConverter<T> translateConverter = beanCache.targetBean(TranslateConverter.class, cls);
+    if (Objects.isNull(translateConverter)) {
       log.debug("无法获取作用于'{}'的翻译器", cls.getSimpleName());
       return null;
     }
-    return translateChanger.change(transfer);
+    return translateConverter.convert(transfer);
   }
 }
