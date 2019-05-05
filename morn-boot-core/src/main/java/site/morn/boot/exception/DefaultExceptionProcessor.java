@@ -27,7 +27,7 @@ public class DefaultExceptionProcessor implements ExceptionProcessor {
   public <T extends Exception> ApplicationMessage process(T exception) {
     // 从缓存中获取异常解释器
     ExceptionInterpreter exceptionInterpreter = beanCache
-        .bean(ExceptionInterpreter.class, exception.getClass());
+        .targetBean(ExceptionInterpreter.class, exception.getClass());
     if (Objects.isNull(exceptionInterpreter)) {
       log.debug("异常处理失败：尚未发现处理{}的异常解释器", exception.getClass().getSimpleName());
       return null;

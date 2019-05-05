@@ -8,10 +8,10 @@ import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import site.morn.boot.exception.ApplicationMessageConverter;
-import site.morn.boot.exception.DefaultApplicationMessageChanger;
+import site.morn.boot.exception.DefaultApplicationMessageConverter;
 import site.morn.exception.ExceptionProperties;
 import site.morn.rest.convert.RestConverter;
-import site.morn.translate.TranslateChanger;
+import site.morn.translate.TranslateConverter;
 import site.morn.translate.Translator;
 
 /**
@@ -44,9 +44,9 @@ public class ExceptionAutoConfiguration {
    */
   @Bean
   @ConditionalOnMissingBean
-  public TranslateChanger translateChanger(Translator translator,
+  public TranslateConverter translateChanger(Translator translator,
       ExceptionProperties exceptionProperties) {
-    return new DefaultApplicationMessageChanger(translator, exceptionProperties);
+    return new DefaultApplicationMessageConverter(translator, exceptionProperties);
   }
 
   /**

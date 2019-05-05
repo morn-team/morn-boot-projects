@@ -11,6 +11,7 @@ import org.springframework.util.StringUtils;
 import site.morn.bean.AnnotationIdentify;
 import site.morn.bean.IdentifiedBeanCache;
 import site.morn.bean.IdentifiedBeanHolder;
+import site.morn.constant.ApplicationConstant.Cache;
 import site.morn.util.ArrayUtils;
 
 /**
@@ -31,7 +32,7 @@ public class SimpleIdentifiedBeanCache implements IdentifiedBeanCache {
     holders.add(holder);
   }
 
-  @Cacheable(value = DEFAULT_CACHE, key = "#identify.toString()")
+  @Cacheable(value = Cache.BEAN_DEFAULT, key = "#identify.toString()")
   @SuppressWarnings("unchecked")
   @Override
   public <T> List<T> beans(Class<T> type, AnnotationIdentify identify) {
