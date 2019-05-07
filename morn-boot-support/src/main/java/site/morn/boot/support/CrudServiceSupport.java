@@ -2,16 +2,19 @@ package site.morn.boot.support;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.criteria.Predicate;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
+import site.morn.boot.jpa.SpecificationBuilder;
 import site.morn.boot.rest.RestPage;
 import site.morn.core.CriteriaMap;
 import site.morn.rest.RestModel;
 import site.morn.util.TypeUtils;
+import site.morn.validate.persistent.PersistValidateUtils;
 
 /**
  * 基础服务实现
@@ -73,12 +76,15 @@ public abstract class CrudServiceSupport<T, I extends Serializable, R extends Jp
 
   @Override
   public void delete(I id) {
+    T model = repository().findOne(id);
+    PersistValidateUtils.validateDelete(model); // 数据删除校验
     repository.delete(id);
   }
 
   @Override
   public <S extends T> void delete(RestModel<S> restModel) {
     S model = restModel.getModel();
+    PersistValidateUtils.validateDelete(model); // 数据删除校验
     repository.delete(model);
   }
 
@@ -93,5 +99,11 @@ public abstract class CrudServiceSupport<T, I extends Serializable, R extends Jp
    * @param attach 附加数据
    * @return 搜索条件
    */
-  protected abstract Specification<T> searchSpecification(T model, CriteriaMap attach);
+  protected Specification<T> searchSpecification(T model, CriteriaMap attach) {
+    return SpecificationBuilder.withParameter(model)
+        .specification((reference, restrain, predicate) -> {
+          Predicate[] equalAll = predicate.equalAll(); // 默认精确匹配所有属性
+          restrain.applyAnd(equalAll);
+        });
+  }
 }

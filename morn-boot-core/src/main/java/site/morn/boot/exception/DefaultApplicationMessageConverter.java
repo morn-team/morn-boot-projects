@@ -7,7 +7,7 @@ import site.morn.exception.ApplicationMessage;
 import site.morn.exception.ApplicationMessages;
 import site.morn.exception.ExceptionProperties;
 import site.morn.translate.Transfer;
-import site.morn.translate.TranslateChanger;
+import site.morn.translate.TranslateConverter;
 import site.morn.translate.Translator;
 import site.morn.translate.Translators;
 
@@ -19,7 +19,7 @@ import site.morn.translate.Translators;
  */
 @RequiredArgsConstructor
 @Target(ApplicationMessage.class)
-public class DefaultApplicationMessageChanger implements TranslateChanger<ApplicationMessage> {
+public class DefaultApplicationMessageConverter implements TranslateConverter<ApplicationMessage> {
 
   /**
    * 翻译器
@@ -32,7 +32,7 @@ public class DefaultApplicationMessageChanger implements TranslateChanger<Applic
   private final ExceptionProperties properties;
 
   @Override
-  public ApplicationMessage change(Transfer transfer) {
+  public ApplicationMessage convert(Transfer transfer) {
     String code = StringUtils.isEmpty(transfer.getCode()) ? properties.getDefaultCode()
         : transfer.getCode();
     // 格式化国际编码

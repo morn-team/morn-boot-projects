@@ -11,6 +11,7 @@ import org.springframework.util.StringUtils;
 import site.morn.bean.AnnotationIdentify;
 import site.morn.bean.IdentifiedBeanCache;
 import site.morn.bean.IdentifiedBeanHolder;
+import site.morn.constant.ApplicationConstant.Cache;
 import site.morn.util.ArrayUtils;
 
 /**
@@ -31,7 +32,7 @@ public class SimpleIdentifiedBeanCache implements IdentifiedBeanCache {
     holders.add(holder);
   }
 
-  @Cacheable(value = DEFAULT_CACHE, key = "#identify.toString()")
+  @Cacheable(value = Cache.BEAN_DEFAULT, key = "#identify.toString()")
   @SuppressWarnings("unchecked")
   @Override
   public <T> List<T> beans(Class<T> type, AnnotationIdentify identify) {
@@ -54,8 +55,10 @@ public class SimpleIdentifiedBeanCache implements IdentifiedBeanCache {
     }
     // 按目标过滤实例
     if (Objects.nonNull(identify.getTarget())) {
-      holderStream = holderStream.filter(
-          holder -> holder.getIdentify().getTarget().isAssignableFrom(identify.getTarget()));
+      holderStream = holderStream.filter(holder -> {
+        Class<?> target = holder.getIdentify().getTarget();
+        return Objects.nonNull(target) && target.isAssignableFrom(identify.getTarget());
+      });
     }
     // 提取实例集合
     Stream<T> beans = holderStream.map(IdentifiedBeanHolder::getBean);

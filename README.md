@@ -1,31 +1,52 @@
 [Message]:https://github.com/morn-team/morn-boot-projects/wiki/Application-Message-%E5%BA%94%E7%94%A8%E6%B6%88%E6%81%AF
 [Bean]:https://github.com/morn-team/morn-boot-projects/wiki/Bean-Enhance-%E5%AE%9E%E4%BE%8B%E5%A2%9E%E5%BC%BA
 [Exception]:https://github.com/morn-team/morn-boot-projects/wiki/Exception-Interpreter-%E5%BC%82%E5%B8%B8%E8%A7%A3%E9%87%8A
+[JPA]:https://github.com/morn-team/morn-boot-projects/wiki/JPA-Assist-%E6%8C%81%E4%B9%85%E5%8C%96%E8%BE%85%E5%8A%A9
 [Operation]:https://github.com/morn-team/morn-boot-projects/wiki/Operation-Log-%E6%93%8D%E4%BD%9C%E6%97%A5%E5%BF%97
 [REST]:https://github.com/morn-team/morn-boot-projects/wiki/REST-Model---%E7%BB%9F%E4%B8%80REST%E6%A8%A1%E5%9E%8B
 [Validation]:https://github.com/morn-team/morn-boot-projects/wiki/Validation-%E6%95%B0%E6%8D%AE%E6%A0%A1%E9%AA%8C
 
+
 # Morn Boot Projects
-基于SpringBoot的系列开发工具包，MornBoot不是SpringBoot的替代品，而是其向业务方向延伸。MornBoot初衷是提供简洁的、可拓展的通用业务实现，为SpringBoot项目提供一个良好的开端。MornBoot侧重于开发风格、标准、规范，提供可供参考的优秀实践。
+ 
+[![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
+[![Build Status](https://travis-ci.com/morn-team/morn-boot-projects.svg?branch=master)](https://travis-ci.com/morn-team/morn-boot-projects)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/973f6c34502a461f86aecdf88d8b989f)](https://app.codacy.com/app/morn-team/morn-boot-projects?utm_source=github.com&utm_medium=referral&utm_content=morn-team/morn-boot-projects&utm_campaign=Badge_Grade_Dashboard)
+[![codecov](https://codecov.io/gh/morn-team/morn-boot-projects/branch/master/graph/badge.svg)](https://codecov.io/gh/morn-team/morn-boot-projects)
+[![LICENSE](https://img.shields.io/badge/license-Apache--2.0-brightgreen.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
+
+MornBoot是基于SpringBoot的标准API框架，致力于为JavaWeb项目提供标准化API。MornBoot初衷是提供简洁的、可拓展的通用功能实现，为SpringBoot项目提供一个良好的开端。MornBoot侧重于开发风格、标准、规范，提供开箱即用的优秀实践。
+
+> 如果你的所有项目都使用同一套API开发，那么更新、维护将变得多么简单！
+
 
 ## Features
-* “零”配置实现通用业务
+
+* “零配置”轻量级框架
+* 相同API，不同结果呈现
 * 极简风格代码，良好可读性
 * 友好的IDE提示信息
-* 支持自定义扩展
+
 
 ## Getting Help
+
 MornBoot没有强制依赖SpringBoot，你必须在项目中引入SpringBoot相关包，好处是你可以自由选择依赖版本。建议SpringBoot版本为1.5.X+，尚未测试最低兼容版本。
 
+
 ## Definitions
+
 - `[dev]`表示该功能正在开发中
 - `[expect]`表示该功能将在后续版本中推出
 
+
 ## Quick Start
 
-当前版本：`1.0.0`
+### RELEASE版本: `1.0.1`
 
-```xml
+Maven Dependency
+
+```
 <!--自动化配置-->
 <dependency>
   <groupId>site.morn.boot</groupId>
@@ -45,6 +66,35 @@ MornBoot没有强制依赖SpringBoot，你必须在项目中引入SpringBoot相�
   <version>${morn.version}</version>
 </dependency>
 ```
+
+### 快照版本: `1.0.2-SNAPSHOT`
+
+> 如果想体验最新功能，可以使用快照版本。快照版本需要配置`Sonatype`快照仓库，并确保你的本地Mirror不会覆盖SNAPSHOT仓库。
+
+```
+<repositories>
+  <repository>
+    <id>sonatype-nexus-staging</id>
+    <name>Nexus Release Repository</name>
+    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    <releases>
+      <enabled>true</enabled>
+    </releases>
+  </repository>
+  <repository>
+    <id>sonatype-nexus-snapshots</id>
+    <name>Sonatype Nexus Snapshots</name>
+    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    <releases>
+      <enabled>false</enabled>
+    </releases>
+    <snapshots>
+      <enabled>true</enabled>
+    </snapshots>
+  </repository>
+</repositories>
+```
+
 
 ## Function
 
@@ -90,6 +140,25 @@ MySQL唯一约束提示
 ```
 
 [更多示例][Exception]
+
+### [JPA Assist 持久化辅助][JPA]
+
+MornBoot提供JPA相关辅助功能，以简化JPA标准查询的开发工作。
+
+```
+// WHERE id = 1 AND username = 'timely-rain'
+// password为空，所以忽略
+Predicate[] equalAll = condition.equalAll();
+
+// WHERE id = 1 
+// password为空，所以忽略
+Predicate[] equals = condition.equals("id", "password");
+
+// AND username LIKE '%timely%'
+Predicate keywords = condition.contain("username", "keywords");
+```
+
+[更多示例][JPA]
 
 ### [Operation Log 操作日志][Operation]
 

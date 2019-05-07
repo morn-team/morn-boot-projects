@@ -1,10 +1,16 @@
 package site.morn.boot.jpa;
 
+import java.util.Objects;
 import java.util.Optional;
+import java.util.function.BiFunction;
+import java.util.stream.Stream;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.Attribute;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
@@ -18,36 +24,144 @@ import lombok.experimental.Accessors;
 @Setter
 public class JpaConditionSupport<M> implements JpaBatchCondition {
 
-  private Path<?> path;
-
-  private CriteriaQuery<?> query;
-
-  private CriteriaBuilder builder;
+  private JpaReference<M> reference;
 
   private JpaParameter<M> parameter;
 
+  private InnerBuilder innerBuilder;
+
   @Override
   public Predicate[] equalAll() {
-    return new Predicate[0];
+    Stream<Predicate> predicateStream = reference.attributeStream().map(Attribute::getName)
+        .map(this::equal);
+    return JpaPredicate.array(predicateStream);
   }
 
   @Override
   public Predicate equal(String name) {
-    Optional<Object> optional = parameter.getOptional(name);
-    return optional.map(o -> builder.equal(getPath(name), o)).orElse(null);
+    return equal(name, name);
   }
 
   @Override
-  public Predicate like(String name, String prefix, String suffix) {
-    return null;
+  public Predicate equal(String name, String valueName) {
+    return innerBuilder().namesPredicate(name, valueName, builder()::equal);
+  }
+
+  @Override
+  public Predicate notEqual(String name) {
+    return notEqual(name, name);
+  }
+
+  @Override
+  public Predicate notEqual(String name, String valueName) {
+    return innerBuilder().namesPredicate(name, valueName, builder()::notEqual);
+  }
+
+  @Override
+  public Predicate contain(String name) {
+    return contain(name, name);
+  }
+
+  @Override
+  public Predicate contain(String name, String valueName) {
+    Path<String> attribute = path().get(name);
+    String contains = parameter.mapOptional(name, JpaConditionUtils::contains);
+    return like(attribute, contains);
+  }
+
+  @Override
+  public Predicate startWith(String name) {
+    Path<String> attribute = path().get(name);
+    String startWith = parameter.mapOptional(name, JpaConditionUtils::startWith);
+    return like(attribute, startWith);
+  }
+
+  @Override
+  public Predicate endWith(String name) {
+    Path<String> attribute = path().get(name);
+    String endWith = parameter.mapOptional(name, JpaConditionUtils::endWith);
+    return like(attribute, endWith);
   }
 
   @Override
   public Predicate in(String name) {
-    return null;
+    Expression<?> expression = path().get(name);
+    return parameter.mapOptional(name, expression::in);
   }
 
-  private <P> Path<P> getPath(String name) {
-    return path.get(name);
+  /**
+   * 获取内置条件构建器
+   *
+   * @return 内置条件构建器
+   */
+  public InnerBuilder innerBuilder() {
+    if (Objects.isNull(innerBuilder)) {
+      innerBuilder = new InnerBuilder();
+    }
+    return innerBuilder;
   }
+
+  public CriteriaBuilder builder() {
+    return reference.builder();
+  }
+
+  public CriteriaQuery query() {
+    return reference.query();
+  }
+
+  public Path<M> path() {
+    return reference.path();
+  }
+
+  public <T> Root<T> root() {
+    return reference.root();
+  }
+
+  /**
+   * 模糊搜索
+   *
+   * @param attribute 实体属性
+   * @param s 查询表达式
+   * @return 条件断言
+   */
+  private Predicate like(Expression<String> attribute, String s) {
+    return innerBuilder().mapPredicate(attribute, s, builder()::like);
+  }
+
+  /**
+   * 内置条件构建器
+   */
+  public class InnerBuilder {
+
+    private <T, V> Predicate namePredicate(String name,
+        BiFunction<Expression<T>, V, Predicate> function) {
+      return namesPredicate(name, name, function);
+    }
+
+    private <T, V> Predicate namesPredicate(String name, String valueName,
+        BiFunction<Expression<T>, V, Predicate> function) {
+      Expression<T> expression = path().get(name);
+      Optional<V> optional = parameter.getOptional(valueName);
+      return referencePredicate(expression, optional, function);
+    }
+
+    private <T, V> Predicate mapPredicate(String name, V value,
+        BiFunction<Expression<T>, V, Predicate> function) {
+      Expression<T> expression = path().get(name);
+      return mapPredicate(expression, value, function);
+    }
+
+    private <T, V> Predicate mapPredicate(Expression<T> expression, V value,
+        BiFunction<Expression<T>, V, Predicate> function) {
+      return JpaConditionUtils.predicate(expression, value, function);
+    }
+
+    private <T, V> Predicate referencePredicate(Expression<T> expression, Optional<V> valueOptional,
+        BiFunction<Expression<T>, V, Predicate> function) {
+      return parameter
+          .mapOptional(valueOptional, o -> JpaConditionUtils.predicate(expression, o, function));
+    }
+
+  }
+
 }

@@ -4,6 +4,7 @@ import java.util.Objects;
 import java.util.stream.Stream;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
+import site.morn.util.ArrayUtils;
 
 /**
  * JPA查询断言
@@ -13,12 +14,38 @@ import javax.persistence.criteria.Predicate;
  */
 public class JpaPredicate {
 
+  /**
+   * 查询构建器
+   */
   private final CriteriaBuilder builder;
 
+  /**
+   * 条件断言
+   */
   private Predicate predicate;
 
   public JpaPredicate(CriteriaBuilder builder) {
     this.builder = builder;
+  }
+
+  /**
+   * 将非空断言流转为数组
+   *
+   * @param predicates 断言数组
+   * @return 断言数组
+   */
+  public static Predicate[] array(Predicate[] predicates) {
+    return array(Stream.of(predicates));
+  }
+
+  /**
+   * 将非空断言流转为数组
+   *
+   * @param stream 断言流
+   * @return 断言数组
+   */
+  public static Predicate[] array(Stream<Predicate> stream) {
+    return stream.filter(Objects::nonNull).toArray(Predicate[]::new);
   }
 
   /**
@@ -29,7 +56,11 @@ public class JpaPredicate {
    * @see CriteriaBuilder
    */
   public Predicate mergeAnd(Predicate... restrictions) {
-    return builder.and(filterNotNull(restrictions));
+    Predicate[] predicates = array(restrictions);
+    if (ArrayUtils.isEmpty(predicates)) {
+      return null;
+    }
+    return builder.and(predicates);
   }
 
   /**
@@ -40,45 +71,74 @@ public class JpaPredicate {
    * @see CriteriaBuilder
    */
   public Predicate mergeOr(Predicate... restrictions) {
-    return builder.or(filterNotNull(restrictions));
+    Predicate[] predicates = array(restrictions);
+    if (ArrayUtils.isEmpty(predicates)) {
+      return null;
+    }
+    return builder.or(predicates);
   }
 
   /**
-   * 拼接And条件至WHERE语句 merge the And restrictions to WHERE clause
+   * 追加And条件
    *
    * @param restrictions 查询条件
-   * @return JPA Condition
+   * @return JPA查询断言
+   * @see CriteriaBuilder
+   * @deprecated 语义不明确 {@link this#appendAnd(Predicate...)}
+   */
+  @Deprecated
+  public JpaPredicate applyAnd(Predicate... restrictions) {
+    return appendAnd(restrictions);
+  }
+
+  /**
+   * 追加Or条件
+   *
+   * @param restrictions 查询条件
+   * @return JPA查询断言
+   * @see CriteriaBuilder
+   * @deprecated 语义不明确 {@link this#appendOr(Predicate...)} (Predicate...)}
+   */
+  @Deprecated
+  public JpaPredicate applyOr(Predicate... restrictions) {
+    return appendOr(restrictions);
+  }
+
+  /**
+   * 追加And条件
+   *
+   * @param restrictions 查询条件
+   * @return JPA查询断言
    * @see CriteriaBuilder
    */
-  public JpaPredicate applyAnd(Predicate... restrictions) {
+  public JpaPredicate appendAnd(Predicate... restrictions) {
     // 过滤空值
-    Predicate[] predicates = filterNotNull(restrictions);
+    Predicate[] predicates = array(restrictions);
     Predicate and = builder.and(predicates);
     predicate = Objects.isNull(predicate) ? and : builder.and(predicate, and);
     return this;
   }
 
   /**
-   * 拼接Or条件至WHERE语句 merge the Or restrictions to WHERE clause
+   * 追加Or条件
    *
    * @param restrictions 查询条件
-   * @return JPA Condition
+   * @return JPA查询断言
    * @see CriteriaBuilder
    */
-  public JpaPredicate applyOr(Predicate... restrictions) {
+  public JpaPredicate appendOr(Predicate... restrictions) {
     // 过滤空值
-    Predicate[] predicates = filterNotNull(restrictions);
+    Predicate[] predicates = array(restrictions);
     Predicate or = builder.or(predicates);
     predicate = Objects.isNull(predicate) ? or : builder.or(predicate, or);
     return this;
   }
 
+  /**
+   * 获取条件断言
+   */
   public Predicate get() {
     return predicate;
-  }
-
-  private Predicate[] filterNotNull(Predicate... restrictions) {
-    return Stream.of(restrictions).filter(Objects::nonNull).toArray(Predicate[]::new);
   }
 
 }

@@ -1,6 +1,7 @@
 package site.morn.boot.jpa;
 
 import java.util.Map;
+import java.util.Objects;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Path;
@@ -27,20 +28,24 @@ public class JpaCommon<M> {
 
   private JpaParameter<M> parameter;
 
-  private Path<?> path;
+  private Path<M> path;
 
   private CriteriaQuery<?> query;
 
   private CriteriaBuilder builder;
 
-  private JpaReference reference;
+  private JpaReference<M> reference;
 
   private JpaPredicate predicate;
 
   private JpaBatchCondition condition;
 
   public JpaCommon<M> attach(Map<String, Object> attach) {
-    this.attach = new CriteriaMap(attach);
+    if (Objects.isNull(attach)) {
+      this.attach = new CriteriaMap();
+    } else {
+      this.attach = new CriteriaMap(attach);
+    }
     return this;
   }
 
@@ -65,7 +70,7 @@ public class JpaCommon<M> {
     Assert.notNull(path, "path is null.");
     Assert.notNull(query, "query is null.");
     Assert.notNull(builder, "builder is null.");
-    reference = new JpaReference(path, query, builder);
+    reference = new JpaReference<>(path, query, builder);
     return reference;
   }
 
@@ -88,12 +93,9 @@ public class JpaCommon<M> {
    * @return JPA查询条件
    */
   public JpaBatchCondition buildCondition() {
-    Assert.notNull(path, "path is null.");
-    Assert.notNull(query, "query is null.");
-    Assert.notNull(builder, "builder is null.");
+    Assert.notNull(reference, "reference is null.");
     Assert.notNull(parameter, "parameter is null.");
-    condition = new JpaConditionSupport<M>().path(path).query(query).builder(builder)
-        .parameter(parameter);
+    condition = new JpaConditionSupport<M>().reference(reference).parameter(parameter);
     return condition;
   }
 }

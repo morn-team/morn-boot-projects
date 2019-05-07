@@ -1,0 +1,16 @@
+language: java
+
+jdk:
+  - oraclejdk8
+
+services:
+  - mysql
+
+before_install:
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS morn_test;'
+
+before_script:
+  - echo "USE mysql;\nUPDATE user SET password=PASSWORD('bmeB4000') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
