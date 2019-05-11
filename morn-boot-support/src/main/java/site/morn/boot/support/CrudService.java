@@ -34,7 +34,7 @@ public interface CrudService<T, I extends Serializable> {
   /**
    * 全部查询
    *
-   * @param restModel REST分页请求
+   * @param restModel REST模型
    * @return 分页结果集
    */
   List<T> searchAll(RestModel<T> restModel);
