@@ -15,8 +15,8 @@ public interface JpaBatchCondition extends JpaCondition {
 
   Predicate[] equalAll();
 
-  default Predicate[] equals(String... names) {
-    return Arrays.stream(names).map(this::equal).filter(Objects::nonNull).toArray(Predicate[]::new);
+  default Predicate[] eqs(String... names) {
+    return Arrays.stream(names).map(this::eq).filter(Objects::nonNull).toArray(Predicate[]::new);
   }
 
   default Predicate[] contains(String... names) {

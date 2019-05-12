@@ -33,7 +33,7 @@ public class JpaConditionSupportTest {
   private CriteriaMap attach;
 
   @Before
-  public void setUp() throws Exception {
+  public void setUp() {
     user = new TestUser();
     user.setId(1L);
     user.setUsername("timely-rain");
@@ -44,7 +44,7 @@ public class JpaConditionSupportTest {
   }
 
   @After
-  public void tearDown() throws Exception {
+  public void tearDown() {
   }
 
   @Test
@@ -118,7 +118,7 @@ public class JpaConditionSupportTest {
 
       // WHERE id = 1
       // password为空，所以忽略
-      Predicate[] equals = condition.equals("id", "password");
+      Predicate[] equals = condition.eqs("id", "password");
 
       // AND username LIKE '%timely%'
       Predicate keywords = condition.contain("username", "keywords");

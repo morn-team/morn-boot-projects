@@ -18,7 +18,7 @@ public interface JpaCondition {
    * @return 查询断言
    * @see javax.persistence.criteria.CriteriaBuilder#equal(Expression, Object)
    */
-  Predicate equal(String name);
+  Predicate eq(String name);
 
   /**
    * 等于
@@ -28,7 +28,7 @@ public interface JpaCondition {
    * @return 查询断言
    * @see javax.persistence.criteria.CriteriaBuilder#equal(Expression, Object)
    */
-  Predicate equal(String name, String valueName);
+  Predicate eq(String name, String valueName);
 
   /**
    * 不等
@@ -57,6 +57,16 @@ public interface JpaCondition {
    * @see Expression#in(Object...)
    */
   Predicate in(String name);
+
+  /**
+   * 在...内
+   *
+   * @param name 实体属性名称
+   * @param valueName 数据属性名称
+   * @return 查询断言
+   * @see Expression#in(Object...)
+   */
+  Predicate in(String name, String valueName);
 
   /**
    * 包含

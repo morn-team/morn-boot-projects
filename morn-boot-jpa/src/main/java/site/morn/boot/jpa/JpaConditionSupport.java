@@ -33,17 +33,17 @@ public class JpaConditionSupport<M> implements JpaBatchCondition {
   @Override
   public Predicate[] equalAll() {
     Stream<Predicate> predicateStream = reference.attributeStream().map(Attribute::getName)
-        .map(this::equal);
+        .map(this::eq);
     return JpaPredicate.array(predicateStream);
   }
 
   @Override
-  public Predicate equal(String name) {
-    return equal(name, name);
+  public Predicate eq(String name) {
+    return eq(name, name);
   }
 
   @Override
-  public Predicate equal(String name, String valueName) {
+  public Predicate eq(String name, String valueName) {
     return innerBuilder().namesPredicate(name, valueName, builder()::equal);
   }
 
@@ -85,8 +85,13 @@ public class JpaConditionSupport<M> implements JpaBatchCondition {
 
   @Override
   public Predicate in(String name) {
+    return in(name, name);
+  }
+
+  @Override
+  public Predicate in(String name, String valueName) {
     Expression<?> expression = path().get(name);
-    return parameter.mapOptional(name, expression::in);
+    return parameter.mapOptional(valueName, expression::in);
   }
 
   /**
