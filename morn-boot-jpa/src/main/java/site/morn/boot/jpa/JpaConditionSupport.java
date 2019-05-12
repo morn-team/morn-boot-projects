@@ -133,30 +133,30 @@ public class JpaConditionSupport<M> implements JpaBatchCondition {
    */
   public class InnerBuilder {
 
-    private <T, V> Predicate namePredicate(String name,
+    public <T, V> Predicate namePredicate(String name,
         BiFunction<Expression<T>, V, Predicate> function) {
       return namesPredicate(name, name, function);
     }
 
-    private <T, V> Predicate namesPredicate(String name, String valueName,
+    public <T, V> Predicate namesPredicate(String name, String valueName,
         BiFunction<Expression<T>, V, Predicate> function) {
       Expression<T> expression = path().get(name);
       Optional<V> optional = parameter.getOptional(valueName);
       return referencePredicate(expression, optional, function);
     }
 
-    private <T, V> Predicate mapPredicate(String name, V value,
+    public <T, V> Predicate mapPredicate(String name, V value,
         BiFunction<Expression<T>, V, Predicate> function) {
       Expression<T> expression = path().get(name);
       return mapPredicate(expression, value, function);
     }
 
-    private <T, V> Predicate mapPredicate(Expression<T> expression, V value,
+    public <T, V> Predicate mapPredicate(Expression<T> expression, V value,
         BiFunction<Expression<T>, V, Predicate> function) {
       return JpaConditionUtils.predicate(expression, value, function);
     }
 
-    private <T, V> Predicate referencePredicate(Expression<T> expression, Optional<V> valueOptional,
+    public <T, V> Predicate referencePredicate(Expression<T> expression, Optional<V> valueOptional,
         BiFunction<Expression<T>, V, Predicate> function) {
       return parameter
           .mapOptional(valueOptional, o -> JpaConditionUtils.predicate(expression, o, function));
