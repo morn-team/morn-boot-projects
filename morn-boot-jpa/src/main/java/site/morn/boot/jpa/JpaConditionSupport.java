@@ -1,5 +1,7 @@
 package site.morn.boot.jpa;
 
+import java.lang.reflect.Array;
+import java.util.Collection;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiFunction;
@@ -91,7 +93,22 @@ public class JpaConditionSupport<M> implements JpaBatchCondition {
   @Override
   public Predicate in(String name, String valueName) {
     Expression<?> expression = path().get(name);
-    return parameter.mapOptional(valueName, expression::in);
+    Object value = parameter.getOptional(valueName).orElse(null);
+    if (Objects.isNull(value)) {
+      return null;
+    }
+    Class<?> valueClass = value.getClass();
+    if (valueClass.isArray() && Array.getLength(value) > 0) {
+      return expression.in(value);
+    }
+    if (value instanceof Collection) {
+      Collection collection = (Collection) value;
+      if (collection.isEmpty()) {
+        return null;
+      }
+      return expression.in(collection);
+    }
+    return expression.in(value);
   }
 
   /**
