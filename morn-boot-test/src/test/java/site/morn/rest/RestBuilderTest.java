@@ -2,25 +2,15 @@ package site.morn.rest;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import site.morn.bean.IdentifiedBeanCache;
-import site.morn.bean.IdentifiedBeanHolder;
-import site.morn.bean.annotation.Target;
-import site.morn.boot.bean.IdentifiedBeanPostProcessor;
 import site.morn.rest.RestMessage.Level;
-import site.morn.rest.convert.RestConverter;
 
 /**
  * REST工具类单元测试
@@ -33,17 +23,6 @@ import site.morn.rest.convert.RestConverter;
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class RestBuilderTest {
-
-  @Autowired
-  private IdentifiedBeanCache beanCache;
-
-  @Test
-  public void beforeMethod() {
-    BaiduConverter baiduConverter = new BaiduConverter();
-    IdentifiedBeanHolder<BaiduConverter> beanHolder = IdentifiedBeanPostProcessor
-        .generateBeanHolder(baiduConverter);
-    beanCache.cache(beanHolder);
-  }
 
   @Test
   public void successMessage() {
@@ -109,52 +88,4 @@ public class RestBuilderTest {
     Assert.assertNotNull(baiduMessage);
   }
 
-  /**
-   * 百度REST消息
-   */
-  @Getter
-  @Setter
-  @ToString
-  public class BaiduMessage {
-
-    /**
-     * 状态码
-     */
-    private String error;
-
-    /**
-     * 消息内容
-     */
-    private String msg;
-  }
-
-  /**
-   * 百度消息转换器
-   */
-  @Target(BaiduMessage.class)
-  public class BaiduConverter implements RestConverter<BaiduMessage> {
-
-    @Override
-    public BaiduMessage convert(RestMessage restMessage) {
-      BaiduMessage baiduMessage = new BaiduMessage();
-      baiduMessage.setError(restMessage.isSuccess() ? "0" : "-1");
-      baiduMessage.setMsg(restMessage.getMessage());
-      return baiduMessage;
-    }
-
-    @Override
-    public RestMessage revert(BaiduMessage baiduMessage) {
-      RestMessage restMessage = new SimpleRestMessage();
-      boolean success = isSuccess(baiduMessage);
-      restMessage.setSuccess(success);
-      restMessage.setLevel(success ? Level.INFO : Level.ERROR);
-      restMessage.setCode(baiduMessage.getError());
-      restMessage.setMessage(baiduMessage.getMsg());
-      return restMessage;
-    }
-
-    private boolean isSuccess(BaiduMessage baiduMessage) {
-      return Objects.equals(baiduMessage.getError(), "0");
-    }
-  }
 }
