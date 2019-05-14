@@ -39,6 +39,27 @@ public class WebAutoConfiguration {
   }
 
   /**
+   * 异常处理配置
+   */
+  @Configuration
+  @ConditionalOnBean(ExceptionProcessor.class)
+  @ConditionalOnClass(ExceptionHandlerAspect.class)
+  public static class ExceptionHandlerConfiguration {
+
+    /**
+     * 注册全局异常处理切面
+     *
+     * @return 全局异常处理切面
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    @ConditionalOnProperty(prefix = "morn.exception-aspect", value = "enabled", havingValue = "true")
+    public ExceptionHandlerAspect exceptionHandlerAspect(ExceptionProcessor exceptionProcessor) {
+      return new ExceptionHandlerAspect(exceptionProcessor);
+    }
+  }
+
+  /**
    * JacksonHibernate模块配置
    */
   @Configuration
