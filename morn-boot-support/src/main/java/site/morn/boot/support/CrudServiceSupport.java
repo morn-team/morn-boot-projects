@@ -2,6 +2,7 @@ package site.morn.boot.support;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 import javax.persistence.criteria.Predicate;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -76,9 +77,13 @@ public abstract class CrudServiceSupport<T, I extends Serializable, R extends Jp
 
   @Override
   public void delete(I id) {
-    T model = repository().findOne(id);
-    PersistValidateUtils.validateDelete(model); // 数据删除校验
-    repository.delete(id);
+    Optional<T> optional = repository().findById(id);
+    if (optional.isPresent()) {
+      PersistValidateUtils.validateDelete(optional.get()); // 数据删除校验
+      repository.deleteById(id);
+    } else {
+      log.warn("数据不存在：[id={}]", id);
+    }
   }
 
   @Override

@@ -2,6 +2,7 @@ package site.morn.boot.support.mongo;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -66,9 +67,13 @@ public class MongoCrudService<T, I extends Serializable, R extends MongoReposito
 
   @Override
   public void delete(I id) {
-    T model = repository().findOne(id);
-    PersistValidateUtils.validateDelete(model); // 数据删除校验
-    repository.delete(id);
+    Optional<T> optional = repository().findById(id);
+    if (optional.isPresent()) {
+      PersistValidateUtils.validateDelete(optional.get()); // 数据删除校验
+      repository.deleteById(id);
+    } else {
+      log.warn("数据不存在：[id={}]", id);
+    }
   }
 
   @Override

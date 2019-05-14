@@ -11,8 +11,23 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class ApplicationConstant {
 
+  /**
+   * 缓存常量
+   */
   @UtilityClass
   public class Cache {
+
+    /**
+     * 默认实例缓存名称
+     */
+    public static final String BEAN_DEFAULT = "bean.default";
+  }
+
+  /**
+   * 异常常量
+   */
+  @UtilityClass
+  public class Errors {
 
     /**
      * 默认实例缓存名称
