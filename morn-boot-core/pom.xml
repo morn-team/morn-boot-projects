@@ -28,9 +28,8 @@
     </dependency>
     <!--Morn-->
     <dependency>
-      <groupId>site.morn</groupId>
+      <groupId>site.morn.boot</groupId>
       <artifactId>morn-core</artifactId>
-      <version>1.0.2</version>
     </dependency>
   </dependencies>
 </project>
