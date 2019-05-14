@@ -108,7 +108,7 @@ public abstract class CrudServiceSupport<T, I extends Serializable, R extends Jp
     return SpecificationBuilder.withParameter(model)
         .specification((reference, restrain, predicate) -> {
           Predicate[] equalAll = predicate.equalAll(); // 默认精确匹配所有属性
-          restrain.applyAnd(equalAll);
+          restrain.appendAnd(equalAll);
         });
   }
 }

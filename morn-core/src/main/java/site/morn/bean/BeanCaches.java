@@ -125,7 +125,7 @@ public class BeanCaches {
    */
   @Deprecated
   public static <T> T bean(Class<T> type, String name) {
-    return defaultBeanCache().bean(type, name);
+    return defaultBeanCache().nameBean(type, name);
   }
 
   /**
