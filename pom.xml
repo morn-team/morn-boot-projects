@@ -4,7 +4,7 @@
 
   <groupId>site.morn.boot</groupId>
   <artifactId>morn-boot-projects</artifactId>
-  <version>1.0.2-SNAPSHOT</version>
+  <version>1.0.2</version>
   <packaging>pom</packaging>
 
   <description>Morn Boot Projects - 基于Spring Boot的系列开发工具包</description>
@@ -30,7 +30,7 @@
     <connection>scm:git:https://github.com/morn-team/morn-boot-projects.git</connection>
     <developerConnection>scm:git:https://github.com/morn-team/morn-boot-projects.git
     </developerConnection>
-    <tag>HEAD</tag>
+    <tag>v1.0.2</tag>
   </scm>
 
   <properties>
