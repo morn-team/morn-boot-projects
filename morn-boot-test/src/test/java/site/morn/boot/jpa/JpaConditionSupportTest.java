@@ -13,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.StringUtils;
-import site.morn.boot.jpa.SpecificationBuilder.SpecificationFunction;
 import site.morn.core.CriteriaMap;
 
 /**

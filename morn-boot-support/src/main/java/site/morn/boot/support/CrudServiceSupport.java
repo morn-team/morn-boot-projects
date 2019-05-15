@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import site.morn.boot.jpa.SpecificationBuilder;
+import site.morn.boot.jpa.SpecificationFunction;
 import site.morn.boot.rest.RestPage;
 import site.morn.core.CriteriaMap;
 import site.morn.rest.RestModel;
@@ -108,10 +109,21 @@ public abstract class CrudServiceSupport<T, I extends Serializable, R extends Jp
    * @return 搜索条件
    */
   protected Specification<T> searchSpecification(T model, CriteriaMap attach) {
-    return SpecificationBuilder.withParameter(model)
-        .specification((reference, restrain, predicate) -> {
-          Predicate[] equalAll = predicate.equalAll(); // 默认精确匹配所有属性
-          restrain.appendAnd(equalAll);
-        });
+    SpecificationFunction specificationFunction = searchSpecificationFunction(model, attach);
+    return SpecificationBuilder.withParameter(model, attach).specification(specificationFunction);
+  }
+
+  /**
+   * 构建搜索条件
+   *
+   * @param model 数据模型
+   * @param attach 附加数据
+   * @return 搜索条件
+   */
+  protected SpecificationFunction searchSpecificationFunction(T model, CriteriaMap attach) {
+    return (reference, restrain, predicate) -> {
+      Predicate[] equalAll = predicate.equalAll(); // 默认精确匹配所有属性
+      restrain.appendAnd(equalAll);
+    };
   }
 }
