@@ -3,6 +3,7 @@ package site.morn.support.fastjson;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import lombok.experimental.UtilityClass;
+import site.morn.core.CriteriaMap;
 
 /**
  * JSON转换工具
@@ -21,6 +22,18 @@ public class JsonUtils {
   public static JSONObject toJSONObject(Object object) {
     String jsonString = JSONObject.toJSONString(object);
     return JSONObject.parseObject(jsonString);
+  }
+
+  /**
+   * X to CriteriaMap
+   *
+   * @param object 任意对象
+   * @return 标准字典
+   */
+  public static CriteriaMap toMap(Object object) {
+    String jsonString = JSONObject.toJSONString(object);
+    JSONObject jsonObject = JSONObject.parseObject(jsonString);
+    return new CriteriaMap(jsonObject);
   }
 
   /**
