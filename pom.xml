@@ -26,6 +26,7 @@
     <module>morn-boot-test</module>
     <module>morn-boot-web</module>
     <module>morn-core</module>
+    <module>morn-support-fastjson</module>
   </modules>
 
   <scm>
@@ -44,8 +45,9 @@
     <maven.compiler.target>${java.version}</maven.compiler.target>
 
     <boot.version>2.1.4.RELEASE</boot.version>
-    <lombok.version>1.16.22</lombok.version>
     <commons-lang3.version>3.9</commons-lang3.version>
+    <fastjson.version>1.2.58</fastjson.version>
+    <lombok.version>1.16.22</lombok.version>
     <shiro.version>1.3.2</shiro.version>
   </properties>
 
@@ -103,11 +105,22 @@
         <artifactId>morn-core</artifactId>
         <version>${project.version}</version>
       </dependency>
+      <dependency>
+        <groupId>site.morn.boot</groupId>
+        <artifactId>morn-support-fastjson</artifactId>
+        <version>${project.version}</version>
+      </dependency>
 
       <dependency>
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-lang3</artifactId>
         <version>${commons-lang3.version}</version>
+      </dependency>
+      <!--FastJson-->
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>fastjson</artifactId>
+        <version>${fastjson.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
