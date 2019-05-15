@@ -155,8 +155,8 @@ public class ApplicationMessages {
    * @return 应用消息构建器
    */
   public static ApplicationMessages withMessage(String code, String message) {
-    message = StringUtils.isEmpty(message) ? code : message;
-    return builder().code(code).message(message);
+    String s = StringUtils.isEmpty(message) ? code : message;
+    return builder().code(code).message(s);
   }
 
   /**

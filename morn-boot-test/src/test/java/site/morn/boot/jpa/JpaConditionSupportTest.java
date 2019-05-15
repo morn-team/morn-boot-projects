@@ -5,7 +5,6 @@ import java.util.Objects;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,10 +40,6 @@ public class JpaConditionSupportTest {
 
     attach = new CriteriaMap();
     attach.put("keywords", "timely");
-  }
-
-  @After
-  public void tearDown() {
   }
 
   @Test
