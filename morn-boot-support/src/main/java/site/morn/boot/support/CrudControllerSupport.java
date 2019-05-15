@@ -44,7 +44,8 @@ public class CrudControllerSupport<T, I extends Serializable, S extends CrudServ
    */
   @PostMapping
   public RestMessage add(@Validated(Add.class) @RequestBody RestModel<T> restModel) {
-    return save(restModel);
+    T user = service().add(restModel);
+    return RestBuilders.successMessage(user);
   }
 
   /**
@@ -53,7 +54,8 @@ public class CrudControllerSupport<T, I extends Serializable, S extends CrudServ
   @PutMapping
   public RestMessage update(
       @Validated({Update.class, Put.class}) @RequestBody RestModel<T> restModel) {
-    return save(restModel);
+    T user = service().update(restModel);
+    return RestBuilders.successMessage(user);
   }
 
   /**
@@ -75,13 +77,5 @@ public class CrudControllerSupport<T, I extends Serializable, S extends CrudServ
   public RestMessage delete(@Validated({Delete.class}) @PathVariable I id) {
     service().delete(id);
     return RestBuilders.successMessage();
-  }
-
-  /**
-   * 新增/更新
-   */
-  private RestMessage save(RestModel<T> restModel) {
-    T user = service().add(restModel);
-    return RestBuilders.successMessage(user);
   }
 }

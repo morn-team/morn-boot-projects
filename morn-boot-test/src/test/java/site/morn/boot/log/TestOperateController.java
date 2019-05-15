@@ -16,7 +16,7 @@ import site.morn.rest.RestMessage;
  */
 @Component
 @OperateGroup("user")
-public class TestUserController {
+public class TestOperateController {
 
   @OperateAction("add")
   public RestMessage addUser(Map<String, Object> user) {

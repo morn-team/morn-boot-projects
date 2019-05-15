@@ -33,10 +33,10 @@ public class JpaRepositoryImpl<T, I extends Serializable> extends
   @Override
   public T findOne(T model) {
     Specification<T> specification = matchSpecification(model);
-    PageRequest pageRequest = new PageRequest(0, 1);
+    PageRequest pageRequest = PageRequest.of(0, 1);
     Page<T> page = findAll(specification, pageRequest);
     List<T> list = page.getContent();
-    return list.size() == 0 ? null : list.get(0);
+    return list.isEmpty() ? null : list.get(0);
   }
 
   @Override
@@ -55,7 +55,7 @@ public class JpaRepositoryImpl<T, I extends Serializable> extends
     return SpecificationBuilder.withParameter(model, new CriteriaMap())
         .specification((reference, restrain, predicate) -> {
           Predicate[] equalAll = predicate.equalAll(); // 精确匹配所有属性
-          restrain.applyAnd(equalAll);
+          restrain.appendAnd(equalAll);
         });
   }
 }

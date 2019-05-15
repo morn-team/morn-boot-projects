@@ -22,7 +22,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class OperateAspectTest {
 
   @Autowired
-  private TestUserController userController;
+  private TestOperateController userController;
 
   @Test
   public void aroundOperate1() {

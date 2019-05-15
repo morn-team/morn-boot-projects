@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.DispatcherServlet;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import site.morn.boot.web.ExceptionHandlerAspect;
 import site.morn.exception.ExceptionProcessor;
 
@@ -22,7 +22,7 @@ import site.morn.exception.ExceptionProcessor;
  * @since 1.0.0, 2018/12/12
  */
 @Configuration
-@ConditionalOnClass({Servlet.class, DispatcherServlet.class, WebMvcConfigurerAdapter.class})
+@ConditionalOnClass({Servlet.class, DispatcherServlet.class, WebMvcConfigurer.class})
 public class WebAutoConfiguration {
 
   /**
