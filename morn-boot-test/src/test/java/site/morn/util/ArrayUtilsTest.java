@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 /**
- * site.morn.util
+ * 数组工具单元测试
  *
  * @author timely-rain
  * @since 1.0.0, 2019/4/21
@@ -43,6 +43,17 @@ public class ArrayUtilsTest {
     Food first = ArrayUtils.first(objects, Food.class);
     Assert.assertNotNull(first);
     Assert.assertEquals(first.getClass().getSimpleName(), Banana.class.getSimpleName());
+  }
+
+  @Test
+  public void contains() {
+    String[] empty = {};
+    String[] large = {"2", "3", "1"};
+    String[] small = {"1", "2"};
+    Assert.assertTrue(ArrayUtils.contains(empty, empty));
+    Assert.assertTrue(ArrayUtils.contains(small, empty));
+    Assert.assertTrue(ArrayUtils.contains(large, small));
+    Assert.assertFalse(ArrayUtils.contains(small, large));
   }
 
   private interface Food {
