@@ -104,9 +104,9 @@ public class JpaConditionUtils {
     if (StringUtils.isEmpty(value)) {
       return "";
     }
-    prefix = Optional.ofNullable(prefix).orElse("");
-    suffix = Optional.ofNullable(suffix).orElse("");
-    return String.format("%s%s%s", prefix, value, suffix);
+    String p = Optional.ofNullable(prefix).orElse("");
+    String s = Optional.ofNullable(suffix).orElse("");
+    return String.format("%s%s%s", p, value, s);
   }
 
   /**

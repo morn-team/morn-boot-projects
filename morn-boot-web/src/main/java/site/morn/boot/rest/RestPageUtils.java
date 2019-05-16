@@ -62,10 +62,10 @@ public class RestPageUtils {
       String[] split = pair.trim().split("\\s+");
       String property = split[0];
       String dir = split.length == 1 ? "" : split[1];
-      Direction direction = Direction.fromStringOrNull(dir);
+      Direction direction = Direction.fromOptionalString(dir).orElse(Direction.DESC);
       Order order = new Order(direction, property);
       orders.add(order);
     }
-    return new Sort(orders);
+    return Sort.by(orders);
   }
 }

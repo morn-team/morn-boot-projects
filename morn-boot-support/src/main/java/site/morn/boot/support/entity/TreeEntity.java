@@ -57,7 +57,7 @@ public class TreeEntity<M extends TreeEntity<M, I>, I> {
    * 持久化前执行
    */
   @PrePersist
-  private void beforeSave() {
+  public void beforeSave() {
     generateParentId();
     generateSearchCode();
   }

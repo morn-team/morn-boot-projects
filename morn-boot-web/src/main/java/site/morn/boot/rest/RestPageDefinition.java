@@ -50,10 +50,10 @@ public interface RestPageDefinition<P extends RestPageableDefinition, M, A exten
   default PageRequest generatePageRequest() {
     RestPageableDefinition pageable = getPageable();
     if (StringUtils.isEmpty(pageable.getSort())) {
-      return new PageRequest(pageable.getPage(), pageable.getSize());
+      return PageRequest.of(pageable.getPage(), pageable.getSize());
     }
     Sort sort = generateSort();
-    return new PageRequest(pageable.getPage(), pageable.getSize(), sort);
+    return PageRequest.of(pageable.getPage(), pageable.getSize(), sort);
   }
 
   /**
@@ -63,6 +63,6 @@ public interface RestPageDefinition<P extends RestPageableDefinition, M, A exten
    */
   default PageRequest generatePageRequest(Sort sort) {
     RestPageableDefinition pageable = getPageable();
-    return new PageRequest(pageable.getPage(), pageable.getSize(), sort);
+    return PageRequest.of(pageable.getPage(), pageable.getSize(), sort);
   }
 }

@@ -51,7 +51,7 @@ public class SimpleIdentifiedBeanCache implements IdentifiedBeanCache {
     // 按标签过滤实例
     if (Objects.nonNull(identify.getTags())) {
       holderStream = holderStream.filter(
-          holder -> ArrayUtils.anySearch(identify.getTags(), holder.getIdentify().getTags()));
+          holder -> ArrayUtils.contains(holder.getIdentify().getTags(), identify.getTags()));
     }
     // 按目标过滤实例
     if (Objects.nonNull(identify.getTarget())) {
