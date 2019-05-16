@@ -8,6 +8,7 @@ import site.morn.bean.BeanCaches;
 import site.morn.core.BeanAdapter;
 import site.morn.core.BeanConverter;
 import site.morn.core.BeanProcessor;
+import site.morn.core.BeanProducer;
 
 /**
  * 实例函数工具
@@ -183,6 +184,21 @@ public class BeanFunctionUtils {
       processor.handle(source);
     }
     return true;
+  }
+
+  /**
+   * 实例生产
+   *
+   * @param functionClass 函数类
+   * @param tags 检索标签
+   * @param <F> 函数类型
+   * @param <T> 目标类型
+   * @return 实例
+   */
+  public <F extends BeanProducer<T>, T> T product(Class<F> functionClass, String... tags) {
+    F producer = BeanCaches.tagBean(functionClass, tags);
+    Assert.notNull(producer, "无法获取可用生产者：" + functionClass.getSimpleName());
+    return producer.product();
   }
 
 }
