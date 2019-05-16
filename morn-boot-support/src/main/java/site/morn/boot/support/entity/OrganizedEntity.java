@@ -1,11 +1,10 @@
 package site.morn.boot.support.entity;
 
 import javax.persistence.Column;
-import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import lombok.experimental.FieldNameConstants;
 
 /**
  * 组织成员映射类
@@ -15,13 +14,13 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
  */
 @Getter
 @Setter
+@FieldNameConstants
 @MappedSuperclass
-@EntityListeners(AuditingEntityListener.class)
 public class OrganizedEntity extends ReviserEntity {
 
   /**
    * 组织编号
    */
   @Column
-  private Long departmentId;
+  protected Long departmentId;
 }
