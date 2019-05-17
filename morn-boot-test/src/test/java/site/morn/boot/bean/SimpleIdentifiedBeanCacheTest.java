@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import site.morn.bean.BeanIdentify;
 import site.morn.bean.IdentifiedBeanCache;
+import site.morn.bean.annotation.Function;
 import site.morn.bean.annotation.Name;
 import site.morn.bean.annotation.Tag;
 import site.morn.bean.annotation.Target;
@@ -83,6 +84,20 @@ public class SimpleIdentifiedBeanCacheTest {
   @Target(TestBeanB.class)
   private class TestBeanA {
 
+    @Function
+    public void doSomething() {
+
+    }
+
+    @Function("return")
+    public Object returnSomething(String s, Object o) {
+      return new Object();
+    }
+
+    @Function("return")
+    public Object returnAnthorThing() {
+      return new Object();
+    }
   }
 
   @Name("testBeanB")

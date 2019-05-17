@@ -1,6 +1,9 @@
 package site.morn.bean;
 
+import java.util.List;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -10,6 +13,8 @@ import lombok.Setter;
  * @author timely-rain
  * @since 1.0.0, 2018/11/26
  */
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class IdentifiedBeanHolder<T> {
@@ -23,4 +28,9 @@ public class IdentifiedBeanHolder<T> {
    * 实例
    */
   private T bean;
+
+  /**
+   * 方法集合
+   */
+  private List<MethodHolder> methodHolders;
 }

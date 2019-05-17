@@ -1,5 +1,8 @@
 package site.morn.boot.bean;
 
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -8,6 +11,8 @@ import site.morn.bean.BeanIdentify;
 import site.morn.bean.BeanIdentify.BeanIdentifyBuilder;
 import site.morn.bean.IdentifiedBeanCache;
 import site.morn.bean.IdentifiedBeanHolder;
+import site.morn.bean.MethodHolder;
+import site.morn.bean.annotation.Function;
 import site.morn.bean.annotation.Name;
 import site.morn.bean.annotation.Tag;
 import site.morn.bean.annotation.Target;
@@ -37,7 +42,7 @@ public class IdentifiedBeanPostProcessor implements BeanPostProcessor {
    * @param <T> 实例类型
    * @return 实例持有者
    */
-  public static <T> IdentifiedBeanHolder<T> generateBeanHolder(T bean) {
+  static <T> IdentifiedBeanHolder<T> generateBeanHolder(T bean) {
     // 获取所有实例标识注解
     Class<?> beanClass = bean.getClass();
     Name name = AnnotationUtils.findAnnotation(beanClass, Name.class);
@@ -46,7 +51,6 @@ public class IdentifiedBeanPostProcessor implements BeanPostProcessor {
     if (Objects.isNull(name) && Objects.isNull(tag) && Objects.isNull(target)) {
       return null;
     }
-
     // 构建实例标识信息
     BeanIdentifyBuilder identifyBuilder = BeanIdentify.builder();
     if (Objects.nonNull(name)) {
@@ -58,11 +62,53 @@ public class IdentifiedBeanPostProcessor implements BeanPostProcessor {
     if (Objects.nonNull(target)) {
       identifyBuilder.target(target.value());
     }
+
+    List<MethodHolder> annotationMethods = getAnnotationMethods(beanClass);
+
     // 构建标识实例持有者
-    IdentifiedBeanHolder<T> beanHolder = new IdentifiedBeanHolder<>();
-    beanHolder.setIdentify(identifyBuilder.build());
-    beanHolder.setBean(bean);
-    return beanHolder;
+    return new IdentifiedBeanHolder<>(identifyBuilder.build(), bean, annotationMethods);
+  }
+
+  /**
+   * 获取注解方法
+   *
+   * @param beanClass 实例类
+   * @return 注解方法
+   */
+  private static List<MethodHolder> getAnnotationMethods(Class<?> beanClass) {
+    List<MethodHolder> methodHolders = new ArrayList<>();
+
+    for (Method method : beanClass.getMethods()) {
+      Function function = AnnotationUtils.findAnnotation(method, Function.class);
+      if (Objects.isNull(function)) {
+        continue;
+      }
+      String functionName = function.value();
+      if (contains(methodHolders, functionName)) {
+        log.warn("函数重复注入：{}.{}#{}", beanClass.getSimpleName(), method.getName(),
+            functionName);
+        continue;
+      }
+      MethodHolder methodHolder = new MethodHolder(functionName, null, method,
+          method.getParameterTypes());
+      methodHolders.add(methodHolder);
+      log.warn("注册缓存函数：{}.{}#{}", beanClass.getSimpleName(), method.getName(),
+          functionName);
+    }
+    return methodHolders;
+  }
+
+
+  /**
+   * 判断函数名称是否重复
+   *
+   * @param methodHolders 方法持有者集合
+   * @param functionName 函数名称
+   * @return 函数名称重复
+   */
+  private static boolean contains(List<MethodHolder> methodHolders, String functionName) {
+    return methodHolders.stream()
+        .anyMatch(methodHolder -> Objects.equals(methodHolder.getName(), functionName));
   }
 
   @Override
