@@ -22,7 +22,7 @@ public class IdentifiedBeanHolder<T> {
   /**
    * 实例标识
    */
-  private BeanIdentify identify;
+  private AnnotationIdentifyCase identify;
 
   /**
    * 实例

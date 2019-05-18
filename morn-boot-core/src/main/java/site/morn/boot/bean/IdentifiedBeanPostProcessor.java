@@ -13,10 +13,10 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+import site.morn.bean.AnnotationIdentifyCase;
+import site.morn.bean.AnnotationIdentifyCase.AnnotationIdentifyCaseBuilder;
 import site.morn.bean.BeanAnnotation;
 import site.morn.bean.BeanAnnotationRegistry;
-import site.morn.bean.BeanIdentify;
-import site.morn.bean.BeanIdentify.BeanIdentifyBuilder;
 import site.morn.bean.FunctionHolder;
 import site.morn.bean.IdentifiedBeanCache;
 import site.morn.bean.IdentifiedBeanHolder;
@@ -117,7 +117,7 @@ public class IdentifiedBeanPostProcessor implements BeanPostProcessor {
     }
 
     // 构建实例标识信息
-    BeanIdentifyBuilder identifyBuilder = BeanIdentify.builder();
+    AnnotationIdentifyCaseBuilder identifyBuilder = AnnotationIdentifyCase.builder();
 
     if (Objects.nonNull(name)) { // 获取名称
       identifyBuilder.name(name.value());

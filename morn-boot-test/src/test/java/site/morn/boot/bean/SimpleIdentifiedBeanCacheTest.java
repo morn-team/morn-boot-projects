@@ -10,7 +10,7 @@ import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import site.morn.bean.BeanIdentify;
+import site.morn.bean.AnnotationIdentifyCase;
 import site.morn.bean.IdentifiedBeanCache;
 import site.morn.bean.annotation.Function;
 import site.morn.bean.annotation.Name;
@@ -75,10 +75,11 @@ public class SimpleIdentifiedBeanCacheTest {
   @Test
   public void search() {
     // 测试BeanIdentify
-    BeanIdentify beanIdentify = BeanIdentify.builder().tags(ArrayUtils.merge("odd"))
+    AnnotationIdentifyCase annotationIdentifyCase = AnnotationIdentifyCase.builder()
+        .tags(ArrayUtils.merge("odd"))
         .target(TestBeanB.class)
         .build();
-    List<Object> search = identifiedBeanCache.beans(Object.class, beanIdentify);
+    List<Object> search = identifiedBeanCache.beans(Object.class, annotationIdentifyCase);
     Assert.assertEquals(2, search.size());
   }
 

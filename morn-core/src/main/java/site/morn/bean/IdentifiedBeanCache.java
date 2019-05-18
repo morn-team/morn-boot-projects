@@ -43,7 +43,7 @@ public interface IdentifiedBeanCache {
    * @return 实例
    */
   default <T> T nameBean(Class<T> type, String name) {
-    BeanIdentify identify = BeanIdentify.builder().name(name).build();
+    AnnotationIdentifyCase identify = AnnotationIdentifyCase.builder().name(name).build();
     return bean(type, identify);
   }
 
@@ -55,7 +55,7 @@ public interface IdentifiedBeanCache {
    * @return 实例
    */
   default <T> T tagBean(Class<T> type, String... tags) {
-    BeanIdentify identify = BeanIdentify.builder().tags(tags).build();
+    AnnotationIdentifyCase identify = AnnotationIdentifyCase.builder().tags(tags).build();
     return bean(type, identify);
   }
 
@@ -67,7 +67,7 @@ public interface IdentifiedBeanCache {
    * @return 实例对象
    */
   default <T> T targetBean(Class<T> type, Class<?> target) {
-    BeanIdentify identify = BeanIdentify.builder().target(target).build();
+    AnnotationIdentifyCase identify = AnnotationIdentifyCase.builder().target(target).build();
     return bean(type, identify);
   }
 
@@ -88,7 +88,7 @@ public interface IdentifiedBeanCache {
    * @return 实例集合
    */
   default <T> List<T> tagBeans(Class<T> type, String... tags) {
-    BeanIdentify identify = BeanIdentify.builder().tags(tags).build();
+    AnnotationIdentifyCase identify = AnnotationIdentifyCase.builder().tags(tags).build();
     return beans(type, identify);
   }
 
@@ -100,7 +100,7 @@ public interface IdentifiedBeanCache {
    * @return 实例集合
    */
   default <T> List<T> targetBeans(Class<T> type, Class<?> target) {
-    BeanIdentify identify = BeanIdentify.builder().target(target).build();
+    AnnotationIdentifyCase identify = AnnotationIdentifyCase.builder().target(target).build();
     return beans(type, identify);
   }
 
