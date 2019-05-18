@@ -17,9 +17,9 @@ import site.morn.bean.BeanAnnotation;
 import site.morn.bean.BeanAnnotationRegistry;
 import site.morn.bean.BeanIdentify;
 import site.morn.bean.BeanIdentify.BeanIdentifyBuilder;
+import site.morn.bean.FunctionHolder;
 import site.morn.bean.IdentifiedBeanCache;
 import site.morn.bean.IdentifiedBeanHolder;
-import site.morn.bean.MethodHolder;
 import site.morn.bean.annotation.Function;
 import site.morn.bean.annotation.Name;
 import site.morn.bean.annotation.Tag;
@@ -48,6 +48,47 @@ public class IdentifiedBeanPostProcessor implements BeanPostProcessor {
       IdentifiedBeanCache identifiedBeanCache) {
     this.registry = registry;
     this.identifiedBeanCache = identifiedBeanCache;
+  }
+
+  /**
+   * 判断函数名称是否重复
+   *
+   * @param functionHolders 方法持有者集合
+   * @param functionName 函数名称
+   * @return 函数名称重复
+   */
+  private static boolean contains(List<FunctionHolder> functionHolders, String functionName) {
+    return functionHolders.stream()
+        .anyMatch(functionHolder -> Objects.equals(functionHolder.getName(), functionName));
+  }
+
+  /**
+   * 获取注解方法
+   *
+   * @param beanClass 实例类
+   * @return 注解方法
+   */
+  private static List<FunctionHolder> getAnnotationMethods(Class<?> beanClass) {
+    List<FunctionHolder> functionHolders = new ArrayList<>();
+
+    for (Method method : beanClass.getMethods()) {
+      Function function = AnnotationUtils.findAnnotation(method, Function.class);
+      if (Objects.isNull(function)) {
+        continue;
+      }
+      String functionName = function.value();
+      if (contains(functionHolders, functionName)) {
+        log.warn("函数重复注入：{}.{}#{}", beanClass.getSimpleName(), method.getName(),
+            functionName);
+        continue;
+      }
+      FunctionHolder functionHolder = new FunctionHolder(functionName, null, method,
+          method.getParameterTypes());
+      functionHolders.add(functionHolder);
+      log.warn("注册缓存函数：{}.{}#{}", beanClass.getSimpleName(), method.getName(),
+          functionName);
+    }
+    return functionHolders;
   }
 
   /**
@@ -108,52 +149,10 @@ public class IdentifiedBeanPostProcessor implements BeanPostProcessor {
     }
     identifyBuilder.tags(tags.toArray(new String[0]));
 
-    List<MethodHolder> annotationMethods = getAnnotationMethods(beanClass); // 获取函数
+    List<FunctionHolder> annotationMethods = getAnnotationMethods(beanClass); // 获取函数
 
     // 构建标识实例持有者
     return new IdentifiedBeanHolder<>(identifyBuilder.build(), bean, annotationMethods);
-  }
-
-  /**
-   * 获取注解方法
-   *
-   * @param beanClass 实例类
-   * @return 注解方法
-   */
-  private static List<MethodHolder> getAnnotationMethods(Class<?> beanClass) {
-    List<MethodHolder> methodHolders = new ArrayList<>();
-
-    for (Method method : beanClass.getMethods()) {
-      Function function = AnnotationUtils.findAnnotation(method, Function.class);
-      if (Objects.isNull(function)) {
-        continue;
-      }
-      String functionName = function.value();
-      if (contains(methodHolders, functionName)) {
-        log.warn("函数重复注入：{}.{}#{}", beanClass.getSimpleName(), method.getName(),
-            functionName);
-        continue;
-      }
-      MethodHolder methodHolder = new MethodHolder(functionName, null, method,
-          method.getParameterTypes());
-      methodHolders.add(methodHolder);
-      log.warn("注册缓存函数：{}.{}#{}", beanClass.getSimpleName(), method.getName(),
-          functionName);
-    }
-    return methodHolders;
-  }
-
-
-  /**
-   * 判断函数名称是否重复
-   *
-   * @param methodHolders 方法持有者集合
-   * @param functionName 函数名称
-   * @return 函数名称重复
-   */
-  private static boolean contains(List<MethodHolder> methodHolders, String functionName) {
-    return methodHolders.stream()
-        .anyMatch(methodHolder -> Objects.equals(methodHolder.getName(), functionName));
   }
 
   @Override

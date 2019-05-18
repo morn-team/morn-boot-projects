@@ -16,7 +16,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class MethodHolder {
+public class FunctionHolder {
 
   /**
    * 名称

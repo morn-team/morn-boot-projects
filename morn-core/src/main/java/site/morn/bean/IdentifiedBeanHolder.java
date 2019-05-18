@@ -32,5 +32,5 @@ public class IdentifiedBeanHolder<T> {
   /**
    * 方法集合
    */
-  private List<MethodHolder> methodHolders;
+  private List<FunctionHolder> functionHolders;
 }
