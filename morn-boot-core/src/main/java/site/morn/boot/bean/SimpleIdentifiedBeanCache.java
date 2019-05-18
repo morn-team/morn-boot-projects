@@ -25,7 +25,8 @@ public class SimpleIdentifiedBeanCache implements IdentifiedBeanCache {
   /**
    * 实例持有者
    */
-  private List<IdentifiedBeanHolder> holders = Collections.synchronizedList(new ArrayList<>());
+  private final List<IdentifiedBeanHolder> holders = Collections
+      .synchronizedList(new ArrayList<>());
 
   @Override
   public <T> void cache(IdentifiedBeanHolder<T> holder) {
@@ -38,8 +39,10 @@ public class SimpleIdentifiedBeanCache implements IdentifiedBeanCache {
   public <T> List<T> beans(Class<T> type, AnnotationIdentify identify) {
     Stream<IdentifiedBeanHolder> stream = holders.stream();
     // 按类型过滤beanHolder
-    stream = stream.filter(
-        identifiedBeanHolder -> type.isAssignableFrom(identifiedBeanHolder.getBean().getClass()));
+    if (Objects.nonNull(type)) {
+      stream = stream.filter(
+          identifiedBeanHolder -> type.isAssignableFrom(identifiedBeanHolder.getBean().getClass()));
+    }
     // 将剩余beanHolder转换为IdentifiedBeanHolder<T>
     Stream<IdentifiedBeanHolder<T>> holderStream = stream
         .map(identifiedBeanHolder -> (IdentifiedBeanHolder<T>) identifiedBeanHolder);

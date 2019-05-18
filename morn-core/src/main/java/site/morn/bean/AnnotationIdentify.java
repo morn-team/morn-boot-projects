@@ -8,7 +8,6 @@ package site.morn.bean;
  */
 public interface AnnotationIdentify {
 
-
   /**
    * 获取名称
    *
