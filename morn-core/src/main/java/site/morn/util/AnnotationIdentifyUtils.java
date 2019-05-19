@@ -38,7 +38,7 @@ public class AnnotationIdentifyUtils {
    * @return 标签
    */
   public static String getTag(Class<? extends Annotation> annotation) {
-    return getTag(annotation, "");
+    return getTag(annotation, null);
   }
 
   /**

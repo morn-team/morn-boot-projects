@@ -61,7 +61,8 @@ public class Tags {
    * @return 标签构建类
    */
   public Tags add(Class<? extends Annotation> annotation) {
-    return add(annotation, null);
+    String tag = AnnotationIdentifyUtils.getTag(annotation);
+    return add(tag);
   }
 
   /**
@@ -73,8 +74,7 @@ public class Tags {
    */
   public Tags add(Class<? extends Annotation> annotation, Object value) {
     String tag = AnnotationIdentifyUtils.getTag(annotation, value);
-    tagList.add(tag);
-    return this;
+    return add(tag);
   }
 
   /**
