@@ -3,6 +3,8 @@ package site.morn.test;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
+import java.util.Optional;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import site.morn.bean.annotation.Function;
@@ -42,13 +44,12 @@ public class TestAnnotationBeans {
 
   public interface Cat {
 
-    void eat();
-
-    void play();
   }
 
-  public class Food {
+  @Data
+  public static class Food {
 
+    private final String name;
   }
 
   public class Toy {
@@ -63,8 +64,14 @@ public class TestAnnotationBeans {
   public class Dog {
 
     @Function
-    public void eat() {
-      log.info("狗在吃东西...");
+    public String eat(String food) {
+      log.info("狗在吃{}...", food);
+      return "bone";
+    }
+
+    @Function
+    public void play() {
+      log.info("{}在玩...", "狗");
     }
   }
 
@@ -76,13 +83,13 @@ public class TestAnnotationBeans {
   public class Caramel implements Cat {
 
     @Function
-    @Override
-    public void eat() {
-      log.info("{}在吃东西...", "caramel");
+    public String eat(String meat, Food food) {
+      log.info("{}在吃{}和{}...", "caramel", meat,
+          Optional.ofNullable(food).map(Food::getName).orElse("未知实物"));
+      return "fishBone";
     }
 
     @Function
-    @Override
     public void play() {
       log.info("{}在玩...", "caramel");
     }
@@ -96,13 +103,11 @@ public class TestAnnotationBeans {
   public class Mocha implements Cat {
 
     @Function
-    @Override
-    public void eat() {
-      log.info("{}在吃东西...", "mocha");
+    public void eat(String food) {
+      log.info("{}在吃{}...", "mocha", food);
     }
 
     @Function
-    @Override
     public void play() {
       log.info("{}在玩...", "mocha");
     }
@@ -114,5 +119,9 @@ public class TestAnnotationBeans {
   @Target(Food.class)
   public class Rabbit {
 
+    @Function
+    public void eat(String food) {
+      log.info("{}在吃{}...", "蜗牛", food);
+    }
   }
 }

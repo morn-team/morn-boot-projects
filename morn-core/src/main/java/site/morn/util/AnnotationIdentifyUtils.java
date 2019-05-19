@@ -62,8 +62,15 @@ public class AnnotationIdentifyUtils {
    * @return 标签
    */
   public static String getTag(String tagName, Object value) {
-    String s = Optional.ofNullable(value).orElse("").toString();
-    return String.format("%s%s%s", tagName, SPACER, s);
+    String n = Optional.ofNullable(tagName).orElse("");
+    String v = Optional.ofNullable(value).orElse("").toString();
+    if (StringUtils.isEmpty(n)) {
+      return v;
+    }
+    if (StringUtils.isEmpty(v)) {
+      return n;
+    }
+    return String.format("%s%s%s", tagName, SPACER, v);
   }
 
   /**
@@ -74,9 +81,9 @@ public class AnnotationIdentifyUtils {
    * @return 是否适用
    */
   public static <T extends AnnotationIdentify> boolean isSuitable(T suit, T limit) {
-    Boolean rule = baseRule(suit, limit);
-    if (Objects.nonNull(rule)) {
-      return rule;
+    Optional<Boolean> optional = baseRule(suit, limit);
+    if (optional.isPresent()) {
+      return optional.get();
     }
     boolean name = isSuitable(suit.getName(), limit.getName()); // 按名称通配
     boolean tags = isSuitable(suit.getTags(), limit.getTags()); // 按标签通配
@@ -92,11 +99,8 @@ public class AnnotationIdentifyUtils {
    * @return 是否适用
    */
   public static boolean isInstance(Class<?> suit, Class<?> limit) {
-    Boolean rule = baseRule(suit, limit);
-    if (Objects.nonNull(rule)) {
-      return rule;
-    }
-    return limit.isAssignableFrom(suit);
+    Optional<Boolean> optional = baseRule(suit, limit);
+    return optional.orElseGet(() -> limit.isAssignableFrom(suit));
   }
 
   /**
@@ -107,11 +111,8 @@ public class AnnotationIdentifyUtils {
    * @return 是否适用
    */
   public static boolean isSuper(Class<?> suit, Class<?> limit) {
-    Boolean rule = baseRule(suit, limit);
-    if (Objects.nonNull(rule)) {
-      return rule;
-    }
-    return suit.isAssignableFrom(limit);
+    Optional<Boolean> optional = baseRule(suit, limit);
+    return optional.orElseGet(() -> suit.isAssignableFrom(limit));
   }
 
   /**
@@ -122,9 +123,9 @@ public class AnnotationIdentifyUtils {
    * @return 是否适用
    */
   public static boolean isSuitable(String[] suits, String[] limits) {
-    Boolean rule = baseRule(suits, limits);
-    if (Objects.nonNull(rule)) {
-      return rule;
+    Optional<Boolean> optional = baseRule(suits, limits);
+    if (optional.isPresent()) {
+      return optional.get();
     }
     for (String limit : limits) {
       if (isSuitable(suits, limit)) {
@@ -159,9 +160,11 @@ public class AnnotationIdentifyUtils {
    * @return 是否适用
    */
   public static boolean isSuitable(String suit, String limit) {
-    Boolean rule = baseRule(suit, limit);
-    if (Objects.nonNull(rule)) {
-      return rule;
+    if (StringUtils.isEmpty(limit)) { // 无限制条件
+      return true;
+    }
+    if (StringUtils.isEmpty(suit)) { // 无适用条件
+      return false;
     }
     if (isWildcard(suit, limit)) { // 通配成功
       return true;
@@ -192,14 +195,14 @@ public class AnnotationIdentifyUtils {
    * @param limit 限制条件
    * @return 是否适用
    */
-  private Boolean baseRule(Object suit, Object limit) {
+  private Optional<Boolean> baseRule(Object suit, Object limit) {
     if (Objects.isNull(limit)) { // 无限制条件
-      return true;
+      return Optional.of(Boolean.TRUE);
     }
     if (Objects.isNull(suit)) { // 无适用条件
-      return false;
+      return Optional.of(Boolean.FALSE);
     }
-    return null;
+    return Optional.empty();
   }
 
   /**

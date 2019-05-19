@@ -98,7 +98,7 @@ public class IdentifiedBeanPostProcessor implements BeanPostProcessor {
    * @param <T> 实例类型
    * @return 实例持有者
    */
-  <T> IdentifiedBeanHolder<T> generateBeanHolder(T bean) {
+  private <T> IdentifiedBeanHolder<T> generateBeanHolder(T bean) {
     Class<?> beanClass = bean.getClass();
 
     // 获取标准实例注解

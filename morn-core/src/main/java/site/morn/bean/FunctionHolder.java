@@ -4,6 +4,7 @@ import java.lang.reflect.Method;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.util.StringUtils;
 
 /**
  * 方法持有者
@@ -37,5 +38,22 @@ public class FunctionHolder extends AnnotationIdentifyCase implements Annotation
     this.bean = bean;
     this.method = method;
     this.parameterTypes = parameterTypes;
+  }
+
+  public String getBeanName() {
+    return StringUtils.uncapitalize(bean.getClass().getSimpleName());
+  }
+
+  public String getBeanPath() {
+    return bean.getClass().getName();
+  }
+
+  /**
+   * 获取方法路径
+   *
+   * @return 方法路径
+   */
+  public String getMethodPath() {
+    return getBeanPath() + "." + method.getName();
   }
 }

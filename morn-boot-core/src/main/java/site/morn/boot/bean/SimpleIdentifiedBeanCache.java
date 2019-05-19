@@ -57,9 +57,8 @@ public class SimpleIdentifiedBeanCache implements IdentifiedBeanCache {
   @SuppressWarnings("unchecked")
   private <T> Stream<IdentifiedBeanHolder<T>> beanHolderStream(Class<T> limitType,
       AnnotationIdentify limitIdentify) {
-    return holders.stream()
-        .filter(
-            holder -> AnnotationIdentifyUtils.isInstance(holder.getBean().getClass(), limitType))
+    return holders.stream().filter(
+        holder -> AnnotationIdentifyUtils.isInstance(holder.getBean().getClass(), limitType))
         .filter(holder -> AnnotationIdentifyUtils.isSuitable(holder, limitIdentify))
         .map(identifiedBeanHolder -> (IdentifiedBeanHolder<T>) identifiedBeanHolder);
   }
