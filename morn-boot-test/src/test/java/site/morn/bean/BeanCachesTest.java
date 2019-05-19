@@ -81,14 +81,14 @@ public class BeanCachesTest {
   public void eat() { // function test
     AnnotationIdentifyCase identifyCase = AnnotationIdentifyCase.builder().name("eat").build();
     List<FunctionHolder> functions = BeanCaches.functions(identifyCase);
-    Assert.assertEquals("函数：" + functions.size(), 3, functions.size());
+    Assert.assertEquals("函数：" + functions.size(), 4, functions.size());
   }
 
   @Test
   public void play() { // function test
     AnnotationIdentifyCase identifyCase = AnnotationIdentifyCase.builder().name("play").build();
     List<FunctionHolder> functions = BeanCaches.functions(identifyCase);
-    Assert.assertEquals("函数：" + functions.size(), 2, functions.size());
+    Assert.assertEquals("函数：" + functions.size(), 3, functions.size());
   }
 
   @Test
