@@ -1,7 +1,6 @@
 package site.morn.bean;
 
 import java.util.List;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,16 +12,10 @@ import lombok.Setter;
  * @author timely-rain
  * @since 1.0.0, 2018/11/26
  */
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class IdentifiedBeanHolder<T> {
-
-  /**
-   * 实例标识
-   */
-  private AnnotationIdentifyCase identify;
+public class IdentifiedBeanHolder<T> extends AnnotationIdentifyCase implements AnnotationIdentify {
 
   /**
    * 实例
@@ -33,4 +26,11 @@ public class IdentifiedBeanHolder<T> {
    * 方法集合
    */
   private List<FunctionHolder> functionHolders;
+
+  public IdentifiedBeanHolder(AnnotationIdentify identify, T bean,
+      List<FunctionHolder> functionHolders) {
+    super(identify);
+    this.bean = bean;
+    this.functionHolders = functionHolders;
+  }
 }

@@ -13,15 +13,20 @@ public interface AnnotationIdentify {
   /**
    * 获取名称
    *
+   * <p>同类中不允许名称重复
+   *
    * @return 名称
    * @see site.morn.bean.annotation.Name
+   * @see site.morn.bean.annotation.Function
    */
   String getName();
 
   /**
-   * 获取名称标签
+   * 获取标签
    *
-   * @return 名称标签
+   * <p>同类中允许标签重复
+   *
+   * @return 标签
    * @see site.morn.bean.annotation.Tag
    */
   String[] getTags();

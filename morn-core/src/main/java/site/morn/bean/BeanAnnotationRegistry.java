@@ -1,5 +1,6 @@
 package site.morn.bean;
 
+import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
@@ -25,5 +26,15 @@ public class BeanAnnotationRegistry {
    */
   public void add(BeanAnnotation beanAnnotation) {
     annotations.add(beanAnnotation);
+  }
+
+  /**
+   * 添加注解
+   *
+   * @param annotation 注解类型
+   */
+  public void add(Class<? extends Annotation> annotation) {
+    BeanAnnotation beanAnnotation = new BeanAnnotation(annotation);
+    add(beanAnnotation);
   }
 }

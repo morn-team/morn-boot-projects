@@ -26,8 +26,7 @@ public class JpaRepositoryFactoryBean<R extends JpaRepository<T, I>, T, I extend
     return new BaseRepositoryFactory(em);
   }
 
-  private static class BaseRepositoryFactory<T, I extends Serializable> extends
-      JpaRepositoryFactory {
+  private static class BaseRepositoryFactory extends JpaRepositoryFactory {
 
     private final EntityManager em;
 

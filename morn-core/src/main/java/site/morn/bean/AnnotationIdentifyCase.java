@@ -1,7 +1,9 @@
 package site.morn.bean;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -14,6 +16,8 @@ import lombok.ToString;
  * @since 1.0.0, 2018/11/25
  * @since 2.1.0, 2019/5/18
  */
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Getter
 @Setter
@@ -23,22 +27,25 @@ public class AnnotationIdentifyCase implements AnnotationIdentify {
   /**
    * 名称
    *
-   * @see site.morn.bean.annotation.Name
-   * @see site.morn.bean.annotation.Function
+   * @see AnnotationIdentify#getName()
    */
-  private String name;
+  protected String name;
 
   /**
    * 标签
    *
-   * @see site.morn.bean.annotation.Tag
+   * @see AnnotationIdentify#getTags()
    */
-  private String[] tags;
+  protected String[] tags;
 
   /**
    * 目标类型
    *
-   * @see site.morn.bean.annotation.Target
+   * @see AnnotationIdentify#getTarget()
    */
-  private Class<?> target;
+  protected Class<?> target;
+
+  public AnnotationIdentifyCase(AnnotationIdentify identify) {
+    this(identify.getName(), identify.getTags(), identify.getTarget());
+  }
 }

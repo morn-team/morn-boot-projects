@@ -2,6 +2,7 @@ package site.morn.bean;
 
 import java.lang.annotation.Annotation;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.core.annotation.AnnotationUtils;
 
@@ -11,6 +12,7 @@ import org.springframework.core.annotation.AnnotationUtils;
  * @author timely-rain
  * @since 2.1.0, 2019/5/17
  */
+@RequiredArgsConstructor
 @Getter
 @Setter
 public class BeanAnnotation {
@@ -18,7 +20,7 @@ public class BeanAnnotation {
   /**
    * 注解类型
    */
-  private Class<? extends Annotation> annotationType;
+  private final Class<? extends Annotation> annotationType;
 
   /**
    * 注解属性名称

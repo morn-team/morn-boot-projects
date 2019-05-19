@@ -5,6 +5,7 @@ import site.morn.bean.BeanAnnotation;
 import site.morn.bean.BeanAnnotationRegistry;
 import site.morn.bean.BeanConfigurer;
 import site.morn.test.TestAnnotationBeans.Animal;
+import site.morn.test.TestAnnotationBeans.Color;
 
 /**
  * 测试实例注解配置
@@ -17,10 +18,11 @@ public class TestBeanAnnotationConfiguration implements BeanConfigurer {
 
   @Override
   public void addBeanAnnotations(BeanAnnotationRegistry registry) {
-    BeanAnnotation beanAnnotation = new BeanAnnotation();
-    beanAnnotation.setAnnotationType(Animal.class);
-    beanAnnotation.setAttributeName("value");
-    beanAnnotation.setTagName("animal");
-    registry.add(beanAnnotation);
+    BeanAnnotation animal = new BeanAnnotation(Animal.class);
+    animal.setAttributeName("value");
+    animal.setTagName("animal");
+    registry.add(animal);
+
+    registry.add(Color.class);
   }
 }

@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.config.BeanPostProcessor;
@@ -24,6 +23,7 @@ import site.morn.bean.annotation.Function;
 import site.morn.bean.annotation.Name;
 import site.morn.bean.annotation.Tag;
 import site.morn.bean.annotation.Target;
+import site.morn.util.AnnotationIdentifyUtils;
 
 /**
  * 标识实例后置处理器
@@ -68,7 +68,7 @@ public class IdentifiedBeanPostProcessor implements BeanPostProcessor {
    * @param beanClass 实例类
    * @return 注解方法
    */
-  private static List<FunctionHolder> getAnnotationMethods(Class<?> beanClass) {
+  private static <T> List<FunctionHolder> getAnnotationMethods(T bean, Class<?> beanClass) {
     List<FunctionHolder> functionHolders = new ArrayList<>();
 
     for (Method method : beanClass.getMethods()) {
@@ -76,17 +76,17 @@ public class IdentifiedBeanPostProcessor implements BeanPostProcessor {
       if (Objects.isNull(function)) {
         continue;
       }
-      String functionName = function.value();
+      String functionName =
+          StringUtils.isEmpty(function.value()) ? method.getName() : function.value();
       if (contains(functionHolders, functionName)) {
-        log.warn("函数重复注入：{}.{}#{}", beanClass.getSimpleName(), method.getName(),
-            functionName);
+        log.warn("函数重复注入：{}.{}#{}", beanClass.getSimpleName(), method.getName(), functionName);
         continue;
       }
-      FunctionHolder functionHolder = new FunctionHolder(functionName, null, method,
+      AnnotationIdentifyCaseBuilder builder = AnnotationIdentifyCase.builder().name(functionName);
+      FunctionHolder functionHolder = new FunctionHolder(bean, builder.build(), method,
           method.getParameterTypes());
       functionHolders.add(functionHolder);
-      log.warn("注册缓存函数：{}.{}#{}", beanClass.getSimpleName(), method.getName(),
-          functionName);
+      log.warn("注册缓存函数：{}.{}#{}", beanClass.getSimpleName(), method.getName(), functionName);
     }
     return functionHolders;
   }
@@ -133,23 +133,17 @@ public class IdentifiedBeanPostProcessor implements BeanPostProcessor {
       for (BeanAnnotation beanAnnotation : beanAnnotations) {
         Annotation annotation = AnnotationUtils
             .findAnnotation(beanClass, beanAnnotation.getAnnotationType());
-        Object value = AnnotationUtils.getValue(annotation, beanAnnotation.getAttributeName());
         if (Objects.isNull(annotation)) {
           continue;
         }
-        // 使用注解名作为默认标签名称
-        if (StringUtils.isEmpty(beanAnnotation.getTagName())) {
-          String lowerCamelCase = StringUtils
-              .uncapitalize(annotation.getClass().getCanonicalName());
-          beanAnnotation.setTagName(lowerCamelCase);
-        }
-        String t = beanAnnotation.getTagName() + ":" + Optional.ofNullable(value).orElse("");
+        Object value = AnnotationUtils.getValue(annotation, beanAnnotation.getAttributeName());
+        String t = AnnotationIdentifyUtils.getTag(beanAnnotation.getTagName(), value);
         tags.add(t);
       }
     }
     identifyBuilder.tags(tags.toArray(new String[0]));
 
-    List<FunctionHolder> annotationMethods = getAnnotationMethods(beanClass); // 获取函数
+    List<FunctionHolder> annotationMethods = getAnnotationMethods(bean, beanClass); // 获取函数
 
     // 构建标识实例持有者
     return new IdentifiedBeanHolder<>(identifyBuilder.build(), bean, annotationMethods);

@@ -81,6 +81,26 @@ public interface IdentifiedBeanCache {
   <T> List<T> beans(Class<T> type, AnnotationIdentify identify);
 
   /**
+   * 按标识检索函数
+   *
+   * @param beanIdentify 实例标识
+   * @param functionIdentify 函数标识
+   * @return 函数集合
+   */
+  List<FunctionHolder> functions(AnnotationIdentify beanIdentify,
+      AnnotationIdentify functionIdentify);
+
+  /**
+   * 按标识检索函数
+   *
+   * @param functionIdentify 函数标识
+   * @return 函数集合
+   */
+  default List<FunctionHolder> functions(AnnotationIdentify functionIdentify) {
+    return functions(null, functionIdentify);
+  }
+
+  /**
    * 按标签检索实例
    *
    * @param tags 标签
@@ -102,37 +122,5 @@ public interface IdentifiedBeanCache {
   default <T> List<T> targetBeans(Class<T> type, Class<?> target) {
     AnnotationIdentifyCase identify = AnnotationIdentifyCase.builder().target(target).build();
     return beans(type, identify);
-  }
-
-  /**
-   * @deprecated {@link #nameBean(Class, String)}
-   */
-  @Deprecated
-  default <T> T bean(Class<T> type, String name) {
-    return nameBean(type, name);
-  }
-
-  /**
-   * @deprecated {@link #targetBean(Class, Class)}
-   */
-  @Deprecated
-  default <T> T bean(Class<T> type, Class<?> target) {
-    return targetBean(type, target);
-  }
-
-  /**
-   * @deprecated {@link #tagBeans(Class, String...)}
-   */
-  @Deprecated
-  default <T> List<T> beans(Class<T> type, String... tags) {
-    return tagBeans(type, tags);
-  }
-
-  /**
-   * @deprecated {@link #targetBeans(Class, Class)}
-   */
-  @Deprecated
-  default <T> List<T> beans(Class<T> type, Class<?> target) {
-    return targetBeans(type, target);
   }
 }
