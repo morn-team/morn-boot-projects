@@ -8,6 +8,7 @@ import site.morn.bean.BeanCaches;
 import site.morn.core.BeanAdapter;
 import site.morn.core.BeanConverter;
 import site.morn.core.BeanProcessor;
+import site.morn.core.BeanProducer;
 
 /**
  * 实例函数工具
@@ -31,7 +32,7 @@ public class BeanFunctionUtils {
   public <F extends BeanAdapter<S>, S> S adaption(Class<F> functionClass, S source,
       String... tags) {
     F adapter = BeanCaches.tagBean(functionClass, tags);
-    Assert.notNull(adapter, "无法获取可用适配器：" + functionClass.getSimpleName());
+    Assert.notNull(adapter, "尚未注册可用适配器：" + functionClass.getSimpleName());
     return adapter.adaption(source);
   }
 
@@ -48,7 +49,7 @@ public class BeanFunctionUtils {
   public <F extends BeanAdapter<S>, S> S adaption(Class<F> functionClass, S source,
       Class<S> target) {
     F adapter = BeanCaches.targetBean(functionClass, target);
-    Assert.notNull(adapter, "无法获取可用适配器：" + functionClass.getSimpleName());
+    Assert.notNull(adapter, "尚未注册可用适配器：" + functionClass.getSimpleName());
     return adapter.adaption(source);
   }
 
@@ -89,7 +90,7 @@ public class BeanFunctionUtils {
   public <F extends BeanConverter<S, T>, S, T> T convert(Class<F> functionClass, S source,
       String... tags) {
     F converter = BeanCaches.tagBean(functionClass, tags);
-    Assert.notNull(converter, "无法获取可用转换器：" + functionClass.getSimpleName());
+    Assert.notNull(converter, "尚未注册可用转换器：" + functionClass.getSimpleName());
     return converter.convert(source);
   }
 
@@ -108,7 +109,7 @@ public class BeanFunctionUtils {
       Class<T> target) {
     @SuppressWarnings("unchecked")
     BeanConverter<S, T> converter = BeanCaches.targetBean(functionClass, target);
-    Assert.notNull(converter, "无法获取可用转换器：" + functionClass.getSimpleName());
+    Assert.notNull(converter, "尚未注册可用转换器：" + functionClass.getSimpleName());
     return converter.convert(source);
   }
 
@@ -159,7 +160,7 @@ public class BeanFunctionUtils {
   public <F extends BeanProcessor<S>, S> void process(Class<F> functionClass, S source,
       Class<?> target) {
     BeanProcessor<S> processor = BeanCaches.targetBean(functionClass, target);
-    Assert.notNull(processor, "无法获取可用处理器：" + functionClass.getSimpleName());
+    Assert.notNull(processor, "尚未注册可用处理器：" + functionClass.getSimpleName());
     processor.handle(source);
   }
 
@@ -183,6 +184,21 @@ public class BeanFunctionUtils {
       processor.handle(source);
     }
     return true;
+  }
+
+  /**
+   * 实例生产
+   *
+   * @param functionClass 函数类
+   * @param tags 检索标签
+   * @param <F> 函数类型
+   * @param <T> 目标类型
+   * @return 实例
+   */
+  public <F extends BeanProducer<T>, T> T product(Class<F> functionClass, String... tags) {
+    F producer = BeanCaches.tagBean(functionClass, tags);
+    Assert.notNull(producer, "尚未注册可用生产者：" + functionClass.getSimpleName());
+    return producer.product();
   }
 
 }

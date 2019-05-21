@@ -6,22 +6,20 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * 目标注解
- *
- * <p>目标是唯一的，通常代表实例的处理类型
+ * 函数注解
  *
  * @author timely-rain
- * @since 1.0.0, 2018/11/25
+ * @since 2.1.0, 2019/5/17
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@java.lang.annotation.Target(ElementType.TYPE)
-public @interface Target {
+@java.lang.annotation.Target(ElementType.METHOD)
+public @interface Function {
 
   /**
-   * 获取目标
+   * 设置函数名称
    *
-   * @return 目标
+   * @return 函数名称
    */
-  Class<?> value();
+  String value() default "";
 }

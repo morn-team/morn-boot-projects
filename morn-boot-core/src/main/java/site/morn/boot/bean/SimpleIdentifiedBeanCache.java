@@ -3,16 +3,15 @@ package site.morn.boot.bean;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.util.StringUtils;
 import site.morn.bean.AnnotationIdentify;
+import site.morn.bean.FunctionHolder;
 import site.morn.bean.IdentifiedBeanCache;
 import site.morn.bean.IdentifiedBeanHolder;
 import site.morn.constant.ApplicationConstant.Cache;
-import site.morn.util.ArrayUtils;
+import site.morn.util.AnnotationIdentifyUtils;
 
 /**
  * 默认标识的实例缓存
@@ -25,43 +24,56 @@ public class SimpleIdentifiedBeanCache implements IdentifiedBeanCache {
   /**
    * 实例持有者
    */
-  private List<IdentifiedBeanHolder> holders = Collections.synchronizedList(new ArrayList<>());
+  private final List<IdentifiedBeanHolder> holders = Collections
+      .synchronizedList(new ArrayList<>());
 
   @Override
   public <T> void cache(IdentifiedBeanHolder<T> holder) {
     holders.add(holder);
   }
 
-  @Cacheable(value = Cache.BEAN_DEFAULT, key = "#identify.toString()")
-  @SuppressWarnings("unchecked")
+  @Cacheable(value = Cache.BEAN_DEFAULT, key = "#limitIdentify.toString()")
   @Override
-  public <T> List<T> beans(Class<T> type, AnnotationIdentify identify) {
-    Stream<IdentifiedBeanHolder> stream = holders.stream();
-    // 按类型过滤beanHolder
-    stream = stream.filter(
-        identifiedBeanHolder -> type.isAssignableFrom(identifiedBeanHolder.getBean().getClass()));
-    // 将剩余beanHolder转换为IdentifiedBeanHolder<T>
-    Stream<IdentifiedBeanHolder<T>> holderStream = stream
-        .map(identifiedBeanHolder -> (IdentifiedBeanHolder<T>) identifiedBeanHolder);
-    // 按名称过滤实例
-    if (!StringUtils.isEmpty(identify.getName())) {
-      holderStream = holderStream
-          .filter(holder -> Objects.equals(identify.getName(), holder.getIdentify().getName()));
-    }
-    // 按标签过滤实例
-    if (Objects.nonNull(identify.getTags())) {
-      holderStream = holderStream.filter(
-          holder -> ArrayUtils.contains(holder.getIdentify().getTags(), identify.getTags()));
-    }
-    // 按目标过滤实例
-    if (Objects.nonNull(identify.getTarget())) {
-      holderStream = holderStream.filter(holder -> {
-        Class<?> target = holder.getIdentify().getTarget();
-        return Objects.nonNull(target) && target.isAssignableFrom(identify.getTarget());
-      });
-    }
+  public <T> List<T> beans(Class<T> suitType, AnnotationIdentify limitIdentify) {
+    Stream<IdentifiedBeanHolder<T>> stream = beanHolderStream(suitType, limitIdentify);
     // 提取实例集合
-    Stream<T> beans = holderStream.map(IdentifiedBeanHolder::getBean);
-    return beans.collect(Collectors.toList());
+    return stream.map(IdentifiedBeanHolder::getBean).collect(Collectors.toList());
+  }
+
+  @Override
+  public List<FunctionHolder> functions(AnnotationIdentify beanIdentify,
+      AnnotationIdentify functionIdentify) {
+    return functionHolderStream(beanIdentify, functionIdentify).collect(Collectors.toList());
+  }
+
+  /**
+   * 获取实例持有流
+   *
+   * @param limitType 限制类型
+   * @param limitIdentify 限制标识
+   * @param <T> 实例类型
+   * @return 实例持有流
+   */
+  @SuppressWarnings("unchecked")
+  private <T> Stream<IdentifiedBeanHolder<T>> beanHolderStream(Class<T> limitType,
+      AnnotationIdentify limitIdentify) {
+    return holders.stream().filter(
+        holder -> AnnotationIdentifyUtils.isInstance(holder.getBean().getClass(), limitType))
+        .filter(holder -> AnnotationIdentifyUtils.isSuitable(holder, limitIdentify))
+        .map(identifiedBeanHolder -> (IdentifiedBeanHolder<T>) identifiedBeanHolder);
+  }
+
+  /**
+   * 获取函数持有流
+   *
+   * @param beanIdentify 实例标识
+   * @param functionIdentify 函数标识
+   * @return 函数持有流
+   */
+  private Stream<FunctionHolder> functionHolderStream(AnnotationIdentify beanIdentify,
+      AnnotationIdentify functionIdentify) {
+    return beanHolderStream(null, beanIdentify)
+        .flatMap(holder -> holder.getFunctionHolders().stream())
+        .filter(holder -> AnnotationIdentifyUtils.isSuitable(holder, functionIdentify));
   }
 }
