@@ -46,16 +46,14 @@ public abstract class CrudServiceSupport<T, I extends Serializable, R extends Jp
 
   @Override
   public <S extends T> S add(S model) {
-    RestModel<S> restModel = new RestModel<>();
-    restModel.setModel(model);
-    return add(restModel);
+    PersistValidateUtils.validateAdd(model);
+    return repository.save(model);
   }
 
   @Override
   public <S extends T> S add(RestModel<S> restModel) {
     S model = restModel.getModel();
-    PersistValidateUtils.validateAdd(model);
-    return repository.save(model);
+    return this.add(model);
   }
 
   @Override
@@ -79,30 +77,26 @@ public abstract class CrudServiceSupport<T, I extends Serializable, R extends Jp
 
   @Override
   public <S extends T> S update(S model) {
-    RestModel<S> restModel = new RestModel<>();
-    restModel.setModel(model);
-    return update(restModel);
+    PersistValidateUtils.validateUpdate(model);
+    return repository.save(model);
   }
 
   @Override
   public <S extends T> S update(RestModel<S> restModel) {
     S model = restModel.getModel();
-    PersistValidateUtils.validateUpdate(model);
-    return repository.save(model);
+    return this.update(model);
   }
 
   @Override
   public <S extends T> S patch(S model) {
-    RestModel<S> restModel = new RestModel<>();
-    restModel.setModel(model);
-    return patch(restModel);
+    PersistValidateUtils.validateUpdate(model);
+    return repository.save(model);
   }
 
   @Override
   public <S extends T> S patch(RestModel<S> restModel) {
     S model = restModel.getModel();
-    PersistValidateUtils.validateUpdate(model);
-    return repository.save(model);
+    return this.patch(model);
   }
 
   @Override
