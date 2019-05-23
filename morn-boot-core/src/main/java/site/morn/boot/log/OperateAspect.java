@@ -59,7 +59,7 @@ public class OperateAspect {
       throw throwable;
     } finally {
       // 读取操作日志参数
-      operateMetaBuilder.arguments(OperateArguments.getAll().toArray());
+      operateMetaBuilder.actionArgs(OperateArguments.getAll().toArray());
       OperateArguments.clear();
       // 将操作日志元数据，转换为操作日志实例
       OperateMeta operateMeta = operateMetaBuilder.build();
@@ -80,18 +80,24 @@ public class OperateAspect {
    * @return 操作日志构建器
    */
   private OperateMetaBuilder resolveOperatePoint(ProceedingJoinPoint point) {
+    Class<?> targetClass = point.getTarget().getClass();
     // 获取操作组注解
-    OperateGroup operateGroup = AnnotationUtils
-        .findAnnotation(point.getTarget().getClass(), OperateGroup.class);
+    OperateGroup operateGroup = AnnotationUtils.findAnnotation(targetClass, OperateGroup.class);
     // 获取操作行为注解
     MethodSignature methodSignature = (MethodSignature) point.getSignature();
     OperateAction operateAction = AnnotationUtils
         .findAnnotation(methodSignature.getMethod(), OperateAction.class);
+    Assert.notNull(operateAction, "无法获取操作行为：" + targetClass.getSimpleName());
+    // 获取实时参数
+    Object[] codeArgs = OperateArguments.getAll().toArray();
+
     // 构建操作日志元数据
-    OperateMetaBuilder builder = OperateMeta.builder().methodArgs(point.getArgs())
-        .name(operateAction.value()).excepts(operateAction.excepts());
+    OperateMetaBuilder builder = OperateMeta.builder().actionArgs(operateAction.args())
+        .codeArgs(codeArgs).methodArgs(point.getArgs()).name(operateAction.value())
+        .excepts(operateAction.excepts());
     if (Objects.nonNull(operateGroup)) {
       builder.module(operateGroup.value());
+      builder.groupArgs(operateGroup.args());
     }
     return builder;
   }

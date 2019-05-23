@@ -15,6 +15,14 @@ import site.morn.rest.RestModel;
 public interface CrudService<T, I extends Serializable> {
 
   /**
+   * 获取
+   *
+   * @param id 主键
+   * @return 持久化对象
+   */
+  T get(I id);
+
+  /**
    * 新增
    *
    * @param model 业务模型

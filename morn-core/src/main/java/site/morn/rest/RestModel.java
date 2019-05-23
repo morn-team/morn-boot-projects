@@ -1,7 +1,6 @@
 package site.morn.rest;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import site.morn.core.CriteriaMap;
 import site.morn.util.TypeUtils;
 
@@ -18,7 +17,6 @@ public class RestModel<M> implements RestModelDefinition<M, CriteriaMap> {
    * 数据模型
    */
   @Valid
-  @NotNull
   private M model;
 
   /**

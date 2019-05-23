@@ -35,6 +35,11 @@ public class MongoCrudService<T, I extends Serializable, R extends MongoReposito
   }
 
   @Override
+  public T get(I id) {
+    return repository().findById(id).orElse(null);
+  }
+
+  @Override
   public <S extends T> S add(S model) {
     RestModel<S> restModel = new RestModel<>();
     restModel.setModel(model);

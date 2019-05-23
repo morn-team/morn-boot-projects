@@ -30,7 +30,7 @@ public class DefaultOperationConverter implements OperationConverter {
     // 拼接国际化编码
     String messageCode = "log." + operateMeta.getModule() + "." + operateMeta.getName();
     // 生成操作内容
-    String content = translator.translate(messageCode, operateMeta.getArguments());
+    String content = translator.translate(messageCode, operateMeta.getActionArgs());
     // 操作时间
     Date date = new Date();
     // 构建操作日志实例

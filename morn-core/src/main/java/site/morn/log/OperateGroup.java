@@ -23,4 +23,9 @@ public @interface OperateGroup {
    * 操作模块
    */
   String value();
+
+  /**
+   * 模块参数
+   */
+  String[] args() default {};
 }

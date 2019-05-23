@@ -25,6 +25,11 @@ public @interface OperateAction {
   String value();
 
   /**
+   * 操作参数
+   */
+  String[] args() default {};
+
+  /**
    * 例外异常类型
    */
   Class<? extends Throwable>[] excepts() default {};
