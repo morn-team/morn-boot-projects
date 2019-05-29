@@ -14,3 +14,8 @@ before_script:
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+
+notifications:
+  email:
+    on_failure: always
+    on_success: never
