@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -40,12 +41,21 @@ public class CrudControllerSupport<T, I extends Serializable, S extends CrudServ
   }
 
   /**
+   * 查询
+   */
+  @GetMapping("{id}")
+  public RestMessage get(@PathVariable I id) {
+    T model = service().get(id);
+    return RestBuilders.successMessage(model);
+  }
+
+  /**
    * 新增
    */
   @PostMapping
   public RestMessage add(@Validated(Add.class) @RequestBody RestModel<T> restModel) {
-    T user = service().add(restModel);
-    return RestBuilders.successMessage(user);
+    T model = service().add(restModel);
+    return RestBuilders.successMessage(model);
   }
 
   /**
@@ -54,8 +64,8 @@ public class CrudControllerSupport<T, I extends Serializable, S extends CrudServ
   @PutMapping
   public RestMessage update(
       @Validated({Update.class, Put.class}) @RequestBody RestModel<T> restModel) {
-    T user = service().update(restModel);
-    return RestBuilders.successMessage(user);
+    T model = service().update(restModel);
+    return RestBuilders.successMessage(model);
   }
 
   /**
