@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import site.morn.boot.rest.RestPage;
+import site.morn.log.OperateAction;
+import site.morn.log.OperateAction.Actions;
 import site.morn.rest.RestBuilders;
 import site.morn.rest.RestMessage;
 import site.morn.rest.RestModel;
@@ -42,6 +44,7 @@ public class CrudControllerSupport<T, I extends Serializable, S extends CrudServ
   /**
    * 新增
    */
+  @OperateAction(Actions.ADD)
   @PostMapping
   public RestMessage add(@Validated(Add.class) @RequestBody RestModel<T> restModel) {
     T user = service().add(restModel);
@@ -51,6 +54,7 @@ public class CrudControllerSupport<T, I extends Serializable, S extends CrudServ
   /**
    * 修改
    */
+  @OperateAction(Actions.UPDATE)
   @PutMapping
   public RestMessage update(
       @Validated({Update.class, Put.class}) @RequestBody RestModel<T> restModel) {
@@ -73,6 +77,7 @@ public class CrudControllerSupport<T, I extends Serializable, S extends CrudServ
   /**
    * 删除
    */
+  @OperateAction(Actions.DELETE)
   @DeleteMapping("/{id}")
   public RestMessage delete(@Validated({Delete.class}) @PathVariable I id) {
     service().delete(id);
