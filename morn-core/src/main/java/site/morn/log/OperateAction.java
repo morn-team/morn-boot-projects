@@ -6,6 +6,7 @@ import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import lombok.experimental.UtilityClass;
 
 /**
  * 操作行为
@@ -33,4 +34,23 @@ public @interface OperateAction {
    * 例外异常类型
    */
   Class<? extends Throwable>[] excepts() default {};
+
+  @UtilityClass
+  class Actions {
+
+    /**
+     * 新增
+     */
+    public static final String ADD = "add";
+
+    /**
+     * 修改
+     */
+    public static final String DELETE = "delete";
+
+    /**
+     * 删除
+     */
+    public static final String UPDATE = "update";
+  }
 }
