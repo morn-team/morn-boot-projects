@@ -12,10 +12,17 @@
   <artifactId>morn-boot-test</artifactId>
 
   <dependencies>
+    <!--MySQL-->
     <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
     </dependency>
+    <!--Netty-->
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-all</artifactId>
+    </dependency>
+    <!--SpringBoot-->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -28,12 +35,7 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-websocket</artifactId>
     </dependency>
-    <!--MySQL-->
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-    </dependency>
-    <!--Morn Boot-->
+    <!--Morn-->
     <dependency>
       <groupId>site.morn.boot</groupId>
       <artifactId>morn-boot-autoconfigure</artifactId>
@@ -49,6 +51,10 @@
     <dependency>
       <groupId>site.morn.boot</groupId>
       <artifactId>morn-boot-jpa</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>site.morn.boot</groupId>
+      <artifactId>morn-boot-netty</artifactId>
     </dependency>
     <dependency>
       <groupId>site.morn.boot</groupId>
