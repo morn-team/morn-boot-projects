@@ -21,6 +21,7 @@ import site.morn.bean.IdentifiedBeanCache;
 import site.morn.bean.IdentifiedBeanHolder;
 import site.morn.bean.annotation.Function;
 import site.morn.bean.annotation.Name;
+import site.morn.bean.annotation.Objective;
 import site.morn.bean.annotation.Tag;
 import site.morn.bean.annotation.Target;
 import site.morn.util.AnnotationIdentifyUtils;
@@ -101,20 +102,24 @@ public class IdentifiedBeanPostProcessor implements BeanPostProcessor {
   private <T> IdentifiedBeanHolder<T> generateBeanHolder(T bean) {
     Class<?> beanClass = bean.getClass();
 
-    // 获取标准实例注解
-    Name name = AnnotationUtils.findAnnotation(beanClass, Name.class);
-    Tag tag = AnnotationUtils.findAnnotation(beanClass, Tag.class);
-    Target target = AnnotationUtils.findAnnotation(beanClass, Target.class);
+    // 获取根实例注解
+    Objective objective = AnnotationUtils.findAnnotation(beanClass, Objective.class);
     // 获取自定义注解
     List<BeanAnnotation> beanAnnotations = registry.getAnnotations();
     List<? extends Annotation> annotations = beanAnnotations.stream().map(
         beanAnnotation -> AnnotationUtils
             .findAnnotation(beanClass, beanAnnotation.getAnnotationType())).filter(Objects::nonNull)
         .collect(Collectors.toList());
-    if (Objects.isNull(name) && Objects.isNull(tag) && Objects.isNull(target) && CollectionUtils
-        .isEmpty(annotations)) {
+
+    // 未检测到有效注解
+    if (Objects.isNull(objective) && CollectionUtils.isEmpty(annotations)) {
       return null;
     }
+
+    // 获取标准实例注解
+    Name name = AnnotationUtils.findAnnotation(beanClass, Name.class);
+    Tag tag = AnnotationUtils.findAnnotation(beanClass, Tag.class);
+    Target target = AnnotationUtils.findAnnotation(beanClass, Target.class);
 
     // 构建实例标识信息
     AnnotationIdentifyCaseBuilder identifyBuilder = AnnotationIdentifyCase.builder();
@@ -141,7 +146,7 @@ public class IdentifiedBeanPostProcessor implements BeanPostProcessor {
         tags.add(t);
       }
     }
-    identifyBuilder.tags(tags.toArray(new String[0]));
+    identifyBuilder.tags(tags.toArray(new String[0])); // 自定义注解作为Tag
 
     List<FunctionHolder> annotationMethods = getAnnotationMethods(bean, beanClass); // 获取函数
 
