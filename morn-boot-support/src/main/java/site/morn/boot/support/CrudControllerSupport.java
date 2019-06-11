@@ -1,5 +1,7 @@
 package site.morn.boot.support;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import java.io.Serializable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -45,6 +47,8 @@ public class CrudControllerSupport<T, I extends Serializable, S extends CrudServ
   /**
    * 查询
    */
+  @ApiOperation("单体查询")
+  @ApiImplicitParam(name = "id", value = "主键")
   @GetMapping("{id}")
   public RestMessage get(@PathVariable I id) {
     T model = service().get(id);
@@ -54,6 +58,7 @@ public class CrudControllerSupport<T, I extends Serializable, S extends CrudServ
   /**
    * 新增
    */
+  @ApiOperation("新增")
   @OperateAction(Actions.ADD)
   @PostMapping
   public RestMessage add(@Validated(Add.class) @RequestBody RestModel<T> restModel) {
@@ -64,6 +69,7 @@ public class CrudControllerSupport<T, I extends Serializable, S extends CrudServ
   /**
    * 修改
    */
+  @ApiOperation("修改")
   @OperateAction(Actions.UPDATE)
   @PutMapping
   public RestMessage update(
@@ -78,6 +84,7 @@ public class CrudControllerSupport<T, I extends Serializable, S extends CrudServ
    * @param restPage REST分页参数
    * @return REST消息
    */
+  @ApiOperation("分页搜索")
   @PostMapping("search")
   public RestMessage search(@Validated(Search.class) @RequestBody RestPage<T> restPage) {
     Page<T> page = service.search(restPage);
@@ -87,6 +94,8 @@ public class CrudControllerSupport<T, I extends Serializable, S extends CrudServ
   /**
    * 删除
    */
+  @ApiOperation("删除")
+  @ApiImplicitParam(name = "id", value = "主键")
   @OperateAction(Actions.DELETE)
   @DeleteMapping("/{id}")
   public RestMessage delete(@Validated({Delete.class}) @PathVariable I id) {

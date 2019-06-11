@@ -1,5 +1,6 @@
 package site.morn.boot.support.entity;
 
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
@@ -27,6 +28,7 @@ public class CreatorEntity {
   /**
    * 创建人
    */
+  @ApiModelProperty("创建人")
   @Column(length = 32)
   @CreatedBy
   protected String creator;
@@ -34,6 +36,7 @@ public class CreatorEntity {
   /**
    * 创建时间
    */
+  @ApiModelProperty("创建时间")
   @Column
   @CreatedDate
   @Temporal(TemporalType.TIMESTAMP)

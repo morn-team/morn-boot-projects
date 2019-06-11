@@ -1,5 +1,6 @@
 package site.morn.boot.support.entity;
 
+import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class OrganizedEntity extends ReviserEntity {
   /**
    * 组织编号
    */
+  @ApiModelProperty("组织机构编号")
   @Column
   protected Long departmentId;
 }
