@@ -1,0 +1,13 @@
+{
+  "hints": [
+    {
+      "name": "morn.netty.client.port",
+      "values": [
+        {
+          "description": "Default host.",
+          "value": 10088
+        }
+      ]
+    }
+  ]
+}

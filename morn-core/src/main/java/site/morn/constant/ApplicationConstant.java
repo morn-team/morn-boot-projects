@@ -21,6 +21,31 @@ public class ApplicationConstant {
      * 默认实例缓存名称
      */
     public static final String BEAN_DEFAULT = "bean.default";
+
+    /**
+     * Netty缓存
+     */
+    public static final String NETTY = "netty.default";
+
+    /**
+     * Netty通道缓存
+     */
+    public static final String NETTY_CHANNEL = "netty.channel";
+
+    /**
+     * Netty通道编号缓存
+     */
+    public static final String NETTY_CHANNEL_ID = "netty.channel.id";
+
+    /**
+     * Netty通道标识缓存
+     */
+    public static final String NETTY_CHANNEL_IDENTIFY = "netty.channel.identify";
+
+    /**
+     * Netty分组缓存
+     */
+    public static final String NETTY_GROUP = "netty.group";
   }
 
   /**
