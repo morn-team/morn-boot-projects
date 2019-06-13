@@ -9,6 +9,7 @@ import site.morn.core.BeanAdapter;
 import site.morn.core.BeanConverter;
 import site.morn.core.BeanProcessor;
 import site.morn.core.BeanProducer;
+import site.morn.core.BeanProducers;
 
 /**
  * 实例函数工具
@@ -199,6 +200,21 @@ public class BeanFunctionUtils {
     F producer = BeanCaches.tagBean(functionClass, tags);
     Assert.notNull(producer, "尚未注册可用生产者：" + functionClass.getSimpleName());
     return producer.product();
+  }
+
+  /**
+   * 实例生产
+   *
+   * @param functionClass 函数类
+   * @param tags 检索标签
+   * @param <F> 函数类型
+   * @param <T> 目标类型
+   * @return 实例集合
+   */
+  public <F extends BeanProducers<T>, T> T[] products(Class<F> functionClass, String... tags) {
+    F producer = BeanCaches.tagBean(functionClass, tags);
+    Assert.notNull(producer, "尚未注册可用生产者：" + functionClass.getSimpleName());
+    return producer.products();
   }
 
 }
