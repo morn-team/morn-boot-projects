@@ -21,7 +21,7 @@ import site.morn.boot.netty.constant.TerminalType;
  */
 @Slf4j
 @Sharable
-@Inbound(BoundType.AUTO)
+@Inbound(BoundType.READER)
 @Terminal(TerminalType.SERVER)
 public class NettyCacheAdapter extends SimpleChannelInboundHandler<ChannelIdentify> {
 

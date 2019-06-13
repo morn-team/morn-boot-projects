@@ -4,27 +4,18 @@ import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelHandler;
-import io.netty.channel.ChannelInboundHandler;
-import io.netty.channel.ChannelInitializer;
 import io.netty.channel.EventLoop;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.string.StringEncoder;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
+import javax.annotation.PreDestroy;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
-import site.morn.bean.BeanCaches;
-import site.morn.bean.Tags;
-import site.morn.boot.netty.annotation.Inbound;
-import site.morn.boot.netty.annotation.Terminal;
 import site.morn.boot.netty.config.NettyClientProperties;
-import site.morn.boot.netty.constant.BoundType;
 import site.morn.boot.netty.constant.TerminalType;
 
 /**
@@ -64,24 +55,22 @@ public class NettyClient {
   }
 
   /**
+   * 销毁
+   */
+  @PreDestroy
+  public void close() {
+    group.shutdownGracefully();
+  }
+
+  /**
    * 连接
    */
   @EventListener(ApplicationReadyEvent.class)
   public void init() {
-    ChannelInitializer<Channel> channelInitializer = new ChannelInitializer<Channel>() {
-      @Override
-      protected void initChannel(Channel ch) {
-        String[] tags = Tags.from(Terminal.class, TerminalType.CLIENT)
-            .add(Inbound.class, BoundType.AUTO).toArray();
-        List<ChannelInboundHandler> handlers = BeanCaches
-            .tagBeans(ChannelInboundHandler.class, tags);
-        ch.pipeline().addLast(new StringEncoder()).addLast(handlers.toArray(new ChannelHandler[0]));
-      }
-    };
-
-    bootstrap.group(group)
+    bootstrap
+        .group(group)
         .channel(NioSocketChannel.class)
-        .handler(channelInitializer)
+        .handler(new NettyChannelInitializer(TerminalType.CLIENT))
         .connect(properties.getServerHost(), properties.getServerPort());
 
     if (properties.isAutoStart()) {
@@ -107,12 +96,12 @@ public class NettyClient {
   private void reconnect(ChannelFuture channelFuture) {
     Channel c = channelFuture.channel();
     if (!channelFuture.isSuccess()) {
-      log.info("Netty|重新连接...");
+      log.info("Netty|重新连接：{}", c.id().asLongText());
       final EventLoop loop = c.eventLoop();
       loop.schedule((Runnable) this::connect, properties.getConnectDelay(), TimeUnit.SECONDS);
     } else {
       this.channel = c;
-      log.info("Netty|连接成功...");
+      log.info("Netty|连接成功：{}", c.id().asLongText());
     }
   }
 

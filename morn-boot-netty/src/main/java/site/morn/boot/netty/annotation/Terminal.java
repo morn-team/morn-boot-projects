@@ -20,6 +20,8 @@ public @interface Terminal {
 
   /**
    * 终端类型
+   *
+   * @see TerminalType
    */
-  TerminalType value();
+  String value();
 }
