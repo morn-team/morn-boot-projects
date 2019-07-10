@@ -11,7 +11,40 @@ import site.morn.bean.BeanCaches;
  * @since 1.0.0, 2019/4/19
  */
 @UtilityClass
-public class PersistValidateUtils {
+public class PersistFunctionUtils {
+
+  /**
+   * 数据新增处理
+   *
+   * @param data 数据
+   * @param <T> 数据类型
+   */
+  @SuppressWarnings("unchecked")
+  public static <T> void processAdd(T data) {
+    process(AddProcessor.class, data);
+  }
+
+  /**
+   * 数据删除处理
+   *
+   * @param data 数据
+   * @param <T> 数据类型
+   */
+  @SuppressWarnings("unchecked")
+  public static <T> void processDelete(T data) {
+    process(AddProcessor.class, data);
+  }
+
+  /**
+   * 数据更新处理
+   *
+   * @param data 数据
+   * @param <T> 数据类型
+   */
+  @SuppressWarnings("unchecked")
+  public static <T> void processUpdate(T data) {
+    process(AddProcessor.class, data);
+  }
 
   /**
    * 数据新增校验
@@ -44,6 +77,21 @@ public class PersistValidateUtils {
   @SuppressWarnings("unchecked")
   public static <T> void validateUpdate(T data) {
     validate(UpdateValidation.class, data);
+  }
+
+  /**
+   * 持久化处理
+   *
+   * @param functionClass 处理类
+   * @param data 数据
+   * @param <V> 处理类型
+   * @param <T> 数据类型
+   */
+  public static <V extends PersistProcessor<T>, T> void process(Class<V> functionClass, T data) {
+    List<V> processes = BeanCaches.targetBeans(functionClass, data.getClass());
+    for (V process : processes) {
+      process.handle(data);
+    }
   }
 
   /**
