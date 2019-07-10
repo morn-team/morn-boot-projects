@@ -16,7 +16,7 @@ import site.morn.boot.netty.NettyClient;
  */
 @Configuration
 @ConditionalOnClass(Bootstrap.class)
-public class NettyClientAutoConfiguration {
+public class NettyClientConfiguration {
 
 
   /**

@@ -6,8 +6,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import org.springframework.context.annotation.Import;
-import site.morn.boot.netty.config.NettyAutoConfiguration;
-import site.morn.boot.netty.config.NettyServerAutoConfiguration;
+import site.morn.boot.netty.config.NettyServerConfiguration;
 
 /**
  * 开启Netty服务端
@@ -18,7 +17,7 @@ import site.morn.boot.netty.config.NettyServerAutoConfiguration;
 @Documented
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-@Import({NettyAutoConfiguration.class, NettyServerAutoConfiguration.class})
+@Import(NettyServerConfiguration.class)
 public @interface EnableNettyServer {
 
 }

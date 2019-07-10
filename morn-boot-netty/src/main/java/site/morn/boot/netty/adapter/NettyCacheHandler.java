@@ -14,7 +14,7 @@ import site.morn.boot.netty.constant.BoundType;
 import site.morn.boot.netty.constant.TerminalType;
 
 /**
- * 缓存适配器
+ * 缓存处理者
  *
  * @author timely-rain
  * @since 2.1.0, 2019/6/5
@@ -23,7 +23,7 @@ import site.morn.boot.netty.constant.TerminalType;
 @Sharable
 @Inbound(BoundType.READER)
 @Terminal(TerminalType.SERVER)
-public class NettyCacheAdapter extends SimpleChannelInboundHandler<ChannelIdentify> {
+public class NettyCacheHandler extends SimpleChannelInboundHandler<ChannelIdentify> {
 
   @Override
   protected void channelRead0(ChannelHandlerContext ctx, ChannelIdentify identify) {

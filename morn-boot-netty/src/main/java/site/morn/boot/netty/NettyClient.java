@@ -96,12 +96,12 @@ public class NettyClient {
   private void reconnect(ChannelFuture channelFuture) {
     Channel c = channelFuture.channel();
     if (!channelFuture.isSuccess()) {
-      log.info("Netty|重新连接：{}", c.id().asLongText());
+      log.info("Netty|重新连接：{}", c.id());
       final EventLoop loop = c.eventLoop();
       loop.schedule((Runnable) this::connect, properties.getConnectDelay(), TimeUnit.SECONDS);
     } else {
       this.channel = c;
-      log.info("Netty|连接成功：{}", c.id().asLongText());
+      log.info("Netty|连接成功：{}", c.id());
     }
   }
 

@@ -17,6 +17,11 @@ public class BoundType {
   public static final String DECODER = "decoder";
 
   /**
+   * 编码器
+   */
+  public static final String ENCODER = "encoder";
+
+  /**
    * 读取器
    */
   public static final String READER = "reader";
