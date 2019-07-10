@@ -18,9 +18,14 @@ public class ApplicationConstant {
   public class Cache {
 
     /**
-     * 默认实例缓存名称
+     * 默认实例缓存
      */
     public static final String BEAN_DEFAULT = "bean.default";
+
+    /**
+     * 实例持有者缓存
+     */
+    public static final String BEAN_HOLDER = "bean.holder";
 
     /**
      * Netty缓存

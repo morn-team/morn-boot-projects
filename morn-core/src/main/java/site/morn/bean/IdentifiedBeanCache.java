@@ -81,6 +81,16 @@ public interface IdentifiedBeanCache {
   <T> List<T> beans(Class<T> type, AnnotationIdentify identify);
 
   /**
+   * 按标识检索实例持有者
+   *
+   * @param type 实例类
+   * @param identify 标识
+   * @param <T> 实例类型
+   * @return 实例集合
+   */
+  <T> List<IdentifiedBeanHolder<T>> beanHolders(Class<T> type, AnnotationIdentify identify);
+
+  /**
    * 按标识检索函数
    *
    * @param beanIdentify 实例标识
@@ -90,6 +100,17 @@ public interface IdentifiedBeanCache {
   List<FunctionHolder> functions(AnnotationIdentify beanIdentify,
       AnnotationIdentify functionIdentify);
 
+
+  /**
+   * 按标识检索函数
+   *
+   * @param holders 实例持有者集合
+   * @param functionIdentify 函数标识
+   * @return 函数集合
+   */
+  <T> List<FunctionHolder> functions(List<IdentifiedBeanHolder<T>> holders,
+      AnnotationIdentify functionIdentify);
+
   /**
    * 按标识检索函数
    *
@@ -97,7 +118,7 @@ public interface IdentifiedBeanCache {
    * @return 函数集合
    */
   default List<FunctionHolder> functions(AnnotationIdentify functionIdentify) {
-    return functions(null, functionIdentify);
+    return functions((AnnotationIdentify) null, functionIdentify);
   }
 
   /**
