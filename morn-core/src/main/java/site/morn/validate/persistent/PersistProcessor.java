@@ -11,4 +11,16 @@ import site.morn.core.BeanProcessor;
 @FunctionalInterface
 public interface PersistProcessor<T> extends BeanProcessor<T> {
 
+  @Override
+  default void handle(T source) {
+    handle(null, source);
+  }
+
+  /**
+   * 持久化处理
+   *
+   * @param type 操作类型
+   * @param source 源数据
+   */
+  void handle(String type, T source);
 }

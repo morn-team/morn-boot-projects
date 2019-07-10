@@ -1,5 +1,7 @@
 package site.morn.validate.persistent;
 
+import site.morn.constant.PersistTypes;
+
 /**
  * 删除处理
  *
@@ -9,4 +11,8 @@ package site.morn.validate.persistent;
 @FunctionalInterface
 public interface UpdateProcessor<T> extends PersistProcessor<T> {
 
+  @Override
+  default void handle(T source) {
+    handle(PersistTypes.UPDATE, source);
+  }
 }

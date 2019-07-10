@@ -82,6 +82,22 @@ public class PersistFunctionUtils {
   /**
    * 持久化处理
    *
+   * @param type 操作类型
+   * @param data 数据
+   * @param <T> 数据类型
+   */
+  @SuppressWarnings("unchecked")
+  public static <T> void process(String type, T data) {
+    List<PersistProcessor> processes = BeanCaches
+        .targetBeans(PersistProcessor.class, data.getClass());
+    for (PersistProcessor process : processes) {
+      process.handle(type, data);
+    }
+  }
+
+  /**
+   * 持久化处理
+   *
    * @param functionClass 处理类
    * @param data 数据
    * @param <V> 处理类型
