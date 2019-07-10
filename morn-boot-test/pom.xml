@@ -70,7 +70,7 @@
     </dependency>
     <dependency>
       <groupId>site.morn.boot</groupId>
-      <artifactId>morn-support-fastjson</artifactId>
+      <artifactId>morn-fastjson</artifactId>
     </dependency>
     <!--单元测试-->
     <dependency>

@@ -27,7 +27,7 @@
     <module>morn-boot-test</module>
     <module>morn-boot-web</module>
     <module>morn-core</module>
-    <module>morn-support-fastjson</module>
+    <module>morn-fastjson</module>
   </modules>
 
   <scm>
@@ -121,7 +121,7 @@
       </dependency>
       <dependency>
         <groupId>site.morn.boot</groupId>
-        <artifactId>morn-support-fastjson</artifactId>
+        <artifactId>morn-fastjson</artifactId>
         <version>${project.version}</version>
       </dependency>
 

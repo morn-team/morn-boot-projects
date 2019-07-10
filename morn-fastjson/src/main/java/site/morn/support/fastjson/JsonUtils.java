@@ -45,7 +45,8 @@ public class JsonUtils {
    * @return Java对象
    */
   public static <T> T toObject(Object object, Class<T> cls) {
-    String jsonString = JSONObject.toJSONString(object);
+    String jsonString =
+        object instanceof String ? String.valueOf(object) : JSONObject.toJSONString(object);
     return JSONObject.parseObject(jsonString, cls);
   }
 

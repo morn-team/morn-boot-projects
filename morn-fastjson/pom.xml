@@ -9,7 +9,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>morn-support-fastjson</artifactId>
+  <artifactId>morn-fastjson</artifactId>
 
   <dependencies>
     <dependency>
