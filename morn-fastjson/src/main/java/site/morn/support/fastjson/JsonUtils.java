@@ -1,7 +1,7 @@
 package site.morn.support.fastjson;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
 import lombok.experimental.UtilityClass;
 import site.morn.core.CriteriaMap;
 
@@ -45,9 +45,21 @@ public class JsonUtils {
    * @return Java对象
    */
   public static <T> T toObject(Object object, Class<T> cls) {
-    String jsonString =
-        object instanceof String ? String.valueOf(object) : JSONObject.toJSONString(object);
+    String jsonString = toString(object);
     return JSONObject.parseObject(jsonString, cls);
+  }
+
+  /**
+   * X to JavaObject
+   *
+   * @param object 任意对象
+   * @param reference 类型引用
+   * @param <T> 类泛型
+   * @return Java对象
+   */
+  public static <T> T toObject(Object object, TypeReference<T> reference) {
+    String jsonString = toString(object);
+    return JSONObject.parseObject(jsonString, reference);
   }
 
   /**
@@ -57,6 +69,6 @@ public class JsonUtils {
    * @return JSON字符串
    */
   public static String toString(Object object) {
-    return JSON.toJSONString(object);
+    return object instanceof String ? String.valueOf(object) : JSONObject.toJSONString(object);
   }
 }
