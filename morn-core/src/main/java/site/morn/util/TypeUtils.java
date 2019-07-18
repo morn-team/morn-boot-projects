@@ -18,15 +18,27 @@ public class TypeUtils {
    * @param source 原对象
    * @param <T> 目标类型
    * @return 目标对象
+   * @deprecated {@link #cast(Object)}
+   */
+  @Deprecated
+  public <T> T as(Object source) {
+    return cast(source);
+  }
+
+  /**
+   * 类型转换
+   *
+   * @param source 原对象
+   * @param <T> 目标类型
+   * @return 目标对象
    */
   @SuppressWarnings("unchecked")
-  public <T> T as(Object source) {
+  public <T> T cast(Object source) {
     try {
       return (T) source;
     } catch (Exception e) {
       throw ApplicationMessages
-          .translateMessage("util.cast-fail", source.getClass().getSimpleName())
-          .exception();
+          .translateMessage("util.cast-fail", source.getClass().getSimpleName()).exception();
     }
   }
 }
