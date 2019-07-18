@@ -2,6 +2,7 @@ package site.morn.support.fastjson;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
+import java.io.Serializable;
 import lombok.experimental.UtilityClass;
 import site.morn.core.CriteriaMap;
 
@@ -12,6 +13,32 @@ import site.morn.core.CriteriaMap;
  */
 @UtilityClass
 public class JsonUtils {
+
+  /**
+   * 克隆
+   *
+   * @param object 任意对象
+   * @param <T> 对象类型
+   * @return 克隆对象
+   */
+  public static <T extends Serializable> T clone(T object) {
+    String s = toString(object);
+    return toObject(s, new TypeReference<T>() {
+    });
+  }
+
+  /**
+   * 克隆
+   *
+   * @param object 任意对象
+   * @param reference 类型引用
+   * @param <T> 对象类型
+   * @param <R> 实际类型
+   * @return 克隆对象
+   */
+  public static <T extends Serializable, R> R clone(T object, TypeReference<R> reference) {
+    return toObject(object, reference);
+  }
 
   /**
    * X to JSONObject
