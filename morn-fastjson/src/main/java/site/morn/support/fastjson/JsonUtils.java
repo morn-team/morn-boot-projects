@@ -3,6 +3,7 @@ package site.morn.support.fastjson;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import java.io.Serializable;
+import java.lang.reflect.Type;
 import lombok.experimental.UtilityClass;
 import site.morn.core.CriteriaMap;
 
@@ -74,6 +75,19 @@ public class JsonUtils {
   public static <T> T toObject(Object object, Class<T> cls) {
     String jsonString = toString(object);
     return JSONObject.parseObject(jsonString, cls);
+  }
+
+  /**
+   * X to JavaObject
+   *
+   * @param object 任意对象
+   * @param type 类型引用
+   * @param <T> 类泛型
+   * @return Java对象
+   */
+  public static <T> T toObject(Object object, Type type) {
+    String jsonString = toString(object);
+    return JSONObject.parseObject(jsonString, type);
   }
 
   /**
