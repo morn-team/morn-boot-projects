@@ -41,6 +41,17 @@ public class BeanCaches {
   /**
    * 按标识检索实例
    *
+   * @param <T> 实例类型
+   * @return 实例
+   */
+  public static <T> T bean(Class<T> type) {
+    return defaultBeanCache().tagBean(type);
+  }
+
+
+  /**
+   * 按标识检索实例
+   *
    * @param identify 标识
    * @param <T> 实例类型
    * @return 实例
@@ -82,6 +93,17 @@ public class BeanCaches {
    */
   public static <T> T targetBean(Class<T> type, Class<?> target) {
     return defaultBeanCache().targetBean(type, target);
+  }
+
+  /**
+   * 按标识检索实例
+   *
+   * @param type 实例类
+   * @param <T> 实例类型
+   * @return 实例集合
+   */
+  public static <T> List<T> beans(Class<T> type) {
+    return defaultBeanCache().tagBeans(type);
   }
 
   /**
