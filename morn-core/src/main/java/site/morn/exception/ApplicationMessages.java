@@ -70,6 +70,17 @@ public class ApplicationMessages {
    *
    * @param code 消息编码
    * @param message 消息内容
+   * @return 应用消息
+   */
+  public static ApplicationException buildException(String code, String message) {
+    return buildMessage(code, message, null).exception();
+  }
+
+  /**
+   * 构建应用异常
+   *
+   * @param code 消息编码
+   * @param message 消息内容
    * @param solution 解决方案
    * @return 应用消息
    */
