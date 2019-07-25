@@ -1,5 +1,7 @@
 package site.morn.util;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import lombok.experimental.UtilityClass;
 import site.morn.exception.ApplicationMessages;
 
@@ -39,6 +41,56 @@ public class TypeUtils {
     } catch (Exception e) {
       throw ApplicationMessages
           .translateMessage("util.cast-fail", source.getClass().getSimpleName()).exception();
+    }
+  }
+
+  /**
+   * 克隆
+   *
+   * @param obj 任意对象
+   * @param <T> 对象类型
+   * @return 克隆对象
+   */
+  public static <T> T clone(final T obj) {
+    if (obj == null) {
+      return null;
+    }
+    if (obj instanceof Cloneable) {
+      final Class<?> clazz = obj.getClass();
+      final Method m;
+      try {
+        m = clazz.getMethod("clone", (Class<?>[]) null);
+      } catch (final NoSuchMethodException ex) {
+        throw ApplicationMessages.buildException("clone.no-method", ex.getMessage());
+      }
+      try {
+        @SuppressWarnings("unchecked") // OK because clone() preserves the class
+        final T result = (T) m.invoke(obj, (Object[]) null);
+        return result;
+      } catch (final InvocationTargetException ex) {
+        final Throwable cause = ex.getCause();
+        throw ApplicationMessages.buildException("clone.invoke-failure", cause.getMessage());
+      } catch (final IllegalAccessException ex) {
+        throw ApplicationMessages.buildException("clone.access-failure", ex.getMessage());
+      }
+    }
+    throw ApplicationMessages.translateException("clone.not-cloneable");
+  }
+
+  /**
+   * "软"克隆
+   *
+   * <p>当未实现 {@link Cloneable}、未重写 {@link Object#clone()} 时，不进行克隆
+   *
+   * @param obj 任意对象
+   * @param <T> 对象类型
+   * @return 克隆对象
+   */
+  public static <T> T cloneSoft(final T obj) {
+    try {
+      return clone(obj);
+    } catch (Exception e) {
+      return obj;
     }
   }
 }
