@@ -46,6 +46,8 @@
     <maven.compiler.target>${java.version}</maven.compiler.target>
 
     <boot.version>2.1.4.RELEASE</boot.version>
+
+    <awaitility.version>3.1.6</awaitility.version>
     <commons-codec.version>1.12</commons-codec.version>
     <commons-lang3.version>3.9</commons-lang3.version>
     <fastjson.version>1.2.58</fastjson.version>
@@ -125,6 +127,12 @@
         <version>${project.version}</version>
       </dependency>
 
+      <!--Awaitility-->
+      <dependency>
+        <groupId>org.awaitility</groupId>
+        <artifactId>awaitility</artifactId>
+        <version>${awaitility.version}</version>
+      </dependency>
       <!--Commons-->
       <dependency>
         <groupId>commons-codec</groupId>
