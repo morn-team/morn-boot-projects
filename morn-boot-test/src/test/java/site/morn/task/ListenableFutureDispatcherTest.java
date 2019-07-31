@@ -2,7 +2,6 @@ package site.morn.task;
 
 import static org.awaitility.Awaitility.await;
 import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.everyItem;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.not;
@@ -27,12 +26,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest
 public class ListenableFutureDispatcherTest {
 
+  private static final String FAILURE = "Failure";
+
   private AtomicInteger count = new AtomicInteger();
 
   @Test
   public void submit() {
     Callable<String> callable = () -> ListenableFutureDispatcher.submit(this::call).get();
-    await().until(callable, equalTo("Done"));
+    await().until(callable, not(FAILURE));
   }
 
   @Test
@@ -43,7 +44,7 @@ public class ListenableFutureDispatcherTest {
     }
     listenableFutureGroup.run();
     Matcher hasSize = hasSize(10);
-    Matcher everyItem = everyItem(not("Failure"));
+    Matcher everyItem = everyItem(not(FAILURE));
     await().until(listenableFutureGroup::getAll, allOf(hasSize, everyItem));
   }
 
@@ -59,7 +60,8 @@ public class ListenableFutureDispatcherTest {
       return s;
     } catch (InterruptedException e) {
       log.error(e.getMessage(), e);
-      return "Failure";
+      Thread.currentThread().interrupt();
     }
+    return FAILURE;
   }
 }

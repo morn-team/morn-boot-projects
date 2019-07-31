@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
@@ -21,6 +20,7 @@ import org.springframework.util.concurrent.ListenableFutureCallback;
 import org.springframework.util.concurrent.ListenableFutureCallbackRegistry;
 import org.springframework.util.concurrent.SuccessCallback;
 import site.morn.core.CollectionContainer;
+import site.morn.util.AsyncUtils;
 import site.morn.util.CollectionContainerUtils;
 
 /**
@@ -51,11 +51,6 @@ public class ListenableFutureGroup<T> implements ListenableFuture<T>, Runnable {
    * 任务持有者集合
    */
   private CollectionContainer<ListenableFutureHolder<T>> futures;
-
-  /**
-   * 结果集
-   */
-  private Map<Object, T> results = new ConcurrentHashMap<>();
 
   /**
    * 第一个执行结果
@@ -103,6 +98,11 @@ public class ListenableFutureGroup<T> implements ListenableFuture<T>, Runnable {
     return this;
   }
 
+  public ListenableFutureGroup<T> addTask(Runnable runnable) {
+    this.callableList.add(Executors.callable(runnable, null));
+    return this;
+  }
+
   public void addTaskCallback(ListenableFutureCallback<? super T> callback) {
     futures.consume(f -> f.addCallback(callback));
   }
@@ -113,12 +113,7 @@ public class ListenableFutureGroup<T> implements ListenableFuture<T>, Runnable {
   }
 
   public List<T> getAll() {
-    try {
-      latch.await();
-    } catch (InterruptedException e) {
-      log.error(e.getMessage(), e);
-      Thread.currentThread().interrupt();
-    }
+    AsyncUtils.await(latch);
     return futures.stream().map(ListenableFutureHolder::getResult).collect(Collectors.toList());
   }
 
@@ -188,14 +183,12 @@ public class ListenableFutureGroup<T> implements ListenableFuture<T>, Runnable {
     ListenableFuture<T> future = futureList.get(i);
     future.addCallback(v -> {
       latch.countDown();
-      results.put(i, v);
       // 记录第一个结果
       if (Objects.isNull(firstResult)) {
         firstResult = v;
       }
     }, e -> {
       latch.countDown();
-      results.put(i, null);
       // 记录第一个异常
       if (Objects.isNull(firstException)) {
         firstException = e;
