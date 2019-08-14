@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
     <artifactId>morn-boot-projects</artifactId>
     <groupId>site.morn.boot</groupId>
@@ -10,17 +12,15 @@
   <artifactId>morn-boot-autoconfigure</artifactId>
 
   <dependencies>
-    <!--Lombok-->
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>${lombok.version}</version>
-      <scope>provided</scope>
-    </dependency>
     <!--Spring Boot-->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-aop</artifactId>
       <optional>true</optional>
     </dependency>
     <dependency>
@@ -41,7 +41,18 @@
     </dependency>
     <dependency>
       <groupId>site.morn.boot</groupId>
+      <artifactId>morn-boot-netty</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>site.morn.boot</groupId>
       <artifactId>morn-boot-web</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <!--Netty-->
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-all</artifactId>
       <optional>true</optional>
     </dependency>
     <!--Shiro-->
@@ -56,6 +67,13 @@
       <groupId>com.fasterxml.jackson.datatype</groupId>
       <artifactId>jackson-datatype-hibernate5</artifactId>
       <optional>true</optional>
+    </dependency>
+    <!--Lombok-->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
 

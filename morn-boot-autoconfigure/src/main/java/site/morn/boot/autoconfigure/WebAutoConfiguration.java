@@ -3,6 +3,7 @@ package site.morn.boot.autoconfigure;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import javax.servlet.Servlet;
+import org.aspectj.lang.Aspects;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -26,24 +27,11 @@ import site.morn.exception.ExceptionProcessor;
 public class WebAutoConfiguration {
 
   /**
-   * 注册全局异常处理切面
-   *
-   * @return 全局异常处理切面
-   */
-  @Bean
-  @ConditionalOnMissingBean
-  @ConditionalOnBean(ExceptionProcessor.class)
-  @ConditionalOnProperty(prefix = "morn.exception-aspect", value = "enabled", havingValue = "true")
-  public ExceptionHandlerAspect exceptionHandlerAspect(ExceptionProcessor exceptionProcessor) {
-    return new ExceptionHandlerAspect(exceptionProcessor);
-  }
-
-  /**
    * 异常处理配置
    */
   @Configuration
   @ConditionalOnBean(ExceptionProcessor.class)
-  @ConditionalOnClass(ExceptionHandlerAspect.class)
+  @ConditionalOnClass({Aspects.class, ExceptionHandlerAspect.class,})
   public static class ExceptionHandlerConfiguration {
 
     /**

@@ -4,8 +4,10 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   site.morn.boot.autoconfigure.BeanAutoConfiguration,\
   site.morn.boot.autoconfigure.ExceptionAutoConfiguration,\
   site.morn.boot.autoconfigure.ExceptionInterpreterAutoConfiguration,\
+  site.morn.boot.autoconfigure.NettyAutoConfiguration,\
   site.morn.boot.autoconfigure.OperateAutoConfiguration,\
   site.morn.boot.autoconfigure.RestAutoConfiguration,\
+  site.morn.boot.autoconfigure.TaskAutoConfiguration,\
   site.morn.boot.autoconfigure.TranslatorAutoConfiguration,\
   site.morn.boot.autoconfigure.ValidatorAutoConfiguration,\
   site.morn.boot.autoconfigure.WebAutoConfiguration

@@ -8,8 +8,6 @@ import io.netty.util.concurrent.GlobalEventExecutor;
 import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import site.morn.bean.annotation.Objective;
 import site.morn.constant.ApplicationConstant.Cache;
@@ -31,16 +29,19 @@ public class DefaultNettyCache implements NettyCache {
   public Channel getChannel(ChannelIdentify identify) {
     ChannelGroup group = getGroup(identify.getBusinessGroup());
     ChannelId channelId = getChannelId(identify);
+    if (Objects.isNull(channelId)) {
+      return null;
+    }
     return group.find(channelId);
   }
 
-  @Cacheable(cacheNames = Cache.NETTY_GROUP)
+  //  @Cacheable(cacheNames = Cache.NETTY_GROUP)
   @Override
   public ChannelGroup getGroup(String name) {
     return new DefaultChannelGroup(name, GlobalEventExecutor.INSTANCE);
   }
 
-  @Cacheable(cacheNames = Cache.NETTY_CHANNEL_IDENTIFY)
+  //  @Cacheable(cacheNames = Cache.NETTY_CHANNEL_IDENTIFY)
   @Override
   public ChannelIdentify getIdentify(ChannelId channelId) {
     return null;
@@ -56,10 +57,8 @@ public class DefaultNettyCache implements NettyCache {
     if (Objects.nonNull(c)) {
       group.remove(c);
     }
-    setChannelId(identify, channel.id());
+    setChannel(identify, channel);
     group.add(channel);
-    log.info("Netty|存入：{} at {}.{}", channel.id(), identify.getBusinessGroup(),
-        identify.getBusinessKey());
     return TypeUtils.as(this);
   }
 
@@ -97,7 +96,7 @@ public class DefaultNettyCache implements NettyCache {
    * @param identify 通道标识
    * @return 通道编号
    */
-  @Cacheable(cacheNames = Cache.NETTY_CHANNEL_ID, key = "#identify.toString()")
+//  @Cacheable(cacheNames = Cache.NETTY_CHANNEL_ID, key = "#identify.toString()")
   public ChannelId getChannelId(ChannelIdentify identify) {
     return null;
   }
@@ -108,7 +107,7 @@ public class DefaultNettyCache implements NettyCache {
    * @param identify 通道标识
    * @param channelId 通道编号
    */
-  @CacheEvict(cacheNames = Cache.NETTY_CHANNEL, key = "#identify.toString()")
+//  @CacheEvict(cacheNames = Cache.NETTY_CHANNEL, key = "#identify.toString()")
   public void removeChannel(ChannelIdentify identify, ChannelId channelId) {
     if (Objects.isNull(identify) || Objects.isNull(channelId)) {
       return;
@@ -123,7 +122,7 @@ public class DefaultNettyCache implements NettyCache {
    * @param identify 通道标识
    */
   @SuppressWarnings("unsupported")
-  @CacheEvict(cacheNames = Cache.NETTY_CHANNEL_ID, key = "#identify.toString()")
+//  @CacheEvict(cacheNames = Cache.NETTY_CHANNEL_ID, key = "#identify.toString()")
   public void removeChannelId(ChannelIdentify identify) {
   }
 
@@ -132,10 +131,23 @@ public class DefaultNettyCache implements NettyCache {
    *
    * @param channelId 通道编号
    */
-  @CacheEvict(cacheNames = Cache.NETTY_CHANNEL_IDENTIFY, key = "#channelId.toString()")
+//  @CacheEvict(cacheNames = Cache.NETTY_CHANNEL_IDENTIFY, key = "#channelId.toString()")
   public void removeChannelIdentify(ChannelId channelId) {
   }
 
+
+  /**
+   * 缓存消息通道
+   *
+   * @param identify 通道标识
+   * @param channel 消息通道
+   * @return 消息通道
+   */
+//  @CachePut(cacheNames = Cache.NETTY_CHANNEL, key = "#identify.toString()")
+  public Channel setChannel(ChannelIdentify identify, Channel channel) {
+    setChannelId(identify, channel.id());
+    return channel;
+  }
 
   /**
    * 缓存通道编号
@@ -146,8 +158,10 @@ public class DefaultNettyCache implements NettyCache {
    * @param channelId 通道编号
    * @return 通道编号
    */
-  @CachePut(cacheNames = Cache.NETTY_CHANNEL_ID, key = "#identify.toString()")
+//  @CachePut(cacheNames = Cache.NETTY_CHANNEL_ID, key = "#identify.toString()")
   public ChannelId setChannelId(ChannelIdentify identify, ChannelId channelId) {
+    log.info("Netty|更新缓存：{} at {}.{}", channelId, identify.getBusinessGroup(),
+        identify.getBusinessKey());
     return channelId;
   }
 
@@ -160,7 +174,7 @@ public class DefaultNettyCache implements NettyCache {
    * @param identify 通道标识
    * @return 通道标识
    */
-  @CachePut(cacheNames = Cache.NETTY_CHANNEL_IDENTIFY, key = "#channelId.toString()")
+//  @CachePut(cacheNames = Cache.NETTY_CHANNEL_IDENTIFY, key = "#channelId.toString()")
   public ChannelIdentify setIdentify(ChannelId channelId, ChannelIdentify identify) {
     return identify;
   }

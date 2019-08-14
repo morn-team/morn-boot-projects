@@ -18,9 +18,14 @@ public class ApplicationConstant {
   public class Cache {
 
     /**
-     * 默认实例缓存名称
+     * 默认实例缓存
      */
     public static final String BEAN_DEFAULT = "bean.default";
+
+    /**
+     * 实例持有者缓存
+     */
+    public static final String BEAN_HOLDER = "bean.holder";
 
     /**
      * Netty缓存
@@ -58,5 +63,20 @@ public class ApplicationConstant {
      * 默认实例缓存名称
      */
     public static final String BEAN_DEFAULT = "bean.default";
+
+    /**
+     * 任务-执行失败
+     */
+    public static final String TASK_EXECUTE_FAILURE = "task.execute-failure";
+
+    /**
+     * 任务-中断
+     */
+    public static final String TASK_INTERRUPTED = "task.interrupted";
+
+    /**
+     * 任务-尚未完成
+     */
+    public static final String TASK_NOT_DONE = "task.not-done";
   }
 }

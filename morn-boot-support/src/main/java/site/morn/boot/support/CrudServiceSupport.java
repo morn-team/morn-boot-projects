@@ -16,7 +16,7 @@ import site.morn.boot.rest.RestPage;
 import site.morn.core.CriteriaMap;
 import site.morn.rest.RestModel;
 import site.morn.util.TypeUtils;
-import site.morn.validate.persistent.PersistValidateUtils;
+import site.morn.validate.persistent.PersistFunctionUtils;
 
 /**
  * 基础服务实现
@@ -46,7 +46,7 @@ public abstract class CrudServiceSupport<T, I extends Serializable, R extends Jp
 
   @Override
   public <S extends T> S add(S model) {
-    PersistValidateUtils.validateAdd(model);
+    PersistFunctionUtils.validateAdd(model);
     return repository.save(model);
   }
 
@@ -77,7 +77,7 @@ public abstract class CrudServiceSupport<T, I extends Serializable, R extends Jp
 
   @Override
   public <S extends T> S update(S model) {
-    PersistValidateUtils.validateUpdate(model);
+    PersistFunctionUtils.validateUpdate(model);
     return repository.save(model);
   }
 
@@ -89,7 +89,7 @@ public abstract class CrudServiceSupport<T, I extends Serializable, R extends Jp
 
   @Override
   public <S extends T> S patch(S model) {
-    PersistValidateUtils.validateUpdate(model);
+    PersistFunctionUtils.validateUpdate(model);
     return repository.save(model);
   }
 
@@ -103,7 +103,7 @@ public abstract class CrudServiceSupport<T, I extends Serializable, R extends Jp
   public void delete(I id) {
     Optional<T> optional = repository().findById(id);
     if (optional.isPresent()) {
-      PersistValidateUtils.validateDelete(optional.get()); // 数据删除校验
+      PersistFunctionUtils.validateDelete(optional.get()); // 数据删除校验
       repository.deleteById(id);
     } else {
       log.warn("数据不存在：[id={}]", id);
@@ -113,7 +113,7 @@ public abstract class CrudServiceSupport<T, I extends Serializable, R extends Jp
   @Override
   public <S extends T> void delete(RestModel<S> restModel) {
     S model = restModel.getModel();
-    PersistValidateUtils.validateDelete(model); // 数据删除校验
+    PersistFunctionUtils.validateDelete(model); // 数据删除校验
     repository.delete(model);
   }
 

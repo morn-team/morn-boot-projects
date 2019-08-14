@@ -54,10 +54,10 @@ public class BeanFunctions {
       return (T) result;
     } catch (IllegalAccessException e) {
       log.warn("函数无法访问：{}", holder.getMethodPath());
-      log.warn(e.getMessage(), e);
+      log.warn(e.getCause().getMessage(), e.getCause());
     } catch (InvocationTargetException e) {
       log.warn("函数调用失败：{}", holder.getMethodPath());
-      log.warn(e.getMessage(), e);
+      log.warn(e.getCause().getMessage(), e.getCause());
     }
     return null;
   }

@@ -1,8 +1,12 @@
 package site.morn.boot.netty.annotation;
 
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import org.springframework.context.annotation.Import;
-import site.morn.boot.netty.config.NettyAutoConfiguration;
-import site.morn.boot.netty.config.NettyClientAutoConfiguration;
+import site.morn.boot.netty.config.NettyClientConfiguration;
 
 /**
  * 开启Netty客户端
@@ -10,7 +14,10 @@ import site.morn.boot.netty.config.NettyClientAutoConfiguration;
  * @author timely-rain
  * @since 2.1.0, 2019/6/6
  */
-@Import({NettyAutoConfiguration.class, NettyClientAutoConfiguration.class})
+@Documented
+@Target({ElementType.TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Import(NettyClientConfiguration.class)
 public @interface EnableNettyClient {
 
 }

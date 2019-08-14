@@ -3,6 +3,7 @@ package site.morn.boot.netty;
 import io.netty.channel.ChannelFuture;
 import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,10 +30,16 @@ public class NettyClientTest {
     client.connect().await();
   }
 
+  @After
+  public void tearDown() throws Exception {
+    Thread.sleep(1000);
+  }
+
   @Test
   public void write() throws InterruptedException {
     String msg = "123456";
-    ChannelFuture future = client.getChannel().writeAndFlush(msg).await();
+    ChannelFuture future = client.getChannel().writeAndFlush(msg)
+        .addListener((f -> log.warn(f.cause().getMessage(), f.cause()))).await();
     Assert.assertTrue(future.isDone());
     Assert.assertTrue(future.isSuccess());
   }

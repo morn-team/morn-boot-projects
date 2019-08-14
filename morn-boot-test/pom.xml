@@ -70,12 +70,17 @@
     </dependency>
     <dependency>
       <groupId>site.morn.boot</groupId>
-      <artifactId>morn-support-fastjson</artifactId>
+      <artifactId>morn-fastjson</artifactId>
     </dependency>
     <!--单元测试-->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.awaitility</groupId>
+      <artifactId>awaitility</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>

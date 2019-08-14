@@ -25,5 +25,5 @@ public @interface Inbound {
    *
    * @see BoundType 边界类型
    */
-  String value() default BoundType.NONE;
+  String value();
 }

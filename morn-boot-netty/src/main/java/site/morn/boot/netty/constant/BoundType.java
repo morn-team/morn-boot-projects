@@ -12,12 +12,17 @@ import lombok.experimental.UtilityClass;
 public class BoundType {
 
   /**
-   * 自动
+   * 解码器
    */
-  public static final String AUTO = "auto";
+  public static final String DECODER = "decoder";
 
   /**
-   * 无
+   * 编码器
    */
-  public static final String NONE = "none";
+  public static final String ENCODER = "encoder";
+
+  /**
+   * 读取器
+   */
+  public static final String READER = "reader";
 }
