@@ -1,7 +1,5 @@
 package site.morn.boot.autoconfigure;
 
-import io.netty.bootstrap.Bootstrap;
-import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -66,17 +64,5 @@ public class NettyAutoConfiguration implements BeanConfigurer {
   @ConditionalOnMissingBean
   public NettyCache nettyCache() {
     return new DefaultNettyCache();
-  }
-
-  @Configuration
-  @ConditionalOnClass({ServerBootstrap.class, NettyServer.class})
-  class NettyServerAutoConfiguration {
-
-  }
-
-  @Configuration
-  @ConditionalOnClass({Bootstrap.class, NettyClient.class})
-  class NettyClientAutoConfiguration {
-
   }
 }
