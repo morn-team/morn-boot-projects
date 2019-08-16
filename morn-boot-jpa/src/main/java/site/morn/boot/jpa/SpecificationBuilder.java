@@ -78,12 +78,6 @@ public final class SpecificationBuilder<M> {
   }
 
   @FunctionalInterface
-  public interface SpecificationFunction {
-
-    void predicate(JpaReference reference, JpaPredicate restrain, JpaBatchCondition condition);
-  }
-
-  @FunctionalInterface
   public interface SimpleFunction<T> {
 
     void predicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder builder,

@@ -15,6 +15,23 @@ import site.morn.rest.RestModel;
 public interface CrudService<T, I extends Serializable> {
 
   /**
+   * 获取
+   *
+   * @param id 主键
+   * @return 持久化对象
+   */
+  T get(I id);
+
+  /**
+   * 新增
+   *
+   * @param model 业务模型
+   * @param <S> 实体类型
+   * @return 持久化对象
+   */
+  <S extends T> S add(S model);
+
+  /**
    * 新增
    *
    * @param restModel REST模型
@@ -42,11 +59,29 @@ public interface CrudService<T, I extends Serializable> {
   /**
    * 全量更新
    *
+   * @param model 业务模型
+   * @param <S> 实体类型
+   * @return 持久化对象
+   */
+  <S extends T> S update(S model);
+
+  /**
+   * 全量更新
+   *
    * @param restModel REST模型
    * @param <S> 实体类型
    * @return 持久化对象
    */
   <S extends T> S update(RestModel<S> restModel);
+
+  /**
+   * 增量更新
+   *
+   * @param model 业务模型
+   * @param <S> 实体类型
+   * @return 持久化对象
+   */
+  <S extends T> S patch(S model);
 
   /**
    * 增量更新

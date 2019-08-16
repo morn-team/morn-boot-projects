@@ -76,7 +76,7 @@ public final class ArrayUtils extends org.apache.commons.lang3.ArrayUtils {
    * 判断是否完全包含
    */
   public static boolean contains(Object[] sources, Object[] targets) {
-    if (isEmpty(sources)) {
+    if (Objects.isNull(sources)) {
       return false;
     }
     if (isEmpty(targets)) {

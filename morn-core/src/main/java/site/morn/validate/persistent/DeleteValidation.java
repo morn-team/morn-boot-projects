@@ -6,13 +6,6 @@ package site.morn.validate.persistent;
  * @author timely-rain
  * @since 1.0.0, 2019/4/19
  */
-public interface DeleteValidation<T> {
+public interface DeleteValidation<T> extends PersistValidation<T> {
 
-
-  /**
-   * 校验
-   *
-   * @param target 目标数据
-   */
-  void validate(T target);
 }

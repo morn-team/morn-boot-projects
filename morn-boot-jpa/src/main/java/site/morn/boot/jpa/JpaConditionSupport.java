@@ -67,7 +67,7 @@ public class JpaConditionSupport<M> implements JpaBatchCondition {
   @Override
   public Predicate contain(String name, String valueName) {
     Path<String> attribute = path().get(name);
-    String contains = parameter.mapOptional(name, JpaConditionUtils::contains);
+    String contains = parameter.mapOptional(valueName, JpaConditionUtils::contains);
     return like(attribute, contains);
   }
 

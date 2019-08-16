@@ -54,6 +54,17 @@ public class ApplicationMessages {
   }
 
   /**
+   * 构建应用异常
+   *
+   * @param code 消息编码
+   * @param message 消息内容
+   * @return 应用消息
+   */
+  public static ApplicationException buildException(String code, String message) {
+    return buildMessage(code, message, null).exception();
+  }
+
+  /**
    * 构建应用消息
    *
    * @param code 消息编码
@@ -88,6 +99,7 @@ public class ApplicationMessages {
     return translateMessage(code, args);
   }
 
+
   /**
    * 翻译应用异常
    *
@@ -99,13 +111,26 @@ public class ApplicationMessages {
   }
 
   /**
+   * 翻译应用消息
+   *
+   * @param code 消息编码
+   * @param args 消息参数
+   * @return 应用消息
+   */
+  public static ApplicationMessage translateMessage(String code, Object... args) {
+    return withTransfer(code, args).build();
+  }
+
+  /**
    * 翻译应用消息，支持缺省值
    *
    * @param code 消息编码
    * @param defaultExpress 默认消息表达式
    * @param args 消息参数
    * @return 应用消息
+   * @deprecated {@link #translateDefaultMessage(String, String, Object...)}
    */
+  @Deprecated
   public static ApplicationMessage orDefault(String code, String defaultExpress,
       Object... args) {
     return translateOrDefault(code, defaultExpress, args);
@@ -118,7 +143,9 @@ public class ApplicationMessages {
    * @param defaultExpress 默认消息表达式
    * @param args 消息参数
    * @return 应用消息
+   * @deprecated {@link #translateDefaultMessage(String, String, Object...)}
    */
+  @Deprecated
   public static ApplicationMessage translateOrDefault(String code, String defaultExpress,
       Object... args) {
     String defaultMessage = String.format(defaultExpress, args);
@@ -126,14 +153,30 @@ public class ApplicationMessages {
   }
 
   /**
-   * 翻译应用消息
+   * 翻译应用异常，支持缺省值
    *
    * @param code 消息编码
+   * @param defaultExpress 默认消息表达式
+   * @param args 消息参数
+   * @return 应用异常
+   */
+  public static ApplicationException translateDefaultException(String code, String defaultExpress,
+      Object... args) {
+    return translateDefaultMessage(code, defaultExpress, args).exception();
+  }
+
+  /**
+   * 翻译应用消息，支持缺省值
+   *
+   * @param code 消息编码
+   * @param defaultExpress 默认消息表达式
    * @param args 消息参数
    * @return 应用消息
    */
-  public static ApplicationMessage translateMessage(String code, Object... args) {
-    return withTransfer(code, args).build();
+  public static ApplicationMessage translateDefaultMessage(String code, String defaultExpress,
+      Object... args) {
+    String defaultMessage = String.format(defaultExpress, args);
+    return withTransfer(code, args).defaultMessage(defaultMessage).build();
   }
 
   /**
@@ -155,8 +198,8 @@ public class ApplicationMessages {
    * @return 应用消息构建器
    */
   public static ApplicationMessages withMessage(String code, String message) {
-    message = StringUtils.isEmpty(message) ? code : message;
-    return builder().code(code).message(message);
+    String s = StringUtils.isEmpty(message) ? code : message;
+    return builder().code(code).message(s);
   }
 
   /**

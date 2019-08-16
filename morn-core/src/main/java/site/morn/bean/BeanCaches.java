@@ -41,6 +41,17 @@ public class BeanCaches {
   /**
    * 按标识检索实例
    *
+   * @param <T> 实例类型
+   * @return 实例
+   */
+  public static <T> T bean(Class<T> type) {
+    return defaultBeanCache().tagBean(type);
+  }
+
+
+  /**
+   * 按标识检索实例
+   *
    * @param identify 标识
    * @param <T> 实例类型
    * @return 实例
@@ -88,12 +99,71 @@ public class BeanCaches {
    * 按标识检索实例
    *
    * @param type 实例类
+   * @param <T> 实例类型
+   * @return 实例集合
+   */
+  public static <T> List<T> beans(Class<T> type) {
+    return defaultBeanCache().tagBeans(type);
+  }
+
+  /**
+   * 按标识检索实例
+   *
+   * @param type 实例类
    * @param identify 标识
    * @param <T> 实例类型
    * @return 实例集合
    */
   public static <T> List<T> beans(Class<T> type, AnnotationIdentify identify) {
     return defaultBeanCache().beans(type, identify);
+  }
+
+  /**
+   * 按标识检索实例持有者
+   *
+   * @param type 实例类
+   * @param identify 标识
+   * @param <T> 实例类型
+   * @return 实例集合
+   */
+  public static <T> List<IdentifiedBeanHolder<T>> beanHolders(Class<T> type,
+      AnnotationIdentify identify) {
+    return defaultBeanCache().beanHolders(type, identify);
+  }
+
+  /**
+   * 按标识检索函数
+   *
+   * @param beanIdentify 实例标识
+   * @param functionIdentify 函数标识
+   * @return 函数集合
+   */
+  public static List<FunctionHolder> functions(AnnotationIdentify beanIdentify,
+      AnnotationIdentify functionIdentify) {
+    return defaultBeanCache().functions(beanIdentify, functionIdentify);
+  }
+
+  /**
+   * 按标识检索函数
+   *
+   * @param holders 实例持有者集合
+   * @param functionIdentify 函数标识
+   * @return 函数集合
+   */
+  public static <T> List<FunctionHolder> functions(
+      List<IdentifiedBeanHolder<T>> holders,
+      AnnotationIdentify functionIdentify) {
+    return defaultBeanCache().functions(holders, functionIdentify);
+  }
+
+  /**
+   * 按标识检索函数
+   *
+   * @param functionIdentify 函数标识
+   * @return 函数集合
+   */
+  public static List<FunctionHolder> functions(AnnotationIdentify functionIdentify) {
+    return defaultBeanCache().functions(functionIdentify);
   }
 
   /**
@@ -118,37 +188,5 @@ public class BeanCaches {
    */
   public static <T> List<T> targetBeans(Class<T> type, Class<?> target) {
     return defaultBeanCache().targetBeans(type, target);
-  }
-
-  /**
-   * @deprecated {@link #nameBean(Class, String)}
-   */
-  @Deprecated
-  public static <T> T bean(Class<T> type, String name) {
-    return defaultBeanCache().nameBean(type, name);
-  }
-
-  /**
-   * @deprecated {@link #targetBean(Class, Class)}
-   */
-  @Deprecated
-  public static <T> T bean(Class<T> type, Class<?> target) {
-    return defaultBeanCache().bean(type, target);
-  }
-
-  /**
-   * @deprecated {@link #tagBeans(Class, String...)}
-   */
-  @Deprecated
-  public static <T> List<T> beans(Class<T> type, String... tags) {
-    return defaultBeanCache().beans(type, tags);
-  }
-
-  /**
-   * @deprecated {@link #targetBeans(Class, Class)}
-   */
-  @Deprecated
-  public static <T> List<T> beans(Class<T> type, Class<?> target) {
-    return defaultBeanCache().beans(type, target);
   }
 }

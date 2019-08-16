@@ -11,7 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
- * site.morn.boot.log
+ * 操作日志单元测试
  *
  * @author timely-rain
  * @since 1.0.0, 2018/12/4
@@ -44,6 +44,7 @@ public class OperateAspectTest {
       countDownLatch.await();
     } catch (InterruptedException e) {
       log.error(e.getMessage(), e);
+      Thread.currentThread().interrupt();
     }
   }
 
@@ -67,6 +68,7 @@ public class OperateAspectTest {
       countDownLatch.await();
     } catch (InterruptedException e) {
       log.error(e.getMessage(), e);
+      Thread.currentThread().interrupt();
     }
   }
 }

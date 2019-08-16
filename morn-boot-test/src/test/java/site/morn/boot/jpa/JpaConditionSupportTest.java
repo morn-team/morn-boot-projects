@@ -5,7 +5,6 @@ import java.util.Objects;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.StringUtils;
-import site.morn.boot.jpa.SpecificationBuilder.SpecificationFunction;
 import site.morn.core.CriteriaMap;
 
 /**
@@ -41,10 +39,6 @@ public class JpaConditionSupportTest {
 
     attach = new CriteriaMap();
     attach.put("keywords", "timely");
-  }
-
-  @After
-  public void tearDown() {
   }
 
   @Test

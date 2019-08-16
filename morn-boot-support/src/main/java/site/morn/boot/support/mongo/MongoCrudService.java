@@ -12,7 +12,7 @@ import site.morn.boot.rest.RestPage;
 import site.morn.boot.support.CrudService;
 import site.morn.rest.RestModel;
 import site.morn.util.TypeUtils;
-import site.morn.validate.persistent.PersistValidateUtils;
+import site.morn.validate.persistent.PersistFunctionUtils;
 
 /**
  * Mongo基础服务实现
@@ -35,8 +35,21 @@ public class MongoCrudService<T, I extends Serializable, R extends MongoReposito
   }
 
   @Override
+  public T get(I id) {
+    return repository().findById(id).orElse(null);
+  }
+
+  @Override
+  public <S extends T> S add(S model) {
+    RestModel<S> restModel = new RestModel<>();
+    restModel.setModel(model);
+    return add(restModel);
+  }
+
+  @Override
   public <S extends T> S add(RestModel<S> restModel) {
     S model = restModel.getModel();
+    PersistFunctionUtils.validateAdd(model);
     return repository.save(model);
   }
 
@@ -54,14 +67,30 @@ public class MongoCrudService<T, I extends Serializable, R extends MongoReposito
   }
 
   @Override
+  public <S extends T> S update(S model) {
+    RestModel<S> restModel = new RestModel<>();
+    restModel.setModel(model);
+    return update(restModel);
+  }
+
+  @Override
   public <S extends T> S update(RestModel<S> restModel) {
     S model = restModel.getModel();
+    PersistFunctionUtils.validateUpdate(model);
     return repository.save(model);
+  }
+
+  @Override
+  public <S extends T> S patch(S model) {
+    RestModel<S> restModel = new RestModel<>();
+    restModel.setModel(model);
+    return patch(restModel);
   }
 
   @Override
   public <S extends T> S patch(RestModel<S> restModel) {
     S model = restModel.getModel();
+    PersistFunctionUtils.validateUpdate(model);
     return repository.save(model);
   }
 
@@ -69,7 +98,7 @@ public class MongoCrudService<T, I extends Serializable, R extends MongoReposito
   public void delete(I id) {
     Optional<T> optional = repository().findById(id);
     if (optional.isPresent()) {
-      PersistValidateUtils.validateDelete(optional.get()); // 数据删除校验
+      PersistFunctionUtils.validateDelete(optional.get()); // 数据删除校验
       repository.deleteById(id);
     } else {
       log.warn("数据不存在：[id={}]", id);
@@ -79,7 +108,7 @@ public class MongoCrudService<T, I extends Serializable, R extends MongoReposito
   @Override
   public <S extends T> void delete(RestModel<S> restModel) {
     S model = restModel.getModel();
-    PersistValidateUtils.validateDelete(model); // 数据删除校验
+    PersistFunctionUtils.validateDelete(model); // 数据删除校验
     repository.delete(model);
   }
 

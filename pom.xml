@@ -22,10 +22,12 @@
     <module>morn-boot-core</module>
     <module>morn-boot-interpreter</module>
     <module>morn-boot-jpa</module>
+    <module>morn-boot-netty</module>
     <module>morn-boot-support</module>
     <module>morn-boot-test</module>
     <module>morn-boot-web</module>
     <module>morn-core</module>
+    <module>morn-fastjson</module>
   </modules>
 
   <scm>
@@ -44,10 +46,26 @@
     <maven.compiler.target>${java.version}</maven.compiler.target>
 
     <boot.version>2.1.4.RELEASE</boot.version>
-    <lombok.version>1.16.22</lombok.version>
+
+    <awaitility.version>3.1.6</awaitility.version>
+    <commons-codec.version>1.12</commons-codec.version>
     <commons-lang3.version>3.9</commons-lang3.version>
+    <fastjson.version>1.2.58</fastjson.version>
+    <lombok.version>1.18.4</lombok.version>
     <shiro.version>1.3.2</shiro.version>
+    <swagger.version>2.9.2</swagger.version>
+    <swagger-annotations.version>1.5.20</swagger-annotations.version>
   </properties>
+
+  <dependencies>
+    <!--Lombok-->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>${lombok.version}</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
 
   <dependencyManagement>
     <dependencies>
@@ -57,11 +75,6 @@
         <version>${boot.version}</version>
         <type>pom</type>
         <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.projectlombok</groupId>
-        <artifactId>lombok</artifactId>
-        <version>${lombok.version}</version>
       </dependency>
       <dependency>
         <groupId>site.morn.boot</groupId>
@@ -85,6 +98,11 @@
       </dependency>
       <dependency>
         <groupId>site.morn.boot</groupId>
+        <artifactId>morn-boot-netty</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>site.morn.boot</groupId>
         <artifactId>morn-boot-support</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -103,36 +121,61 @@
         <artifactId>morn-core</artifactId>
         <version>${project.version}</version>
       </dependency>
+      <dependency>
+        <groupId>site.morn.boot</groupId>
+        <artifactId>morn-fastjson</artifactId>
+        <version>${project.version}</version>
+      </dependency>
 
+      <!--Awaitility-->
+      <dependency>
+        <groupId>org.awaitility</groupId>
+        <artifactId>awaitility</artifactId>
+        <version>${awaitility.version}</version>
+      </dependency>
+      <!--Commons-->
+      <dependency>
+        <groupId>commons-codec</groupId>
+        <artifactId>commons-codec</artifactId>
+        <version>${commons-codec.version}</version>
+      </dependency>
       <dependency>
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-lang3</artifactId>
         <version>${commons-lang3.version}</version>
       </dependency>
+      <!--FastJson-->
+      <dependency>
+        <groupId>com.alibaba</groupId>
+        <artifactId>fastjson</artifactId>
+        <version>${fastjson.version}</version>
+      </dependency>
+      <!--Lombok-->
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>${lombok.version}</version>
+      </dependency>
+      <!--Swagger-->
+      <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger2</artifactId>
+        <version>${swagger.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger-ui</artifactId>
+        <version>${swagger.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.swagger</groupId>
+        <artifactId>swagger-annotations</artifactId>
+        <version>${swagger-annotations.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
   <build>
-    <pluginManagement>
-      <plugins>
-        <!--Sonar插件-->
-        <plugin>
-          <groupId>org.sonarsource.scanner.maven</groupId>
-          <artifactId>sonar-maven-plugin</artifactId>
-        </plugin>
-        <!--源码插件-->
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-source-plugin</artifactId>
-        </plugin>
-        <!--单元测试覆盖率插件-->
-        <plugin>
-          <groupId>org.jacoco</groupId>
-          <artifactId>jacoco-maven-plugin</artifactId>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-
     <plugins>
       <!--源码插件-->
       <plugin>

@@ -1,5 +1,6 @@
 package site.morn.boot.support.entity;
 
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
@@ -27,6 +28,7 @@ public class ReviserEntity extends CreatorEntity {
   /**
    * 修改人
    */
+  @ApiModelProperty("修改人")
   @Column(length = 32)
   @LastModifiedBy
   protected String modifier;
@@ -34,6 +36,7 @@ public class ReviserEntity extends CreatorEntity {
   /**
    * 修改时间
    */
+  @ApiModelProperty("修改时间")
   @Column
   @LastModifiedDate
   @Temporal(TemporalType.TIMESTAMP)

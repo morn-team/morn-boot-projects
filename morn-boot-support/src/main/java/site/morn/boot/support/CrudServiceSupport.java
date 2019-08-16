@@ -11,11 +11,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import site.morn.boot.jpa.SpecificationBuilder;
+import site.morn.boot.jpa.SpecificationFunction;
 import site.morn.boot.rest.RestPage;
 import site.morn.core.CriteriaMap;
 import site.morn.rest.RestModel;
 import site.morn.util.TypeUtils;
-import site.morn.validate.persistent.PersistValidateUtils;
+import site.morn.validate.persistent.PersistFunctionUtils;
 
 /**
  * 基础服务实现
@@ -39,9 +40,20 @@ public abstract class CrudServiceSupport<T, I extends Serializable, R extends Jp
   }
 
   @Override
+  public T get(I id) {
+    return repository().findById(id).orElse(null);
+  }
+
+  @Override
+  public <S extends T> S add(S model) {
+    PersistFunctionUtils.validateAdd(model);
+    return repository.save(model);
+  }
+
+  @Override
   public <S extends T> S add(RestModel<S> restModel) {
     S model = restModel.getModel();
-    return repository.save(model);
+    return this.add(model);
   }
 
   @Override
@@ -64,22 +76,34 @@ public abstract class CrudServiceSupport<T, I extends Serializable, R extends Jp
   }
 
   @Override
+  public <S extends T> S update(S model) {
+    PersistFunctionUtils.validateUpdate(model);
+    return repository.save(model);
+  }
+
+  @Override
   public <S extends T> S update(RestModel<S> restModel) {
     S model = restModel.getModel();
+    return this.update(model);
+  }
+
+  @Override
+  public <S extends T> S patch(S model) {
+    PersistFunctionUtils.validateUpdate(model);
     return repository.save(model);
   }
 
   @Override
   public <S extends T> S patch(RestModel<S> restModel) {
     S model = restModel.getModel();
-    return repository.save(model);
+    return this.patch(model);
   }
 
   @Override
   public void delete(I id) {
     Optional<T> optional = repository().findById(id);
     if (optional.isPresent()) {
-      PersistValidateUtils.validateDelete(optional.get()); // 数据删除校验
+      PersistFunctionUtils.validateDelete(optional.get()); // 数据删除校验
       repository.deleteById(id);
     } else {
       log.warn("数据不存在：[id={}]", id);
@@ -89,7 +113,7 @@ public abstract class CrudServiceSupport<T, I extends Serializable, R extends Jp
   @Override
   public <S extends T> void delete(RestModel<S> restModel) {
     S model = restModel.getModel();
-    PersistValidateUtils.validateDelete(model); // 数据删除校验
+    PersistFunctionUtils.validateDelete(model); // 数据删除校验
     repository.delete(model);
   }
 
@@ -105,10 +129,21 @@ public abstract class CrudServiceSupport<T, I extends Serializable, R extends Jp
    * @return 搜索条件
    */
   protected Specification<T> searchSpecification(T model, CriteriaMap attach) {
-    return SpecificationBuilder.withParameter(model)
-        .specification((reference, restrain, predicate) -> {
-          Predicate[] equalAll = predicate.equalAll(); // 默认精确匹配所有属性
-          restrain.appendAnd(equalAll);
-        });
+    SpecificationFunction specificationFunction = searchSpecificationFunction(model, attach);
+    return SpecificationBuilder.withParameter(model, attach).specification(specificationFunction);
+  }
+
+  /**
+   * 构建搜索条件
+   *
+   * @param model 数据模型
+   * @param attach 附加数据
+   * @return 搜索条件
+   */
+  protected SpecificationFunction searchSpecificationFunction(T model, CriteriaMap attach) {
+    return (reference, restrain, predicate) -> {
+      Predicate[] equalAll = predicate.equalAll(); // 默认精确匹配所有属性
+      restrain.appendAnd(equalAll);
+    };
   }
 }
