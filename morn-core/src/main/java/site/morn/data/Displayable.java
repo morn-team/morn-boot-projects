@@ -1,7 +1,5 @@
 package site.morn.data;
 
-import org.apache.commons.lang3.BooleanUtils;
-
 /**
  * 可显示的
  *
@@ -21,11 +19,4 @@ public interface Displayable {
    * 设置显示状态
    */
   void setDisplay(Boolean isDisplay);
-
-  /**
-   * 判断是否为显示状态
-   */
-  default boolean isDisplay() {
-    return !BooleanUtils.isFalse(getDisplay());
-  }
 }
