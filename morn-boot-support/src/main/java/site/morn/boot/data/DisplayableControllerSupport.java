@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import site.morn.boot.support.CrudControllerSupport;
 import site.morn.boot.support.CrudService;
 import site.morn.log.OperateAction;
+import site.morn.log.OperateArguments;
 import site.morn.rest.RestBuilders;
 import site.morn.rest.RestMessage;
 
@@ -27,6 +28,7 @@ public class DisplayableControllerSupport<T, I extends Serializable, S extends C
   @OperateAction("display")
   @PutMapping("display")
   public RestMessage display(@RequestBody List<I> ids) {
+    OperateArguments.add(ids);
     service().displayAll(ids);
     return RestBuilders.successMessage();
   }
@@ -38,6 +40,7 @@ public class DisplayableControllerSupport<T, I extends Serializable, S extends C
   @OperateAction("hide")
   @PutMapping("hide")
   public RestMessage hide(@RequestBody List<I> ids) {
+    OperateArguments.add(ids);
     service().hideAll(ids);
     return RestBuilders.successMessage();
   }

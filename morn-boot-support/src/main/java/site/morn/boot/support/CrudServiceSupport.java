@@ -3,6 +3,8 @@ package site.morn.boot.support;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import javax.persistence.criteria.Predicate;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -64,6 +66,12 @@ public abstract class CrudServiceSupport<T, I extends Serializable, R extends Jp
     T model = restPage.getModel(); // 数据模型
     Specification<T> specification = searchSpecification(model, attach);// 查询条件
     return repository.findAll(specification, pageRequest); // 分页查询
+  }
+
+  @Override
+  public List<T> searchAll() {
+    Iterable<T> iterable = repository().findAll();
+    return StreamSupport.stream(iterable.spliterator(), false).collect(Collectors.toList());
   }
 
   @Override

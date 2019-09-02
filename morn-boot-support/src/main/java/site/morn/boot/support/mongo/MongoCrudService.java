@@ -61,6 +61,11 @@ public class MongoCrudService<T, I extends Serializable, R extends MongoReposito
   }
 
   @Override
+  public List<T> searchAll() {
+    return repository.findAll();
+  }
+
+  @Override
   public List<T> searchAll(RestModel<T> restModel) {
     log.info("全部搜索");
     return repository.findAll(); // 分页查询
