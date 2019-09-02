@@ -56,6 +56,7 @@ public class OperateAspect {
       return returned;
     } catch (Throwable throwable) {
       operateMetaBuilder.success(false);
+      operateMetaBuilder.throwable(throwable);
       throw throwable;
     } finally {
       // 读取操作日志参数
