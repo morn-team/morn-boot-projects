@@ -1,5 +1,6 @@
 package site.morn.boot.jpa;
 
+import org.springframework.stereotype.Repository;
 import site.morn.boot.support.JpaRepository;
 
 /**
@@ -8,6 +9,7 @@ import site.morn.boot.support.JpaRepository;
  * @author timely-rain
  * @since 1.0.0, 2019/4/22
  */
+@Repository
 public interface TestUserRepository extends JpaRepository<TestUser, Long> {
 
 }
