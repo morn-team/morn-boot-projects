@@ -39,9 +39,19 @@ public class OperateMeta implements AnnotationOperate {
   private String name;
 
   /**
-   * 操作参数
+   * 模块参数
    */
-  private Object[] arguments;
+  private Object[] groupArgs;
+
+  /**
+   * 行为参数
+   */
+  private Object[] actionArgs;
+
+  /**
+   * 实时参数
+   */
+  private Object[] codeArgs;
 
   /**
    * 方法参数
@@ -52,6 +62,11 @@ public class OperateMeta implements AnnotationOperate {
    * 方法返回值
    */
   private Object methodReturned;
+
+  /**
+   * 异常
+   */
+  private Throwable throwable;
 
   /**
    * 例外异常类型

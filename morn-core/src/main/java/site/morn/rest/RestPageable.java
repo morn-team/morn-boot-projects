@@ -1,5 +1,7 @@
 package site.morn.rest;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import site.morn.util.TypeUtils;
 
 /**
@@ -8,21 +10,25 @@ import site.morn.util.TypeUtils;
  * @author timely-rain
  * @since 1.0.0, 2018/7/10
  */
+@ApiModel("REST分页参数")
 public class RestPageable implements RestPageableDefinition {
 
   /**
    * 当前页
    */
+  @ApiModelProperty(value = "当前页", example = "0")
   private int page;
 
   /**
    * 单页数量
    */
+  @ApiModelProperty(value = "单页数量", example = "20")
   private int size;
 
   /**
    * 排序
    */
+  @ApiModelProperty(value = "排序", example = "id desc")
   private String sort;
 
   public RestPageable() {

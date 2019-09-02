@@ -15,7 +15,7 @@ import site.morn.bean.AnnotationIdentify;
  * 注解标识工具类
  *
  * @author timely-rain
- * @since 2.1.0, 2019/5/18
+ * @since 1.2.0, 2019/5/18
  */
 @Slf4j
 @UtilityClass
@@ -63,7 +63,7 @@ public class AnnotationIdentifyUtils {
    */
   public static String getTag(String tagName, Object value) {
     String n = Optional.ofNullable(tagName).orElse("");
-    String v = Optional.ofNullable(value).orElse("").toString();
+    String v = Optional.ofNullable(value).map(AnnotationIdentifyUtils::mapString).orElse("");
     if (StringUtils.isEmpty(n)) {
       return v;
     }
@@ -217,5 +217,16 @@ public class AnnotationIdentifyUtils {
       return true;
     }
     return Objects.equals(suit, WILDCARD); // 适用任何条件
+  }
+
+  /**
+   * 对象转字符串
+   *
+   * @param o 对象
+   * @return 字符串
+   */
+  private String mapString(Object o) {
+    return o.getClass().isArray() ? StringUtils.arrayToCommaDelimitedString((Object[]) o)
+        : o.toString();
   }
 }

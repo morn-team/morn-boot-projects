@@ -1,5 +1,6 @@
 package site.morn.boot.support.entity;
 
+import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import lombok.Getter;
@@ -10,7 +11,7 @@ import lombok.experimental.FieldNameConstants;
  * 组织成员映射类
  *
  * @author timely-rain
- * @since 2.1.0, 2019/5/16
+ * @since 1.2.0, 2019/5/16
  */
 @Getter
 @Setter
@@ -21,6 +22,7 @@ public class OrganizedEntity extends ReviserEntity {
   /**
    * 组织编号
    */
+  @ApiModelProperty("组织机构编号")
   @Column
   protected Long departmentId;
 }

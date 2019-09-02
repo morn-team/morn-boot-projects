@@ -1,29 +1,32 @@
 package site.morn.rest;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import site.morn.core.CriteriaMap;
 import site.morn.util.TypeUtils;
 
 /**
  * REST数据模型
  *
- * @author TianGanLin
+ * @author timely-rain
  * @since 0.0.1-SNAPSHOT, 2019/1/14
  */
+@ApiModel(value = "REST数据模型", description = "统一数据模型，通常用于请求体")
 public class RestModel<M> implements RestModelDefinition<M, CriteriaMap> {
 
 
   /**
    * 数据模型
    */
+  @ApiModelProperty("数据模型")
   @Valid
-  @NotNull
   private M model;
 
   /**
    * 附加数据
    */
+  @ApiModelProperty("附加数据")
   private CriteriaMap attach;
 
   public RestModel() {

@@ -1,5 +1,6 @@
 package site.morn.boot.rest;
 
+import io.swagger.annotations.ApiModel;
 import site.morn.core.CriteriaMap;
 import site.morn.rest.RestModel;
 import site.morn.rest.RestPageable;
@@ -12,6 +13,7 @@ import site.morn.util.TypeUtils;
  * @see RestPageDefinition REST分页请求
  * @since 1.0.0, 2018/7/10
  */
+@ApiModel(value = "REST分页模型", description = "统一数据模型，通常用于请求体")
 public class RestPage<M> extends RestModel<M> implements
     RestPageDefinition<RestPageable, M, CriteriaMap> {
 

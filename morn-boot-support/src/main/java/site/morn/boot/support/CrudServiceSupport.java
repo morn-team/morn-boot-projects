@@ -3,6 +3,8 @@ package site.morn.boot.support;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import javax.persistence.criteria.Predicate;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -16,12 +18,12 @@ import site.morn.boot.rest.RestPage;
 import site.morn.core.CriteriaMap;
 import site.morn.rest.RestModel;
 import site.morn.util.TypeUtils;
-import site.morn.validate.persistent.PersistValidateUtils;
+import site.morn.validate.persistent.PersistFunctionUtils;
 
 /**
  * 基础服务实现
  *
- * @author TianGanLin
+ * @author timely-rain
  * @since 0.0.1-SNAPSHOT, 2019/1/14
  */
 @Slf4j
@@ -40,17 +42,20 @@ public abstract class CrudServiceSupport<T, I extends Serializable, R extends Jp
   }
 
   @Override
+  public T get(I id) {
+    return repository().findById(id).orElse(null);
+  }
+
+  @Override
   public <S extends T> S add(S model) {
-    RestModel<S> restModel = new RestModel<>();
-    restModel.setModel(model);
-    return add(restModel);
+    PersistFunctionUtils.validateAdd(model);
+    return repository.save(model);
   }
 
   @Override
   public <S extends T> S add(RestModel<S> restModel) {
     S model = restModel.getModel();
-    PersistValidateUtils.validateAdd(model);
-    return repository.save(model);
+    return this.add(model);
   }
 
   @Override
@@ -64,6 +69,12 @@ public abstract class CrudServiceSupport<T, I extends Serializable, R extends Jp
   }
 
   @Override
+  public List<T> searchAll() {
+    Iterable<T> iterable = repository().findAll();
+    return StreamSupport.stream(iterable.spliterator(), false).collect(Collectors.toList());
+  }
+
+  @Override
   public List<T> searchAll(RestModel<T> restModel) {
     log.info("全部搜索");
     CriteriaMap attach = restModel.getAttach(); // 附加数据
@@ -74,37 +85,33 @@ public abstract class CrudServiceSupport<T, I extends Serializable, R extends Jp
 
   @Override
   public <S extends T> S update(S model) {
-    RestModel<S> restModel = new RestModel<>();
-    restModel.setModel(model);
-    return update(restModel);
+    PersistFunctionUtils.validateUpdate(model);
+    return repository.save(model);
   }
 
   @Override
   public <S extends T> S update(RestModel<S> restModel) {
     S model = restModel.getModel();
-    PersistValidateUtils.validateUpdate(model);
-    return repository.save(model);
+    return this.update(model);
   }
 
   @Override
   public <S extends T> S patch(S model) {
-    RestModel<S> restModel = new RestModel<>();
-    restModel.setModel(model);
-    return patch(restModel);
+    PersistFunctionUtils.validateUpdate(model);
+    return repository.save(model);
   }
 
   @Override
   public <S extends T> S patch(RestModel<S> restModel) {
     S model = restModel.getModel();
-    PersistValidateUtils.validateUpdate(model);
-    return repository.save(model);
+    return this.patch(model);
   }
 
   @Override
   public void delete(I id) {
     Optional<T> optional = repository().findById(id);
     if (optional.isPresent()) {
-      PersistValidateUtils.validateDelete(optional.get()); // 数据删除校验
+      PersistFunctionUtils.validateDelete(optional.get()); // 数据删除校验
       repository.deleteById(id);
     } else {
       log.warn("数据不存在：[id={}]", id);
@@ -114,7 +121,7 @@ public abstract class CrudServiceSupport<T, I extends Serializable, R extends Jp
   @Override
   public <S extends T> void delete(RestModel<S> restModel) {
     S model = restModel.getModel();
-    PersistValidateUtils.validateDelete(model); // 数据删除校验
+    PersistFunctionUtils.validateDelete(model); // 数据删除校验
     repository.delete(model);
   }
 

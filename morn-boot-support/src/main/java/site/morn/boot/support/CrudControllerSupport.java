@@ -1,15 +1,20 @@
 package site.morn.boot.support;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import java.io.Serializable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import site.morn.boot.rest.RestPage;
+import site.morn.log.OperateAction;
+import site.morn.log.OperateAction.Actions;
 import site.morn.rest.RestBuilders;
 import site.morn.rest.RestMessage;
 import site.morn.rest.RestModel;
@@ -40,22 +45,37 @@ public class CrudControllerSupport<T, I extends Serializable, S extends CrudServ
   }
 
   /**
+   * 查询
+   */
+  @ApiOperation("单体查询")
+  @ApiImplicitParam(name = "id", value = "主键")
+  @GetMapping("{id}")
+  public RestMessage get(@PathVariable I id) {
+    T model = service().get(id);
+    return RestBuilders.successMessage(model);
+  }
+
+  /**
    * 新增
    */
+  @ApiOperation("新增")
+  @OperateAction(Actions.ADD)
   @PostMapping
   public RestMessage add(@Validated(Add.class) @RequestBody RestModel<T> restModel) {
-    T user = service().add(restModel);
-    return RestBuilders.successMessage(user);
+    T model = service().add(restModel);
+    return RestBuilders.successMessage(model);
   }
 
   /**
    * 修改
    */
+  @ApiOperation("修改")
+  @OperateAction(Actions.UPDATE)
   @PutMapping
   public RestMessage update(
       @Validated({Update.class, Put.class}) @RequestBody RestModel<T> restModel) {
-    T user = service().update(restModel);
-    return RestBuilders.successMessage(user);
+    T model = service().update(restModel);
+    return RestBuilders.successMessage(model);
   }
 
   /**
@@ -64,6 +84,7 @@ public class CrudControllerSupport<T, I extends Serializable, S extends CrudServ
    * @param restPage REST分页参数
    * @return REST消息
    */
+  @ApiOperation("分页搜索")
   @PostMapping("search")
   public RestMessage search(@Validated(Search.class) @RequestBody RestPage<T> restPage) {
     Page<T> page = service.search(restPage);
@@ -73,6 +94,9 @@ public class CrudControllerSupport<T, I extends Serializable, S extends CrudServ
   /**
    * 删除
    */
+  @ApiOperation("删除")
+  @ApiImplicitParam(name = "id", value = "主键")
+  @OperateAction(Actions.DELETE)
   @DeleteMapping("/{id}")
   public RestMessage delete(@Validated({Delete.class}) @PathVariable I id) {
     service().delete(id);

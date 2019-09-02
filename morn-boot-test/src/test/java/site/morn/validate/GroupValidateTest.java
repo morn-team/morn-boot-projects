@@ -40,7 +40,7 @@ public class GroupValidateTest {
   private CriteriaMap noPassword;
 
   @Before
-  public void setUp() throws Exception {
+  public void setUp() {
     noModel = new CriteriaMap();
 
     noPassword = new CriteriaMap();
@@ -56,7 +56,7 @@ public class GroupValidateTest {
         .content(content).contentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
     mvc.perform(requestBuilder)
         .andDo(MockMvcResultHandlers.print())
-        .andExpect(MockMvcResultMatchers.status().isBadRequest());
+        .andExpect(MockMvcResultMatchers.status().isOk());
   }
 
   @Test

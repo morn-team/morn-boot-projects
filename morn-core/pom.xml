@@ -5,17 +5,31 @@
   <parent>
     <groupId>site.morn.boot</groupId>
     <artifactId>morn-boot-projects</artifactId>
-    <version>2.1.0-SNAPSHOT</version>
+    <version>1.2.0-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>morn-core</artifactId>
 
   <dependencies>
+    <!--Aspectj-->
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <!--Commons-->
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
     </dependency>
+    <!--Slf4j-->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <!--Spring-->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-core</artifactId>
@@ -26,19 +40,15 @@
       <artifactId>spring-context</artifactId>
       <optional>true</optional>
     </dependency>
+    <!--Swagger-->
     <dependency>
-      <groupId>org.aspectj</groupId>
-      <artifactId>aspectjweaver</artifactId>
-      <optional>true</optional>
+      <groupId>io.swagger</groupId>
+      <artifactId>swagger-annotations</artifactId>
     </dependency>
+    <!--Validation-->
     <dependency>
       <groupId>javax.validation</groupId>
       <artifactId>validation-api</artifactId>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
       <optional>true</optional>
     </dependency>
   </dependencies>

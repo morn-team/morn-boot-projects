@@ -15,16 +15,16 @@ import site.morn.rest.RestMessage;
  * @since 1.0.0, 2018/12/4
  */
 @Component
-@OperateGroup("user")
+@OperateGroup(value = "user", args = "1")
 public class TestOperateController {
 
-  @OperateAction("add")
+  @OperateAction(value = "add", args = "2")
   public RestMessage addUser(Map<String, Object> user) {
     OperateArguments.add(user.get("username"));
     return RestBuilders.successMessage();
   }
 
-  @OperateAction("update")
+  @OperateAction(value = "update", args = "3")
   public Map<String, Object> updateUser(Map<String, Object> user) {
     OperateArguments.add(user.get("username"));
     OperateArguments.add(user.get("password"));

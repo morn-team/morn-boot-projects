@@ -40,10 +40,23 @@ public class SimpleIdentifiedBeanCache implements IdentifiedBeanCache {
     return stream.map(IdentifiedBeanHolder::getBean).collect(Collectors.toList());
   }
 
+  @Cacheable(value = Cache.BEAN_HOLDER, key = "#limitIdentify.toString()")
+  @Override
+  public <T> List<IdentifiedBeanHolder<T>> beanHolders(Class<T> suitType,
+      AnnotationIdentify limitIdentify) {
+    return beanHolderStream(suitType, limitIdentify).collect(Collectors.toList());
+  }
+
   @Override
   public List<FunctionHolder> functions(AnnotationIdentify beanIdentify,
       AnnotationIdentify functionIdentify) {
     return functionHolderStream(beanIdentify, functionIdentify).collect(Collectors.toList());
+  }
+
+  @Override
+  public <T> List<FunctionHolder> functions(List<IdentifiedBeanHolder<T>> holders,
+      AnnotationIdentify functionIdentify) {
+    return functionHolderStream(holders.stream(), functionIdentify).collect(Collectors.toList());
   }
 
   /**
@@ -72,8 +85,19 @@ public class SimpleIdentifiedBeanCache implements IdentifiedBeanCache {
    */
   private Stream<FunctionHolder> functionHolderStream(AnnotationIdentify beanIdentify,
       AnnotationIdentify functionIdentify) {
-    return beanHolderStream(null, beanIdentify)
-        .flatMap(holder -> holder.getFunctionHolders().stream())
+    return functionHolderStream(beanHolderStream(null, beanIdentify), functionIdentify);
+  }
+
+  /**
+   * 获取函数持有流
+   *
+   * @param stream 实例持有者流
+   * @param functionIdentify 函数标识
+   * @return 函数持有流
+   */
+  private <T> Stream<FunctionHolder> functionHolderStream(Stream<IdentifiedBeanHolder<T>> stream,
+      AnnotationIdentify functionIdentify) {
+    return stream.flatMap(holder -> holder.getFunctionHolders().stream())
         .filter(holder -> AnnotationIdentifyUtils.isSuitable(holder, functionIdentify));
   }
 }

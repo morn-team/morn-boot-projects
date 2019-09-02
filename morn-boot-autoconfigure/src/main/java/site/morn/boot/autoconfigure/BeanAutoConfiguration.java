@@ -63,8 +63,7 @@ public class BeanAutoConfiguration {
   @Bean
   @ConditionalOnMissingBean
   public IdentifiedBeanPostProcessor identifiedBeanPostProcessor(List<BeanConfigurer> configurers,
-      BeanAnnotationRegistry registry,
-      IdentifiedBeanCache identifiedBeanCache) {
+      BeanAnnotationRegistry registry, IdentifiedBeanCache identifiedBeanCache) {
     initBeanAnnotation(configurers, registry);
     return new IdentifiedBeanPostProcessor(registry, identifiedBeanCache);
   }

@@ -14,7 +14,7 @@ import org.springframework.util.ObjectUtils;
  * 实例函数调用类
  *
  * @author timely-rain
- * @since 2.1.0, 2019/5/19
+ * @since 1.2.0, 2019/5/19
  */
 @Slf4j
 @UtilityClass
@@ -54,10 +54,10 @@ public class BeanFunctions {
       return (T) result;
     } catch (IllegalAccessException e) {
       log.warn("函数无法访问：{}", holder.getMethodPath());
-      log.warn(e.getMessage(), e);
+      log.warn(e.getCause().getMessage(), e.getCause());
     } catch (InvocationTargetException e) {
       log.warn("函数调用失败：{}", holder.getMethodPath());
-      log.warn(e.getMessage(), e);
+      log.warn(e.getCause().getMessage(), e.getCause());
     }
     return null;
   }

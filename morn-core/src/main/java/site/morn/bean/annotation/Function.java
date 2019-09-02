@@ -9,7 +9,7 @@ import java.lang.annotation.RetentionPolicy;
  * 函数注解
  *
  * @author timely-rain
- * @since 2.1.0, 2019/5/17
+ * @since 1.2.0, 2019/5/17
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

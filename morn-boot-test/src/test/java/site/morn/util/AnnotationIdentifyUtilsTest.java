@@ -9,7 +9,7 @@ import org.junit.runners.JUnit4;
  * 注解标识工具类单元测试
  *
  * @author timely-rain
- * @since 2.1.0, 2019/5/18
+ * @since 1.2.0, 2019/5/18
  */
 @RunWith(JUnit4.class)
 public class AnnotationIdentifyUtilsTest {

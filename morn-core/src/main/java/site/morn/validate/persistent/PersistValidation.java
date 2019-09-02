@@ -4,7 +4,7 @@ package site.morn.validate.persistent;
  * 持久化数据校验
  *
  * @author timely-rain
- * @since 2.1.0, 2019/5/15
+ * @since 1.2.0, 2019/5/15
  */
 @FunctionalInterface
 public interface PersistValidation<T> {

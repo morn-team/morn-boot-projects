@@ -10,7 +10,7 @@ import org.springframework.core.annotation.AnnotationUtils;
  * 实例注解
  *
  * @author timely-rain
- * @since 2.1.0, 2019/5/17
+ * @since 1.2.0, 2019/5/17
  */
 @RequiredArgsConstructor
 @Getter

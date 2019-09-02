@@ -1,5 +1,6 @@
 package site.morn.boot.support.entity;
 
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
@@ -8,6 +9,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.FieldNameConstants;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -21,12 +23,14 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Getter
 @Setter
 @MappedSuperclass
+@FieldNameConstants
 @EntityListeners(AuditingEntityListener.class)
 public class ReviserEntity extends CreatorEntity {
 
   /**
    * 修改人
    */
+  @ApiModelProperty("修改人")
   @Column(length = 32)
   @LastModifiedBy
   protected String modifier;
@@ -34,6 +38,7 @@ public class ReviserEntity extends CreatorEntity {
   /**
    * 修改时间
    */
+  @ApiModelProperty("修改时间")
   @Column
   @LastModifiedDate
   @Temporal(TemporalType.TIMESTAMP)

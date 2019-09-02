@@ -9,10 +9,18 @@ import site.morn.rest.RestModel;
 /**
  * 基础服务
  *
- * @author TianGanLin
+ * @author timely-rain
  * @since 0.0.1-SNAPSHOT, 2019/1/14
  */
 public interface CrudService<T, I extends Serializable> {
+
+  /**
+   * 获取
+   *
+   * @param id 主键
+   * @return 持久化对象
+   */
+  T get(I id);
 
   /**
    * 新增
@@ -39,6 +47,13 @@ public interface CrudService<T, I extends Serializable> {
    * @return 分页结果集
    */
   Page<T> search(RestPage<T> restPage);
+
+  /**
+   * 全部查询
+   *
+   * @return 分页结果集
+   */
+  List<T> searchAll();
 
   /**
    * 全部查询

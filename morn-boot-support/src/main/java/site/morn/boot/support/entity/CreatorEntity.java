@@ -1,5 +1,6 @@
 package site.morn.boot.support.entity;
 
+import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
@@ -8,6 +9,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.FieldNameConstants;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -21,12 +23,14 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Getter
 @Setter
 @MappedSuperclass
+@FieldNameConstants
 @EntityListeners(AuditingEntityListener.class)
 public class CreatorEntity {
 
   /**
    * 创建人
    */
+  @ApiModelProperty("创建人")
   @Column(length = 32)
   @CreatedBy
   protected String creator;
@@ -34,6 +38,7 @@ public class CreatorEntity {
   /**
    * 创建时间
    */
+  @ApiModelProperty("创建时间")
   @Column
   @CreatedDate
   @Temporal(TemporalType.TIMESTAMP)
