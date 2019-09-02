@@ -12,7 +12,7 @@ import site.morn.boot.security.SecurityBCryptMatcher;
  * 数据加密自动化配置
  *
  * @author timely-rain
- * @since 2.1.0, 2019/8/30
+ * @since 1.2.0, 2019/8/30
  */
 @Configuration
 public class DigestAutoConfiguration {

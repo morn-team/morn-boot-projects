@@ -15,7 +15,7 @@ import org.springframework.util.StringUtils;
  * Hex消息编码器
  *
  * @author timely-rain
- * @since 2.1.0, 2019/6/27
+ * @since 1.2.0, 2019/6/27
  */
 @Sharable
 public class HexMessageEncoder extends MessageToMessageEncoder<HexMessage> {

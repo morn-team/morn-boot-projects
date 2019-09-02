@@ -14,7 +14,7 @@ import lombok.ToString;
  *
  * @author timely-rain
  * @since 1.0.0, 2018/11/25
- * @since 2.1.0, 2019/5/18
+ * @since 1.2.0, 2019/5/18
  */
 @AllArgsConstructor
 @NoArgsConstructor

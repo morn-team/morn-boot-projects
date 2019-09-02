@@ -9,7 +9,7 @@ import site.morn.rest.RestModel;
 /**
  * 基础服务
  *
- * @author TianGanLin
+ * @author timely-rain
  * @since 0.0.1-SNAPSHOT, 2019/1/14
  */
 public interface CrudService<T, I extends Serializable> {

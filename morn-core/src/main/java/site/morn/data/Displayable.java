@@ -6,7 +6,7 @@ package site.morn.data;
  * <p>默认为显示状态
  *
  * @author timely-rain
- * @since 2.1.0, 2019/8/13
+ * @since 1.2.0, 2019/8/13
  */
 public interface Displayable {
 

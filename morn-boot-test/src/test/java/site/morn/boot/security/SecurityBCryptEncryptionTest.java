@@ -14,7 +14,7 @@ import site.morn.util.MessageDigestUtils;
  * SecurityBCrypt加密单元测试
  *
  * @author timely-rain
- * @since 2.1.0, 2019/8/30
+ * @since 1.2.0, 2019/8/30
  */
 @Slf4j
 @SpringBootTest

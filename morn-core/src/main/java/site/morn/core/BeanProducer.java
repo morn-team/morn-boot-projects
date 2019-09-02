@@ -6,7 +6,7 @@ import java.util.concurrent.Callable;
  * 实例生产者
  *
  * @author timely-rain
- * @since 2.1.0, 2019/5/16
+ * @since 1.2.0, 2019/5/16
  */
 @FunctionalInterface
 public interface BeanProducer<T> extends Callable<T> {

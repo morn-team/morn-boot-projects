@@ -17,7 +17,7 @@ import site.morn.util.TypeUtils;
  * Netty缓存默认实现
  *
  * @author timely-rain
- * @since 2.1.0, 2019/6/4
+ * @since 1.2.0, 2019/6/4
  */
 @Slf4j
 @Objective

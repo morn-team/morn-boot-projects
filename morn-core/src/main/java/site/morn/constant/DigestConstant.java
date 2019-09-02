@@ -6,7 +6,7 @@ import lombok.experimental.UtilityClass;
  * 数据加密常量
  *
  * @author timely-rain
- * @since 2.1.0, 2019/8/30
+ * @since 1.2.0, 2019/8/30
  */
 @UtilityClass
 public class DigestConstant {

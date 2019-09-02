@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
  * 通道写入器
  *
  * @author timely-rain
- * @since 2.1.0, 2019/6/18
+ * @since 1.2.0, 2019/6/18
  */
 @Slf4j
 @Getter

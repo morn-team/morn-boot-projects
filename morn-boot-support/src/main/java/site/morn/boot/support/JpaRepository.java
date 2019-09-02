@@ -9,7 +9,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 /**
  * 基础数据访问
  *
- * @author TianGanLin
+ * @author timely-rain
  * @since 0.0.1-SNAPSHOT, 2019/1/14
  */
 @NoRepositoryBean

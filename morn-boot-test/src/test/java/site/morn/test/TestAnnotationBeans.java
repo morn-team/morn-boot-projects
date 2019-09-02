@@ -16,7 +16,7 @@ import site.morn.bean.annotation.Target;
  * 实例注解测试类
  *
  * @author timely-rain
- * @since 2.1.0, 2019/5/18
+ * @since 1.2.0, 2019/5/18
  */
 @Slf4j
 @Component

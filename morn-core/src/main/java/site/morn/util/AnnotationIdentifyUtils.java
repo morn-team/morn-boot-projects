@@ -15,7 +15,7 @@ import site.morn.bean.AnnotationIdentify;
  * 注解标识工具类
  *
  * @author timely-rain
- * @since 2.1.0, 2019/5/18
+ * @since 1.2.0, 2019/5/18
  */
 @Slf4j
 @UtilityClass

@@ -12,7 +12,7 @@ import site.morn.digest.Encryption;
  * <p>基于SpringSecurity加密，格式参考SpringSecurity官方文档
  *
  * @author timely-rain
- * @since 2.1.0, 2019/8/30
+ * @since 1.2.0, 2019/8/30
  */
 @Tag(SPRING_B_CRYPT)
 public class SecurityBCryptEncryption implements Encryption {

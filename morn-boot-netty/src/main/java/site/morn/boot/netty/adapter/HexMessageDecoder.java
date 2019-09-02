@@ -9,7 +9,7 @@ import java.util.List;
  * 十六进制消息解码器
  *
  * @author timely-rain
- * @since 2.1.0, 2019/6/13
+ * @since 1.2.0, 2019/6/13
  */
 @Sharable
 public class HexMessageDecoder extends MessageToMessageDecoder<byte[]> {

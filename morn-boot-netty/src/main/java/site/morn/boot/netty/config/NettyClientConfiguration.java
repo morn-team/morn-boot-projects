@@ -12,7 +12,7 @@ import site.morn.boot.netty.NettyClient;
  * Netty客户端自动化配置
  *
  * @author timely-rain
- * @since 2.1.0, 2019/6/6
+ * @since 1.2.0, 2019/6/6
  */
 @Configuration
 @ConditionalOnClass(Bootstrap.class)

@@ -10,7 +10,7 @@ import site.morn.boot.netty.util.HexUtils;
  * 十六进制消息
  *
  * @author timely-rain
- * @since 2.1.0, 2019/6/13
+ * @since 1.2.0, 2019/6/13
  */
 @Getter
 @Setter

@@ -14,7 +14,7 @@ import org.springframework.util.ObjectUtils;
  * 实例函数调用类
  *
  * @author timely-rain
- * @since 2.1.0, 2019/5/19
+ * @since 1.2.0, 2019/5/19
  */
 @Slf4j
 @UtilityClass

@@ -12,7 +12,7 @@ import site.morn.boot.netty.config.NettyClientConfiguration;
  * 开启Netty客户端
  *
  * @author timely-rain
- * @since 2.1.0, 2019/6/6
+ * @since 1.2.0, 2019/6/6
  */
 @Documented
 @Target({ElementType.TYPE})

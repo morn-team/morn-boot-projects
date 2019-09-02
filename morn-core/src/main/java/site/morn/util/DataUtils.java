@@ -9,7 +9,7 @@ import site.morn.data.Lockable;
  * 数据工具
  *
  * @author timely-rain
- * @since 2.1.0, 2019/8/21
+ * @since 1.2.0, 2019/8/21
  */
 @UtilityClass
 public class DataUtils {

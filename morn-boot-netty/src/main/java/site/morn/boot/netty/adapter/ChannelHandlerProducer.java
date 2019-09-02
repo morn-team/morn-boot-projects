@@ -7,7 +7,7 @@ import site.morn.core.BeanProducers;
  * 通道处理器生产者
  *
  * @author timely-rain
- * @since 2.1.0, 2019/6/14
+ * @since 1.2.0, 2019/6/14
  */
 public interface ChannelHandlerProducer extends BeanProducers<ChannelHandler> {
 

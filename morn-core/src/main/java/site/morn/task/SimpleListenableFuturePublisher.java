@@ -9,7 +9,7 @@ import site.morn.bean.annotation.Objective;
  * 基础任务发布者
  *
  * @author timely-rain
- * @since 2.1.0, 2019/7/25
+ * @since 1.2.0, 2019/7/25
  */
 @Objective
 public class SimpleListenableFuturePublisher implements ListenableFuturePublisher {

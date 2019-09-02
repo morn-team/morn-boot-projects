@@ -17,7 +17,7 @@ import site.morn.util.BeanFunctionUtils;
  * 通道初始化
  *
  * @author timely-rain
- * @since 2.1.0, 2019/6/12
+ * @since 1.2.0, 2019/6/12
  */
 public class NettyChannelInitializer extends ChannelInitializer {
 

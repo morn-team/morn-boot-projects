@@ -19,7 +19,7 @@ import site.morn.exception.ApplicationMessages;
  * 异步任务持有者
  *
  * @author timely-rain
- * @since 2.1.0, 2019/7/29
+ * @since 1.2.0, 2019/7/29
  */
 @Slf4j
 @Getter

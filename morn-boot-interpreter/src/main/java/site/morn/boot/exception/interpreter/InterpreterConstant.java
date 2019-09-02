@@ -6,7 +6,7 @@ import lombok.experimental.UtilityClass;
  * 异常解释器常量
  *
  * @author timely-rain
- * @since 2.1.0, 2019/5/23
+ * @since 1.2.0, 2019/5/23
  */
 @UtilityClass
 public class InterpreterConstant {

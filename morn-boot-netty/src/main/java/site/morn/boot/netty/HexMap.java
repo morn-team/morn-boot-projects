@@ -7,7 +7,7 @@ import site.morn.core.CriteriaMap;
  * 十六进制字典
  *
  * @author timely-rain
- * @since 2.1.0, 2019/6/19
+ * @since 1.2.0, 2019/6/19
  */
 public class HexMap extends CriteriaMap {
 

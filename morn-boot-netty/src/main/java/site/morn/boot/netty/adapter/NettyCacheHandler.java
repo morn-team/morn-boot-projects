@@ -17,7 +17,7 @@ import site.morn.boot.netty.constant.TerminalType;
  * 缓存处理者
  *
  * @author timely-rain
- * @since 2.1.0, 2019/6/5
+ * @since 1.2.0, 2019/6/5
  */
 @Slf4j
 @Sharable

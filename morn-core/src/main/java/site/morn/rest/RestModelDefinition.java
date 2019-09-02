@@ -3,7 +3,7 @@ package site.morn.rest;
 /**
  * REST数据模型
  *
- * @author TianGanLin
+ * @author timely-rain
  * @since 0.0.1-SNAPSHOT, 2019/1/14
  */
 public interface RestModelDefinition<M, A> {

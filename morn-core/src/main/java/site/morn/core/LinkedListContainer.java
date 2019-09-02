@@ -7,7 +7,7 @@ import java.util.LinkedList;
  * LinkedList容器
  *
  * @author timely-rain
- * @since 2.1.0, 2019/7/25
+ * @since 1.2.0, 2019/7/25
  */
 public class LinkedListContainer<T> extends LinkedList<T> implements CollectionContainer<T> {
 

@@ -23,7 +23,7 @@ import site.morn.validate.persistent.PersistFunctionUtils;
 /**
  * 基础服务实现
  *
- * @author TianGanLin
+ * @author timely-rain
  * @since 0.0.1-SNAPSHOT, 2019/1/14
  */
 @Slf4j

@@ -11,7 +11,7 @@ import site.morn.digest.Encryption;
  * 加密工具类
  *
  * @author timely-rain
- * @since 2.1.0, 2019/8/30
+ * @since 1.2.0, 2019/8/30
  */
 @UtilityClass
 public class MessageDigestUtils {
