@@ -16,6 +16,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -61,6 +62,7 @@ public class CrudControllerTest {
    * 新增测试
    */
   @Test
+  @WithMockUser
   public void test1() throws Exception {
     CriteriaMap restModel = new CriteriaMap().set("model", testUser);
     String content = JSONObject.toJSONString(restModel);
@@ -81,6 +83,7 @@ public class CrudControllerTest {
    * 更新测试
    */
   @Test
+  @WithMockUser
   public void test2() throws Exception {
     testUser.setUsername("ct-mika");
     CriteriaMap restModel = new CriteriaMap().set("model", testUser);
@@ -98,6 +101,7 @@ public class CrudControllerTest {
    * 搜索测试
    */
   @Test
+  @WithMockUser
   public void test3() throws Exception {
     CriteriaMap restModel = new CriteriaMap().set("model", testUser);
     String content = JSONObject.toJSONString(restModel);
@@ -113,6 +117,7 @@ public class CrudControllerTest {
    * 删除测试
    */
   @Test
+  @WithMockUser
   public void test4() throws Exception {
     MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete(BASE_URL + "/" + 1)
         .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
