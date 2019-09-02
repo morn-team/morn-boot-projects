@@ -64,6 +64,11 @@ public class OperateMeta implements AnnotationOperate {
   private Object methodReturned;
 
   /**
+   * 异常
+   */
+  private Throwable throwable;
+
+  /**
    * 例外异常类型
    */
   private Class<? extends Throwable>[] excepts;

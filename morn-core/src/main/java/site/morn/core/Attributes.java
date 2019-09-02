@@ -83,4 +83,15 @@ public interface Attributes<K, V> extends Map<K, V> {
     V value = get(name);
     return Optional.ofNullable(value).map(Objects::toString).map(Integer::valueOf).orElse(null);
   }
+
+  /**
+   * 获取长整型属性
+   *
+   * @param name 属性名称
+   * @return 长整型属性
+   */
+  default Long getLong(String name) {
+    V value = get(name);
+    return Optional.ofNullable(value).map(Objects::toString).map(Long::valueOf).orElse(null);
+  }
 }
