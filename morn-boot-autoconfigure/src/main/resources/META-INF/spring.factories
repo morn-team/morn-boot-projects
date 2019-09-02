@@ -2,6 +2,7 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   site.morn.boot.autoconfigure.BaseAutoConfiguration,\
   site.morn.boot.autoconfigure.BeanAutoConfiguration,\
+  site.morn.boot.autoconfigure.DigestAutoConfiguration,\
   site.morn.boot.autoconfigure.ExceptionAutoConfiguration,\
   site.morn.boot.autoconfigure.ExceptionInterpreterAutoConfiguration,\
   site.morn.boot.autoconfigure.NettyAutoConfiguration,\

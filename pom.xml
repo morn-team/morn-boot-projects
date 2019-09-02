@@ -23,6 +23,7 @@
     <module>morn-boot-interpreter</module>
     <module>morn-boot-jpa</module>
     <module>morn-boot-netty</module>
+    <module>morn-boot-security</module>
     <module>morn-boot-support</module>
     <module>morn-boot-test</module>
     <module>morn-boot-web</module>
@@ -99,6 +100,11 @@
       <dependency>
         <groupId>site.morn.boot</groupId>
         <artifactId>morn-boot-netty</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>site.morn.boot</groupId>
+        <artifactId>morn-boot-security</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>
