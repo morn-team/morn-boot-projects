@@ -15,6 +15,7 @@ import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.Attribute;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.apache.commons.lang3.ArrayUtils;
 
 /**
  * JPA查询条件
@@ -36,6 +37,13 @@ public class JpaConditionSupport<M> implements JpaBatchCondition {
   public Predicate[] equalAll() {
     Stream<Predicate> predicateStream = reference.attributeStream().map(Attribute::getName)
         .map(this::eq);
+    return JpaPredicate.array(predicateStream);
+  }
+
+  @Override
+  public Predicate[] equalAllExcludes(String... names) {
+    Stream<Predicate> predicateStream = reference.attributeStream().map(Attribute::getName)
+        .filter(name -> !ArrayUtils.contains(names, name)).map(this::eq);
     return JpaPredicate.array(predicateStream);
   }
 

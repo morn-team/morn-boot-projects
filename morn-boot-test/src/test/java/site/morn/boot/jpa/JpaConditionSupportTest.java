@@ -16,11 +16,13 @@ import org.springframework.util.StringUtils;
 import site.morn.core.CriteriaMap;
 
 /**
+ * JPA构建条件单元测试
+ *
  * @author timely-rain
  * @since 1.0.0, 2019/4/22
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest
+@RunWith(SpringRunner.class)
 public class JpaConditionSupportTest {
 
   @Autowired
@@ -42,16 +44,46 @@ public class JpaConditionSupportTest {
   }
 
   @Test
-  public void equals() {
-  }
-
-  @Test
   public void contains() {
-    contains(user, attach);
+    SpecificationFunction specificationFunction = (reference, restrain, condition) -> {
+
+      // WHERE id = 1
+      // password为空，所以忽略
+      Predicate[] equals = condition.eqs("id", "password");
+
+      // AND username LIKE '%timely%'
+      Predicate keywords = condition.contain("username", "keywords");
+
+      restrain.appendAnd(restrain.mergeAnd(equals), keywords);
+    };
+    findAll(specificationFunction);
   }
 
   @Test
-  public void contains1() {
+  public void equalAll() {
+    // 构建查询条件
+    SpecificationFunction specificationFunction = (reference, restrain, condition) -> {
+
+      // WHERE id = 1 AND username = 'timely-rain'
+      // password为空，所以忽略
+      Predicate[] equalAll = condition.equalAll();
+
+      restrain.appendAnd(equalAll);
+    };
+    findAll(specificationFunction);
+  }
+
+  @Test
+  public void equalAllExcludes() {
+    // 构建查询条件
+    SpecificationFunction specificationFunction = (reference, restrain, condition) -> {
+      // WHERE id = 1
+      // 排除username
+      // password为空，所以忽略
+      Predicate[] predicates = condition.equalAllExcludes("username");
+      restrain.appendAnd(predicates);
+    };
+    findAll(specificationFunction);
   }
 
   @Test
@@ -87,38 +119,13 @@ public class JpaConditionSupportTest {
     repository.findAll(specification);
   }
 
-  @Test
-  public void equalAll() {
-    equalAll(user);
-  }
-
-  private List<TestUser> equalAll(TestUser user) {
-    // 构建查询条件
-    SpecificationFunction specificationFunction = (reference, restrain, condition) -> {
-
-      // WHERE id = 1 AND username = 'timely-rain'
-      // password为空，所以忽略
-      Predicate[] equalAll = condition.equalAll();
-
-      restrain.appendAnd(equalAll);
-    };
-    Specification<TestUser> specification = SpecificationBuilder.withParameter(user)
-        .specification(specificationFunction);
-    return repository.findAll(specification);
-  }
-
-  private List<TestUser> contains(TestUser user, CriteriaMap attach) {
-    SpecificationFunction specificationFunction = (reference, restrain, condition) -> {
-
-      // WHERE id = 1
-      // password为空，所以忽略
-      Predicate[] equals = condition.eqs("id", "password");
-
-      // AND username LIKE '%timely%'
-      Predicate keywords = condition.contain("username", "keywords");
-
-      restrain.appendAnd(restrain.mergeAnd(equals), keywords);
-    };
+  /**
+   * 全部查询
+   *
+   * @param specificationFunction 条件构建器
+   * @return 测试用户集合
+   */
+  private List<TestUser> findAll(SpecificationFunction specificationFunction) {
     Specification<TestUser> specification = SpecificationBuilder.withParameter(user, attach)
         .specification(specificationFunction);
     return repository.findAll(specification);
