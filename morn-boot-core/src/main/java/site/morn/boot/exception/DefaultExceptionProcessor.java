@@ -3,7 +3,7 @@ package site.morn.boot.exception;
 import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import site.morn.bean.IdentifiedBeanCache;
+import site.morn.bean.BeanCache;
 import site.morn.exception.ApplicationMessage;
 import site.morn.exception.ExceptionInterpreter;
 import site.morn.exception.ExceptionProcessor;
@@ -21,7 +21,7 @@ public class DefaultExceptionProcessor implements ExceptionProcessor {
   /**
    * 异常解释器缓存
    */
-  private final IdentifiedBeanCache beanCache;
+  private final BeanCache beanCache;
 
   @Override
   public <T extends Exception> ApplicationMessage process(T exception) {

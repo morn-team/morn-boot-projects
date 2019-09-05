@@ -7,8 +7,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.springframework.cache.annotation.Cacheable;
 import site.morn.bean.AnnotationIdentify;
+import site.morn.bean.BeanCache;
 import site.morn.bean.FunctionHolder;
-import site.morn.bean.IdentifiedBeanCache;
 import site.morn.bean.IdentifiedBeanHolder;
 import site.morn.constant.ApplicationConstant.Cache;
 import site.morn.util.AnnotationIdentifyUtils;
@@ -19,7 +19,7 @@ import site.morn.util.AnnotationIdentifyUtils;
  * @author timely-rain
  * @since 1.0.0, 2018/11/26
  */
-public class SimpleIdentifiedBeanCache implements IdentifiedBeanCache {
+public class SimpleBeanCache implements BeanCache {
 
   /**
    * 实例持有者

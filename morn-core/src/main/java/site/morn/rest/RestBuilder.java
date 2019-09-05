@@ -3,7 +3,7 @@ package site.morn.rest;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import site.morn.bean.IdentifiedBeanCache;
+import site.morn.bean.BeanCache;
 import site.morn.exception.ApplicationMessages;
 import site.morn.rest.RestMessage.Level;
 import site.morn.rest.convert.RestConverter;
@@ -24,7 +24,7 @@ public class RestBuilder {
   /**
    * 标识实例缓存
    */
-  private static IdentifiedBeanCache beanCache;
+  private static BeanCache beanCache;
 
   /**
    * 翻译器
@@ -56,7 +56,7 @@ public class RestBuilder {
    * @param translator 翻译器
    * @param restProperties REST配置项
    */
-  public static void initialize(IdentifiedBeanCache beanCache, Translator translator,
+  public static void initialize(BeanCache beanCache, Translator translator,
       RestProperties restProperties) {
     RestBuilder.beanCache = beanCache;
     RestBuilder.translator = translator;
