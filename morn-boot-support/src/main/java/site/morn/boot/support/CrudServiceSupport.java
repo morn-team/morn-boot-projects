@@ -75,6 +75,14 @@ public abstract class CrudServiceSupport<T, I extends Serializable, R extends Jp
   }
 
   @Override
+  public List<T> searchAll(T model) {
+    log.info("全部搜索");
+    RestModel<T> restModel = new RestModel<>();
+    restModel.setModel(model);
+    return searchAll(restModel);
+  }
+
+  @Override
   public List<T> searchAll(RestModel<T> restModel) {
     log.info("全部搜索");
     CriteriaMap attach = restModel.getAttach(); // 附加数据

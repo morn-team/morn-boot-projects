@@ -58,6 +58,14 @@ public interface CrudService<T, I extends Serializable> {
   /**
    * 全部查询
    *
+   * @param model 业务模型
+   * @return 分页结果集
+   */
+  List<T> searchAll(T model);
+
+  /**
+   * 全部查询
+   *
    * @param restModel REST模型
    * @return 分页结果集
    */
