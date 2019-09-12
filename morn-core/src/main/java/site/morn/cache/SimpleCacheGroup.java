@@ -72,6 +72,7 @@ public class SimpleCacheGroup implements CacheGroup {
 
   @Override
   public Object get(String group, String key) {
+    addGroup(group);
     Cache cache = getCache(group);
     String cacheKey = getCacheKey(group, key);
     ValueWrapper valueWrapper = cache.get(cacheKey);
@@ -80,6 +81,7 @@ public class SimpleCacheGroup implements CacheGroup {
 
   @Override
   public <T> T get(String group, String key, Class<T> type) {
+    addGroup(group);
     Cache cache = getCache(group);
     String cacheKey = getCacheKey(group, key);
     return cache.get(cacheKey, type);
@@ -87,6 +89,7 @@ public class SimpleCacheGroup implements CacheGroup {
 
   @Override
   public <T> T get(String group, String key, Callable<T> valueLoader) {
+    addGroup(group);
     Cache cache = getCache(group);
     String cacheKey = getCacheKey(group, key);
     return cache.get(cacheKey, valueLoader);
