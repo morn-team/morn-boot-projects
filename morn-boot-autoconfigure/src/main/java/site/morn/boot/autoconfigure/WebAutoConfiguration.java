@@ -10,11 +10,13 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import site.morn.boot.web.ExceptionHandlerAspect;
+import site.morn.boot.web.config.WebProperties;
 import site.morn.exception.ExceptionProcessor;
 
 /**
@@ -25,6 +27,7 @@ import site.morn.exception.ExceptionProcessor;
  */
 @Configuration
 @ConditionalOnClass({Servlet.class, DispatcherServlet.class, WebMvcConfigurer.class})
+@EnableConfigurationProperties(WebProperties.class)
 public class WebAutoConfiguration {
 
   /**
