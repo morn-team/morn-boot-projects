@@ -10,6 +10,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import site.morn.boot.jpa.SpecificationBuilder;
+import site.morn.boot.jpa.SpecificationBuilder.SimpleFunction;
+import site.morn.boot.jpa.SpecificationFunction;
 import site.morn.core.CriteriaMap;
 
 /**
@@ -37,6 +39,24 @@ public class JpaRepositoryImpl<T, I extends Serializable> extends
     Page<T> page = findAll(specification, pageRequest);
     List<T> list = page.getContent();
     return list.isEmpty() ? null : list.get(0);
+  }
+
+  @Override
+  public T findOne(SimpleFunction<T> simpleFunction) {
+    Specification<T> specification = SpecificationBuilder.specification(simpleFunction);
+    return super.findOne(specification).orElse(null);
+  }
+
+  @Override
+  public T findOne(T model, SpecificationFunction specificationFunction) {
+    return this.findOne(model, new CriteriaMap(), specificationFunction);
+  }
+
+  @Override
+  public T findOne(T model, CriteriaMap attach, SpecificationFunction specificationFunction) {
+    Specification<T> specification = SpecificationBuilder.withParameter(model, attach)
+        .specification(specificationFunction);
+    return super.findOne(specification).orElse(null);
   }
 
   @Override

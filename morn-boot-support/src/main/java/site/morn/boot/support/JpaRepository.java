@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import site.morn.boot.jpa.SpecificationBuilder.SimpleFunction;
+import site.morn.boot.jpa.SpecificationFunction;
+import site.morn.core.CriteriaMap;
 
 /**
  * 基础数据访问
@@ -23,6 +26,33 @@ public interface JpaRepository<T, I extends Serializable> extends PagingAndSorti
    * @return 唯一实例
    */
   T findOne(T model);
+
+  /**
+   * 查询唯一数据
+   *
+   * @param simpleFunction 查询条件
+   * @return 唯一实例
+   */
+  T findOne(SimpleFunction<T> simpleFunction);
+
+  /**
+   * 查询唯一数据
+   *
+   * @param model 查询参数
+   * @param specificationFunction 查询条件
+   * @return 唯一实例
+   */
+  T findOne(T model, SpecificationFunction specificationFunction);
+
+  /**
+   * 查询唯一数据
+   *
+   * @param model 查询参数
+   * @param attach 附加数据
+   * @param specificationFunction 查询条件
+   * @return 唯一实例
+   */
+  T findOne(T model, CriteriaMap attach, SpecificationFunction specificationFunction);
 
   /**
    * 查询所有数据, 精确匹配
