@@ -38,7 +38,7 @@ public abstract class CrudServiceSupport<T, I extends Serializable, R extends Jp
    * 数据访问对象
    */
   protected R repository() {
-    return TypeUtils.as(repository);
+    return TypeUtils.cast(repository);
   }
 
   @Override

@@ -31,7 +31,7 @@ public class MongoCrudService<T, I extends Serializable, R extends MongoReposito
    * 数据访问对象
    */
   protected R repository() {
-    return TypeUtils.as(repository);
+    return TypeUtils.cast(repository);
   }
 
   @Override
@@ -125,5 +125,6 @@ public class MongoCrudService<T, I extends Serializable, R extends MongoReposito
 
   @Override
   public void delete(Iterable<? extends I> ids) {
+    throw new UnsupportedOperationException();
   }
 }
