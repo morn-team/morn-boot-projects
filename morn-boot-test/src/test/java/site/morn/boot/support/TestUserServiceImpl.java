@@ -1,6 +1,8 @@
 package site.morn.boot.support;
 
 import org.springframework.stereotype.Service;
+import site.morn.boot.data.CrudService;
+import site.morn.boot.data.CrudServiceSupport;
 import site.morn.boot.jpa.TestUser;
 import site.morn.boot.jpa.TestUserRepository;
 

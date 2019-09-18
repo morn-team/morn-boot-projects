@@ -1,4 +1,4 @@
-package site.morn.boot.support;
+package site.morn.boot.data;
 
 import java.io.Serializable;
 import java.util.List;

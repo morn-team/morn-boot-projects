@@ -1,4 +1,4 @@
-package site.morn.boot.support.entity;
+package site.morn.boot.data.entity;
 
 import io.swagger.annotations.ApiModelProperty;
 import java.util.Date;

@@ -1,4 +1,4 @@
-package site.morn.boot.support;
+package site.morn.boot.data;
 
 /**
  * 基础控制器

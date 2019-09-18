@@ -1,9 +1,7 @@
 package site.morn.boot.data;
 
 import java.io.Serializable;
-import site.morn.boot.support.CrudService;
-import site.morn.boot.support.CrudServiceSupport;
-import site.morn.boot.support.JpaRepository;
+import site.morn.boot.data.jpa.JpaRepository;
 import site.morn.data.Displayable;
 import site.morn.util.TypeUtils;
 

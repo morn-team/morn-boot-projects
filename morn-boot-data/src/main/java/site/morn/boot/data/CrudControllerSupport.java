@@ -1,4 +1,4 @@
-package site.morn.boot.support;
+package site.morn.boot.data;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;

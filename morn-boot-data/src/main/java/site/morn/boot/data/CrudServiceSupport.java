@@ -1,4 +1,4 @@
-package site.morn.boot.support;
+package site.morn.boot.data;
 
 import java.io.Serializable;
 import java.util.List;
@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
+import site.morn.boot.data.jpa.JpaRepository;
 import site.morn.boot.jpa.SpecificationBuilder;
 import site.morn.boot.jpa.SpecificationFunction;
 import site.morn.boot.rest.RestPage;
