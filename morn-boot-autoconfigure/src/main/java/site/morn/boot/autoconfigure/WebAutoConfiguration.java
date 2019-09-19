@@ -16,6 +16,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import site.morn.boot.web.ExceptionHandlerAspect;
+import site.morn.boot.web.WebExceptionResolver;
+import site.morn.boot.web.WebMvcExceptionResolver;
 import site.morn.boot.web.config.WebProperties;
 import site.morn.exception.ExceptionProcessor;
 
@@ -29,6 +31,15 @@ import site.morn.exception.ExceptionProcessor;
 @ConditionalOnClass({Servlet.class, DispatcherServlet.class, WebMvcConfigurer.class})
 @EnableConfigurationProperties(WebProperties.class)
 public class WebAutoConfiguration {
+
+  /**
+   * 注册Web异常解释器
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  public WebExceptionResolver webExceptionResolver() {
+    return new WebMvcExceptionResolver();
+  }
 
   /**
    * 异常处理配置
