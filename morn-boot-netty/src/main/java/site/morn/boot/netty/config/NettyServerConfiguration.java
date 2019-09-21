@@ -13,7 +13,7 @@ import site.morn.boot.netty.adapter.NettyCacheHandler;
  * Netty服务端自动化配置
  *
  * @author timely-rain
- * @since 2.1.0, 2019/5/15
+ * @since 1.2.0, 2019/5/15
  */
 @Slf4j
 @Configuration

@@ -19,7 +19,7 @@ import site.morn.boot.netty.constant.TerminalType;
  * Netty服务端
  *
  * @author timely-rain
- * @since 2.1.0, 2019/5/15
+ * @since 1.2.0, 2019/5/15
  */
 @Slf4j
 public class NettyServer {

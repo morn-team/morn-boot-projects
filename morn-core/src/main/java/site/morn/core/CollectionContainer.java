@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
  * 集合容器
  *
  * @author timely-rain
- * @since 2.1.0, 2019/7/25
+ * @since 1.2.0, 2019/7/25
  */
 public interface CollectionContainer<T> extends Collection<T> {
 

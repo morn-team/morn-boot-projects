@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
  * 异步工具类
  *
  * @author timely-rain
- * @since 2.1.0, 2019/7/30
+ * @since 1.2.0, 2019/7/30
  */
 @Slf4j
 @UtilityClass

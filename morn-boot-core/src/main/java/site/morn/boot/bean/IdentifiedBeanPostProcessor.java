@@ -4,7 +4,7 @@ import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import site.morn.bean.BeanAnnotationRegistry;
-import site.morn.bean.IdentifiedBeanCache;
+import site.morn.bean.BeanCache;
 import site.morn.bean.IdentifiedBeanHolder;
 import site.morn.boot.util.BeanCacheUtils;
 
@@ -25,12 +25,12 @@ public class IdentifiedBeanPostProcessor implements BeanPostProcessor {
   /**
    * 标识实例缓存
    */
-  private final IdentifiedBeanCache identifiedBeanCache;
+  private final BeanCache beanCache;
 
   public IdentifiedBeanPostProcessor(BeanAnnotationRegistry registry,
-      IdentifiedBeanCache identifiedBeanCache) {
+      BeanCache beanCache) {
     this.registry = registry;
-    this.identifiedBeanCache = identifiedBeanCache;
+    this.beanCache = beanCache;
   }
 
   @Override
@@ -47,7 +47,7 @@ public class IdentifiedBeanPostProcessor implements BeanPostProcessor {
     }
     log.info("注册标识实例：{}", beanName);
     // 缓存实例
-    identifiedBeanCache.cache(beanHolder);
+    beanCache.cache(beanHolder);
     return bean;
   }
 }

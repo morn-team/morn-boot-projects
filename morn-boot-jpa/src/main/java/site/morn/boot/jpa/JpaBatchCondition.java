@@ -13,7 +13,17 @@ import javax.persistence.criteria.Predicate;
  */
 public interface JpaBatchCondition extends JpaCondition {
 
+  /**
+   * 全部匹配
+   */
   Predicate[] equalAll();
+
+  /**
+   * 全部匹配
+   *
+   * @param names 排除的属性名
+   */
+  Predicate[] equalAllExcludes(String... names);
 
   default Predicate[] eqs(String... names) {
     return Arrays.stream(names).map(this::eq).filter(Objects::nonNull).toArray(Predicate[]::new);

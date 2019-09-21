@@ -8,7 +8,7 @@ import lombok.Data;
  * 通道标识
  *
  * @author timely-rain
- * @since 2.1.0, 2019/6/5
+ * @since 1.2.0, 2019/6/5
  */
 @Builder
 @Data

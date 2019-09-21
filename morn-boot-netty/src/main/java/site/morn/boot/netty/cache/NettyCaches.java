@@ -11,7 +11,7 @@ import site.morn.bean.BeanCaches;
  * Netty缓存工具类
  *
  * @author timely-rain
- * @since 2.1.0, 2019/6/5
+ * @since 1.2.0, 2019/6/5
  */
 @UtilityClass
 public class NettyCaches {

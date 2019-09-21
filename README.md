@@ -34,12 +34,6 @@ MornBoot是基于SpringBoot的标准API框架，致力于为JavaWeb项目提供�
 MornBoot没有强制依赖SpringBoot，你必须在项目中引入SpringBoot相关包，好处是你可以自由选择依赖版本。建议SpringBoot版本为1.5.X+，尚未测试最低兼容版本。
 
 
-## Definitions
-
-- `[dev]`表示该功能正在开发中
-- `[expect]`表示该功能将在后续版本中推出
-
-
 ## Quick Start
 
 ### 最新版本: `1.0.2`
@@ -78,14 +72,19 @@ log.info(message.toString());
 
 ### [Bean Enhance 实例增强][Bean]
 
-MornBoot提供更多的注解对实例进行描述，使用`IdentifiedBeanCache`实例缓存检索需要的实例。
+MornBoot提供更多的注解对实例进行描述，使用`BeanCaches`实例缓存**批量检索**需要的实例。在`2.1.0+`版本中，实例增强还支持对方法的缓存、检索和调用。
 
 ```
-// 根据标签和目标类型检索Bean
-BeanIdentify beanIdentify = BeanIdentify.builder().tags(ArrayUtils.merge("odd"))
-    .target(TestBeanB.class)
-    .build();
-List<Object> search = identifiedBeanCache.beans(Object.class, beanIdentify);
+// 获取名为`caramel`的宠物
+Pet caramel = BeanCaches.nameBean(Pet.class, "caramel");
+
+// 获取标签为`small`的宠物
+Pet small = (Pet) BeanCaches.tagBean(null, "small"); 
+
+// 获取所有目标为`Food`的宠物
+List<Pet> foods = BeanCaches.targetBeans(Pet.class, Food.class);
+
+caramel.eat(new Food("fish")); // log：caramel在吃fish...
 ```
 
 [更多示例][Bean]

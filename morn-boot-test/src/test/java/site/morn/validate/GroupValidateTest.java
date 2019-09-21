@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -50,6 +51,7 @@ public class GroupValidateTest {
   }
 
   @Test
+  @WithMockUser
   public void add1() throws Exception {
     String content = JSONObject.toJSONString(noModel);
     MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post(BASE_URL)
@@ -60,6 +62,7 @@ public class GroupValidateTest {
   }
 
   @Test
+  @WithMockUser
   public void add2() throws Exception {
     String content = JSONObject.toJSONString(noPassword);
     MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post(BASE_URL)
@@ -70,6 +73,7 @@ public class GroupValidateTest {
   }
 
   @Test
+  @WithMockUser
   public void update() throws Exception {
     String content = JSONObject.toJSONString(noPassword);
     MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put(BASE_URL)

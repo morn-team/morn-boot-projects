@@ -27,7 +27,7 @@ import site.morn.util.CollectionContainerUtils;
  * 任务组
  *
  * @author timely-rain
- * @since 2.1.0, 2019/7/25
+ * @since 1.2.0, 2019/7/25
  */
 @Slf4j
 public class ListenableFutureGroup<T> implements ListenableFuture<T>, Runnable {

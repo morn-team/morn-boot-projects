@@ -13,7 +13,7 @@ import site.morn.boot.netty.constant.BoundType;
  * <p>表示数据输出
  *
  * @author timely-rain
- * @since 2.1.0, 2019/6/5
+ * @since 1.2.0, 2019/6/5
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

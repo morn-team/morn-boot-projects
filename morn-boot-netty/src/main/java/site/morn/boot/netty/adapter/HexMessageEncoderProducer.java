@@ -11,7 +11,7 @@ import site.morn.boot.netty.constant.TerminalType;
  * Hex消息编码器生产者
  *
  * @author timely-rain
- * @since 2.1.0, 2019/6/27
+ * @since 1.2.0, 2019/6/27
  */
 @Inbound(BoundType.ENCODER)
 @Terminal(TerminalType.BOTH)

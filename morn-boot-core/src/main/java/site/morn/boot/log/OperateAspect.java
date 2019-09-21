@@ -10,7 +10,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.Assert;
-import site.morn.bean.IdentifiedBeanCache;
+import site.morn.bean.BeanCache;
 import site.morn.log.OperateAction;
 import site.morn.log.OperateArguments;
 import site.morn.log.OperateGroup;
@@ -31,9 +31,9 @@ import site.morn.util.BeanFunctionUtils;
 @Slf4j
 public class OperateAspect {
 
-  private final IdentifiedBeanCache beanCache;
+  private final BeanCache beanCache;
 
-  public OperateAspect(IdentifiedBeanCache beanCache) {
+  public OperateAspect(BeanCache beanCache) {
     this.beanCache = beanCache;
   }
 
@@ -56,6 +56,7 @@ public class OperateAspect {
       return returned;
     } catch (Throwable throwable) {
       operateMetaBuilder.success(false);
+      operateMetaBuilder.throwable(throwable);
       throw throwable;
     } finally {
       // 读取操作日志参数

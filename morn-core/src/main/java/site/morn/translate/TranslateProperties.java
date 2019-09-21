@@ -6,7 +6,7 @@ import lombok.Setter;
 /**
  * 国际化配置项
  *
- * @author TianGanLin
+ * @author timely-rain
  * @since 0.0.1-SNAPSHOT, 2019/3/8
  */
 @Getter

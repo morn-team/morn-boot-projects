@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import site.morn.bean.IdentifiedBeanCache;
+import site.morn.bean.BeanCache;
 import site.morn.boot.exception.DefaultExceptionProcessor;
 import site.morn.boot.exception.interpreter.ApplicationExceptionInterpreter;
 import site.morn.boot.exception.interpreter.MethodValidateExceptionInterpreter;
@@ -30,13 +30,13 @@ public class ExceptionInterpreterAutoConfiguration {
   /**
    * 注册异常处理器
    *
-   * @param identifiedBeanCache 异常解释器缓存
+   * @param beanCache 异常解释器缓存
    * @return 异常处理器
    */
   @Bean
   @ConditionalOnMissingBean
-  public ExceptionProcessor exceptionProcessor(IdentifiedBeanCache identifiedBeanCache) {
-    return new DefaultExceptionProcessor(identifiedBeanCache);
+  public ExceptionProcessor exceptionProcessor(BeanCache beanCache) {
+    return new DefaultExceptionProcessor(beanCache);
   }
 
   /**

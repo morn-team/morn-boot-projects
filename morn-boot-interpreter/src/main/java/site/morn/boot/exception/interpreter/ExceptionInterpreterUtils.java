@@ -34,6 +34,6 @@ class ExceptionInterpreterUtils {
    * @return 错误信息
    */
   public static String generateMessage(FieldError fieldError) {
-    return fieldError.getField() + fieldError.getDefaultMessage();
+    return fieldError.getField() + " " + fieldError.getDefaultMessage();
   }
 }

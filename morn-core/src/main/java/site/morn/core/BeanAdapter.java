@@ -3,7 +3,7 @@ package site.morn.core;
 /**
  * 实例适配器
  *
- * @author TianGanLin
+ * @author timely-rain
  * @since 0.0.1-SNAPSHOT, 2019/4/29
  */
 @FunctionalInterface

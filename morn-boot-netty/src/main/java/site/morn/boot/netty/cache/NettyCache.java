@@ -8,7 +8,7 @@ import io.netty.channel.group.ChannelGroup;
  * Netty缓存
  *
  * @author timely-rain
- * @since 2.1.0, 2019/6/4
+ * @since 1.2.0, 2019/6/4
  */
 public interface NettyCache {
 

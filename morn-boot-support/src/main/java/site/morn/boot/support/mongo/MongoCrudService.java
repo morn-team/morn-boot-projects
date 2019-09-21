@@ -17,7 +17,7 @@ import site.morn.validate.persistent.PersistFunctionUtils;
 /**
  * Mongo基础服务实现
  *
- * @author TianGanLin
+ * @author timely-rain
  * @since 1.0.2, 2019/5/9
  */
 @Slf4j
@@ -58,6 +58,17 @@ public class MongoCrudService<T, I extends Serializable, R extends MongoReposito
     log.info("分页搜索");
     PageRequest pageRequest = restPage.generatePageRequest();// 分页请求
     return repository.findAll(pageRequest); // 分页查询
+  }
+
+  @Override
+  public List<T> searchAll() {
+    return repository.findAll();
+  }
+
+  @Override
+  public List<T> searchAll(T model) {
+    log.info("全部搜索");
+    return repository.findAll(); // 分页查询
   }
 
   @Override

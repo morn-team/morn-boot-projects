@@ -7,7 +7,7 @@ import lombok.experimental.UtilityClass;
  * UUID工具类
  *
  * @author timely-rain
- * @since 2.1.0, 2019/5/15
+ * @since 1.2.0, 2019/5/15
  */
 @UtilityClass
 public class UUIDUtils {

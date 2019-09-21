@@ -19,7 +19,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  * 任务调度单元测试
  *
  * @author timely-rain
- * @since 2.1.0, 2019/7/25
+ * @since 1.2.0, 2019/7/25
  */
 @Slf4j
 @RunWith(SpringRunner.class)

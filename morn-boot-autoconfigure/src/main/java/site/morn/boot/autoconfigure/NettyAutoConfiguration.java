@@ -24,7 +24,7 @@ import site.morn.boot.netty.cache.NettyCache;
  * Netty自动化配置
  *
  * @author timely-rain
- * @since 2.1.0, 2019/6/6
+ * @since 1.2.0, 2019/6/6
  */
 @Slf4j
 @Configuration

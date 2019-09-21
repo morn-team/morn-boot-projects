@@ -9,7 +9,7 @@ import lombok.Getter;
  * 实例注解注册表
  *
  * @author timely-rain
- * @since 2.1.0, 2019/5/17
+ * @since 1.2.0, 2019/5/17
  */
 @Getter
 public class BeanAnnotationRegistry {

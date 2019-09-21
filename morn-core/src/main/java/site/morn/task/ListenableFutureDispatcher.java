@@ -10,7 +10,7 @@ import site.morn.bean.BeanCaches;
  * 异步任务调度者
  *
  * @author timely-rain
- * @since 2.1.0, 2019/7/24
+ * @since 1.2.0, 2019/7/24
  */
 @UtilityClass
 public class ListenableFutureDispatcher {

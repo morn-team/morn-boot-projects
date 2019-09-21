@@ -5,7 +5,7 @@ import lombok.experimental.UtilityClass;
 /**
  * REST分页常量
  *
- * @author TianGanLin
+ * @author timely-rain
  * @since 0.0.1-SNAPSHOT, 2019/1/14
  */
 @UtilityClass

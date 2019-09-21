@@ -6,7 +6,7 @@ import site.morn.boot.jpa.TestUser;
  * 用户测试服务
  *
  * @author timely-rain
- * @since 2.1.0, 2019/5/14
+ * @since 1.2.0, 2019/5/14
  */
 public interface TestUserService extends CrudService<TestUser, Long> {
 

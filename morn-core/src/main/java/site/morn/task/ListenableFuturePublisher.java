@@ -7,7 +7,7 @@ import org.springframework.util.concurrent.ListenableFuture;
  * 异步任务发布者
  *
  * @author timely-rain
- * @since 2.1.0, 2019/7/24
+ * @since 1.2.0, 2019/7/24
  */
 public interface ListenableFuturePublisher {
 

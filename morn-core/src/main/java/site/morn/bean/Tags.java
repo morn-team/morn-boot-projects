@@ -9,7 +9,7 @@ import site.morn.util.AnnotationIdentifyUtils;
  * 标签构建类
  *
  * @author timely-rain
- * @since 2.1.0, 2019/5/19
+ * @since 1.2.0, 2019/5/19
  */
 public class Tags {
 

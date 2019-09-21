@@ -6,7 +6,7 @@ import lombok.experimental.UtilityClass;
  * 持久化操作类型
  *
  * @author timely-rain
- * @since 2.1.0, 2019/7/10
+ * @since 1.2.0, 2019/7/10
  */
 @UtilityClass
 public class PersistTypes {

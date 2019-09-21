@@ -11,7 +11,7 @@ import site.morn.test.TestAnnotationBeans.Color;
  * 测试实例注解配置
  *
  * @author timely-rain
- * @since 2.1.0, 2019/5/18
+ * @since 1.2.0, 2019/5/18
  */
 @Configuration
 public class TestBeanAnnotationConfiguration implements BeanConfigurer {

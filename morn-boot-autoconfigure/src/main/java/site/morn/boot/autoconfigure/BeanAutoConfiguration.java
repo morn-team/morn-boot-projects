@@ -10,11 +10,11 @@ import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.StringUtils;
 import site.morn.bean.BeanAnnotation;
 import site.morn.bean.BeanAnnotationRegistry;
+import site.morn.bean.BeanCache;
 import site.morn.bean.BeanConfigurer;
-import site.morn.bean.IdentifiedBeanCache;
 import site.morn.boot.bean.BeanCacheInitializer;
 import site.morn.boot.bean.IdentifiedBeanPostProcessor;
-import site.morn.boot.bean.SimpleIdentifiedBeanCache;
+import site.morn.boot.bean.SimpleBeanCache;
 
 /**
  * 实例自动化配置
@@ -46,8 +46,8 @@ public class BeanAutoConfiguration {
    */
   @Bean
   @ConditionalOnMissingBean
-  public IdentifiedBeanCache identifiedBeanCache() {
-    return new SimpleIdentifiedBeanCache();
+  public BeanCache identifiedBeanCache() {
+    return new SimpleBeanCache();
   }
 
   /**
@@ -57,28 +57,27 @@ public class BeanAutoConfiguration {
    *
    * @param configurers 实例配置
    * @param registry 实例注解注册表
-   * @param identifiedBeanCache 标识实例缓存
+   * @param beanCache 标识实例缓存
    * @return 标识实例后置处理器
    */
   @Bean
   @ConditionalOnMissingBean
   public IdentifiedBeanPostProcessor identifiedBeanPostProcessor(List<BeanConfigurer> configurers,
-      BeanAnnotationRegistry registry,
-      IdentifiedBeanCache identifiedBeanCache) {
+      BeanAnnotationRegistry registry, BeanCache beanCache) {
     initBeanAnnotation(configurers, registry);
-    return new IdentifiedBeanPostProcessor(registry, identifiedBeanCache);
+    return new IdentifiedBeanPostProcessor(registry, beanCache);
   }
 
   /**
    * 注册实例缓存初始化器
    *
-   * @param identifiedBeanCache 实例缓存
+   * @param beanCache 实例缓存
    * @return 实例缓存初始化器
    */
   @Bean
   @ConditionalOnMissingBean
-  public BeanCacheInitializer beanCacheInitializer(IdentifiedBeanCache identifiedBeanCache) {
-    return new BeanCacheInitializer(identifiedBeanCache);
+  public BeanCacheInitializer beanCacheInitializer(BeanCache beanCache) {
+    return new BeanCacheInitializer(beanCache);
   }
 
   /**

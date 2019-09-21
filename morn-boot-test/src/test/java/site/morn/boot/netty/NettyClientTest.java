@@ -19,7 +19,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  * Netty客户端单元测试
  *
  * @author timely-rain
- * @since 2.1.0, 2019/6/5
+ * @since 1.2.0, 2019/6/5
  */
 @Slf4j
 @SpringBootTest

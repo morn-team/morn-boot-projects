@@ -11,7 +11,7 @@ import site.morn.boot.netty.constant.TerminalType;
  * 终端
  *
  * @author timely-rain
- * @since 2.1.0, 2019/6/5
+ * @since 1.2.0, 2019/6/5
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

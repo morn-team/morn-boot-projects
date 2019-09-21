@@ -29,7 +29,7 @@ import site.morn.util.AnnotationIdentifyUtils;
  * 实例缓存工具类
  *
  * @author timely-rain
- * @since 2.1.0, 2019/6/24
+ * @since 1.2.0, 2019/6/24
  */
 @Slf4j
 @UtilityClass

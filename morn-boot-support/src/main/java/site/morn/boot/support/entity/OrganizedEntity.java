@@ -11,7 +11,7 @@ import lombok.experimental.FieldNameConstants;
  * 组织成员映射类
  *
  * @author timely-rain
- * @since 2.1.0, 2019/5/16
+ * @since 1.2.0, 2019/5/16
  */
 @Getter
 @Setter

@@ -9,7 +9,7 @@ import site.morn.util.TypeUtils;
 /**
  * REST数据模型
  *
- * @author TianGanLin
+ * @author timely-rain
  * @since 0.0.1-SNAPSHOT, 2019/1/14
  */
 @ApiModel(value = "REST数据模型", description = "统一数据模型，通常用于请求体")

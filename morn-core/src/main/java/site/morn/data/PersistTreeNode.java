@@ -4,7 +4,7 @@ package site.morn.data;
  * 持久化树形节点
  *
  * @author timely-rain
- * @since 2.1.0, 2019/8/13
+ * @since 1.2.0, 2019/8/13
  */
 public interface PersistTreeNode {
 

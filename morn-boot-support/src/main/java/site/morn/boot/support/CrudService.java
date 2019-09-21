@@ -9,7 +9,7 @@ import site.morn.rest.RestModel;
 /**
  * 基础服务
  *
- * @author TianGanLin
+ * @author timely-rain
  * @since 0.0.1-SNAPSHOT, 2019/1/14
  */
 public interface CrudService<T, I extends Serializable> {
@@ -47,6 +47,21 @@ public interface CrudService<T, I extends Serializable> {
    * @return 分页结果集
    */
   Page<T> search(RestPage<T> restPage);
+
+  /**
+   * 全部查询
+   *
+   * @return 分页结果集
+   */
+  List<T> searchAll();
+
+  /**
+   * 全部查询
+   *
+   * @param model 业务模型
+   * @return 分页结果集
+   */
+  List<T> searchAll(T model);
 
   /**
    * 全部查询

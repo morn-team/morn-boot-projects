@@ -9,7 +9,7 @@ import site.morn.exception.ApplicationMessages;
  * 十六进制工具类
  *
  * @author timely-rain
- * @since 2.1.0, 2019/6/13
+ * @since 1.2.0, 2019/6/13
  */
 @Slf4j
 public class HexUtils extends Hex {

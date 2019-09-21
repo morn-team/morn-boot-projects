@@ -9,6 +9,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.FieldNameConstants;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -22,6 +23,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Getter
 @Setter
 @MappedSuperclass
+@FieldNameConstants
 @EntityListeners(AuditingEntityListener.class)
 public class ReviserEntity extends CreatorEntity {
 

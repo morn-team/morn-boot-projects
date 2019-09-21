@@ -8,7 +8,7 @@ import site.morn.exception.ApplicationMessages;
 /**
  * 类型工具类
  *
- * @author TianGanLin
+ * @author timely-rain
  * @since 0.0.1-SNAPSHOT, 2019/1/14
  */
 @UtilityClass

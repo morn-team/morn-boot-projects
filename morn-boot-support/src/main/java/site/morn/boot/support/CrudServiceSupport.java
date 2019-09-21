@@ -3,6 +3,8 @@ package site.morn.boot.support;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import javax.persistence.criteria.Predicate;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +23,7 @@ import site.morn.validate.persistent.PersistFunctionUtils;
 /**
  * 基础服务实现
  *
- * @author TianGanLin
+ * @author timely-rain
  * @since 0.0.1-SNAPSHOT, 2019/1/14
  */
 @Slf4j
@@ -64,6 +66,20 @@ public abstract class CrudServiceSupport<T, I extends Serializable, R extends Jp
     T model = restPage.getModel(); // 数据模型
     Specification<T> specification = searchSpecification(model, attach);// 查询条件
     return repository.findAll(specification, pageRequest); // 分页查询
+  }
+
+  @Override
+  public List<T> searchAll() {
+    Iterable<T> iterable = repository().findAll();
+    return StreamSupport.stream(iterable.spliterator(), false).collect(Collectors.toList());
+  }
+
+  @Override
+  public List<T> searchAll(T model) {
+    log.info("全部搜索");
+    RestModel<T> restModel = new RestModel<>();
+    restModel.setModel(model);
+    return searchAll(restModel);
   }
 
   @Override

@@ -17,7 +17,7 @@ import site.morn.test.TestAnnotationBeans.Toy;
  * 实例缓存单元测试
  *
  * @author timely-rain
- * @since 2.1.0, 2019/5/19
+ * @since 1.2.0, 2019/5/19
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest

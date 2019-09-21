@@ -6,7 +6,7 @@ import lombok.experimental.UtilityClass;
  * 终端类型
  *
  * @author timely-rain
- * @since 2.1.0, 2019/6/5
+ * @since 1.2.0, 2019/6/5
  */
 @UtilityClass
 public class TerminalType {
