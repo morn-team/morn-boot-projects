@@ -29,17 +29,7 @@ import site.morn.exception.ExceptionProcessor;
  */
 @Configuration
 @ConditionalOnClass({Servlet.class, DispatcherServlet.class, WebMvcConfigurer.class})
-@EnableConfigurationProperties(WebProperties.class)
 public class WebAutoConfiguration {
-
-  /**
-   * 注册Web异常解释器
-   */
-  @Bean
-  @ConditionalOnMissingBean
-  public WebExceptionResolver webExceptionResolver() {
-    return new WebMvcExceptionResolver();
-  }
 
   /**
    * 异常处理配置
@@ -60,14 +50,24 @@ public class WebAutoConfiguration {
     public ExceptionHandlerAspect exceptionHandlerAspect(ExceptionProcessor exceptionProcessor) {
       return new ExceptionHandlerAspect(exceptionProcessor);
     }
+
+    /**
+     * 注册Web异常解释器
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public WebExceptionResolver webExceptionResolver() {
+      return new WebMvcExceptionResolver();
+    }
   }
 
   /**
-   * JacksonHibernate模块配置
+   * Web常规配置
    */
   @Configuration
   @ConditionalOnClass(Hibernate5Module.class)
-  public static class JacksonHibernateModuleConfiguration {
+  @EnableConfigurationProperties(WebProperties.class)
+  public static class WebConfiguration {
 
     /**
      * 注册Hibernate5Module模块
