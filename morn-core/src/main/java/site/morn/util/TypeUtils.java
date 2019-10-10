@@ -45,6 +45,23 @@ public class TypeUtils {
   }
 
   /**
+   * 类型转换
+   *
+   * @param source 原对象
+   * @param cls 目标类
+   * @param <T> 目标类型
+   * @return 目标对象
+   */
+  public <T> T cast(Object source, Class<T> cls) {
+    try {
+      return cls.cast(source);
+    } catch (Exception e) {
+      throw ApplicationMessages
+          .translateMessage("util.cast-fail", source.getClass().getSimpleName()).exception();
+    }
+  }
+
+  /**
    * 克隆
    *
    * @param obj 任意对象

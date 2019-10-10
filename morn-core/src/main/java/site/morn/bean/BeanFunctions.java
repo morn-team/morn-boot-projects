@@ -74,8 +74,8 @@ public class BeanFunctions {
       return new Object[0];
     }
     // 检索可用实参
-    Function<Class<?>, Object> availableArg = type -> Stream.of(args)
-        .filter(o -> o.getClass().isAssignableFrom(type)).findFirst().orElse(null);
+    Function<Class<?>, Object> availableArg = type -> Stream.of(args).filter(Objects::nonNull)
+        .filter(o -> type.isAssignableFrom(o.getClass())).findFirst().orElse(null);
     return Stream.of(parameterTypes).map(availableArg).toArray();
   }
 }
