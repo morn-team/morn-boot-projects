@@ -5,6 +5,7 @@ import java.util.Objects;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -83,7 +84,8 @@ public class JpaConditionSupportTest {
       Predicate[] predicates = condition.equalAllExcludes("username");
       restrain.appendAnd(predicates);
     };
-    findAll(specificationFunction);
+    List<TestUser> users = findAll(specificationFunction);
+    Assert.assertEquals(1, users.size());
   }
 
   @Test

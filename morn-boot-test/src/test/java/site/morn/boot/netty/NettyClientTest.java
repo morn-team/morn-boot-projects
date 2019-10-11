@@ -31,7 +31,7 @@ public class NettyClientTest {
 
   @Before
   public void setUp() throws Exception {
-    client.connect().await();
+    client.connect().get();
   }
 
   @Test
@@ -39,13 +39,12 @@ public class NettyClientTest {
     String msg = "123456";
     Channel channel = client.getChannel();
     Assert.assertNotNull(channel);
-    ChannelFuture channelFuture = channel.writeAndFlush(msg)
-        .addListener(f -> {
-          Throwable cause = f.cause();
-          if (Objects.nonNull(cause)) {
-            log.warn(cause.getMessage(), cause);
-          }
-        });
+    ChannelFuture channelFuture = channel.writeAndFlush(msg).addListener(f -> {
+      Throwable cause = f.cause();
+      if (Objects.nonNull(cause)) {
+        log.warn(cause.getMessage(), cause);
+      }
+    });
     await().until(() -> {
       ChannelFuture future = channelFuture.await();
       return future.isDone() && future.isSuccess();
