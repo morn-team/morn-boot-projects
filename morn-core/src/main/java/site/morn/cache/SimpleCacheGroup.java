@@ -40,7 +40,7 @@ public class SimpleCacheGroup implements CacheGroup {
 
   @Override
   public void clear(String group, String key) {
-    String cacheKey = getCacheKey(group, key);
+    String cacheKey = getCacheKey(key);
     Cache cache = getCache(group);
     cache.evict(cacheKey);
   }
@@ -65,7 +65,7 @@ public class SimpleCacheGroup implements CacheGroup {
     List<String> groupNames = getGroupNames();
     for (String groupName : groupNames) {
       Cache cache = getCache(groupName);
-      String cacheKey = getCacheKey(groupName, key);
+      String cacheKey = getCacheKey(key);
       cache.evict(cacheKey);
     }
   }
@@ -74,7 +74,7 @@ public class SimpleCacheGroup implements CacheGroup {
   public Object get(String group, String key) {
     addGroup(group);
     Cache cache = getCache(group);
-    String cacheKey = getCacheKey(group, key);
+    String cacheKey = getCacheKey(key);
     ValueWrapper valueWrapper = cache.get(cacheKey);
     return getWrapperValue(valueWrapper);
   }
@@ -83,7 +83,7 @@ public class SimpleCacheGroup implements CacheGroup {
   public <T> T get(String group, String key, Class<T> type) {
     addGroup(group);
     Cache cache = getCache(group);
-    String cacheKey = getCacheKey(group, key);
+    String cacheKey = getCacheKey(key);
     return cache.get(cacheKey, type);
   }
 
@@ -91,14 +91,14 @@ public class SimpleCacheGroup implements CacheGroup {
   public <T> T get(String group, String key, Callable<T> valueLoader) {
     addGroup(group);
     Cache cache = getCache(group);
-    String cacheKey = getCacheKey(group, key);
+    String cacheKey = getCacheKey(key);
     return cache.get(cacheKey, valueLoader);
   }
 
   @Override
   public void put(String group, String key, Object value) {
     addGroup(group);
-    String cacheKey = getCacheKey(group, key);
+    String cacheKey = getCacheKey(key);
     Cache cache = getCache(group);
     cache.put(cacheKey, value);
   }
@@ -106,7 +106,7 @@ public class SimpleCacheGroup implements CacheGroup {
   @Override
   public <T> T putIfAbsent(String group, String key, T value) {
     addGroup(group);
-    String cacheKey = getCacheKey(group, key);
+    String cacheKey = getCacheKey(key);
     Cache cache = getCache(group);
     ValueWrapper valueWrapper = cache.putIfAbsent(cacheKey, value);
     return getWrapperValue(valueWrapper);
@@ -145,11 +145,10 @@ public class SimpleCacheGroup implements CacheGroup {
   /**
    * 生成缓存键
    *
-   * @param group 缓存类别
    * @param key 键
    * @return 缓存键
    */
-  private String getCacheKey(String group, String key) {
+  private String getCacheKey(String key) {
     return key;
   }
 
