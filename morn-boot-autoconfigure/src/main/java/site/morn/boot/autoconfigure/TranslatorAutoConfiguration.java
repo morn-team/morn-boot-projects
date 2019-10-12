@@ -10,7 +10,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
-import site.morn.bean.IdentifiedBeanCache;
+import site.morn.bean.BeanCache;
 import site.morn.boot.translate.DefaultSpringTranslator;
 import site.morn.boot.translate.TranslateInitializer;
 import site.morn.translate.TranslateProperties;
@@ -47,7 +47,7 @@ public class TranslatorAutoConfiguration {
    */
   @Bean
   @ConditionalOnMissingBean
-  public Translator translator(MessageSource messageSource, IdentifiedBeanCache beanCache) {
+  public Translator translator(MessageSource messageSource, BeanCache beanCache) {
     return new DefaultSpringTranslator(messageSource, beanCache);
   }
 

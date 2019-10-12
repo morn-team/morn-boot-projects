@@ -1,6 +1,7 @@
 package site.morn.boot.autoconfigure;
 
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
+import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module.Feature;
 import javax.servlet.Servlet;
 import org.aspectj.lang.Aspects;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -63,7 +64,9 @@ public class WebAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public Hibernate5Module hibernate5Module() {
-      return new Hibernate5Module();
+      Hibernate5Module hibernate5Module = new Hibernate5Module();
+      hibernate5Module.disable(Feature.USE_TRANSIENT_ANNOTATION);
+      return hibernate5Module;
     }
   }
 }

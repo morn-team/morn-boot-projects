@@ -2,7 +2,7 @@ package site.morn.boot.rest;
 
 import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
-import site.morn.bean.IdentifiedBeanCache;
+import site.morn.bean.BeanCache;
 import site.morn.rest.RestBuilder;
 import site.morn.rest.RestProperties;
 import site.morn.translate.Translator;
@@ -19,7 +19,7 @@ public class RestInitializer {
   /**
    * 实例缓存
    */
-  private final IdentifiedBeanCache identifiedBeanCache;
+  private final BeanCache beanCache;
 
   /**
    * 翻译器
@@ -33,6 +33,6 @@ public class RestInitializer {
 
   @PostConstruct
   public void initRest() {
-    RestBuilder.initialize(identifiedBeanCache, translator, restProperties);
+    RestBuilder.initialize(beanCache, translator, restProperties);
   }
 }

@@ -1,5 +1,6 @@
 package site.morn.support.fastjson;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import java.io.Serializable;
@@ -48,8 +49,8 @@ public class JsonUtils {
    * @return JSON对象
    */
   public static JSONObject toJSONObject(Object object) {
-    String jsonString = JSONObject.toJSONString(object);
-    return JSONObject.parseObject(jsonString);
+    String jsonString = JSON.toJSONString(object);
+    return JSON.parseObject(jsonString);
   }
 
   /**
@@ -59,8 +60,8 @@ public class JsonUtils {
    * @return 标准字典
    */
   public static CriteriaMap toMap(Object object) {
-    String jsonString = JSONObject.toJSONString(object);
-    JSONObject jsonObject = JSONObject.parseObject(jsonString);
+    String jsonString = JSON.toJSONString(object);
+    JSONObject jsonObject = JSON.parseObject(jsonString);
     return new CriteriaMap(jsonObject);
   }
 
@@ -74,7 +75,7 @@ public class JsonUtils {
    */
   public static <T> T toObject(Object object, Class<T> cls) {
     String jsonString = toString(object);
-    return JSONObject.parseObject(jsonString, cls);
+    return JSON.parseObject(jsonString, cls);
   }
 
   /**
@@ -87,7 +88,7 @@ public class JsonUtils {
    */
   public static <T> T toObject(Object object, Type type) {
     String jsonString = toString(object);
-    return JSONObject.parseObject(jsonString, type);
+    return JSON.parseObject(jsonString, type);
   }
 
   /**
@@ -100,7 +101,7 @@ public class JsonUtils {
    */
   public static <T> T toObject(Object object, TypeReference<T> reference) {
     String jsonString = toString(object);
-    return JSONObject.parseObject(jsonString, reference);
+    return JSON.parseObject(jsonString, reference);
   }
 
   /**
@@ -110,6 +111,6 @@ public class JsonUtils {
    * @return JSON字符串
    */
   public static String toString(Object object) {
-    return object instanceof String ? String.valueOf(object) : JSONObject.toJSONString(object);
+    return object instanceof String ? String.valueOf(object) : JSON.toJSONString(object);
   }
 }

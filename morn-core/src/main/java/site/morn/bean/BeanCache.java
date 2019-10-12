@@ -10,7 +10,7 @@ import java.util.List;
  * @author timely-rain
  * @since 1.0.0, 2018/11/25
  */
-public interface IdentifiedBeanCache {
+public interface BeanCache {
 
   /**
    * 存储实例持有者

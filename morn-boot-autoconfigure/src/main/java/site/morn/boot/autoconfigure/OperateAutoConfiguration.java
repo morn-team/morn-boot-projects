@@ -4,7 +4,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import site.morn.bean.IdentifiedBeanCache;
+import site.morn.bean.BeanCache;
 import site.morn.boot.log.DefaultOperationConverter;
 import site.morn.boot.log.OperateAspect;
 import site.morn.log.OperationConverter;
@@ -27,7 +27,7 @@ public class OperateAutoConfiguration {
    */
   @Bean
   @ConditionalOnMissingBean
-  public OperateAspect operateAspect(IdentifiedBeanCache beanCache) {
+  public OperateAspect operateAspect(BeanCache beanCache) {
     return new OperateAspect(beanCache);
   }
 

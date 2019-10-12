@@ -5,7 +5,7 @@ import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
-import site.morn.bean.IdentifiedBeanCache;
+import site.morn.bean.BeanCache;
 import site.morn.translate.Transfer;
 import site.morn.translate.TranslateConverter;
 import site.morn.translate.Translator;
@@ -28,10 +28,10 @@ public class DefaultSpringTranslator implements Translator {
   /**
    * 实例缓存
    */
-  private final IdentifiedBeanCache beanCache;
+  private final BeanCache beanCache;
 
   public DefaultSpringTranslator(MessageSource messageSource,
-      IdentifiedBeanCache beanCache) {
+      BeanCache beanCache) {
     this.messageSource = messageSource;
     this.beanCache = beanCache;
   }
