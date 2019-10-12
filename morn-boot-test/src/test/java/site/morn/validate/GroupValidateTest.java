@@ -1,5 +1,7 @@
 package site.morn.validate;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+
 import net.minidev.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -58,7 +60,8 @@ public class GroupValidateTest {
         .content(content).contentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
     mvc.perform(requestBuilder)
         .andDo(MockMvcResultHandlers.print())
-        .andExpect(MockMvcResultMatchers.status().isOk());
+        .andExpect(MockMvcResultMatchers.status().isOk())
+        .andExpect(jsonPath("success").value(true));
   }
 
   @Test
@@ -69,7 +72,8 @@ public class GroupValidateTest {
         .content(content).contentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
     mvc.perform(requestBuilder)
         .andDo(MockMvcResultHandlers.print())
-        .andExpect(MockMvcResultMatchers.status().isBadRequest());
+        .andExpect(MockMvcResultMatchers.status().isOk())
+        .andExpect(jsonPath("success").value(false));
   }
 
   @Test
@@ -80,6 +84,7 @@ public class GroupValidateTest {
         .content(content).contentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
     mvc.perform(requestBuilder)
         .andDo(MockMvcResultHandlers.print())
-        .andExpect(MockMvcResultMatchers.status().isOk());
+        .andExpect(MockMvcResultMatchers.status().isOk())
+        .andExpect(jsonPath("success").value(true));
   }
 }
