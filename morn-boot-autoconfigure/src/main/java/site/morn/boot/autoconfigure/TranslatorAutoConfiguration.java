@@ -9,6 +9,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import site.morn.bean.BeanCache;
 import site.morn.boot.translate.DefaultSpringTranslator;
@@ -71,7 +72,7 @@ public class TranslatorAutoConfiguration {
    */
   @Bean
   @ConditionalOnMissingBean
-  public CookieLocaleResolver localeResolver(TranslateProperties properties) {
+  public LocaleResolver localeResolver(TranslateProperties properties) {
     String language = Optional.ofNullable(properties.getLanguage())
         .orElse(Locale.CHINESE.getLanguage()); // 缺省时使用中文
     String country = Optional.ofNullable(properties.getCountry()).orElse("");  // 缺省时不限国家

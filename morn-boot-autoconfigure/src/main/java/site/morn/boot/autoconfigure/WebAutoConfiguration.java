@@ -10,11 +10,15 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import site.morn.boot.web.ExceptionHandlerAspect;
+import site.morn.boot.web.WebExceptionResolver;
+import site.morn.boot.web.WebMvcExceptionResolver;
+import site.morn.boot.web.config.WebProperties;
 import site.morn.exception.ExceptionProcessor;
 
 /**
@@ -46,14 +50,24 @@ public class WebAutoConfiguration {
     public ExceptionHandlerAspect exceptionHandlerAspect(ExceptionProcessor exceptionProcessor) {
       return new ExceptionHandlerAspect(exceptionProcessor);
     }
+
+    /**
+     * 注册Web异常解释器
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public WebExceptionResolver webExceptionResolver() {
+      return new WebMvcExceptionResolver();
+    }
   }
 
   /**
-   * JacksonHibernate模块配置
+   * Web常规配置
    */
   @Configuration
   @ConditionalOnClass(Hibernate5Module.class)
-  public static class JacksonHibernateModuleConfiguration {
+  @EnableConfigurationProperties(WebProperties.class)
+  public static class WebConfiguration {
 
     /**
      * 注册Hibernate5Module模块

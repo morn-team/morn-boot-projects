@@ -47,7 +47,7 @@
     </dependency>
     <dependency>
       <groupId>site.morn.boot</groupId>
-      <artifactId>morn-boot-support</artifactId>
+      <artifactId>morn-boot-data</artifactId>
     </dependency>
     <dependency>
       <groupId>site.morn.boot</groupId>

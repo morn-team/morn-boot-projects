@@ -12,6 +12,7 @@ import site.morn.core.BeanConverter;
 import site.morn.core.BeanProcessor;
 import site.morn.core.BeanProducer;
 import site.morn.core.BeanProducers;
+import site.morn.core.BeanValidator;
 
 /**
  * 实例函数工具
@@ -265,4 +266,18 @@ public class BeanFunctionUtils {
     return producers.stream().flatMap(f -> f.productList().stream()).collect(Collectors.toList());
   }
 
+
+  /**
+   * 实例校验
+   *
+   * @param validatorClass 校验类
+   * @param data 校验数据
+   * @param <V> 校验类型
+   * @param <T> 数据类型
+   * @return 校验全部通过
+   */
+  public static <V extends BeanValidator<T>, T> boolean validates(Class<V> validatorClass, T data) {
+    List<V> validators = BeanCaches.targetBeans(validatorClass, data.getClass());
+    return validators.stream().allMatch(v -> v.validate(data));
+  }
 }

@@ -18,11 +18,11 @@
   <modules>
     <module>morn-boot-autoconfigure</module>
     <module>morn-boot-core</module>
+    <module>morn-boot-data</module>
     <module>morn-boot-interpreter</module>
     <module>morn-boot-jpa</module>
     <module>morn-boot-netty</module>
     <module>morn-boot-security</module>
-    <module>morn-boot-support</module>
     <module>morn-boot-test</module>
     <module>morn-boot-web</module>
     <module>morn-core</module>
@@ -63,6 +63,10 @@
       <artifactId>lombok</artifactId>
       <version>${lombok.version}</version>
       <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
     </dependency>
   </dependencies>
 
@@ -107,7 +111,7 @@
       </dependency>
       <dependency>
         <groupId>site.morn.boot</groupId>
-        <artifactId>morn-boot-support</artifactId>
+        <artifactId>morn-boot-data</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>

@@ -1,4 +1,4 @@
-package site.morn.boot.support.entity;
+package site.morn.boot.data.entity;
 
 import java.util.Objects;
 import javax.persistence.Column;

@@ -3,7 +3,6 @@ package site.morn.boot.netty;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.EventLoop;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -15,8 +14,10 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import org.springframework.util.concurrent.ListenableFuture;
 import site.morn.boot.netty.config.NettyClientProperties;
 import site.morn.boot.netty.constant.TerminalType;
+import site.morn.task.ListenableFutureDispatcher;
 
 /**
  * Netty客户端
@@ -81,28 +82,33 @@ public class NettyClient {
   /**
    * 连接服务端
    */
-  public ChannelFuture connect() {
-    ChannelFuture channelFuture = bootstrap
-        .connect(properties.getServerHost(), properties.getServerPort());
-    ChannelFutureListener listener = this::reconnect;
-    return channelFuture.addListener(listener);
+  public ListenableFuture<Channel> connect() {
+    return ListenableFutureDispatcher.submit(this::connectSync);
   }
 
   /**
-   * 重连
+   * 同步连接服务端
    *
-   * @param channelFuture 异步通道
+   * @return 消息通道
    */
-  private void reconnect(ChannelFuture channelFuture) {
-    Channel c = channelFuture.channel();
-    if (!channelFuture.isSuccess()) {
-      log.info("Netty|重新连接：{}", c.id());
-      final EventLoop loop = c.eventLoop();
-      loop.schedule((Runnable) this::connect, properties.getConnectDelay(), TimeUnit.SECONDS);
-    } else {
-      this.channel = c;
-      log.info("Netty|连接成功：{}", c.id());
+  private Channel connectSync() {
+    Channel c = null;
+    try {
+      ChannelFuture channelFuture = bootstrap
+          .connect(properties.getServerHost(), properties.getServerPort()).sync();
+      c = channelFuture.channel();
+      if (channelFuture.isSuccess()) {
+        this.channel = c;
+        log.info("Netty|连接成功：{}", c.id());
+      } else {
+        log.info("Netty|重新连接：{}", c.id());
+        final EventLoop loop = c.eventLoop();
+        loop.schedule(this::connect, properties.getConnectDelay(), TimeUnit.SECONDS).sync();
+      }
+    } catch (InterruptedException e) {
+      log.error(e.getMessage(), e);
+      Thread.currentThread().interrupt();
     }
+    return c;
   }
-
 }

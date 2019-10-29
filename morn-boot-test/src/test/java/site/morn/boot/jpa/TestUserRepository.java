@@ -1,7 +1,7 @@
 package site.morn.boot.jpa;
 
 import org.springframework.stereotype.Repository;
-import site.morn.boot.support.JpaRepository;
+import site.morn.boot.data.jpa.JpaRepository;
 
 /**
  * 测试用户访问对象

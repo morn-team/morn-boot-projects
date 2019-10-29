@@ -1,4 +1,4 @@
-package site.morn.boot.support;
+package site.morn.boot.data;
 
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -31,8 +31,8 @@ import site.morn.validate.group.Update;
  * @author timely-rain
  * @since 1.0.0, 2019/1/15
  */
-public class CrudControllerSupport<T, I extends Serializable, S extends CrudService<T, I>>
-    implements CrudController<T, I> {
+public class CrudControllerSupport<T, I extends Serializable, S extends CrudService<T, I>> implements
+    CrudController {
 
   /**
    * 基础服务
@@ -41,7 +41,7 @@ public class CrudControllerSupport<T, I extends Serializable, S extends CrudServ
   private CrudService<T, I> service;
 
   protected S service() {
-    return TypeUtils.as(service);
+    return TypeUtils.cast(service);
   }
 
   /**

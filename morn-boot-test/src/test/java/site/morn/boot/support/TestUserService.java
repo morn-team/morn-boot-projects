@@ -1,5 +1,6 @@
 package site.morn.boot.support;
 
+import site.morn.boot.data.CrudService;
 import site.morn.boot.jpa.TestUser;
 
 /**
