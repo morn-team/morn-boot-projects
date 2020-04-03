@@ -1,8 +1,7 @@
-package site.morn.boot.support;
+package site.morn.boot.data;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import site.morn.boot.data.CrudControllerSupport;
 import site.morn.boot.jpa.TestUser;
 
 /**

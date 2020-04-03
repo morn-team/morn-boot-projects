@@ -1,8 +1,6 @@
-package site.morn.boot.support;
+package site.morn.boot.data;
 
 import org.springframework.stereotype.Service;
-import site.morn.boot.data.CrudService;
-import site.morn.boot.data.CrudServiceSupport;
 import site.morn.boot.jpa.TestUser;
 import site.morn.boot.jpa.TestUserRepository;
 
@@ -14,6 +12,6 @@ import site.morn.boot.jpa.TestUserRepository;
  */
 @Service
 public class TestUserServiceImpl extends
-    CrudServiceSupport<TestUser, Long, TestUserRepository> implements CrudService<TestUser, Long> {
+    CrudServiceSupport<TestUser, Long, TestUserRepository> implements TestUserService {
 
 }
