@@ -24,7 +24,7 @@ public class ValidationExceptionInterpreter implements ExceptionInterpreter {
 
   @Override
   public ApplicationMessage resolve(Throwable throwable, Object... args) {
-    ConstraintViolationException exception = TypeUtils.as(throwable);
+    ConstraintViolationException exception = TypeUtils.cast(throwable);
     List<String> messages = exception.getConstraintViolations().stream()
         .map(constraintViolation -> {
           String objectName = constraintViolation.getRootBean().getClass().getSimpleName(); // 对象名称

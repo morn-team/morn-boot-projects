@@ -3,6 +3,7 @@ package site.morn.util;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import lombok.experimental.UtilityClass;
+import lombok.extern.slf4j.Slf4j;
 import site.morn.exception.ApplicationMessages;
 
 /**
@@ -11,21 +12,9 @@ import site.morn.exception.ApplicationMessages;
  * @author timely-rain
  * @since 0.0.1-SNAPSHOT, 2019/1/14
  */
+@Slf4j
 @UtilityClass
 public class TypeUtils {
-
-  /**
-   * 类型转换
-   *
-   * @param source 原对象
-   * @param <T> 目标类型
-   * @return 目标对象
-   * @deprecated {@link #cast(Object)}
-   */
-  @Deprecated
-  public <T> T as(Object source) {
-    return cast(source);
-  }
 
   /**
    * 类型转换
@@ -76,7 +65,7 @@ public class TypeUtils {
       final Class<?> clazz = obj.getClass();
       final Method m;
       try {
-        m = clazz.getMethod("clone", (Class<?>[]) null);
+        m = clazz.getDeclaredMethod("clone", (Class<?>[]) null);
       } catch (final NoSuchMethodException ex) {
         throw ApplicationMessages.buildException("clone.no-method", ex.getMessage());
       }
@@ -107,6 +96,7 @@ public class TypeUtils {
     try {
       return clone(obj);
     } catch (Exception e) {
+      log.warn(e.getMessage(), e);
       return obj;
     }
   }

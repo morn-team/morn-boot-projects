@@ -36,6 +36,6 @@ public class RestPage<M> extends RestModel<M> implements
   public <T extends RestPageDefinition<RestPageable, M, CriteriaMap>> T setPageable(
       RestPageable pageable) {
     this.pageable = pageable;
-    return TypeUtils.as(this);
+    return TypeUtils.cast(this);
   }
 }

@@ -22,7 +22,7 @@ public class MethodValidateExceptionInterpreter implements ExceptionInterpreter 
 
   @Override
   public ApplicationMessage resolve(Throwable throwable, Object... args) {
-    MethodArgumentNotValidException exception = TypeUtils.as(throwable);
+    MethodArgumentNotValidException exception = TypeUtils.cast(throwable);
     // 生成错误消息文本
     List<FieldError> errors = exception.getBindingResult().getFieldErrors();
     String message = ExceptionInterpreterUtils.generateMessages(errors);

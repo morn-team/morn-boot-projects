@@ -41,7 +41,7 @@ public class RestModel<M> implements RestModelDefinition<M, CriteriaMap> {
   @Override
   public <T extends RestModelDefinition<M, CriteriaMap>> T setModel(M model) {
     this.model = model;
-    return TypeUtils.as(this);
+    return TypeUtils.cast(this);
   }
 
   @Override
@@ -52,6 +52,6 @@ public class RestModel<M> implements RestModelDefinition<M, CriteriaMap> {
   @Override
   public <T extends RestModelDefinition<M, CriteriaMap>> T setAttach(CriteriaMap attach) {
     this.attach = attach;
-    return TypeUtils.as(this);
+    return TypeUtils.cast(this);
   }
 }

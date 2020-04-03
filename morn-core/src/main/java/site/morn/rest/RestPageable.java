@@ -66,7 +66,7 @@ public class RestPageable implements RestPageableDefinition {
   @Override
   public <T extends RestPageableDefinition> T setSort(String sort) {
     this.sort = sort;
-    return TypeUtils.as(this);
+    return TypeUtils.cast(this);
   }
 
   @Override

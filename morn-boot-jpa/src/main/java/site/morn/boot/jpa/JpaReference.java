@@ -33,7 +33,7 @@ public class JpaReference<M> {
   private final CriteriaBuilder builder;
 
   public <T> Root<T> root() {
-    return TypeUtils.as(path);
+    return TypeUtils.cast(path);
   }
 
   /**
@@ -43,7 +43,7 @@ public class JpaReference<M> {
    */
   public Set<Attribute<? super M, ?>> attributes() {
     Assert.isInstanceOf(Root.class, path);
-    Root<M> root = TypeUtils.as(path);
+    Root<M> root = TypeUtils.cast(path);
     return root.getModel().getAttributes();
   }
 

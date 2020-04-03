@@ -57,7 +57,7 @@ public class JpaParameterSupport<M> implements JpaParameter<M> {
   public <V> Optional<V> getOptional(String name) {
     PropertyDescriptor descriptor = propertyDescriptor(name);
     Object value = JpaConditionUtils.getPropertyValue(model, descriptor);
-    Optional<V> modelValue = Optional.ofNullable(TypeUtils.as(value)); // 优先从model中获取值
+    Optional<V> modelValue = Optional.ofNullable(TypeUtils.cast(value)); // 优先从model中获取值
     V attachValue = modelValue.orElse(attach.getExpect(name)); // 否则从attach中获取值
     return Optional.ofNullable(attachValue);
   }
@@ -89,7 +89,7 @@ public class JpaParameterSupport<M> implements JpaParameter<M> {
    * @return 类型
    */
   private Class<M> javaType() {
-    return TypeUtils.as(model.getClass());
+    return TypeUtils.cast(model.getClass());
   }
 
   /**
