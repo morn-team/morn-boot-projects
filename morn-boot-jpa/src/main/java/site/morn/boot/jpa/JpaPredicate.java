@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.stream.Stream;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
-import site.morn.util.ArrayUtils;
+import site.morn.util.SpareArrayUtils;
 
 /**
  * JPA查询断言
@@ -57,7 +57,7 @@ public class JpaPredicate {
    */
   public Predicate mergeAnd(Predicate... restrictions) {
     Predicate[] predicates = array(restrictions);
-    if (ArrayUtils.isEmpty(predicates)) {
+    if (SpareArrayUtils.isEmpty(predicates)) {
       return null;
     }
     return builder.and(predicates);
@@ -72,7 +72,7 @@ public class JpaPredicate {
    */
   public Predicate mergeOr(Predicate... restrictions) {
     Predicate[] predicates = array(restrictions);
-    if (ArrayUtils.isEmpty(predicates)) {
+    if (SpareArrayUtils.isEmpty(predicates)) {
       return null;
     }
     return builder.or(predicates);

@@ -12,35 +12,26 @@ import org.junit.runners.JUnit4;
  * @since 1.0.0, 2019/4/21
  */
 @RunWith(JUnit4.class)
-public class ArrayUtilsTest {
+public class SpareArrayUtilsTest {
 
   private Integer[] intArray = {1, 2, 3};
 
   @Test
   public void isEmpty() {
-    boolean isEmpty = ArrayUtils.isEmpty(intArray);
+    boolean isEmpty = SpareArrayUtils.isEmpty(intArray);
     Assert.assertFalse(isEmpty);
   }
 
   @Test
-  public void merge() {
-    Integer[] merge = ArrayUtils.merge(1, 2, 3);
+  public void toArray() {
+    Integer[] merge = SpareArrayUtils.toArray(1, 2, 3);
     Assert.assertArrayEquals(intArray, merge);
   }
 
   @Test
-  public void anySearch() {
-    String[] first = {"1", "2"};
-    String[] sec = {"2", "3"};
-    String[] third = {"3", "4"};
-    Assert.assertTrue(ArrayUtils.anySearch(first, sec));
-    Assert.assertFalse(ArrayUtils.anySearch(first, third));
-  }
-
-  @Test
-  public void first() {
+  public void findValueForParent() {
     Object[] objects = {null, new Coffee(), new Banana(), new Apple()};
-    Food first = ArrayUtils.first(objects, Food.class);
+    Food first = SpareArrayUtils.findValueForParent(objects, Food.class);
     Assert.assertNotNull(first);
     Assert.assertEquals(first.getClass().getSimpleName(), Banana.class.getSimpleName());
   }
@@ -50,10 +41,10 @@ public class ArrayUtilsTest {
     String[] empty = {};
     String[] large = {"2", "3", "1"};
     String[] small = {"1", "2"};
-    Assert.assertTrue(ArrayUtils.contains(empty, empty));
-    Assert.assertTrue(ArrayUtils.contains(small, empty));
-    Assert.assertTrue(ArrayUtils.contains(large, small));
-    Assert.assertFalse(ArrayUtils.contains(small, large));
+    Assert.assertTrue(SpareArrayUtils.contains(empty, empty));
+    Assert.assertTrue(SpareArrayUtils.contains(small, empty));
+    Assert.assertTrue(SpareArrayUtils.contains(large, small));
+    Assert.assertFalse(SpareArrayUtils.contains(small, large));
   }
 
   private interface Food {
