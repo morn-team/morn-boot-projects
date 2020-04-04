@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import javax.validation.Valid;
 import site.morn.core.CriteriaMap;
-import site.morn.util.TypeUtils;
+import site.morn.util.GenericUtils;
 
 /**
  * REST数据模型
@@ -41,7 +41,7 @@ public class RestModel<M> implements RestModelDefinition<M, CriteriaMap> {
   @Override
   public <T extends RestModelDefinition<M, CriteriaMap>> T setModel(M model) {
     this.model = model;
-    return TypeUtils.cast(this);
+    return GenericUtils.castFrom(this);
   }
 
   @Override
@@ -52,6 +52,6 @@ public class RestModel<M> implements RestModelDefinition<M, CriteriaMap> {
   @Override
   public <T extends RestModelDefinition<M, CriteriaMap>> T setAttach(CriteriaMap attach) {
     this.attach = attach;
-    return TypeUtils.cast(this);
+    return GenericUtils.castFrom(this);
   }
 }

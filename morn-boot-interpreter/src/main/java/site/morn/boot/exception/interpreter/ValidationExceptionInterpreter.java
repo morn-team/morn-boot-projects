@@ -9,7 +9,7 @@ import site.morn.bean.annotation.Target;
 import site.morn.exception.ApplicationMessage;
 import site.morn.exception.ApplicationMessages;
 import site.morn.exception.ExceptionInterpreter;
-import site.morn.util.TypeUtils;
+import site.morn.util.GenericUtils;
 
 /**
  * 校验异常解释器
@@ -24,7 +24,7 @@ public class ValidationExceptionInterpreter implements ExceptionInterpreter {
 
   @Override
   public ApplicationMessage resolve(Throwable throwable, Object... args) {
-    ConstraintViolationException exception = TypeUtils.cast(throwable);
+    ConstraintViolationException exception = GenericUtils.castFrom(throwable);
     List<String> messages = exception.getConstraintViolations().stream()
         .map(constraintViolation -> {
           String objectName = constraintViolation.getRootBean().getClass().getSimpleName(); // 对象名称

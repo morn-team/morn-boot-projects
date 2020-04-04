@@ -7,8 +7,8 @@ import java.util.Optional;
 import java.util.function.Function;
 import org.springframework.beans.BeanUtils;
 import site.morn.core.CriteriaMap;
+import site.morn.util.GenericUtils;
 import site.morn.util.OptionalCollection;
-import site.morn.util.TypeUtils;
 
 /**
  * JPA查询参数实现
@@ -57,7 +57,7 @@ public class JpaParameterSupport<M> implements JpaParameter<M> {
   public <V> Optional<V> getOptional(String name) {
     PropertyDescriptor descriptor = propertyDescriptor(name);
     Object value = JpaConditionUtils.getPropertyValue(model, descriptor);
-    Optional<V> modelValue = Optional.ofNullable(TypeUtils.cast(value)); // 优先从model中获取值
+    Optional<V> modelValue = Optional.ofNullable(GenericUtils.castFrom(value)); // 优先从model中获取值
     V attachValue = modelValue.orElse(attach.getExpect(name)); // 否则从attach中获取值
     return Optional.ofNullable(attachValue);
   }
@@ -89,7 +89,7 @@ public class JpaParameterSupport<M> implements JpaParameter<M> {
    * @return 类型
    */
   private Class<M> javaType() {
-    return TypeUtils.cast(model.getClass());
+    return GenericUtils.castFrom(model.getClass());
   }
 
   /**

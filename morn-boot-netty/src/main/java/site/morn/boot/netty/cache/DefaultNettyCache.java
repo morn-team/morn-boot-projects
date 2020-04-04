@@ -11,7 +11,7 @@ import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import site.morn.bean.annotation.Objective;
 import site.morn.constant.ApplicationConstant.Cache;
-import site.morn.util.TypeUtils;
+import site.morn.util.GenericUtils;
 
 /**
  * Netty缓存默认实现
@@ -51,7 +51,7 @@ public class DefaultNettyCache implements NettyCache {
   public <T extends NettyCache> T putChannel(ChannelIdentify identify, Channel channel) {
     Channel c = getChannel(identify); // 从缓存中获取消息通道
     if (Objects.nonNull(c) && c.isActive()) {
-      return TypeUtils.cast(this);
+      return GenericUtils.castFrom(this);
     }
     ChannelGroup group = getGroup(identify.getBusinessGroup());
     if (Objects.nonNull(c)) {
@@ -59,33 +59,33 @@ public class DefaultNettyCache implements NettyCache {
     }
     setChannel(identify, channel);
     group.add(channel);
-    return TypeUtils.cast(this);
+    return GenericUtils.castFrom(this);
   }
 
   @Override
   public <T extends NettyCache> T remove(ChannelId channelId) {
     if (Objects.isNull(channelId)) {
-      return TypeUtils.cast(this);
+      return GenericUtils.castFrom(this);
     }
     ChannelIdentify identify = getIdentify(channelId);
     removeChannel(identify, channelId); // 移除通道
     removeChannelId(identify); // 移除通道编号
     removeChannelIdentify(channelId); // 移除通道标识
     log.info("Netty|移除：{} at {}", channelId, getChannelPath(identify));
-    return TypeUtils.cast(this);
+    return GenericUtils.castFrom(this);
   }
 
   @Override
   public <T extends NettyCache> T remove(ChannelIdentify identify) {
     if (Objects.isNull(identify)) {
-      return TypeUtils.cast(this);
+      return GenericUtils.castFrom(this);
     }
     ChannelId channelId = getChannelId(identify);
     removeChannel(identify, channelId); // 移除通道
     removeChannelId(identify); // 移除通道编号
     removeChannelIdentify(channelId); // 移除通道标识
     log.info("Netty|移除：{} at {}", channelId, getChannelPath(identify));
-    return TypeUtils.cast(this);
+    return GenericUtils.castFrom(this);
   }
 
   /**

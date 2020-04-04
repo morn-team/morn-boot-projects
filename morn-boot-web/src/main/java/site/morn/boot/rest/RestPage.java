@@ -4,7 +4,7 @@ import io.swagger.annotations.ApiModel;
 import site.morn.core.CriteriaMap;
 import site.morn.rest.RestModel;
 import site.morn.rest.RestPageable;
-import site.morn.util.TypeUtils;
+import site.morn.util.GenericUtils;
 
 /**
  * REST分页请求
@@ -36,6 +36,6 @@ public class RestPage<M> extends RestModel<M> implements
   public <T extends RestPageDefinition<RestPageable, M, CriteriaMap>> T setPageable(
       RestPageable pageable) {
     this.pageable = pageable;
-    return TypeUtils.cast(this);
+    return GenericUtils.castFrom(this);
   }
 }

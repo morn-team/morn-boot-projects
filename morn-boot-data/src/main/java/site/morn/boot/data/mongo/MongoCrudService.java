@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import site.morn.boot.data.CrudService;
 import site.morn.boot.rest.RestPage;
 import site.morn.rest.RestModel;
-import site.morn.util.TypeUtils;
+import site.morn.util.GenericUtils;
 import site.morn.validate.persistent.PersistFunctionUtils;
 
 /**
@@ -31,7 +31,7 @@ public class MongoCrudService<T, I extends Serializable, R extends MongoReposito
    * 数据访问对象
    */
   protected R repository() {
-    return TypeUtils.cast(repository);
+    return GenericUtils.castFrom(repository);
   }
 
   @Override

@@ -18,7 +18,7 @@ import site.morn.boot.jpa.SpecificationFunction;
 import site.morn.boot.rest.RestPage;
 import site.morn.core.CriteriaMap;
 import site.morn.rest.RestModel;
-import site.morn.util.TypeUtils;
+import site.morn.util.GenericUtils;
 import site.morn.validate.persistent.PersistFunctionUtils;
 
 /**
@@ -39,7 +39,7 @@ public abstract class CrudServiceSupport<T, I extends Serializable, R extends Jp
    * 数据访问对象
    */
   protected R repository() {
-    return TypeUtils.cast(repository);
+    return GenericUtils.castFrom(repository);
   }
 
   @Override

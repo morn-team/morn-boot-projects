@@ -9,7 +9,7 @@ import org.springframework.cache.Cache.ValueWrapper;
 import org.springframework.cache.CacheManager;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
-import site.morn.util.TypeUtils;
+import site.morn.util.GenericUtils;
 
 /**
  * 默认分类缓存
@@ -176,6 +176,6 @@ public class SimpleCacheGroup implements CacheGroup {
     if (Objects.isNull(valueWrapper)) {
       return null;
     }
-    return TypeUtils.cast(valueWrapper.get());
+    return GenericUtils.castFrom(valueWrapper.get());
   }
 }

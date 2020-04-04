@@ -1,20 +1,19 @@
 package site.morn.util;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import site.morn.exception.ApplicationMessages;
 
 /**
- * 类型工具类
+ * 泛型工具类
  *
  * @author timely-rain
  * @since 0.0.1-SNAPSHOT, 2019/1/14
  */
 @Slf4j
 @UtilityClass
-public class TypeUtils {
+public class GenericUtils {
 
   /**
    * 类型转换
@@ -24,10 +23,11 @@ public class TypeUtils {
    * @return 目标对象
    */
   @SuppressWarnings("unchecked")
-  public <T> T cast(Object source) {
+  public <T> T castFrom(Object source) {
     try {
       return (T) source;
     } catch (Exception e) {
+      log.warn(e.getMessage(), e);
       throw ApplicationMessages
           .translateMessage("util.cast-fail", source.getClass().getSimpleName()).exception();
     }
@@ -41,10 +41,11 @@ public class TypeUtils {
    * @param <T> 目标类型
    * @return 目标对象
    */
-  public <T> T cast(Object source, Class<T> cls) {
+  public <T> T castFrom(Object source, Class<T> cls) {
     try {
       return cls.cast(source);
     } catch (Exception e) {
+      log.warn(e.getMessage(), e);
       throw ApplicationMessages
           .translateMessage("util.cast-fail", source.getClass().getSimpleName()).exception();
     }
@@ -67,17 +68,17 @@ public class TypeUtils {
       try {
         m = clazz.getDeclaredMethod("clone", (Class<?>[]) null);
       } catch (final NoSuchMethodException ex) {
+        log.warn(ex.getMessage(), ex);
         throw ApplicationMessages.buildException("clone.no-method", ex.getMessage());
       }
       try {
         @SuppressWarnings("unchecked") // OK because clone() preserves the class
         final T result = (T) m.invoke(obj, (Object[]) null);
         return result;
-      } catch (final InvocationTargetException ex) {
+      } catch (final Exception ex) {
+        log.warn(ex.getMessage(), ex);
         final Throwable cause = ex.getCause();
-        throw ApplicationMessages.buildException("clone.invoke-failure", cause.getMessage());
-      } catch (final IllegalAccessException ex) {
-        throw ApplicationMessages.buildException("clone.access-failure", ex.getMessage());
+        throw ApplicationMessages.buildException("clone.clone-failure", cause.getMessage());
       }
     }
     throw ApplicationMessages.translateException("clone.not-cloneable");
@@ -92,7 +93,7 @@ public class TypeUtils {
    * @param <T> 对象类型
    * @return 克隆对象
    */
-  public static <T> T cloneSoft(final T obj) {
+  public static <T> T safeClone(final T obj) {
     try {
       return clone(obj);
     } catch (Exception e) {

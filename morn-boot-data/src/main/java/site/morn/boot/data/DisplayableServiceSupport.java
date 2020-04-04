@@ -3,7 +3,7 @@ package site.morn.boot.data;
 import java.io.Serializable;
 import site.morn.boot.data.jpa.JpaRepository;
 import site.morn.data.Displayable;
-import site.morn.util.TypeUtils;
+import site.morn.util.GenericUtils;
 
 /**
  * 显示/隐藏服务实现
@@ -17,7 +17,7 @@ public class DisplayableServiceSupport<T extends Displayable, I extends Serializ
   @Override
   public <S extends T> S toggleDisplay(I id, boolean isDisplay) {
     T result = repository().findById(id).map(model -> toggleDisplay(model, isDisplay)).orElse(null);
-    return TypeUtils.cast(result);
+    return GenericUtils.castFrom(result);
   }
 
   /**

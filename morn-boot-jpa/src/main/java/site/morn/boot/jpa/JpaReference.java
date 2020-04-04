@@ -13,7 +13,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 import org.springframework.util.Assert;
-import site.morn.util.TypeUtils;
+import site.morn.util.GenericUtils;
 
 /**
  * JPA原生对象
@@ -33,7 +33,7 @@ public class JpaReference<M> {
   private final CriteriaBuilder builder;
 
   public <T> Root<T> root() {
-    return TypeUtils.cast(path);
+    return GenericUtils.castFrom(path);
   }
 
   /**
@@ -43,7 +43,7 @@ public class JpaReference<M> {
    */
   public Set<Attribute<? super M, ?>> attributes() {
     Assert.isInstanceOf(Root.class, path);
-    Root<M> root = TypeUtils.cast(path);
+    Root<M> root = GenericUtils.castFrom(path);
     return root.getModel().getAttributes();
   }
 

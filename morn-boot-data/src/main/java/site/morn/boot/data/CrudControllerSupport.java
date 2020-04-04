@@ -18,7 +18,7 @@ import site.morn.log.OperateAction.Actions;
 import site.morn.rest.RestBuilders;
 import site.morn.rest.RestMessage;
 import site.morn.rest.RestModel;
-import site.morn.util.TypeUtils;
+import site.morn.util.GenericUtils;
 import site.morn.validate.group.Add;
 import site.morn.validate.group.Delete;
 import site.morn.validate.group.Put;
@@ -41,7 +41,7 @@ public class CrudControllerSupport<T, I extends Serializable, S extends CrudServ
   private CrudService<T, I> service;
 
   protected S service() {
-    return TypeUtils.cast(service);
+    return GenericUtils.castFrom(service);
   }
 
   /**
