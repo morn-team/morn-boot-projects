@@ -39,11 +39,13 @@ public class SpareArrayUtilsTest {
   @Test
   public void contains() {
     String[] empty = {};
-    String[] large = {"2", "3", "1"};
+    String[] large = {"2", "3", "1", null};
     String[] small = {"1", "2"};
+    String[] nullable = {null};
     Assert.assertTrue(SpareArrayUtils.contains(empty, empty));
     Assert.assertTrue(SpareArrayUtils.contains(small, empty));
     Assert.assertTrue(SpareArrayUtils.contains(large, small));
+    Assert.assertTrue(SpareArrayUtils.contains(large, nullable));
     Assert.assertFalse(SpareArrayUtils.contains(small, large));
   }
 
