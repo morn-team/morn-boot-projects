@@ -4,7 +4,7 @@ import java.util.Collection;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import site.morn.util.TypeUtils;
+import site.morn.util.GenericUtils;
 
 /**
  * 任意类型变量
@@ -62,6 +62,6 @@ public class X {
    * @return 值
    */
   public <T> T value(Class<T> cls) {
-    return TypeUtils.cast(value(), cls);
+    return GenericUtils.castFrom(value(), cls);
   }
 }
