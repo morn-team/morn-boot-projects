@@ -21,6 +21,16 @@ public interface NettyCache {
   Channel getChannel(ChannelIdentify identify);
 
   /**
+   * 获取通道编号
+   *
+   * <p>Cache
+   *
+   * @param identify 通道标识
+   * @return 通道编号
+   */
+  ChannelId getChannelId(ChannelIdentify identify);
+
+  /**
    * 获取通道分组
    *
    * @param name 分组名称
@@ -45,6 +55,15 @@ public interface NettyCache {
   <T extends NettyCache> T putChannel(ChannelIdentify identify, Channel channel);
 
   /**
+   * 缓存通道编号
+   *
+   * @param identify 通道标识
+   * @param channelId 通道编号
+   * @return 通道编号
+   */
+  ChannelId putChannelId(ChannelIdentify identify, ChannelId channelId);
+
+  /**
    * 移除通道标识
    *
    * @param channelId 通道编号
@@ -57,6 +76,13 @@ public interface NettyCache {
    * @param identify 通道标识
    */
   <T extends NettyCache> T remove(ChannelIdentify identify);
+
+  /**
+   * 移除通道编号
+   *
+   * @param identify 通道标识
+   */
+  <T extends NettyCache> T removeChannelId(ChannelIdentify identify);
 
   /**
    * 新增消息通道
