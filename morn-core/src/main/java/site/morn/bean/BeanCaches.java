@@ -207,13 +207,46 @@ public class BeanCaches {
   }
 
   /**
-   * 获取未缓存实例
+   * 获取Spring容器中的实例
    *
-   * @param type 实例类
+   * <p>不受{@link BeanCache}管理
+   *
+   * @param name 实例名称
+   * @param requiredType 实例类
    * @param <T> 实例类型
-   * @return 未缓存实例
+   * @return 实例
+   * @see BeanFactory#getBean(String, Class)
    */
-  public static <T> T freeBean(Class<T> type) {
-    return beanFactory().getBean(type);
+  public static <T> T getBean(String name, Class<T> requiredType) {
+    return beanFactory.getBean(name, requiredType);
+  }
+
+  /**
+   * 获取Spring容器中的实例
+   *
+   * <p>不受{@link BeanCache}管理
+   *
+   * @param requiredType 实例类
+   * @param <T> 实例类型
+   * @return 实例
+   * @see BeanFactory#getBean(Class)
+   */
+  public static <T> T getBean(Class<T> requiredType) {
+    return beanFactory.getBean(requiredType);
+  }
+
+  /**
+   * 获取Spring容器中的实例
+   *
+   * <p>不受{@link BeanCache}管理
+   *
+   * @param requiredType 实例类
+   * @param args 构造参数
+   * @param <T> 实例类型
+   * @return 实例
+   * @see BeanFactory#getBean(Class, Object...)
+   */
+  public static <T> T getBean(Class<T> requiredType, Object... args) {
+    return beanFactory.getBean(requiredType, args);
   }
 }

@@ -1,5 +1,7 @@
 package site.morn.cache;
 
+import static site.morn.constant.ApplicationConstant.Cache.CACHE_MANAGER_NAME_PRIMARY;
+
 import lombok.experimental.UtilityClass;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
@@ -21,7 +23,7 @@ public class CacheGroups {
    * @return 缓存池
    */
   public static Cache cache(String name) {
-    CacheManager cacheManager = BeanCaches.freeBean(CacheManager.class);
+    CacheManager cacheManager = BeanCaches.getBean(CACHE_MANAGER_NAME_PRIMARY, CacheManager.class);
     return cacheManager.getCache(name);
   }
 
@@ -32,7 +34,7 @@ public class CacheGroups {
    * @return 缓存组
    */
   public static CacheGroup cacheGroup(String groupName) {
-    CacheManager cacheManager = BeanCaches.freeBean(CacheManager.class);
+    CacheManager cacheManager = BeanCaches.getBean(CACHE_MANAGER_NAME_PRIMARY, CacheManager.class);
     SimpleCacheGroup cacheGroup = new SimpleCacheGroup(cacheManager);
     cacheGroup.setCacheName(groupName);
     return cacheGroup;
