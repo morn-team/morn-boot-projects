@@ -24,26 +24,24 @@ import org.springframework.test.context.junit4.SpringRunner;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class NettyCachesTest {
 
-  private static Channel localChannel = new LocalChannel();
+  private static final Channel localChannel = new LocalChannel();
+  private static final String VIRUS_A = "SARS";
+  private static final String VIRUS_B = "MERS";
   private String groupVirus;
-  private String virusA;
-  private String virusB;
   private ChannelIdentify idA;
   private ChannelIdentify idB;
 
   @Before
   public void setUp() throws Exception {
     groupVirus = "virus";
-    virusA = "SARS";
-    virusB = "MERS";
-    idA = new ChannelIdentify(groupVirus, "SARS");
-    idB = new ChannelIdentify(groupVirus, "MERS");
+    idA = new ChannelIdentify(groupVirus, VIRUS_A);
+    idB = new ChannelIdentify(groupVirus, VIRUS_B);
   }
 
   @Test
   public void test1PutChannelByString() {
     try {
-      NettyCaches.putChannel(groupVirus, virusA, localChannel);
+      NettyCaches.putChannel(groupVirus, VIRUS_A, localChannel);
     } catch (Exception e) {
       log.error(e.getMessage(), e);
       Assert.fail();

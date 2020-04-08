@@ -9,8 +9,6 @@ import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.util.concurrent.GlobalEventExecutor;
 import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -29,9 +27,6 @@ import site.morn.util.GenericUtils;
 @Objective
 @CacheConfig(cacheNames = Cache.NETTY)
 public class DefaultNettyCache implements NettyCache {
-
-  @Autowired
-  private CacheManager cacheManager;
 
   //  @Cacheable(cacheNames = Cache.NETTY_CHANNEL, key = "#identify.toString()")
   @Override
