@@ -2,6 +2,7 @@ package site.morn.util;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +20,7 @@ import site.morn.test.TestAnnotationBeans.RagDoll;
  * @author timely-rain
  * @since 1.2.1, 2020/4/1
  */
+@Slf4j
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class GenericUtilsTest {
@@ -35,9 +37,11 @@ public class GenericUtilsTest {
     Cat source = new BritishShortHair();
     try {
       Dog target = GenericUtils.castFrom(source);
+      Assert.assertNotNull(target);
+      Assert.assertEquals(source, target);
       Assert.fail();
     } catch (Exception e) {
-      Assert.assertNotNull(source);
+      log.error(e.getMessage(), e);
     }
   }
 

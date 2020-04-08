@@ -131,10 +131,7 @@ public final class SpareArrayUtils {
     if (array == null) {
       return INDEX_NOT_FOUND;
     }
-    if (startIndex < 0) {
-      startIndex = 0;
-    }
-    for (int i = startIndex; i < array.length; i++) {
+    for (int i = Math.max(0, startIndex); i < array.length; i++) {
       if (Objects.equals(array[i], objectToFind)) {
         return i;
       }

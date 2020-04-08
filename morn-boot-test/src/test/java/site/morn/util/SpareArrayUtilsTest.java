@@ -23,6 +23,12 @@ public class SpareArrayUtilsTest {
   }
 
   @Test
+  public void isEmptyForNull() {
+    boolean nullIsEmpty = SpareArrayUtils.isEmpty((Object[]) null);
+    Assert.assertTrue(nullIsEmpty);
+  }
+
+  @Test
   public void toArray() {
     Integer[] merge = SpareArrayUtils.toArray(1, 2, 3);
     Assert.assertArrayEquals(intArray, merge);
