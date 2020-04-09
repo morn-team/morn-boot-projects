@@ -2,7 +2,7 @@ package site.morn.rest;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import site.morn.util.TypeUtils;
+import site.morn.util.GenericUtils;
 
 /**
  * REST分页参数
@@ -66,7 +66,7 @@ public class RestPageable implements RestPageableDefinition {
   @Override
   public <T extends RestPageableDefinition> T setSort(String sort) {
     this.sort = sort;
-    return TypeUtils.as(this);
+    return GenericUtils.castFrom(this);
   }
 
   @Override

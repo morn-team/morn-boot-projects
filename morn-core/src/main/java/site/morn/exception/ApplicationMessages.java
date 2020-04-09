@@ -122,37 +122,6 @@ public class ApplicationMessages {
   }
 
   /**
-   * 翻译应用消息，支持缺省值
-   *
-   * @param code 消息编码
-   * @param defaultExpress 默认消息表达式
-   * @param args 消息参数
-   * @return 应用消息
-   * @deprecated {@link #translateDefaultMessage(String, String, Object...)}
-   */
-  @Deprecated
-  public static ApplicationMessage orDefault(String code, String defaultExpress,
-      Object... args) {
-    return translateOrDefault(code, defaultExpress, args);
-  }
-
-  /**
-   * 翻译应用消息，支持缺省值
-   *
-   * @param code 消息编码
-   * @param defaultExpress 默认消息表达式
-   * @param args 消息参数
-   * @return 应用消息
-   * @deprecated {@link #translateDefaultMessage(String, String, Object...)}
-   */
-  @Deprecated
-  public static ApplicationMessage translateOrDefault(String code, String defaultExpress,
-      Object... args) {
-    String defaultMessage = String.format(defaultExpress, args);
-    return withTransfer(code, args).defaultMessage(defaultMessage).build();
-  }
-
-  /**
    * 翻译应用异常，支持缺省值
    *
    * @param code 消息编码

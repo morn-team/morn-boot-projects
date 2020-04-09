@@ -22,20 +22,20 @@ public class HexMessageTest {
   public void addByte() {
     HexMessage hexMessage = new HexMessage().addByte(8);
     Assert.assertArrayEquals(hexMessage.getArray(), new byte[]{8});
-    Assert.assertEquals(hexMessage.getMessage(), "08");
+    Assert.assertEquals("08", hexMessage.getMessage());
   }
 
   @Test
   public void addInt() {
     HexMessage hexMessage = new HexMessage().addInt(255);
     Assert.assertArrayEquals(hexMessage.getArray(), new byte[]{0, -1});
-    Assert.assertEquals(hexMessage.getMessage(), "00FF");
+    Assert.assertEquals("00FF", hexMessage.getMessage());
   }
 
   @Test
   public void reverse() {
     HexMessage hexMessage = new HexMessage().addInt(255).reverse();
     Assert.assertArrayEquals(hexMessage.getArray(), new byte[]{-1, 0});
-    Assert.assertEquals(hexMessage.getMessage(), "FF00");
+    Assert.assertEquals("FF00", hexMessage.getMessage());
   }
 }

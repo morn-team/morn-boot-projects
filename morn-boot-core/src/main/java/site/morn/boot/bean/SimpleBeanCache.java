@@ -1,10 +1,13 @@
 package site.morn.boot.bean;
 
+import static site.morn.constant.ApplicationConstant.Cache.CACHE_MANAGER_NAME_SIMPLE;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import site.morn.bean.AnnotationIdentify;
 import site.morn.bean.BeanCache;
@@ -19,6 +22,7 @@ import site.morn.util.AnnotationIdentifyUtils;
  * @author timely-rain
  * @since 1.0.0, 2018/11/26
  */
+@CacheConfig(cacheManager = CACHE_MANAGER_NAME_SIMPLE)
 public class SimpleBeanCache implements BeanCache {
 
   /**

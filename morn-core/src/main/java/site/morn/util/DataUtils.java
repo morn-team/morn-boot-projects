@@ -1,7 +1,6 @@
 package site.morn.util;
 
 import lombok.experimental.UtilityClass;
-import org.apache.commons.lang3.BooleanUtils;
 import site.morn.data.Displayable;
 import site.morn.data.Lockable;
 
@@ -19,13 +18,13 @@ public class DataUtils {
    * 判断是否为显示状态
    */
   public static boolean isDisplay(Displayable displayable) {
-    return !BooleanUtils.isFalse(displayable.getDisplay());
+    return SpareBooleanUtils.isNotFalse(displayable.getDisplay());
   }
 
   /**
    * 判断是否为锁定状态
    */
   public static boolean isLocked(Lockable lockable) {
-    return BooleanUtils.isTrue(lockable.getLocked());
+    return SpareBooleanUtils.isTrue(lockable.getLocked());
   }
 }

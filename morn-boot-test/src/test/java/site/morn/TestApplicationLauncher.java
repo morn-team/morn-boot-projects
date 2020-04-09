@@ -6,14 +6,14 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import site.morn.boot.data.jpa.JpaRepositoryFactoryProducer;
 import site.morn.boot.netty.annotation.EnableNettyClient;
 import site.morn.boot.netty.annotation.EnableNettyServer;
-import site.morn.boot.support.JpaRepositoryFactoryBean;
 
 
 @EnableAsync
 @EnableCaching
-@EnableJpaRepositories(repositoryFactoryBeanClass = JpaRepositoryFactoryBean.class)
+@EnableJpaRepositories(repositoryFactoryBeanClass = JpaRepositoryFactoryProducer.class)
 @EnableNettyClient
 @EnableNettyServer
 @EnableTransactionManagement

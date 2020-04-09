@@ -40,14 +40,4 @@ public class ApplicationMessage {
   public ApplicationException exception() {
     return new ApplicationException(this);
   }
-
-  /**
-   * 抛出应用异常
-   *
-   * @deprecated 语义不明确，请使用{@link #exception()}
-   */
-  @Deprecated
-  public void thrown() {
-    throw exception();
-  }
 }

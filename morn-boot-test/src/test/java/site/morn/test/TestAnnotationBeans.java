@@ -52,7 +52,7 @@ public class TestAnnotationBeans {
     private final String name;
   }
 
-  public class Toy {
+  public static class Toy {
 
   }
 
@@ -61,7 +61,7 @@ public class TestAnnotationBeans {
   @Color("yellow")
   @Tag("big")
   @Target(Toy.class)
-  public class Dog {
+  public static class Dog {
 
     @Function
     public String eat(String food) {
@@ -80,7 +80,7 @@ public class TestAnnotationBeans {
   @Name("caramel")
   @Tag("small")
   @Target(Food.class)
-  public class Caramel implements Cat {
+  public static class RagDoll implements Cat {
 
     @Function
     public String eat(String meat, Food food) {
@@ -100,7 +100,7 @@ public class TestAnnotationBeans {
   @Name("mocha")
   @Tag("small")
   @Target(Toy.class)
-  public class Mocha implements Cat {
+  public static class BritishShortHair implements Cat {
 
     @Function
     public void eat(String food) {
@@ -117,7 +117,7 @@ public class TestAnnotationBeans {
   @Animal
   @Tag("small")
   @Target(Food.class)
-  public class Rabbit {
+  public static class Rabbit {
 
     @Function
     public void eat(String food) {

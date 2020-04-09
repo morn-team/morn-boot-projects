@@ -6,6 +6,7 @@ import io.netty.channel.group.ChannelGroup;
 import lombok.experimental.UtilityClass;
 import org.springframework.util.Assert;
 import site.morn.bean.BeanCaches;
+import site.morn.util.GenericUtils;
 
 /**
  * Netty缓存工具类
@@ -18,6 +19,10 @@ public class NettyCaches {
 
   public static Channel getChannel(ChannelIdentify identify) {
     return defaultCache().getChannel(identify);
+  }
+
+  public static ChannelId getChannelId(ChannelIdentify identify) {
+    return defaultCache().getChannelId(identify);
   }
 
   public static ChannelGroup getGroup(String name) {
@@ -35,6 +40,13 @@ public class NettyCaches {
 
   public static <T extends NettyCache> T putChannel(ChannelIdentify identify, Channel channel) {
     return defaultCache().putChannel(identify, channel);
+  }
+
+  public static <T extends NettyCache> T putChannelId(ChannelIdentify identify,
+      ChannelId channelId) {
+    NettyCache nettyCache = defaultCache();
+    nettyCache.putChannelId(identify, channelId);
+    return GenericUtils.castFrom(nettyCache);
   }
 
   public static <T extends NettyCache> T remove(ChannelIdentify identify) {

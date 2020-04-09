@@ -188,7 +188,8 @@ public class HexMessage {
    * @return 十六进制消息
    */
   private HexMessage addNumber(int value, int length) {
-    String hexString = String.format("%0" + length + "x", value).toUpperCase(); // 16进制补0
+    String template = "%0" + length + "x";
+    String hexString = String.format(template, value).toUpperCase(); // 16进制补0
     HexMessage hexMessage = new HexMessage(hexString);
     return this.addHexMessage(hexMessage);
   }

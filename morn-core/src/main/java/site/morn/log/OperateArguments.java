@@ -47,6 +47,7 @@ public class OperateArguments {
    */
   public static void clear() {
     arguments.get().clear();
+    arguments.remove();
   }
 
   /**

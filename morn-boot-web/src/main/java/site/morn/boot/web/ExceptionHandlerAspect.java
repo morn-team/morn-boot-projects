@@ -12,7 +12,7 @@ import org.springframework.http.MediaType;
 import site.morn.exception.ApplicationMessage;
 import site.morn.exception.ExceptionProcessor;
 import site.morn.rest.RestBuilders;
-import site.morn.util.ArrayUtils;
+import site.morn.util.SpareArrayUtils;
 
 /**
  * 全局异常处理切面
@@ -40,12 +40,13 @@ public class ExceptionHandlerAspect {
   @Around("pointcut()")
   public Object aroundHandler(ProceedingJoinPoint point) {
     // 获取ExceptionHandler的响应参数
-    HttpServletResponse response = ArrayUtils.first(point.getArgs(), HttpServletResponse.class);
+    HttpServletResponse response = SpareArrayUtils
+        .findValueForParent(point.getArgs(), HttpServletResponse.class);
     if (Objects.nonNull(response)) {
       response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
     }
     // 获取ExceptionHandler的异常参数
-    Exception exception = ArrayUtils.first(point.getArgs(), Exception.class);
+    Exception exception = SpareArrayUtils.findValueForParent(point.getArgs(), Exception.class);
     if (Objects.isNull(exception)) {
       log.warn("全局异常处理失败：ExceptionHandler必须包含Exception或其子类类型的参数");
       return proceed(point);

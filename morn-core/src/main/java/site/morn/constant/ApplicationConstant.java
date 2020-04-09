@@ -18,6 +18,16 @@ public class ApplicationConstant {
   public class Cache {
 
     /**
+     * 主缓存管理器
+     */
+    public static final String CACHE_MANAGER_NAME_PRIMARY = "cacheManager";
+
+    /**
+     * Map缓存管理器
+     */
+    public static final String CACHE_MANAGER_NAME_SIMPLE = "simpleCacheManager";
+
+    /**
      * 默认实例缓存
      */
     public static final String BEAN_DEFAULT = "bean.default";
