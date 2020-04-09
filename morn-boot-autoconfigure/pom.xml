@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
     <artifactId>morn-boot-projects</artifactId>
     <groupId>site.morn.boot</groupId>
@@ -10,6 +12,11 @@
   <artifactId>morn-boot-autoconfigure</artifactId>
 
   <dependencies>
+    <!--Spring-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-messaging</artifactId>
+    </dependency>
     <!--Spring Boot-->
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -49,6 +56,11 @@
     </dependency>
     <dependency>
       <groupId>site.morn.boot</groupId>
+      <artifactId>morn-boot-rocket</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>site.morn.boot</groupId>
       <artifactId>morn-boot-security</artifactId>
       <optional>true</optional>
     </dependency>
@@ -75,13 +87,6 @@
       <groupId>com.fasterxml.jackson.datatype</groupId>
       <artifactId>jackson-datatype-hibernate5</artifactId>
       <optional>true</optional>
-    </dependency>
-    <!--Lombok-->
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>${lombok.version}</version>
-      <scope>provided</scope>
     </dependency>
   </dependencies>
 
