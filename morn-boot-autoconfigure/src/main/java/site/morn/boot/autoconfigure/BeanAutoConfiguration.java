@@ -1,6 +1,9 @@
 package site.morn.boot.autoconfigure;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cache.CacheManager;
@@ -15,6 +18,7 @@ import site.morn.bean.BeanConfigurer;
 import site.morn.boot.bean.BeanCacheInitializer;
 import site.morn.boot.bean.IdentifiedBeanPostProcessor;
 import site.morn.boot.bean.SimpleBeanCache;
+import site.morn.util.OptionalCollection;
 
 /**
  * 实例自动化配置
@@ -62,9 +66,12 @@ public class BeanAutoConfiguration {
    */
   @Bean
   @ConditionalOnMissingBean
-  public IdentifiedBeanPostProcessor identifiedBeanPostProcessor(List<BeanConfigurer> configurers,
+  public IdentifiedBeanPostProcessor identifiedBeanPostProcessor(
+      @Autowired(required = false) List<BeanConfigurer> configurers,
       BeanAnnotationRegistry registry, BeanCache beanCache) {
-    initBeanAnnotation(configurers, registry);
+    Collection<BeanConfigurer> collection = OptionalCollection.ofNullable(configurers)
+        .orElse(Collections.emptyList());
+    initBeanAnnotation(collection, registry);
     return new IdentifiedBeanPostProcessor(registry, beanCache);
   }
 
@@ -86,7 +93,7 @@ public class BeanAutoConfiguration {
    * @param configurers 实例配置
    * @param registry 实例注解注册表
    */
-  private void initBeanAnnotation(List<BeanConfigurer> configurers,
+  private void initBeanAnnotation(Collection<BeanConfigurer> configurers,
       BeanAnnotationRegistry registry) {
     // 注册自定义注解实例
     for (BeanConfigurer configurer : configurers) {
