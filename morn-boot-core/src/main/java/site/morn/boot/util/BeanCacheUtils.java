@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import site.morn.bean.AnnotationIdentifyCase;
@@ -64,10 +65,8 @@ public class BeanCacheUtils {
       }
       String functionName =
           StringUtils.isEmpty(function.value()) ? method.getName() : function.value();
-      if (contains(functionHolders, functionName)) {
-        log.warn("函数重复注入：{}.{}#{}", beanClass.getSimpleName(), method.getName(), functionName);
-        continue;
-      }
+      Assert.isTrue(!contains(functionHolders, functionName), String
+          .format("函数重复注入：%s.%s#%s", beanClass.getSimpleName(), method.getName(), functionName));
       AnnotationIdentifyCaseBuilder builder = AnnotationIdentifyCase.builder().name(functionName);
       FunctionHolder functionHolder = new FunctionHolder(bean, builder.build(), method,
           method.getParameterTypes());

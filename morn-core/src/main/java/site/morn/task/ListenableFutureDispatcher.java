@@ -3,6 +3,7 @@ package site.morn.task;
 import java.util.List;
 import java.util.concurrent.Callable;
 import lombok.experimental.UtilityClass;
+import org.springframework.util.Assert;
 import org.springframework.util.concurrent.ListenableFuture;
 import site.morn.bean.BeanCaches;
 
@@ -23,8 +24,9 @@ public class ListenableFutureDispatcher {
    * @return 异步结果
    */
   public static <V> ListenableFuture<V> submit(Callable<V> task) {
-    ListenableFuturePublisher dispatcher = BeanCaches.bean(ListenableFuturePublisher.class);
-    return dispatcher.submit(task);
+    ListenableFuturePublisher publisher = BeanCaches.bean(ListenableFuturePublisher.class);
+    Assert.notNull(publisher, "尚未注册任务发布者");
+    return publisher.submit(task);
   }
 
   /**

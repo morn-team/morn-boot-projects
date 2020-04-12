@@ -45,7 +45,7 @@ public class DefaultNettyCache implements NettyCache {
     return new DefaultChannelGroup(name, GlobalEventExecutor.INSTANCE);
   }
 
-  //  @Cacheable(cacheNames = Cache.NETTY_CHANNEL_IDENTIFY)
+  @Cacheable(cacheNames = Cache.NETTY_CHANNEL_IDENTIFY)
   @Override
   public ChannelIdentify getIdentify(ChannelId channelId) {
     return null;
@@ -71,9 +71,11 @@ public class DefaultNettyCache implements NettyCache {
     if (Objects.isNull(channelId)) {
       return GenericUtils.castFrom(this);
     }
-    ChannelIdentify identify = getIdentify(channelId);
-    removeChannel(identify, channelId); // 移除通道
-    removeChannelId(identify); // 移除通道编号
+    ChannelIdentify identify = NettyCaches.getIdentify(channelId);
+    if (Objects.nonNull(identify)) {
+      removeChannel(identify, channelId); // 移除通道
+      removeChannelId(identify); // 移除通道编号
+    }
     removeChannelIdentify(channelId); // 移除通道标识
     log.info("Netty|移除：All {} at {}", channelId, getChannelPath(identify));
     return GenericUtils.castFrom(this);
@@ -143,7 +145,7 @@ public class DefaultNettyCache implements NettyCache {
    *
    * @param channelId 通道编号
    */
-//  @CacheEvict(cacheNames = Cache.NETTY_CHANNEL_IDENTIFY, key = "#channelId.toString()")
+  @CacheEvict(cacheNames = Cache.NETTY_CHANNEL_IDENTIFY, key = "#channelId.toString()")
   public void removeChannelIdentify(ChannelId channelId) {
     log.info("Netty|RemoveChannelIdentify at {}", channelId.asShortText());
   }
@@ -188,7 +190,7 @@ public class DefaultNettyCache implements NettyCache {
    * @param identify 通道标识
    * @return 通道标识
    */
-//  @CachePut(cacheNames = Cache.NETTY_CHANNEL_IDENTIFY, key = "#channelId.toString()")
+  @CachePut(cacheNames = Cache.NETTY_CHANNEL_IDENTIFY, key = "#channelId.toString()")
   public ChannelIdentify setIdentify(ChannelId channelId, ChannelIdentify identify) {
     return identify;
   }
