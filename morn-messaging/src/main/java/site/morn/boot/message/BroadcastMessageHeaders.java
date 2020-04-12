@@ -3,9 +3,10 @@ package site.morn.boot.message;
 import java.util.Map;
 import java.util.UUID;
 import org.springframework.messaging.MessageHeaders;
+import site.morn.boot.message.support.BroadcastMessageHeaderAccessor;
 
 /**
- * 广播消息头
+ * 消息头
  *
  * <p>消息头一旦生成无法修改，可使用{@link BroadcastMessageHeaderAccessor}重新生成
  *
@@ -22,7 +23,7 @@ public class BroadcastMessageHeaders extends MessageHeaders {
   /**
    * 标签
    */
-  public static final String TAG = "tag";
+  public static final String TAG = "tags";
 
   /**
    * 类型

@@ -1,10 +1,11 @@
-package site.morn.boot.message;
+package site.morn.boot.message.support;
 
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageHeaderAccessor;
+import site.morn.boot.message.BroadcastMessageHeaders;
 
 /**
- * 广播消息头访问者
+ * 消息头访问者
  *
  * <p>消息头一旦生成无法修改，可使用{@link BroadcastMessageHeaderAccessor}重新生成
  *
@@ -40,7 +41,7 @@ public class BroadcastMessageHeaderAccessor extends MessageHeaderAccessor {
    *
    * @param tags 标签数组
    */
-  public void setTag(String... tags) {
+  public void setTags(String... tags) {
     setHeader(BroadcastMessageHeaders.TAG, tags);
   }
 
@@ -51,5 +52,10 @@ public class BroadcastMessageHeaderAccessor extends MessageHeaderAccessor {
    */
   public void setType(String type) {
     setHeader(BroadcastMessageHeaders.TYPE, type);
+  }
+
+  @Override
+  public BroadcastMessageHeaders toMessageHeaders() {
+    return new BroadcastMessageHeaders(getMessageHeaders());
   }
 }

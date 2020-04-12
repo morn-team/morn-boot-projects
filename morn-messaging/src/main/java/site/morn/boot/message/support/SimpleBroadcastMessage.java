@@ -1,24 +1,28 @@
-package site.morn.boot.message;
+package site.morn.boot.message.support;
 
-import java.io.Serializable;
 import java.util.Map;
 import lombok.Getter;
-import lombok.Setter;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.util.Assert;
+import site.morn.boot.message.BroadcastMessage;
+import site.morn.boot.message.BroadcastMessageHeaders;
 
+/**
+ * 默认消息
+ *
+ * @param <P> 消息体类型
+ * @author timely-rain
+ * @since 1.2.1, 2020/4/12
+ */
 @Getter
-@Setter
-public class SimpleBroadcastMessage<T extends Serializable> implements BroadcastMessage<T>,
-    Serializable {
+public class SimpleBroadcastMessage<P> implements BroadcastMessage<P> {
 
   private static final long serialVersionUID = 4268801052358035098L;
-
 
   /**
    * 消息体
    */
-  private final T payload;
+  private final P payload;
 
   /**
    * 消息头
@@ -30,7 +34,7 @@ public class SimpleBroadcastMessage<T extends Serializable> implements Broadcast
    *
    * @param payload the message payload (never {@code null})
    */
-  public SimpleBroadcastMessage(T payload) {
+  public SimpleBroadcastMessage(P payload) {
     this(payload, new MessageHeaders(null));
   }
 
@@ -41,7 +45,7 @@ public class SimpleBroadcastMessage<T extends Serializable> implements Broadcast
    * @param payload the message payload (never {@code null})
    * @param headers message headers to use for initialization
    */
-  public SimpleBroadcastMessage(T payload, Map<String, Object> headers) {
+  public SimpleBroadcastMessage(P payload, Map<String, Object> headers) {
     this(payload, new BroadcastMessageHeaders(headers));
   }
 
@@ -53,7 +57,11 @@ public class SimpleBroadcastMessage<T extends Serializable> implements Broadcast
    * @param payload the message payload (never {@code null})
    * @param headers message headers
    */
-  public SimpleBroadcastMessage(T payload, BroadcastMessageHeaders headers) {
+  public SimpleBroadcastMessage(P payload, MessageHeaders headers) {
+    this(payload, new BroadcastMessageHeaders(headers));
+  }
+
+  public SimpleBroadcastMessage(P payload, BroadcastMessageHeaders headers) {
     Assert.notNull(payload, "Payload must not be null");
     Assert.notNull(headers, "MessageHeaders must not be null");
     this.payload = payload;
