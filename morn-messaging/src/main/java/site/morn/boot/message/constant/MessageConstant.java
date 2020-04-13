@@ -1,7 +1,6 @@
 package site.morn.boot.message.constant;
 
 import java.util.Objects;
-import lombok.experimental.UtilityClass;
 
 /**
  * 消息常量
@@ -9,13 +8,14 @@ import lombok.experimental.UtilityClass;
  * @author timely-rain
  * @since 1.2.1, 2020/4/10
  */
-@UtilityClass
 public class MessageConstant {
+
+  private MessageConstant() {
+  }
 
   /**
    * 异常码
    */
-  @UtilityClass
   public static class Errors {
 
     /**
@@ -27,13 +27,18 @@ public class MessageConstant {
      * 消息-发送失败
      */
     public static final String MESSAGE_SEND_FAILURE = "message.send-failure";
+
+    private Errors() {
+    }
   }
 
   /**
    * 消息操作状态
    */
-  @UtilityClass
   public static class MessageResultStatus {
+
+    private MessageResultStatus() {
+    }
 
     /**
      * 成功

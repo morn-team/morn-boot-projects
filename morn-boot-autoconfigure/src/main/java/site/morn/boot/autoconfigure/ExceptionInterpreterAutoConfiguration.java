@@ -1,5 +1,6 @@
 package site.morn.boot.autoconfigure;
 
+import org.apache.shiro.mgt.SecurityManager;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
