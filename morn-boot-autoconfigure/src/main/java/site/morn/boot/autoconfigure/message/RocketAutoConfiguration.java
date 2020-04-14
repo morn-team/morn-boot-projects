@@ -33,7 +33,7 @@ import site.morn.boot.message.rocket.support.SimpleRocketSendingOperations;
  * @since 1.2.1, 2020/4/10
  */
 @Configuration
-@ConditionalOnClass({MQAdmin.class, ObjectMapper.class})
+@ConditionalOnClass({MQAdmin.class, ObjectMapper.class, RocketMessageHandler.class})
 @ConditionalOnProperty(prefix = "rocketmq", value = "name-server", matchIfMissing = true)
 public class RocketAutoConfiguration {
 
