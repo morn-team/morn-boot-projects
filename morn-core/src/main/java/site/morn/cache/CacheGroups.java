@@ -5,7 +5,7 @@ import static site.morn.constant.ApplicationConstant.Cache.CACHE_MANAGER_NAME_PR
 import lombok.experimental.UtilityClass;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
-import site.morn.bean.BeanCaches;
+import site.morn.bean.support.BeanCaches;
 
 /**
  * 缓存工具类

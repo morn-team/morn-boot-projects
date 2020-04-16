@@ -1,8 +1,12 @@
-package site.morn.bean;
+package site.morn.bean.support;
 
 import java.util.List;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.util.Assert;
+import site.morn.bean.AnnotationFeature;
+import site.morn.bean.BeanCache;
+import site.morn.bean.BeanHolder;
+import site.morn.bean.FunctionHolder;
 
 /**
  * 实例缓存工具类
@@ -72,7 +76,7 @@ public class BeanCaches {
    * @param <T> 实例类型
    * @return 实例
    */
-  public static <T> T bean(Class<T> type, AnnotationIdentify identify) {
+  public static <T> T bean(Class<T> type, AnnotationFeature identify) {
     return beanCache().bean(type, identify);
   }
 
@@ -130,7 +134,7 @@ public class BeanCaches {
    * @param <T> 实例类型
    * @return 实例集合
    */
-  public static <T> List<T> beans(Class<T> type, AnnotationIdentify identify) {
+  public static <T> List<T> beans(Class<T> type, AnnotationFeature identify) {
     return beanCache().beans(type, identify);
   }
 
@@ -142,8 +146,8 @@ public class BeanCaches {
    * @param <T> 实例类型
    * @return 实例集合
    */
-  public static <T> List<IdentifiedBeanHolder<T>> beanHolders(Class<T> type,
-      AnnotationIdentify identify) {
+  public static <T> List<BeanHolder<T>> beanHolders(Class<T> type,
+      AnnotationFeature identify) {
     return beanCache().beanHolders(type, identify);
   }
 
@@ -154,8 +158,8 @@ public class BeanCaches {
    * @param functionIdentify 函数标识
    * @return 函数集合
    */
-  public static List<FunctionHolder> functions(AnnotationIdentify beanIdentify,
-      AnnotationIdentify functionIdentify) {
+  public static List<FunctionHolder> functions(AnnotationFeature beanIdentify,
+      AnnotationFeature functionIdentify) {
     return beanCache().functions(beanIdentify, functionIdentify);
   }
 
@@ -167,8 +171,8 @@ public class BeanCaches {
    * @return 函数集合
    */
   public static <T> List<FunctionHolder> functions(
-      List<IdentifiedBeanHolder<T>> holders,
-      AnnotationIdentify functionIdentify) {
+      List<BeanHolder<T>> holders,
+      AnnotationFeature functionIdentify) {
     return beanCache().functions(holders, functionIdentify);
   }
 
@@ -178,7 +182,7 @@ public class BeanCaches {
    * @param functionIdentify 函数标识
    * @return 函数集合
    */
-  public static List<FunctionHolder> functions(AnnotationIdentify functionIdentify) {
+  public static List<FunctionHolder> functions(AnnotationFeature functionIdentify) {
     return beanCache().functions(functionIdentify);
   }
 

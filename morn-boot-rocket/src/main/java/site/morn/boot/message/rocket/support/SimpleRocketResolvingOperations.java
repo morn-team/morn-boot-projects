@@ -18,7 +18,7 @@ public class SimpleRocketResolvingOperations extends
 
   public SimpleRocketResolvingOperations(
       AnnotationBroadcastMessageHandler<MessageExt> messageHandler,
-      List<BroadcastMessageHeaderResolver> headerResolvers) {
+      List<BroadcastMessageHeaderResolver<?>> headerResolvers) {
     super(messageHandler, headerResolvers);
   }
 

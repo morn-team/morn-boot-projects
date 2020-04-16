@@ -1,8 +1,8 @@
 package site.morn.boot.bean;
 
 import org.springframework.context.annotation.Configuration;
-import site.morn.bean.BeanAnnotation;
-import site.morn.bean.BeanAnnotationRegistry;
+import site.morn.bean.AnnotationField;
+import site.morn.bean.AnnotationFieldRegistry;
 import site.morn.bean.BeanConfigurer;
 import site.morn.test.TestAnnotationBeans.Animal;
 import site.morn.test.TestAnnotationBeans.Color;
@@ -17,10 +17,10 @@ import site.morn.test.TestAnnotationBeans.Color;
 public class TestBeanAnnotationConfiguration implements BeanConfigurer {
 
   @Override
-  public void addBeanAnnotations(BeanAnnotationRegistry registry) {
-    BeanAnnotation animal = new BeanAnnotation(Animal.class);
-    animal.setAttributeName("value");
-    animal.setTagName("animal");
+  public void addBeanAnnotations(AnnotationFieldRegistry registry) {
+    AnnotationField animal = new AnnotationField(Animal.class);
+    animal.setValueName("value");
+    animal.setAnnotationName("animal");
     registry.add(animal);
 
     registry.add(Color.class);

@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import lombok.experimental.UtilityClass;
 import org.springframework.util.Assert;
-import site.morn.bean.BeanCaches;
+import site.morn.bean.support.BeanCaches;
 import site.morn.core.BeanAdapter;
 import site.morn.core.BeanConverter;
 import site.morn.core.BeanProcessor;

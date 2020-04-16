@@ -7,7 +7,7 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import site.morn.bean.BeanCache;
-import site.morn.bean.BeanCaches;
+import site.morn.bean.support.BeanCaches;
 
 /**
  * 实例缓存初始化

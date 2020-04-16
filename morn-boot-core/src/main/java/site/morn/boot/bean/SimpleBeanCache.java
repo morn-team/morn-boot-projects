@@ -9,12 +9,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
-import site.morn.bean.AnnotationIdentify;
+import site.morn.bean.AnnotationFeature;
 import site.morn.bean.BeanCache;
+import site.morn.bean.BeanHolder;
 import site.morn.bean.FunctionHolder;
-import site.morn.bean.IdentifiedBeanHolder;
 import site.morn.constant.ApplicationConstant.Cache;
-import site.morn.util.AnnotationIdentifyUtils;
+import site.morn.util.AnnotationFeatureUtils;
 
 /**
  * 默认标识的实例缓存
@@ -28,38 +28,38 @@ public class SimpleBeanCache implements BeanCache {
   /**
    * 实例持有者
    */
-  private final List<IdentifiedBeanHolder> holders = Collections
+  private final List<BeanHolder> holders = Collections
       .synchronizedList(new ArrayList<>());
 
   @Override
-  public <T> void cache(IdentifiedBeanHolder<T> holder) {
+  public <T> void cache(BeanHolder<T> holder) {
     holders.add(holder);
   }
 
   @Cacheable(value = Cache.BEAN_DEFAULT, key = "#limitIdentify.toString()")
   @Override
-  public <T> List<T> beans(Class<T> suitType, AnnotationIdentify limitIdentify) {
-    Stream<IdentifiedBeanHolder<T>> stream = beanHolderStream(suitType, limitIdentify);
+  public <T> List<T> beans(Class<T> suitType, AnnotationFeature limitIdentify) {
+    Stream<BeanHolder<T>> stream = beanHolderStream(suitType, limitIdentify);
     // 提取实例集合
-    return stream.map(IdentifiedBeanHolder::getBean).collect(Collectors.toList());
+    return stream.map(BeanHolder::getBean).collect(Collectors.toList());
   }
 
   @Cacheable(value = Cache.BEAN_HOLDER, key = "#limitIdentify.toString()")
   @Override
-  public <T> List<IdentifiedBeanHolder<T>> beanHolders(Class<T> suitType,
-      AnnotationIdentify limitIdentify) {
+  public <T> List<BeanHolder<T>> beanHolders(Class<T> suitType,
+      AnnotationFeature limitIdentify) {
     return beanHolderStream(suitType, limitIdentify).collect(Collectors.toList());
   }
 
   @Override
-  public List<FunctionHolder> functions(AnnotationIdentify beanIdentify,
-      AnnotationIdentify functionIdentify) {
+  public List<FunctionHolder> functions(AnnotationFeature beanIdentify,
+      AnnotationFeature functionIdentify) {
     return functionHolderStream(beanIdentify, functionIdentify).collect(Collectors.toList());
   }
 
   @Override
-  public <T> List<FunctionHolder> functions(List<IdentifiedBeanHolder<T>> holders,
-      AnnotationIdentify functionIdentify) {
+  public <T> List<FunctionHolder> functions(List<BeanHolder<T>> holders,
+      AnnotationFeature functionIdentify) {
     return functionHolderStream(holders.stream(), functionIdentify).collect(Collectors.toList());
   }
 
@@ -72,12 +72,12 @@ public class SimpleBeanCache implements BeanCache {
    * @return 实例持有流
    */
   @SuppressWarnings("unchecked")
-  private <T> Stream<IdentifiedBeanHolder<T>> beanHolderStream(Class<T> limitType,
-      AnnotationIdentify limitIdentify) {
+  private <T> Stream<BeanHolder<T>> beanHolderStream(Class<T> limitType,
+      AnnotationFeature limitIdentify) {
     return holders.stream().filter(
-        holder -> AnnotationIdentifyUtils.isInstance(holder.getBean().getClass(), limitType))
-        .filter(holder -> AnnotationIdentifyUtils.isSuitable(holder, limitIdentify))
-        .map(identifiedBeanHolder -> (IdentifiedBeanHolder<T>) identifiedBeanHolder);
+        holder -> AnnotationFeatureUtils.isInstance(holder.getBean().getClass(), limitType))
+        .filter(holder -> AnnotationFeatureUtils.isSuitable(holder, limitIdentify))
+        .map(beanHolder -> (BeanHolder<T>) beanHolder);
   }
 
   /**
@@ -87,8 +87,8 @@ public class SimpleBeanCache implements BeanCache {
    * @param functionIdentify 函数标识
    * @return 函数持有流
    */
-  private Stream<FunctionHolder> functionHolderStream(AnnotationIdentify beanIdentify,
-      AnnotationIdentify functionIdentify) {
+  private Stream<FunctionHolder> functionHolderStream(AnnotationFeature beanIdentify,
+      AnnotationFeature functionIdentify) {
     return functionHolderStream(beanHolderStream(null, beanIdentify), functionIdentify);
   }
 
@@ -99,9 +99,9 @@ public class SimpleBeanCache implements BeanCache {
    * @param functionIdentify 函数标识
    * @return 函数持有流
    */
-  private <T> Stream<FunctionHolder> functionHolderStream(Stream<IdentifiedBeanHolder<T>> stream,
-      AnnotationIdentify functionIdentify) {
+  private <T> Stream<FunctionHolder> functionHolderStream(Stream<BeanHolder<T>> stream,
+      AnnotationFeature functionIdentify) {
     return stream.flatMap(holder -> holder.getFunctionHolders().stream())
-        .filter(holder -> AnnotationIdentifyUtils.isSuitable(holder, functionIdentify));
+        .filter(holder -> AnnotationFeatureUtils.isSuitable(holder, functionIdentify));
   }
 }

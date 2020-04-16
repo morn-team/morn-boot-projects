@@ -6,6 +6,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import site.morn.bean.support.BeanCaches;
+import site.morn.bean.support.SimpleAnnotationFeature;
+import site.morn.bean.support.Tags;
 import site.morn.test.TestAnnotationBeans.Animal;
 import site.morn.test.TestAnnotationBeans.Cat;
 import site.morn.test.TestAnnotationBeans.Color;
@@ -26,9 +29,9 @@ public class BeanCachesTest {
   @Test
   public void bean() { // bean test
     String[] tags = Tags.from(Color.class, "yellow").add("big").toArray();
-    AnnotationIdentifyCase identifyCase = AnnotationIdentifyCase.builder()
+    SimpleAnnotationFeature annotationFeature = SimpleAnnotationFeature.builder()
         .tags(tags).target(Toy.class).build();
-    Dog dog = BeanCaches.bean(Dog.class, identifyCase);
+    Dog dog = BeanCaches.bean(Dog.class, annotationFeature);
     Assert.assertNotNull("bean", dog);
   }
 
@@ -53,9 +56,9 @@ public class BeanCachesTest {
   @Test
   public void beans() { // bean test
     String[] tags = Tags.from(Animal.class).toArray();
-    AnnotationIdentifyCase identifyCase = AnnotationIdentifyCase.builder()
+    SimpleAnnotationFeature annotationFeature = SimpleAnnotationFeature.builder()
         .tags(tags).target(Food.class).build();
-    List<Cat> beans = BeanCaches.beans(null, identifyCase);
+    List<Cat> beans = BeanCaches.beans(null, annotationFeature);
     Assert.assertEquals("beans", 2, beans.size());
   }
 
@@ -79,23 +82,34 @@ public class BeanCachesTest {
 
   @Test
   public void eat() { // function test
-    AnnotationIdentifyCase identifyCase = AnnotationIdentifyCase.builder().name("eat").build();
-    List<FunctionHolder> functions = BeanCaches.functions(identifyCase);
+    SimpleAnnotationFeature annotationFeature = SimpleAnnotationFeature.builder().name("eat")
+        .build();
+    List<FunctionHolder> functions = BeanCaches.functions(annotationFeature);
     Assert.assertEquals("函数：" + functions.size(), 4, functions.size());
   }
 
   @Test
+  public void eatMeat() { // function test
+    String[] meats = Tags.from("meat").toArray();
+    SimpleAnnotationFeature annotationFeature = SimpleAnnotationFeature.builder()
+        .name("eat").tags(meats).build();
+    List<FunctionHolder> functions = BeanCaches.functions(annotationFeature);
+    Assert.assertEquals("函数：" + functions.size(), 1, functions.size());
+  }
+
+  @Test
   public void play() { // function test
-    AnnotationIdentifyCase identifyCase = AnnotationIdentifyCase.builder().name("play").build();
-    List<FunctionHolder> functions = BeanCaches.functions(identifyCase);
-    Assert.assertEquals("函数：" + functions.size(), 3, functions.size());
+    SimpleAnnotationFeature annotationFeature = SimpleAnnotationFeature.builder().name("play")
+        .source(Cat.class).build();
+    List<FunctionHolder> functions = BeanCaches.functions(annotationFeature);
+    Assert.assertEquals("函数：" + functions.size(), 2, functions.size());
   }
 
   @Test
   public void dogEat() { // function test
     String[] beanTags = {"animal:dog"};
-    AnnotationIdentifyCase beanId = AnnotationIdentifyCase.builder().tags(beanTags).build();
-    AnnotationIdentifyCase functionId = AnnotationIdentifyCase.builder().name("eat").build();
+    SimpleAnnotationFeature beanId = SimpleAnnotationFeature.builder().tags(beanTags).build();
+    SimpleAnnotationFeature functionId = SimpleAnnotationFeature.builder().name("eat").build();
     List<FunctionHolder> functions = BeanCaches.functions(beanId, functionId);
     Assert.assertEquals("函数：" + functions.size(), 1, functions.size());
   }

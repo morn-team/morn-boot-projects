@@ -5,7 +5,7 @@ import io.netty.channel.ChannelId;
 import io.netty.channel.group.ChannelGroup;
 import lombok.experimental.UtilityClass;
 import org.springframework.util.Assert;
-import site.morn.bean.BeanCaches;
+import site.morn.bean.support.BeanCaches;
 import site.morn.util.GenericUtils;
 
 /**

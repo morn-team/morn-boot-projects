@@ -29,7 +29,7 @@ public class AnnotationBroadcastMessageHandlerTest {
     SerializablePermission yourData = new SerializablePermission("master");
     // 构建消息
     Message<SerializablePermission> message = BroadcastMessageBuilder.withPayload(yourData)
-        .setTopic("permissionData")
+        .setTopic("userData")
         .setType("add")
         .setErrorChannelName("errorChannel")
         .setReplyChannelName("replyChannel")

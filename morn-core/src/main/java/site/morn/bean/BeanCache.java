@@ -1,6 +1,7 @@
 package site.morn.bean;
 
 import java.util.List;
+import site.morn.bean.support.SimpleAnnotationFeature;
 
 /**
  * 标识的实例缓存
@@ -18,7 +19,7 @@ public interface BeanCache {
    * @param holder 实例持有者
    * @param <T> 检索类型
    */
-  <T> void cache(IdentifiedBeanHolder<T> holder);
+  <T> void cache(BeanHolder<T> holder);
 
   /**
    * 按标识检索实例
@@ -27,7 +28,7 @@ public interface BeanCache {
    * @param <T> 实例类型
    * @return 实例
    */
-  default <T> T bean(Class<T> type, AnnotationIdentify identify) {
+  default <T> T bean(Class<T> type, AnnotationFeature identify) {
     List<T> beans = beans(type, identify);
     if (beans.isEmpty()) {
       return null;
@@ -43,7 +44,7 @@ public interface BeanCache {
    * @return 实例
    */
   default <T> T nameBean(Class<T> type, String name) {
-    AnnotationIdentifyCase identify = AnnotationIdentifyCase.builder().name(name).build();
+    SimpleAnnotationFeature identify = SimpleAnnotationFeature.builder().name(name).build();
     return bean(type, identify);
   }
 
@@ -55,7 +56,7 @@ public interface BeanCache {
    * @return 实例
    */
   default <T> T tagBean(Class<T> type, String... tags) {
-    AnnotationIdentifyCase identify = AnnotationIdentifyCase.builder().tags(tags).build();
+    SimpleAnnotationFeature identify = SimpleAnnotationFeature.builder().tags(tags).build();
     return bean(type, identify);
   }
 
@@ -67,7 +68,7 @@ public interface BeanCache {
    * @return 实例对象
    */
   default <T> T targetBean(Class<T> type, Class<?> target) {
-    AnnotationIdentifyCase identify = AnnotationIdentifyCase.builder().target(target).build();
+    SimpleAnnotationFeature identify = SimpleAnnotationFeature.builder().target(target).build();
     return bean(type, identify);
   }
 
@@ -78,7 +79,7 @@ public interface BeanCache {
    * @param <T> 实例类型
    * @return 实例集合
    */
-  <T> List<T> beans(Class<T> type, AnnotationIdentify identify);
+  <T> List<T> beans(Class<T> type, AnnotationFeature identify);
 
   /**
    * 按标识检索实例持有者
@@ -88,7 +89,7 @@ public interface BeanCache {
    * @param <T> 实例类型
    * @return 实例集合
    */
-  <T> List<IdentifiedBeanHolder<T>> beanHolders(Class<T> type, AnnotationIdentify identify);
+  <T> List<BeanHolder<T>> beanHolders(Class<T> type, AnnotationFeature identify);
 
   /**
    * 按标识检索函数
@@ -97,8 +98,8 @@ public interface BeanCache {
    * @param functionIdentify 函数标识
    * @return 函数集合
    */
-  List<FunctionHolder> functions(AnnotationIdentify beanIdentify,
-      AnnotationIdentify functionIdentify);
+  List<FunctionHolder> functions(AnnotationFeature beanIdentify,
+      AnnotationFeature functionIdentify);
 
 
   /**
@@ -108,8 +109,8 @@ public interface BeanCache {
    * @param functionIdentify 函数标识
    * @return 函数集合
    */
-  <T> List<FunctionHolder> functions(List<IdentifiedBeanHolder<T>> holders,
-      AnnotationIdentify functionIdentify);
+  <T> List<FunctionHolder> functions(List<BeanHolder<T>> holders,
+      AnnotationFeature functionIdentify);
 
   /**
    * 按标识检索函数
@@ -117,8 +118,8 @@ public interface BeanCache {
    * @param functionIdentify 函数标识
    * @return 函数集合
    */
-  default List<FunctionHolder> functions(AnnotationIdentify functionIdentify) {
-    return functions((AnnotationIdentify) null, functionIdentify);
+  default List<FunctionHolder> functions(AnnotationFeature functionIdentify) {
+    return functions((AnnotationFeature) null, functionIdentify);
   }
 
   /**
@@ -129,7 +130,7 @@ public interface BeanCache {
    * @return 实例集合
    */
   default <T> List<T> tagBeans(Class<T> type, String... tags) {
-    AnnotationIdentifyCase identify = AnnotationIdentifyCase.builder().tags(tags).build();
+    SimpleAnnotationFeature identify = SimpleAnnotationFeature.builder().tags(tags).build();
     return beans(type, identify);
   }
 
@@ -141,7 +142,7 @@ public interface BeanCache {
    * @return 实例集合
    */
   default <T> List<T> targetBeans(Class<T> type, Class<?> target) {
-    AnnotationIdentifyCase identify = AnnotationIdentifyCase.builder().target(target).build();
+    SimpleAnnotationFeature identify = SimpleAnnotationFeature.builder().target(target).build();
     return beans(type, identify);
   }
 }

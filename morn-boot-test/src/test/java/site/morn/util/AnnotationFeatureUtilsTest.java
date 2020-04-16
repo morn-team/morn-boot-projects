@@ -12,9 +12,9 @@ import org.junit.runners.JUnit4;
  * @since 1.2.0, 2019/5/18
  */
 @RunWith(JUnit4.class)
-public class AnnotationIdentifyUtilsTest {
+public class AnnotationFeatureUtilsTest {
 
-  private String[] allSuits = {AnnotationIdentifyUtils.WILDCARD};
+  private String[] allSuits = {AnnotationFeatureUtils.WILDCARD};
   private String[] whiteAnimalSuits = {"animal:*", "color:white"};
   private String[] dogSuits = {"animal:dog", "color:*"};
   private String[] blackCatSuits = {"animal:cat", "color:black"};
@@ -28,10 +28,10 @@ public class AnnotationIdentifyUtilsTest {
 
   @Test
   public void all() {
-    boolean suit1 = AnnotationIdentifyUtils.isSuitable(allSuits, whiteAnimalLimits);
-    boolean suit2 = AnnotationIdentifyUtils.isSuitable(allSuits, blackDogLimits);
-    boolean suit3 = AnnotationIdentifyUtils.isSuitable(allSuits, whiteDogLimits);
-    boolean suit4 = AnnotationIdentifyUtils.isSuitable(whiteAnimalSuits, catLimits);
+    boolean suit1 = AnnotationFeatureUtils.isSuitable(allSuits, whiteAnimalLimits);
+    boolean suit2 = AnnotationFeatureUtils.isSuitable(allSuits, blackDogLimits);
+    boolean suit3 = AnnotationFeatureUtils.isSuitable(allSuits, whiteDogLimits);
+    boolean suit4 = AnnotationFeatureUtils.isSuitable(whiteAnimalSuits, catLimits);
     Assert.assertTrue("suit1", suit1);
     Assert.assertTrue("suit2", suit2);
     Assert.assertTrue("suit3", suit3);
@@ -40,10 +40,10 @@ public class AnnotationIdentifyUtilsTest {
 
   @Test
   public void whiteAnimal() {
-    boolean suit1 = AnnotationIdentifyUtils.isSuitable(whiteAnimalSuits, whiteAnimalLimits);
-    boolean suit2 = AnnotationIdentifyUtils.isSuitable(whiteAnimalSuits, blackDogLimits);
-    boolean suit3 = AnnotationIdentifyUtils.isSuitable(whiteAnimalSuits, whiteDogLimits);
-    boolean suit4 = AnnotationIdentifyUtils.isSuitable(whiteAnimalSuits, catLimits);
+    boolean suit1 = AnnotationFeatureUtils.isSuitable(whiteAnimalSuits, whiteAnimalLimits);
+    boolean suit2 = AnnotationFeatureUtils.isSuitable(whiteAnimalSuits, blackDogLimits);
+    boolean suit3 = AnnotationFeatureUtils.isSuitable(whiteAnimalSuits, whiteDogLimits);
+    boolean suit4 = AnnotationFeatureUtils.isSuitable(whiteAnimalSuits, catLimits);
     Assert.assertTrue("suit1", suit1);
     Assert.assertFalse("suit2", suit2);
     Assert.assertTrue("suit3", suit3);
@@ -52,10 +52,10 @@ public class AnnotationIdentifyUtilsTest {
 
   @Test
   public void dog() {
-    boolean suit1 = AnnotationIdentifyUtils.isSuitable(dogSuits, whiteAnimalLimits);
-    boolean suit2 = AnnotationIdentifyUtils.isSuitable(dogSuits, blackDogLimits);
-    boolean suit3 = AnnotationIdentifyUtils.isSuitable(dogSuits, whiteDogLimits);
-    boolean suit4 = AnnotationIdentifyUtils.isSuitable(dogSuits, catLimits);
+    boolean suit1 = AnnotationFeatureUtils.isSuitable(dogSuits, whiteAnimalLimits);
+    boolean suit2 = AnnotationFeatureUtils.isSuitable(dogSuits, blackDogLimits);
+    boolean suit3 = AnnotationFeatureUtils.isSuitable(dogSuits, whiteDogLimits);
+    boolean suit4 = AnnotationFeatureUtils.isSuitable(dogSuits, catLimits);
     Assert.assertTrue("suit1", suit1);
     Assert.assertTrue("suit2", suit2);
     Assert.assertTrue("suit3", suit3);
@@ -64,10 +64,10 @@ public class AnnotationIdentifyUtilsTest {
 
   @Test
   public void blackCat() {
-    boolean suit1 = AnnotationIdentifyUtils.isSuitable(blackCatSuits, whiteAnimalLimits);
-    boolean suit2 = AnnotationIdentifyUtils.isSuitable(blackCatSuits, blackDogLimits);
-    boolean suit3 = AnnotationIdentifyUtils.isSuitable(blackCatSuits, whiteDogLimits);
-    boolean suit4 = AnnotationIdentifyUtils.isSuitable(blackCatSuits, catLimits);
+    boolean suit1 = AnnotationFeatureUtils.isSuitable(blackCatSuits, whiteAnimalLimits);
+    boolean suit2 = AnnotationFeatureUtils.isSuitable(blackCatSuits, blackDogLimits);
+    boolean suit3 = AnnotationFeatureUtils.isSuitable(blackCatSuits, whiteDogLimits);
+    boolean suit4 = AnnotationFeatureUtils.isSuitable(blackCatSuits, catLimits);
     Assert.assertFalse("suit1", suit1);
     Assert.assertFalse("suit2", suit2);
     Assert.assertFalse("suit3", suit3);
@@ -76,8 +76,8 @@ public class AnnotationIdentifyUtilsTest {
 
   @Test
   public void other() {
-    boolean suit1 = AnnotationIdentifyUtils.isSuitable(empty, whiteAnimalLimits);
-    boolean suit2 = AnnotationIdentifyUtils.isSuitable(blackCatSuits, empty);
+    boolean suit1 = AnnotationFeatureUtils.isSuitable(empty, whiteAnimalLimits);
+    boolean suit2 = AnnotationFeatureUtils.isSuitable(blackCatSuits, empty);
     Assert.assertFalse("suit1", suit1);
     Assert.assertFalse("suit2", suit2);
   }

@@ -87,7 +87,7 @@ public class RocketAutoConfiguration {
   @Bean
   @ConditionalOnMissingBean
   public RocketResolvingOperations rocketResolvingOperations(RocketMessageHandler messageHandler,
-      List<BroadcastMessageHeaderResolver> headerResolvers) {
+      List<BroadcastMessageHeaderResolver<?>> headerResolvers) {
     return new SimpleRocketResolvingOperations(messageHandler, headerResolvers);
   }
 

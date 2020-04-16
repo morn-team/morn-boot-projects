@@ -2,7 +2,7 @@ package site.morn.validate.persistent;
 
 import java.util.List;
 import lombok.experimental.UtilityClass;
-import site.morn.bean.BeanCaches;
+import site.morn.bean.support.BeanCaches;
 
 /**
  * 持久化校验工具类

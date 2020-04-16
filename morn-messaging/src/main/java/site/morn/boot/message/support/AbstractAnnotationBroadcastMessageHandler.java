@@ -9,12 +9,12 @@ import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.support.ConfigurableConversionService;
 import org.springframework.util.StringUtils;
-import site.morn.bean.AnnotationIdentifyCase;
-import site.morn.bean.AnnotationIdentifyCase.AnnotationIdentifyCaseBuilder;
-import site.morn.bean.BeanCaches;
-import site.morn.bean.BeanFunctions;
 import site.morn.bean.FunctionHolder;
-import site.morn.bean.Tags;
+import site.morn.bean.support.BeanCaches;
+import site.morn.bean.support.BeanFunctions;
+import site.morn.bean.support.SimpleAnnotationFeature;
+import site.morn.bean.support.SimpleAnnotationFeature.SimpleAnnotationFeatureBuilder;
+import site.morn.bean.support.Tags;
 import site.morn.boot.message.BroadcastMessage;
 import site.morn.boot.message.BroadcastMessageHeaders;
 import site.morn.boot.message.annotation.MessageTopic;
@@ -81,14 +81,14 @@ public abstract class AbstractAnnotationBroadcastMessageHandler<T> implements
   public FunctionHolder getHandleFunctionHolder(String messageTopic, String messageType) {
     // 构建消息处理类的检索标识
     String[] tags = Tags.from(MessageTopic.class, messageTopic).toArray();
-    AnnotationIdentifyCase beanIdentify = AnnotationIdentifyCase.builder().tags(tags)
+    SimpleAnnotationFeature beanIdentify = SimpleAnnotationFeature.builder().tags(tags)
         .build(); // 使用MessageTopic检索处理类
     // 构建消息处理函数的检索标识
-    AnnotationIdentifyCaseBuilder functionBuilder = AnnotationIdentifyCase.builder();
+    SimpleAnnotationFeatureBuilder functionBuilder = SimpleAnnotationFeature.builder();
     if (!StringUtils.isEmpty(messageType)) {
       functionBuilder.name(messageType); // 使用MessageType检索处理函数
     }
-    AnnotationIdentifyCase functionIdentify = functionBuilder.build();
+    SimpleAnnotationFeature functionIdentify = functionBuilder.build();
     List<FunctionHolder> functions = BeanCaches.functions(beanIdentify, functionIdentify);
     if (functions.isEmpty()) {
       log.warn("Message|No function：{}.{}", messageTopic,

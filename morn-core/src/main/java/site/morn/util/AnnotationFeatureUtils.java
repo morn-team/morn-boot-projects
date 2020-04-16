@@ -9,7 +9,7 @@ import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
-import site.morn.bean.AnnotationIdentify;
+import site.morn.bean.AnnotationFeature;
 
 /**
  * 注解标识工具类
@@ -19,7 +19,7 @@ import site.morn.bean.AnnotationIdentify;
  */
 @Slf4j
 @UtilityClass
-public class AnnotationIdentifyUtils {
+public class AnnotationFeatureUtils {
 
   /**
    * 间隔符
@@ -63,7 +63,7 @@ public class AnnotationIdentifyUtils {
    */
   public static String getTag(String tagName, Object value) {
     String n = Optional.ofNullable(tagName).orElse("");
-    String v = Optional.ofNullable(value).map(AnnotationIdentifyUtils::mapString).orElse("");
+    String v = Optional.ofNullable(value).map(AnnotationFeatureUtils::mapString).orElse("");
     if (StringUtils.isEmpty(n)) {
       return v;
     }
@@ -80,15 +80,16 @@ public class AnnotationIdentifyUtils {
    * @param limit 限制条件
    * @return 是否适用
    */
-  public static <T extends AnnotationIdentify> boolean isSuitable(T suit, T limit) {
+  public static <T extends AnnotationFeature> boolean isSuitable(T suit, T limit) {
     Optional<Boolean> optional = baseRule(suit, limit);
     if (optional.isPresent()) {
       return optional.get();
     }
     boolean name = isSuitable(suit.getName(), limit.getName()); // 按名称通配
     boolean tags = isSuitable(suit.getTags(), limit.getTags()); // 按标签通配
+    boolean source = isSuper(suit.getSource(), limit.getSource()); // 按源通配
     boolean target = isSuper(suit.getTarget(), limit.getTarget()); // 按目标通配
-    return name && tags && target;
+    return name && tags && source && target;
   }
 
   /**

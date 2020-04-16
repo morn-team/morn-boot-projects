@@ -26,11 +26,11 @@ public abstract class AbstractBroadcastMessageResolvingOperations<T> implements
 
   public AbstractBroadcastMessageResolvingOperations(
       AnnotationBroadcastMessageHandler<T> messageHandler,
-      List<BroadcastMessageHeaderResolver> headerResolvers) {
+      List<BroadcastMessageHeaderResolver<?>> headerResolvers) {
     this.messageHandler = messageHandler;
     // 构建类型转换服务
     conversionService = new GenericConversionService();
-    for (BroadcastMessageHeaderResolver headerResolver : headerResolvers) {
+    for (BroadcastMessageHeaderResolver<?> headerResolver : headerResolvers) {
       conversionService.addConverter(headerResolver);
     }
     // 为消息处理者注入类型转换服务

@@ -1,14 +1,14 @@
 package site.morn.bean;
 
 /**
- * 注解标识
+ * 注解特征
  *
- * <p>注解标识用于描述对象的唯一标识、标签、用途
+ * <p>注解特征用于类或方法的唯一标识、标签、用途
  *
  * @author timely-rain
  * @since 1.0.0, 2018/11/25
  */
-public interface AnnotationIdentify {
+public interface AnnotationFeature {
 
   /**
    * 获取名称
@@ -30,6 +30,14 @@ public interface AnnotationIdentify {
    * @see site.morn.bean.annotation.Tag
    */
   String[] getTags();
+
+  /**
+   * 获取源
+   *
+   * @return 源
+   * @see site.morn.bean.annotation.Source
+   */
+  Class<?> getSource();
 
   /**
    * 获取目标

@@ -1,9 +1,9 @@
-package site.morn.bean;
+package site.morn.bean.support;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
-import site.morn.util.AnnotationIdentifyUtils;
+import site.morn.util.AnnotationFeatureUtils;
 
 /**
  * 标签构建类
@@ -16,7 +16,7 @@ public class Tags {
   /**
    * 标签集合
    */
-  private List<String> tagList = new ArrayList<>();
+  private final List<String> tagList = new ArrayList<>();
 
   /**
    * 通过注解构建
@@ -55,13 +55,25 @@ public class Tags {
   }
 
   /**
+   * 通过标签名称构建
+   *
+   * @param value 标签值
+   * @return 标签构建类
+   */
+  public static Tags from(Object value) {
+    Tags tags = new Tags();
+    tags.add((String) null, value);
+    return tags;
+  }
+
+  /**
    * 添加标签
    *
    * @param annotation 标签注解
    * @return 标签构建类
    */
   public Tags add(Class<? extends Annotation> annotation) {
-    String tag = AnnotationIdentifyUtils.getTag(annotation);
+    String tag = AnnotationFeatureUtils.getTag(annotation);
     return add(tag);
   }
 
@@ -73,7 +85,7 @@ public class Tags {
    * @return 标签构建类
    */
   public Tags add(Class<? extends Annotation> annotation, Object value) {
-    String tag = AnnotationIdentifyUtils.getTag(annotation, value);
+    String tag = AnnotationFeatureUtils.getTag(annotation, value);
     return add(tag);
   }
 
@@ -85,7 +97,7 @@ public class Tags {
    * @return 标签构建类
    */
   public Tags add(String tagName, Object value) {
-    String tag = AnnotationIdentifyUtils.getTag(tagName, value);
+    String tag = AnnotationFeatureUtils.getTag(tagName, value);
     return add(tag);
   }
 

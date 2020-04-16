@@ -1,6 +1,6 @@
 package site.morn.boot.message.annotation;
 
-import static site.morn.util.AnnotationIdentifyUtils.WILDCARD;
+import static site.morn.util.AnnotationFeatureUtils.WILDCARD;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

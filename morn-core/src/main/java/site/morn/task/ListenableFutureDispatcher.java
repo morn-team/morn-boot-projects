@@ -5,7 +5,7 @@ import java.util.concurrent.Callable;
 import lombok.experimental.UtilityClass;
 import org.springframework.util.Assert;
 import org.springframework.util.concurrent.ListenableFuture;
-import site.morn.bean.BeanCaches;
+import site.morn.bean.support.BeanCaches;
 
 /**
  * 异步任务调度者

@@ -7,6 +7,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import site.morn.bean.support.BeanCaches;
+import site.morn.bean.support.BeanFunctions;
+import site.morn.bean.support.SimpleAnnotationFeature;
+import site.morn.bean.support.Tags;
 import site.morn.test.TestAnnotationBeans.Animal;
 import site.morn.test.TestAnnotationBeans.Food;
 
@@ -24,8 +28,8 @@ public class BeanFunctionsTest {
   @Test
   public void catPlay() {
     String[] cats = Tags.from(Animal.class, "cat").toArray();
-    AnnotationIdentifyCase beanId = AnnotationIdentifyCase.builder().tags(cats).build();
-    AnnotationIdentifyCase functionId = AnnotationIdentifyCase.builder().name("play").build();
+    SimpleAnnotationFeature beanId = SimpleAnnotationFeature.builder().tags(cats).build();
+    SimpleAnnotationFeature functionId = SimpleAnnotationFeature.builder().name("play").build();
     List<FunctionHolder> functions = BeanCaches.functions(beanId, functionId);
     try {
       List<String> call = BeanFunctions.call(functions);
@@ -41,7 +45,7 @@ public class BeanFunctionsTest {
     String meat = "meat";
     Food food = new Food("fish");
 
-    AnnotationIdentifyCase functionId = AnnotationIdentifyCase.builder().name("eat").build();
+    SimpleAnnotationFeature functionId = SimpleAnnotationFeature.builder().name("eat").build();
     List<FunctionHolder> functions = BeanCaches.functions(functionId);
     try {
       List<String> call = BeanFunctions.call(functions, food, meat);

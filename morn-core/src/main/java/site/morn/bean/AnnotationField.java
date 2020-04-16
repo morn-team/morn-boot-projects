@@ -7,7 +7,7 @@ import lombok.Setter;
 import org.springframework.core.annotation.AnnotationUtils;
 
 /**
- * 实例注解
+ * 注解属性
  *
  * @author timely-rain
  * @since 1.2.0, 2019/5/17
@@ -15,20 +15,25 @@ import org.springframework.core.annotation.AnnotationUtils;
 @RequiredArgsConstructor
 @Getter
 @Setter
-public class BeanAnnotation {
+public class AnnotationField {
+
+  /**
+   * 注解类
+   */
+  private final Class<? extends Annotation> annotationClass;
+
+  /**
+   * 注解名称
+   */
+  private String annotationName;
 
   /**
    * 注解类型
    */
-  private final Class<? extends Annotation> annotationType;
+  private AnnotationFieldType annotationType = AnnotationFieldType.TAG;
 
   /**
-   * 注解属性名称
+   * 值名称
    */
-  private String attributeName = AnnotationUtils.VALUE;
-
-  /**
-   * 标签名称
-   */
-  private String tagName;
+  private String valueName = AnnotationUtils.VALUE;
 }

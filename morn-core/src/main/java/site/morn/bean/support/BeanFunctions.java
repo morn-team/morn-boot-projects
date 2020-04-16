@@ -1,4 +1,4 @@
-package site.morn.bean;
+package site.morn.bean.support;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -9,6 +9,7 @@ import java.util.stream.Stream;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.ObjectUtils;
+import site.morn.bean.FunctionHolder;
 
 /**
  * 实例函数调用类
