@@ -37,9 +37,6 @@ public class MessageConstant {
    */
   public static class MessageResultStatus {
 
-    private MessageResultStatus() {
-    }
-
     /**
      * 成功
      */
@@ -59,6 +56,9 @@ public class MessageConstant {
      * 失败
      */
     public static final String FAILURE = "failure";
+
+    private MessageResultStatus() {
+    }
 
     /**
      * 判断是否成功

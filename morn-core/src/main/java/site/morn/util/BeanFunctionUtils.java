@@ -51,7 +51,7 @@ public class BeanFunctionUtils {
    * @return 目标实例
    */
   public <F extends BeanAdapter<S>, S> S adaption(Class<F> functionClass, S source,
-      Class<S> target) {
+      Class<?> target) {
     F adapter = BeanCaches.targetBean(functionClass, target);
     Assert.notNull(adapter, "尚未注册可用适配器：" + functionClass.getSimpleName());
     return adapter.adaption(source);
@@ -70,9 +70,9 @@ public class BeanFunctionUtils {
   public <F extends BeanAdapter<S>, S> S adaptions(Class<F> functionClass, S source,
       String... tags) {
     List<F> adapters = BeanCaches.tagBeans(functionClass, tags);
-    S target = null;
+    S target = source;
     for (F adapter : adapters) {
-      target = adapter.adaption(source);
+      target = adapter.adaption(target);
     }
     if (Objects.isNull(target)) {
       return source;
@@ -226,21 +226,6 @@ public class BeanFunctionUtils {
    * 实例生产
    *
    * @param functionClass 函数类
-   * @param target 检索目标
-   * @param <F> 函数类型
-   * @param <T> 目标类型
-   * @return 实例
-   */
-  public <F extends BeanProducer<T>, T> T product(Class<F> functionClass, Class<T> target) {
-    F producer = BeanCaches.targetBean(functionClass, target);
-    Assert.notNull(producer, "尚未注册可用生产者：" + functionClass.getSimpleName());
-    return producer.product();
-  }
-
-  /**
-   * 实例生产
-   *
-   * @param functionClass 函数类
    * @param tags 检索标签
    * @param <F> 函数类型
    * @param <T> 目标类型
@@ -256,12 +241,28 @@ public class BeanFunctionUtils {
    * 实例生产
    *
    * @param functionClass 函数类
+   * @param target 检索目标
+   * @param <F> 函数类型
+   * @param <T> 目标类型
+   * @return 实例
+   */
+  public <F extends BeanProducer<T>, T> T product(Class<F> functionClass, Class<T> target) {
+    F producer = BeanCaches.targetBean(functionClass, target);
+    Assert.notNull(producer, "尚未注册可用生产者：" + functionClass.getSimpleName());
+    return producer.product();
+  }
+
+  /**
+   * 批量生产
+   *
+   * @param functionClass 函数类
    * @param tags 检索标签
    * @param <F> 函数类型
    * @param <T> 目标类型
    * @return 实例集合
    */
-  public <F extends BeanProducers<T>, T> List<T> products(Class<F> functionClass, String... tags) {
+  public <F extends BeanProducers<T>, T> List<T> batchProducts(Class<F> functionClass,
+      String... tags) {
     List<F> producers = BeanCaches.tagBeans(functionClass, tags);
     return producers.stream().flatMap(f -> f.productList().stream()).collect(Collectors.toList());
   }

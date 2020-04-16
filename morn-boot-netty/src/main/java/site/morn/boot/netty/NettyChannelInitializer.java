@@ -58,7 +58,7 @@ public class NettyChannelInitializer extends ChannelInitializer {
     String[] productTags = Tags.from(Terminal.class, terminal).add(Inbound.class, boundType)
         .toArray();
     ChannelHandler[] productHandlers = BeanFunctionUtils
-        .products(ChannelHandlerProducer.class, productTags).toArray(new ChannelHandler[0]);
+        .batchProducts(ChannelHandlerProducer.class, productTags).toArray(new ChannelHandler[0]);
     pipeline.addLast(productHandlers);
   }
 }
