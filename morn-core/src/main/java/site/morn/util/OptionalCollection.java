@@ -50,7 +50,7 @@ public class OptionalCollection<T> {
    */
   private OptionalCollection() {
     this.value = null;
-    this.predicate = new EmptyPredicate();
+    this.predicate = new NonEmptyPredicate();
   }
 
   /**
@@ -81,6 +81,19 @@ public class OptionalCollection<T> {
   }
 
   /**
+   * Returns an {@code OptionalCollection} with the specified present non-null value.
+   *
+   * @param <T> the class of the value
+   * @param value the value to be present, which must be non-null
+   * @return an {@code OptionalCollection} with the value present
+   * @throws NullPointerException if value is null
+   */
+  public static <T> OptionalCollection<T> of(Collection<T> value) {
+    return new OptionalCollection<>(value, new NotNullPredicate());
+  }
+
+
+  /**
    * Returns an {@code OptionalCollection} describing the specified value, if non-null, otherwise
    * returns an empty {@code OptionalCollection}.
    *
@@ -90,20 +103,8 @@ public class OptionalCollection<T> {
    * otherwise an empty {@code OptionalCollection}
    */
   public static <T> OptionalCollection<T> ofNullable(Collection<T> value) {
-    return value == null ? empty() : new OptionalCollection<>(value, new NullablePredicate());
-  }
-
-  /**
-   * Returns an {@code OptionalCollection} describing the specified value, if non-empty, otherwise
-   * returns an empty {@code OptionalCollection}.
-   *
-   * @param <T> the class of the value
-   * @param value the possibly-null value to describe
-   * @return an {@code OptionalCollection} with a present value if the specified value is non-null,
-   * otherwise an empty {@code OptionalCollection}
-   */
-  public static <T> OptionalCollection<T> ofCollection(Collection<T> value) {
-    return value == null ? empty() : new OptionalCollection<>(value, new EmptyPredicate());
+    NotNullPredicate predicate = new NotNullPredicate();
+    return predicate.test(value) ? new OptionalCollection<>(value, predicate) : empty();
   }
 
   /**
@@ -266,9 +267,9 @@ public class OptionalCollection<T> {
   }
 
   /**
-   * 空值断言
+   * 非空断言
    */
-  private static class NullablePredicate implements Predicate<Collection<?>> {
+  private static class NotNullPredicate implements Predicate<Collection<?>> {
 
     @Override
     public boolean test(Collection<?> ts) {
@@ -277,9 +278,9 @@ public class OptionalCollection<T> {
   }
 
   /**
-   * 可空断言
+   * 非空且有值
    */
-  private static class EmptyPredicate implements Predicate<Collection<?>> {
+  private static class NonEmptyPredicate implements Predicate<Collection<?>> {
 
     @Override
     public boolean test(Collection<?> ts) {
