@@ -10,6 +10,7 @@ import java.nio.charset.StandardCharsets;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.springframework.util.Assert;
+import site.morn.bean.annotation.Objective;
 import site.morn.boot.message.rocket.RocketMessagePayloadResolver;
 import site.morn.exception.ApplicationMessages;
 
@@ -20,6 +21,7 @@ import site.morn.exception.ApplicationMessages;
  * @since 1.2.1, 2020/4/12
  */
 @Slf4j
+@Objective
 public class SimpleRocketMessagePayloadResolver implements RocketMessagePayloadResolver<Object> {
 
   private final ObjectMapper objectMapper;
