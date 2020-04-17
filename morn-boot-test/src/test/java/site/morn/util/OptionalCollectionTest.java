@@ -24,22 +24,6 @@ public class OptionalCollectionTest {
   private final List<Integer> numbers = Stream.of(1, 2, 3).collect(Collectors.toList());
 
   @Test
-  public void empty() {
-  }
-
-  @Test
-  public void of() {
-  }
-
-  @Test
-  public void ofNullable() {
-  }
-
-  @Test
-  public void get() {
-  }
-
-  @Test
   public void ifPresent() {
     OptionalCollection<Object> nullable = OptionalCollection.ofNullable(null);
     nullable.ifPresent(objects -> log.info("is present:{}", objects.size()));
@@ -69,13 +53,5 @@ public class OptionalCollectionTest {
     } catch (IllegalArgumentException e) {
       log.error(e.getMessage(), e);
     }
-  }
-
-  @Test
-  public void orElseGet() {
-  }
-
-  @Test
-  public void orElseThrow() {
   }
 }

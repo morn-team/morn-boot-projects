@@ -24,6 +24,9 @@ import site.morn.test.TestProcessorBeans.ProcessorTwo;
 
 /**
  * 函数工具测试类
+ *
+ * @author timely-rain
+ * @since 1.2.1, 2020/4/17
  */
 @SpringBootTest
 @RunWith(SpringRunner.class)
