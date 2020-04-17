@@ -1,6 +1,5 @@
 package site.morn.boot.message;
 
-import java.io.SerializablePermission;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.Test;
@@ -11,6 +10,7 @@ import org.springframework.messaging.Message;
 import org.springframework.test.context.junit4.SpringRunner;
 import site.morn.boot.message.support.AnnotationBroadcastMessageHandler;
 import site.morn.boot.message.support.BroadcastMessageBuilder;
+import site.morn.test.TestUser;
 
 /**
  * 注解消息处理者单元测试
@@ -26,9 +26,11 @@ public class AnnotationBroadcastMessageHandlerTest {
   @Test
   public void handleMessage() {
     // 创建消息数据
-    SerializablePermission yourData = new SerializablePermission("master");
+    TestUser testUser = new TestUser();
+    testUser.setUsername("timely-rain");
+    testUser.setPassword("password");
     // 构建消息
-    Message<SerializablePermission> message = BroadcastMessageBuilder.withPayload(yourData)
+    Message<TestUser> message = BroadcastMessageBuilder.withPayload(testUser)
         .setTopic("userData")
         .setType("add")
         .setErrorChannelName("errorChannel")
