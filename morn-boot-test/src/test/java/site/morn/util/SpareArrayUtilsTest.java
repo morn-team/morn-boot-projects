@@ -23,6 +23,54 @@ public class SpareArrayUtilsTest {
   }
 
   @Test
+  public void testIsEmpty() {
+    boolean isEmpty = SpareArrayUtils.isEmpty(new long[0]);
+    Assert.assertTrue(isEmpty);
+  }
+
+  @Test
+  public void testIsEmpty1() {
+    boolean isEmpty = SpareArrayUtils.isEmpty(new int[0]);
+    Assert.assertTrue(isEmpty);
+  }
+
+  @Test
+  public void testIsEmpty2() {
+    boolean isEmpty = SpareArrayUtils.isEmpty(new short[0]);
+    Assert.assertTrue(isEmpty);
+  }
+
+  @Test
+  public void testIsEmpty3() {
+    boolean isEmpty = SpareArrayUtils.isEmpty(new char[0]);
+    Assert.assertTrue(isEmpty);
+  }
+
+  @Test
+  public void testIsEmpty4() {
+    boolean isEmpty = SpareArrayUtils.isEmpty(new byte[0]);
+    Assert.assertTrue(isEmpty);
+  }
+
+  @Test
+  public void testIsEmpty5() {
+    boolean isEmpty = SpareArrayUtils.isEmpty(new double[0]);
+    Assert.assertTrue(isEmpty);
+  }
+
+  @Test
+  public void testIsEmpty6() {
+    boolean isEmpty = SpareArrayUtils.isEmpty(new float[0]);
+    Assert.assertTrue(isEmpty);
+  }
+
+  @Test
+  public void testIsEmpty7() {
+    boolean isEmpty = SpareArrayUtils.isEmpty(new boolean[0]);
+    Assert.assertTrue(isEmpty);
+  }
+
+  @Test
   public void isEmptyForNull() {
     boolean nullIsEmpty = SpareArrayUtils.isEmpty((Object[]) null);
     Assert.assertTrue(nullIsEmpty);
