@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import site.morn.test.TestAnnotationBeans.Color;
 
 /**
  * 注解标识工具类单元测试
@@ -14,17 +15,17 @@ import org.junit.runners.JUnit4;
 @RunWith(JUnit4.class)
 public class AnnotationFeatureUtilsTest {
 
-  private String[] allSuits = {AnnotationFeatureUtils.WILDCARD};
-  private String[] whiteAnimalSuits = {"animal:*", "color:white"};
-  private String[] dogSuits = {"animal:dog", "color:*"};
-  private String[] blackCatSuits = {"animal:cat", "color:black"};
+  private final String[] allSuits = {AnnotationFeatureUtils.WILDCARD};
+  private final String[] whiteAnimalSuits = {"animal:*", "color:white"};
+  private final String[] dogSuits = {"animal:dog", "color:*"};
+  private final String[] blackCatSuits = {"animal:cat", "color:black"};
 
-  private String[] whiteAnimalLimits = {"animal:", "color:white"};
-  private String[] blackDogLimits = {"animal:dog", "color:black"};
-  private String[] whiteDogLimits = {"animal:dog", "color:white"};
-  private String[] catLimits = {"animal:cat", "color"};
+  private final String[] whiteAnimalLimits = {"animal:", "color:white"};
+  private final String[] blackDogLimits = {"animal:dog", "color:black"};
+  private final String[] whiteDogLimits = {"animal:dog", "color:white"};
+  private final String[] catLimits = {"animal:cat", "color"};
 
-  private String[] empty = {"", null, ":", "abc"};
+  private final String[] empty = {"", null, ":", "abc"};
 
   @Test
   public void all() {
@@ -68,10 +69,12 @@ public class AnnotationFeatureUtilsTest {
     boolean suit2 = AnnotationFeatureUtils.isSuitable(blackCatSuits, blackDogLimits);
     boolean suit3 = AnnotationFeatureUtils.isSuitable(blackCatSuits, whiteDogLimits);
     boolean suit4 = AnnotationFeatureUtils.isSuitable(blackCatSuits, catLimits);
+    boolean suit5 = AnnotationFeatureUtils.isSuitable(null, catLimits);
     Assert.assertFalse("suit1", suit1);
     Assert.assertFalse("suit2", suit2);
     Assert.assertFalse("suit3", suit3);
     Assert.assertTrue("suit4", suit4);
+    Assert.assertFalse("suit5", suit5);
   }
 
   @Test
@@ -80,5 +83,17 @@ public class AnnotationFeatureUtilsTest {
     boolean suit2 = AnnotationFeatureUtils.isSuitable(blackCatSuits, empty);
     Assert.assertFalse("suit1", suit1);
     Assert.assertFalse("suit2", suit2);
+  }
+
+  @Test
+  public void getTag() {
+    String tag = AnnotationFeatureUtils.getTag(Color.class);
+    Assert.assertEquals("color", tag);
+  }
+
+  @Test
+  public void testGetTag() {
+    String tag = AnnotationFeatureUtils.getTag("", "red");
+    Assert.assertEquals("red", tag);
   }
 }
