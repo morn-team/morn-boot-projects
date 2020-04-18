@@ -2,7 +2,6 @@ package site.morn.bean;
 
 import java.lang.reflect.Method;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.util.StringUtils;
 import site.morn.bean.support.SimpleAnnotationFeature;
@@ -13,7 +12,6 @@ import site.morn.bean.support.SimpleAnnotationFeature;
  * @author timely-rain
  * @since 1.2.0, 2019/5/17
  */
-@NoArgsConstructor
 @Getter
 @Setter
 public class FunctionHolder extends SimpleAnnotationFeature implements AnnotationFeature {

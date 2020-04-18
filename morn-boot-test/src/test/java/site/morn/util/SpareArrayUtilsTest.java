@@ -14,7 +14,7 @@ import org.junit.runners.JUnit4;
 @RunWith(JUnit4.class)
 public class SpareArrayUtilsTest {
 
-  private Integer[] intArray = {1, 2, 3};
+  private final Integer[] intArray = {1, 2, 3};
 
   @Test
   public void isEmpty() {

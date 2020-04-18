@@ -9,11 +9,11 @@ import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.support.ConfigurableConversionService;
 import org.springframework.util.StringUtils;
+import site.morn.bean.AnnotationFeature;
 import site.morn.bean.FunctionHolder;
+import site.morn.bean.support.AnnotationFeatureBuilder;
 import site.morn.bean.support.BeanCaches;
 import site.morn.bean.support.BeanFunctions;
-import site.morn.bean.support.SimpleAnnotationFeature;
-import site.morn.bean.support.SimpleAnnotationFeature.SimpleAnnotationFeatureBuilder;
 import site.morn.bean.support.Tags;
 import site.morn.boot.message.BroadcastMessage;
 import site.morn.boot.message.BroadcastMessageHeaders;
@@ -81,15 +81,15 @@ public abstract class AbstractAnnotationBroadcastMessageHandler<T> implements
   public FunctionHolder getHandleFunctionHolder(String messageTopic, String messageType) {
     // 构建消息处理类的检索标识
     String[] tags = Tags.from(MessageTopic.class, messageTopic).toArray();
-    SimpleAnnotationFeature beanIdentify = SimpleAnnotationFeature.builder().tags(tags)
+    AnnotationFeature beanFeature = AnnotationFeatureBuilder.withTags(tags)
         .build(); // 使用MessageTopic检索处理类
     // 构建消息处理函数的检索标识
-    SimpleAnnotationFeatureBuilder functionBuilder = SimpleAnnotationFeature.builder();
+    AnnotationFeatureBuilder functionBuilder = AnnotationFeatureBuilder.empty();
     if (!StringUtils.isEmpty(messageType)) {
       functionBuilder.name(messageType); // 使用MessageType检索处理函数
     }
-    SimpleAnnotationFeature functionIdentify = functionBuilder.build();
-    List<FunctionHolder> functions = BeanCaches.functions(beanIdentify, functionIdentify);
+    AnnotationFeature functionFeature = functionBuilder.build();
+    List<FunctionHolder> functions = BeanCaches.functions(beanFeature, functionFeature);
     if (functions.isEmpty()) {
       log.warn("Message|No function：{}.{}", messageTopic,
           Optional.ofNullable(messageType).orElse("*"));

@@ -1,10 +1,7 @@
 package site.morn.bean.support;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 import site.morn.bean.AnnotationFeature;
 
@@ -18,10 +15,7 @@ import site.morn.bean.AnnotationFeature;
  * @since 1.2.0, 2019/5/18
  */
 @Getter
-@Setter
-@Builder
 @ToString
-@NoArgsConstructor
 @AllArgsConstructor
 public class SimpleAnnotationFeature implements AnnotationFeature {
 
@@ -56,4 +50,16 @@ public class SimpleAnnotationFeature implements AnnotationFeature {
   public SimpleAnnotationFeature(AnnotationFeature identify) {
     this(identify.getName(), identify.getTags(), identify.getSource(), identify.getTarget());
   }
+
+  /**
+   * 获取注解特征构建器
+   *
+   * @return 注解特征构建器
+   * @deprecated 直接使用 {@link AnnotationFeatureBuilder}
+   */
+  @Deprecated
+  public static AnnotationFeatureBuilder builder() {
+    return AnnotationFeatureBuilder.empty();
+  }
+
 }

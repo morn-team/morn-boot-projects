@@ -2,7 +2,6 @@ package site.morn.bean;
 
 import java.util.List;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import site.morn.bean.support.SimpleAnnotationFeature;
 
@@ -13,10 +12,9 @@ import site.morn.bean.support.SimpleAnnotationFeature;
  * @author timely-rain
  * @since 1.0.0, 2018/11/26
  */
-@NoArgsConstructor
 @Getter
 @Setter
-public class BeanHolder<T> extends SimpleAnnotationFeature implements AnnotationFeature {
+public class BeanHolder<T> extends SimpleAnnotationFeature {
 
   /**
    * 实例

@@ -21,8 +21,7 @@ import site.morn.bean.BeanHolder;
 import site.morn.bean.FunctionHolder;
 import site.morn.bean.annotation.Objective;
 import site.morn.bean.annotation.Tag;
-import site.morn.bean.support.SimpleAnnotationFeature;
-import site.morn.bean.support.SimpleAnnotationFeature.SimpleAnnotationFeatureBuilder;
+import site.morn.bean.support.AnnotationFeatureBuilder;
 import site.morn.boot.util.BeanCacheUtils;
 import site.morn.util.AnnotationFeatureUtils;
 import site.morn.util.GenericUtils;
@@ -198,7 +197,7 @@ public class AnnotationBeanPostProcessor implements BeanPostProcessor {
   private AnnotationFeature generateAnnotationFeature(Object classOrMethod,
       List<AnnotationField> annotationFields) {
     // 构建实例标识信息
-    SimpleAnnotationFeatureBuilder featureBuilder = SimpleAnnotationFeature.builder();
+    AnnotationFeatureBuilder featureBuilder = AnnotationFeatureBuilder.empty();
     List<String> tags = new ArrayList<>(); // 标签
     for (AnnotationField annotationField : annotationFields) {
       Class<? extends Annotation> annotationClass = annotationField.getAnnotationClass();
@@ -238,7 +237,7 @@ public class AnnotationBeanPostProcessor implements BeanPostProcessor {
    * @param classOrMethod 类或方法
    * @param value 注解值
    */
-  private void writeNameValue(SimpleAnnotationFeatureBuilder featureBuilder, Object classOrMethod,
+  private void writeNameValue(AnnotationFeatureBuilder featureBuilder, Object classOrMethod,
       Object value) {
     if (StringUtils.isEmpty(value)) {
       featureBuilder.name(getAnnotationNameValue(classOrMethod));
@@ -272,7 +271,7 @@ public class AnnotationBeanPostProcessor implements BeanPostProcessor {
    * @param featureBuilder 构建器
    * @param value 注解值
    */
-  private void writeSourceValue(SimpleAnnotationFeatureBuilder featureBuilder, Object value) {
+  private void writeSourceValue(AnnotationFeatureBuilder featureBuilder, Object value) {
     Assert.isInstanceOf(Class.class, value);
     featureBuilder.source(GenericUtils.castFrom(value));
   }
@@ -283,7 +282,7 @@ public class AnnotationBeanPostProcessor implements BeanPostProcessor {
    * @param featureBuilder 构建器
    * @param value 注解值
    */
-  private void writeTargetValue(SimpleAnnotationFeatureBuilder featureBuilder, Object value) {
+  private void writeTargetValue(AnnotationFeatureBuilder featureBuilder, Object value) {
     Assert.isInstanceOf(Class.class, value);
     featureBuilder.target(GenericUtils.castFrom(value));
   }

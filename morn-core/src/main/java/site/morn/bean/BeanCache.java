@@ -1,7 +1,7 @@
 package site.morn.bean;
 
 import java.util.List;
-import site.morn.bean.support.SimpleAnnotationFeature;
+import site.morn.bean.support.AnnotationFeatureBuilder;
 
 /**
  * 标识的实例缓存
@@ -44,8 +44,7 @@ public interface BeanCache {
    * @return 实例
    */
   default <T> T nameBean(Class<T> type, String name) {
-    SimpleAnnotationFeature identify = SimpleAnnotationFeature.builder().name(name).build();
-    return bean(type, identify);
+    return bean(type, AnnotationFeatureBuilder.withName(name).build());
   }
 
   /**
@@ -56,8 +55,7 @@ public interface BeanCache {
    * @return 实例
    */
   default <T> T tagBean(Class<T> type, String... tags) {
-    SimpleAnnotationFeature identify = SimpleAnnotationFeature.builder().tags(tags).build();
-    return bean(type, identify);
+    return bean(type, AnnotationFeatureBuilder.withTags(tags).build());
   }
 
   /**
@@ -68,8 +66,7 @@ public interface BeanCache {
    * @return 实例对象
    */
   default <T> T targetBean(Class<T> type, Class<?> target) {
-    SimpleAnnotationFeature identify = SimpleAnnotationFeature.builder().target(target).build();
-    return bean(type, identify);
+    return bean(type, AnnotationFeatureBuilder.withTarget(target).build());
   }
 
   /**
@@ -130,8 +127,7 @@ public interface BeanCache {
    * @return 实例集合
    */
   default <T> List<T> tagBeans(Class<T> type, String... tags) {
-    SimpleAnnotationFeature identify = SimpleAnnotationFeature.builder().tags(tags).build();
-    return beans(type, identify);
+    return beans(type, AnnotationFeatureBuilder.withTags(tags).build());
   }
 
   /**
@@ -142,7 +138,6 @@ public interface BeanCache {
    * @return 实例集合
    */
   default <T> List<T> targetBeans(Class<T> type, Class<?> target) {
-    SimpleAnnotationFeature identify = SimpleAnnotationFeature.builder().target(target).build();
-    return beans(type, identify);
+    return beans(type, AnnotationFeatureBuilder.withTarget(target).build());
   }
 }
