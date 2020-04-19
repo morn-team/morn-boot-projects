@@ -22,8 +22,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import site.morn.boot.jpa.TestUser;
 import site.morn.core.CriteriaMap;
+import site.morn.test.TestUser;
 
 /**
  * 业务支持测试

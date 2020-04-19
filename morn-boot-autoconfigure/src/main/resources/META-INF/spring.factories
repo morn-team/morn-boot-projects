@@ -12,4 +12,6 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   site.morn.boot.autoconfigure.TaskAutoConfiguration,\
   site.morn.boot.autoconfigure.TranslatorAutoConfiguration,\
   site.morn.boot.autoconfigure.ValidatorAutoConfiguration,\
-  site.morn.boot.autoconfigure.WebAutoConfiguration
+  site.morn.boot.autoconfigure.WebAutoConfiguration,\
+  site.morn.boot.autoconfigure.message.MessageAutoConfiguration,\
+  site.morn.boot.autoconfigure.message.RocketAutoConfiguration

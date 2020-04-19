@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import site.morn.bean.BeanAnnotationRegistry;
+import site.morn.bean.AnnotationFieldRegistry;
 import site.morn.bean.BeanConfigurer;
 import site.morn.boot.netty.NettyClient;
 import site.morn.boot.netty.NettyServer;
@@ -33,7 +33,7 @@ import site.morn.boot.netty.cache.NettyCache;
 public class NettyAutoConfiguration implements BeanConfigurer {
 
   @Override
-  public void addBeanAnnotations(BeanAnnotationRegistry registry) {
+  public void addBeanAnnotations(AnnotationFieldRegistry registry) {
     registry.add(Terminal.class);
     registry.add(Inbound.class);
     registry.add(Outbound.class);

@@ -1,6 +1,6 @@
 package site.morn.boot.data;
 
-import site.morn.boot.jpa.TestUser;
+import site.morn.test.TestUser;
 
 /**
  * 用户测试服务

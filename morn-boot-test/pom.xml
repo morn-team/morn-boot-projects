@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
     <artifactId>morn-boot-projects</artifactId>
     <groupId>site.morn.boot</groupId>
@@ -20,6 +22,11 @@
       <groupId>io.netty</groupId>
       <artifactId>netty-all</artifactId>
     </dependency>
+    <!--Rocket-->
+    <dependency>
+      <groupId>org.apache.rocketmq</groupId>
+      <artifactId>rocketmq-spring-boot-starter</artifactId>
+    </dependency>
     <!--Morn-->
     <dependency>
       <groupId>site.morn.boot</groupId>
@@ -28,6 +35,10 @@
     <dependency>
       <groupId>site.morn.boot</groupId>
       <artifactId>morn-boot-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>site.morn.boot</groupId>
+      <artifactId>morn-boot-data</artifactId>
     </dependency>
     <dependency>
       <groupId>site.morn.boot</groupId>
@@ -43,11 +54,11 @@
     </dependency>
     <dependency>
       <groupId>site.morn.boot</groupId>
-      <artifactId>morn-boot-security</artifactId>
+      <artifactId>morn-boot-rocket</artifactId>
     </dependency>
     <dependency>
       <groupId>site.morn.boot</groupId>
-      <artifactId>morn-boot-data</artifactId>
+      <artifactId>morn-boot-security</artifactId>
     </dependency>
     <dependency>
       <groupId>site.morn.boot</groupId>
@@ -60,6 +71,10 @@
     <dependency>
       <groupId>site.morn.boot</groupId>
       <artifactId>morn-fastjson</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>site.morn.boot</groupId>
+      <artifactId>morn-messaging</artifactId>
     </dependency>
     <!--SpringBoot-->
     <dependency>

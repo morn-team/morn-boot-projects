@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import site.morn.core.CriteriaMap;
+import site.morn.test.TestUser;
 
 /**
  * 分组校验单元测试

@@ -5,8 +5,8 @@ import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import java.util.List;
-import site.morn.bean.BeanCaches;
-import site.morn.bean.Tags;
+import site.morn.bean.support.BeanCaches;
+import site.morn.bean.support.Tags;
 import site.morn.boot.netty.adapter.ChannelHandlerProducer;
 import site.morn.boot.netty.annotation.Inbound;
 import site.morn.boot.netty.annotation.Terminal;
@@ -58,7 +58,7 @@ public class NettyChannelInitializer extends ChannelInitializer {
     String[] productTags = Tags.from(Terminal.class, terminal).add(Inbound.class, boundType)
         .toArray();
     ChannelHandler[] productHandlers = BeanFunctionUtils
-        .products(ChannelHandlerProducer.class, productTags).toArray(new ChannelHandler[0]);
+        .batchProducts(ChannelHandlerProducer.class, productTags).toArray(new ChannelHandler[0]);
     pipeline.addLast(productHandlers);
   }
 }

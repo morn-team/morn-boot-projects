@@ -2,7 +2,7 @@ package site.morn.boot.data;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import site.morn.boot.jpa.TestUser;
+import site.morn.test.TestUser;
 
 /**
  * 用户测试控制器

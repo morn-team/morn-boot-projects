@@ -2,7 +2,7 @@ package site.morn.util;
 
 import lombok.experimental.UtilityClass;
 import org.springframework.util.Assert;
-import site.morn.bean.BeanCaches;
+import site.morn.bean.support.BeanCaches;
 import site.morn.digest.Decryption;
 import site.morn.digest.DigestMatcher;
 import site.morn.digest.Encryption;

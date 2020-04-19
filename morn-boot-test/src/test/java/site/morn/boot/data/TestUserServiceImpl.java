@@ -1,8 +1,8 @@
 package site.morn.boot.data;
 
 import org.springframework.stereotype.Service;
-import site.morn.boot.jpa.TestUser;
 import site.morn.boot.jpa.TestUserRepository;
+import site.morn.test.TestUser;
 
 /**
  * 用户测试服务实现

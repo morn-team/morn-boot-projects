@@ -1,18 +1,19 @@
 package site.morn.core;
 
 /**
- * 实例校验者
+ * 实例验证器
  *
  * @author timely-rain
  * @since 1.2.1, 2019/9/12
  */
+@FunctionalInterface
 public interface BeanValidator<T> {
 
   /**
    * 校验
    *
-   * @param data 数据
+   * @param source 源数据
    * @return 检验是否通过
    */
-  boolean validate(T data);
+  boolean validate(T source);
 }

@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import org.springframework.core.convert.converter.Converter;
 
 /**
  * 类转换器
@@ -14,15 +15,8 @@ import java.util.stream.Stream;
  * @author timely-rain
  * @since 1.0.0, 2018/5/31
  */
-public interface BeanConverter<S, T> {
-
-  /**
-   * 获取目标类型, 即将源类型转换为目标类型
-   *
-   * @param source 源类型
-   * @return 目标类型
-   */
-  T convert(S source);
+@FunctionalInterface
+public interface BeanConverter<S, T> extends Converter<S, T> {
 
   /**
    * 获取源类型, 即将目标类型转换为源类型

@@ -12,6 +12,7 @@ import site.morn.core.CriteriaMap;
  * JSON转换工具
  *
  * @author timely-rain
+ * @since 1.0.0, 2019/9/5
  */
 @UtilityClass
 public class JsonUtils {
@@ -20,13 +21,13 @@ public class JsonUtils {
    * 克隆
    *
    * @param object 任意对象
+   * @param cls 对象类
    * @param <T> 对象类型
    * @return 克隆对象
    */
-  public static <T extends Serializable> T clone(T object) {
+  public static <T extends Serializable> T clone(T object, Class<T> cls) {
     String s = toString(object);
-    return toObject(s, new TypeReference<T>() {
-    });
+    return toObject(s, cls);
   }
 
   /**

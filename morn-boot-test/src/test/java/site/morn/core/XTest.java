@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import org.junit.Assert;
 import org.junit.Test;
-import site.morn.boot.jpa.TestUser;
+import site.morn.test.TestUser;
 
 /**
  * 任意类型单元测试

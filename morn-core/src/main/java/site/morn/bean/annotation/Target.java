@@ -6,23 +6,22 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * 目标注解
+ * 目标类注解
  *
- * <p>目标是唯一的，通常代表实例的处理类型
+ * <p>目标类是唯一的，通常代表实例的输出类型
  *
  * @author timely-rain
  * @since 1.0.0, 2018/11/25
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@java.lang.annotation.Target(ElementType.TYPE)
-@Objective
+@java.lang.annotation.Target({ElementType.TYPE, ElementType.METHOD})
 public @interface Target {
 
   /**
-   * 获取目标
+   * 获取目标类
    *
-   * @return 目标
+   * @return 目标类
    */
   Class<?> value();
 }

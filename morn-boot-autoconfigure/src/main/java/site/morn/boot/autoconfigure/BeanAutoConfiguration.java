@@ -1,20 +1,31 @@
 package site.morn.boot.autoconfigure;
 
+import static site.morn.bean.AnnotationFieldRegistry.BEAN_ANNOTATION_REGISTRY;
+import static site.morn.bean.AnnotationFieldRegistry.FUNCTION_ANNOTATION_REGISTRY;
+
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.AnnotationUtils;
-import org.springframework.util.StringUtils;
-import site.morn.bean.BeanAnnotation;
-import site.morn.bean.BeanAnnotationRegistry;
+import site.morn.bean.AnnotationFieldRegistry;
+import site.morn.bean.AnnotationFieldType;
 import site.morn.bean.BeanCache;
 import site.morn.bean.BeanConfigurer;
+import site.morn.bean.annotation.Function;
+import site.morn.bean.annotation.Name;
+import site.morn.bean.annotation.Source;
+import site.morn.bean.annotation.Tag;
+import site.morn.bean.annotation.Target;
+import site.morn.boot.bean.AnnotationBeanPostProcessor;
 import site.morn.boot.bean.BeanCacheInitializer;
-import site.morn.boot.bean.IdentifiedBeanPostProcessor;
 import site.morn.boot.bean.SimpleBeanCache;
+import site.morn.util.OptionalCollection;
 
 /**
  * 实例自动化配置
@@ -24,17 +35,42 @@ import site.morn.boot.bean.SimpleBeanCache;
  */
 @Configuration
 @ConditionalOnClass(CacheManager.class)
-public class BeanAutoConfiguration {
+public class BeanAutoConfiguration implements BeanConfigurer {
+
+  @Override
+  public void addBeanAnnotations(AnnotationFieldRegistry registry) {
+    registry.add(Name.class, AnnotationFieldType.NAME);
+    registry.add(Tag.class);
+    registry.add(Source.class, AnnotationFieldType.SOURCE);
+    registry.add(Target.class, AnnotationFieldType.TARGET);
+  }
+
+  @Override
+  public void addFunctionAnnotations(AnnotationFieldRegistry registry) {
+    registry.add(Function.class, AnnotationFieldType.NAME);
+    registry.add(Tag.class);
+    registry.add(Source.class, AnnotationFieldType.SOURCE);
+    registry.add(Target.class, AnnotationFieldType.TARGET);
+  }
 
   /**
    * 注册实例注解注册表
    *
    * @return 实例注解注册表
    */
-  @Bean
-  @ConditionalOnMissingBean
-  public BeanAnnotationRegistry beanAnnotationRegistry() {
-    return new BeanAnnotationRegistry();
+  @Bean(BEAN_ANNOTATION_REGISTRY)
+  @ConditionalOnMissingBean(name = BEAN_ANNOTATION_REGISTRY)
+  public AnnotationFieldRegistry beanAnnotationRegistry() {
+    return new AnnotationFieldRegistry();
+  }
+
+  /**
+   * 注册函数注解注册表
+   */
+  @Bean(FUNCTION_ANNOTATION_REGISTRY)
+  @ConditionalOnMissingBean(name = FUNCTION_ANNOTATION_REGISTRY)
+  public AnnotationFieldRegistry functionAnnotationRegistry() {
+    return new AnnotationFieldRegistry();
   }
 
   /**
@@ -56,16 +92,22 @@ public class BeanAutoConfiguration {
    * <p>识别实例注解并缓存
    *
    * @param configurers 实例配置
-   * @param registry 实例注解注册表
+   * @param beanAnnotationRegistry 实例注解注册表
    * @param beanCache 标识实例缓存
    * @return 标识实例后置处理器
    */
   @Bean
   @ConditionalOnMissingBean
-  public IdentifiedBeanPostProcessor identifiedBeanPostProcessor(List<BeanConfigurer> configurers,
-      BeanAnnotationRegistry registry, BeanCache beanCache) {
-    initBeanAnnotation(configurers, registry);
-    return new IdentifiedBeanPostProcessor(registry, beanCache);
+  public AnnotationBeanPostProcessor identifiedBeanPostProcessor(
+      @Autowired(required = false) List<BeanConfigurer> configurers,
+      @Qualifier(BEAN_ANNOTATION_REGISTRY) AnnotationFieldRegistry beanAnnotationRegistry,
+      @Qualifier(FUNCTION_ANNOTATION_REGISTRY) AnnotationFieldRegistry functionAnnotationRegistry,
+      BeanCache beanCache) {
+    Collection<BeanConfigurer> collection = OptionalCollection.ofNullable(configurers)
+        .orElse(Collections.emptyList());
+    registeredAnnotations(collection, beanAnnotationRegistry, functionAnnotationRegistry);
+    return new AnnotationBeanPostProcessor(beanAnnotationRegistry, functionAnnotationRegistry,
+        beanCache);
   }
 
   /**
@@ -84,23 +126,15 @@ public class BeanAutoConfiguration {
    * 初始化实例注解
    *
    * @param configurers 实例配置
-   * @param registry 实例注解注册表
+   * @param beanRegistry 实例注解注册表
+   * @param functionRegistry 函数注解注册表
    */
-  private void initBeanAnnotation(List<BeanConfigurer> configurers,
-      BeanAnnotationRegistry registry) {
+  private void registeredAnnotations(Collection<BeanConfigurer> configurers,
+      AnnotationFieldRegistry beanRegistry, AnnotationFieldRegistry functionRegistry) {
     // 注册自定义注解实例
     for (BeanConfigurer configurer : configurers) {
-      configurer.addBeanAnnotations(registry);
-    }
-    // 设置默认值
-    for (BeanAnnotation beanAnnotation : registry.getAnnotations()) {
-      if (StringUtils.isEmpty(beanAnnotation.getTagName())) {
-        String name = StringUtils.uncapitalize(beanAnnotation.getAnnotationType().getSimpleName());
-        beanAnnotation.setTagName(name); // 默认标签名称
-      }
-      if (StringUtils.isEmpty(beanAnnotation.getAttributeName())) {
-        beanAnnotation.setAttributeName(AnnotationUtils.VALUE); // 默认属性名称
-      }
+      configurer.addBeanAnnotations(beanRegistry);
+      configurer.addFunctionAnnotations(functionRegistry);
     }
   }
 }

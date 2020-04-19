@@ -11,10 +11,10 @@ import lombok.experimental.Accessors;
  * @author timely-rain
  * @since 1.0.0, 2018/10/16
  */
-@Accessors(chain = true)
 @Getter
 @Setter
 @ToString
+@Accessors(chain = true)
 public class ApplicationMessage {
 
   /**

@@ -75,6 +75,11 @@ public class ApplicationConstant {
     public static final String BEAN_DEFAULT = "bean.default";
 
     /**
+     * 任务-尚未注册发布者
+     */
+    public static final String TASK_NO_PUBLISHER = "task.no-publisher";
+
+    /**
      * 任务-执行失败
      */
     public static final String TASK_EXECUTE_FAILURE = "task.execute-failure";

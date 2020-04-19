@@ -2,9 +2,9 @@ package site.morn.bean;
 
 import java.lang.reflect.Method;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.util.StringUtils;
+import site.morn.bean.support.SimpleAnnotationFeature;
 
 /**
  * 方法持有者
@@ -12,10 +12,9 @@ import org.springframework.util.StringUtils;
  * @author timely-rain
  * @since 1.2.0, 2019/5/17
  */
-@NoArgsConstructor
 @Getter
 @Setter
-public class FunctionHolder extends AnnotationIdentifyCase implements AnnotationIdentify {
+public class FunctionHolder extends SimpleAnnotationFeature implements AnnotationFeature {
 
   /**
    * 实例
@@ -32,9 +31,9 @@ public class FunctionHolder extends AnnotationIdentifyCase implements Annotation
    */
   protected Class<?>[] parameterTypes;
 
-  public FunctionHolder(Object bean, AnnotationIdentify identify, Method method,
+  public FunctionHolder(Object bean, AnnotationFeature feature, Method method,
       Class<?>[] parameterTypes) {
-    super(identify);
+    super(feature);
     this.bean = bean;
     this.method = method;
     this.parameterTypes = parameterTypes;

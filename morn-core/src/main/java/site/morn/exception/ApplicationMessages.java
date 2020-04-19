@@ -1,6 +1,5 @@
 package site.morn.exception;
 
-import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.util.StringUtils;
 import site.morn.translate.Transfer;
@@ -94,7 +93,9 @@ public class ApplicationMessages {
    * @param code 消息编码
    * @param args 消息参数
    * @return 应用消息
+   * @deprecated {@link #translateMessage(String, Object...)}
    */
+  @Deprecated
   public static ApplicationMessage translate(String code, Object... args) {
     return translateMessage(code, args);
   }
@@ -107,7 +108,7 @@ public class ApplicationMessages {
    * @param args 消息参数
    */
   public static ApplicationException translateException(String code, Object... args) {
-    return translate(code, args).exception();
+    return translateMessage(code, args).exception();
   }
 
   /**
@@ -250,13 +251,15 @@ public class ApplicationMessages {
    * @return 应用消息
    */
   private ApplicationMessage build() {
-    if ((Objects.nonNull(message) && !Objects.equals(message, "")) || (Objects.nonNull(solution)
-        && !Objects.equals(solution, ""))) {
-      // 当设置了message/solution时，直接构建应用消息
-      return new ApplicationMessage().setCode(transfer.getCode()).setMessage(message)
-          .setSolution(solution);
+    if (StringUtils.isEmpty(message) && StringUtils.isEmpty(solution)) {
+      // 当未设置message/solution时，通过Translator构建应用消息
+      ApplicationMessage translate = Translators.defaultTranslator()
+          .translate(transfer, ApplicationMessage.class);
+      return new ApplicationMessage().setCode(translate.getCode())
+          .setMessage(translate.getMessage()).setSolution(translate.getSolution());
     }
-    // 当未设置message/solution时，通过Translator构建应用消息
-    return Translators.defaultTranslator().translate(transfer, ApplicationMessage.class);
+    // 当设置了message/solution时，直接构建应用消息
+    return new ApplicationMessage().setCode(transfer.getCode()).setMessage(message)
+        .setSolution(solution);
   }
 }

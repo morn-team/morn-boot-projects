@@ -15,6 +15,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.StringUtils;
 import site.morn.core.CriteriaMap;
+import site.morn.test.TestUser;
 
 /**
  * JPA构建条件单元测试
