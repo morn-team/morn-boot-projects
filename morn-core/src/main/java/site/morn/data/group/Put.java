@@ -1,4 +1,4 @@
-package site.morn.validate.group;
+package site.morn.data.group;
 
 import javax.validation.groups.Default;
 

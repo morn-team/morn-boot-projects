@@ -1,13 +1,13 @@
-package site.morn.validate.group;
+package site.morn.data.group;
 
 import javax.validation.groups.Default;
 
 /**
- * 搜索
+ * 增量更新
  *
  * @author timely-rain
  * @since 1.0.0, 2018/8/16
  */
-public interface Search extends Default {
+public interface Patch extends Default {
 
 }

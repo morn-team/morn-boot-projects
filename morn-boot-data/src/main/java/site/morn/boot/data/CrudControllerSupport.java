@@ -13,17 +13,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import site.morn.boot.rest.RestPage;
+import site.morn.data.group.Add;
+import site.morn.data.group.Delete;
+import site.morn.data.group.Put;
+import site.morn.data.group.Search;
+import site.morn.data.group.Update;
 import site.morn.log.OperateAction;
 import site.morn.log.OperateAction.Actions;
 import site.morn.rest.RestBuilders;
 import site.morn.rest.RestMessage;
 import site.morn.rest.RestModel;
 import site.morn.util.GenericUtils;
-import site.morn.validate.group.Add;
-import site.morn.validate.group.Delete;
-import site.morn.validate.group.Put;
-import site.morn.validate.group.Search;
-import site.morn.validate.group.Update;
 
 /**
  * 基础控制器实现

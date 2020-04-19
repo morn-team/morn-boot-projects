@@ -59,6 +59,17 @@ public interface BeanCache {
   }
 
   /**
+   * 按源检索实例
+   *
+   * @param source 源
+   * @param <T> 实例类型
+   * @return 实例对象
+   */
+  default <T> T sourceBean(Class<T> type, Class<?> source) {
+    return bean(type, AnnotationFeatureBuilder.withSource(source).build());
+  }
+
+  /**
    * 按目标检索实例
    *
    * @param target 目标
@@ -128,6 +139,17 @@ public interface BeanCache {
    */
   default <T> List<T> tagBeans(Class<T> type, String... tags) {
     return beans(type, AnnotationFeatureBuilder.withTags(tags).build());
+  }
+
+  /**
+   * 按源检索实例
+   *
+   * @param source 源
+   * @param <T> 实例类型
+   * @return 实例集合
+   */
+  default <T> List<T> sourceBeans(Class<T> type, Class<?> source) {
+    return beans(type, AnnotationFeatureBuilder.withSource(source).build());
   }
 
   /**

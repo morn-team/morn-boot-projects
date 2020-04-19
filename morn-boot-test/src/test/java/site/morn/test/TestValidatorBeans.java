@@ -25,8 +25,8 @@ public class TestValidatorBeans {
   public static class OneValidator implements BeanValidator<String> {
 
     @Override
-    public boolean validate(String data) {
-      return data.length() == 1;
+    public boolean validate(String source) {
+      return source.length() == 1;
     }
   }
 
@@ -37,8 +37,8 @@ public class TestValidatorBeans {
   public static class TwoValidator implements BeanValidator<String> {
 
     @Override
-    public boolean validate(String data) {
-      return data.length() == 2;
+    public boolean validate(String source) {
+      return source.length() == 2;
     }
   }
 }

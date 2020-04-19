@@ -19,7 +19,7 @@ import site.morn.boot.rest.RestPage;
 import site.morn.core.CriteriaMap;
 import site.morn.rest.RestModel;
 import site.morn.util.GenericUtils;
-import site.morn.validate.persistent.PersistFunctionUtils;
+import site.morn.util.PersistFunctionUtils;
 
 /**
  * 基础服务实现

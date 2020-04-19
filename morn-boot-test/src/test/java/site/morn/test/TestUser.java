@@ -7,7 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
-import site.morn.validate.group.Add;
+import lombok.NoArgsConstructor;
+import site.morn.data.group.Add;
 
 /**
  * 测试用户
@@ -17,12 +18,21 @@ import site.morn.validate.group.Add;
  */
 @Data
 @Entity
+@NoArgsConstructor
 public class TestUser implements Serializable {
 
 
   @Id
   @GeneratedValue
   private Long id;
+
+  /**
+   * 部门编号
+   *
+   * @see TestDepartment#getId()
+   */
+  @Column
+  private Long departmentId;
 
   @Column
   @NotNull

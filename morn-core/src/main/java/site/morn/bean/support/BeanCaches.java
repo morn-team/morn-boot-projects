@@ -199,6 +199,18 @@ public class BeanCaches {
   }
 
   /**
+   * 按源检索实例
+   *
+   * @param type 实例类
+   * @param source 源
+   * @param <T> 实例类型
+   * @return 实例集合
+   */
+  public static <T> List<T> sourceBeans(Class<T> type, Class<?> source) {
+    return beanCache().sourceBeans(type, source);
+  }
+
+  /**
    * 按目标检索实例
    *
    * @param type 实例类

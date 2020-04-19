@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import site.morn.data.group.Add;
+import site.morn.data.group.Update;
 import site.morn.rest.RestBuilders;
 import site.morn.rest.RestMessage;
 import site.morn.rest.RestModel;
 import site.morn.test.TestUser;
-import site.morn.validate.group.Add;
-import site.morn.validate.group.Update;
 
 /**
  * 数据校验测试控制器
