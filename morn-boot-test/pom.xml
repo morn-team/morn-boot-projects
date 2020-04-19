@@ -38,6 +38,10 @@
     </dependency>
     <dependency>
       <groupId>site.morn.boot</groupId>
+      <artifactId>morn-boot-data</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>site.morn.boot</groupId>
       <artifactId>morn-boot-interpreter</artifactId>
     </dependency>
     <dependency>
@@ -58,10 +62,6 @@
     </dependency>
     <dependency>
       <groupId>site.morn.boot</groupId>
-      <artifactId>morn-boot-data</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>site.morn.boot</groupId>
       <artifactId>morn-boot-web</artifactId>
     </dependency>
     <dependency>
@@ -71,6 +71,10 @@
     <dependency>
       <groupId>site.morn.boot</groupId>
       <artifactId>morn-fastjson</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>site.morn.boot</groupId>
+      <artifactId>morn-messaging</artifactId>
     </dependency>
     <!--SpringBoot-->
     <dependency>
