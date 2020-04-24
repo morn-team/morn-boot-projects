@@ -2,7 +2,9 @@ package site.morn.bean.support;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import site.morn.util.AnnotationFeatureUtils;
 
 /**
@@ -17,6 +19,16 @@ public class Tags {
    * 标签集合
    */
   private final List<String> tagList = new ArrayList<>();
+
+  private Tags() {
+  }
+
+  /**
+   * 创建空的标签构建类
+   */
+  public static Tags empty() {
+    return new Tags();
+  }
 
   /**
    * 通过注解构建
@@ -36,9 +48,7 @@ public class Tags {
    * @return 标签构建类
    */
   public static Tags from(Class<? extends Annotation> annotation, Object value) {
-    Tags tags = new Tags();
-    tags.add(annotation, value);
-    return tags;
+    return empty().add(annotation, value);
   }
 
   /**
@@ -49,9 +59,7 @@ public class Tags {
    * @return 标签构建类
    */
   public static Tags from(String tagName, Object value) {
-    Tags tags = new Tags();
-    tags.add(tagName, value);
-    return tags;
+    return empty().add(tagName, value);
   }
 
   /**
@@ -61,9 +69,7 @@ public class Tags {
    * @return 标签构建类
    */
   public static Tags from(Object value) {
-    Tags tags = new Tags();
-    tags.add((String) null, value);
-    return tags;
+    return from((String) null, value);
   }
 
   /**
@@ -109,6 +115,19 @@ public class Tags {
    */
   public Tags add(String tag) {
     tagList.add(tag);
+    return this;
+  }
+
+  /**
+   * 设置标签
+   *
+   * @param tags 标签数组
+   * @return 标签构建类
+   */
+  public Tags set(String... tags) {
+    tagList.clear();
+    List<String> strings = Arrays.stream(tags).collect(Collectors.toList());
+    tagList.addAll(strings);
     return this;
   }
 

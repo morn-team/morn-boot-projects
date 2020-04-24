@@ -15,11 +15,16 @@ public class DigestConstant {
    * 数据加密算法
    */
   @UtilityClass
-  public static class Algorithms {
+  public class Algorithms {
 
     /**
-     * BCrypt加密
+     * MD5算法
      */
-    public static final String SPRING_B_CRYPT = "spring.b.crypt";
+    public final String MD5 = "md5";
+
+    /**
+     * BCrypt算法
+     */
+    public final String SPRING_B_CRYPT = "spring.b.crypt";
   }
 }
