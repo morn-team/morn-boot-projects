@@ -34,7 +34,7 @@ public class RestAutoConfiguration {
   /**
    * 注册REST初始化器
    *
-   * @param beanCache 实例缓存
+   * @param beanCache  实例缓存
    * @param translator 翻译器
    * @return REST初始化器
    */

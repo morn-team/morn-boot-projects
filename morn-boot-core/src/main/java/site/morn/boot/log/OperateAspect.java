@@ -1,5 +1,7 @@
 package site.morn.boot.log;
 
+import static site.morn.log.OperateModes.SIMPLE;
+
 import java.util.List;
 import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
@@ -11,11 +13,13 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.Assert;
 import site.morn.bean.BeanCache;
+import site.morn.bean.support.Tags;
 import site.morn.log.OperateAction;
 import site.morn.log.OperateArguments;
 import site.morn.log.OperateGroup;
 import site.morn.log.OperateMeta;
 import site.morn.log.OperateMeta.OperateMetaBuilder;
+import site.morn.log.OperateMode;
 import site.morn.log.Operation;
 import site.morn.log.OperationConverter;
 import site.morn.log.OperationProcessor;
@@ -64,7 +68,9 @@ public class OperateAspect {
       OperateArguments.clear();
       // 将操作日志元数据，转换为操作日志实例
       OperateMeta operateMeta = operateMetaBuilder.build();
-      Operation operation = BeanFunctionUtils.convert(OperationConverter.class, operateMeta);
+      Tags tags = Tags.from(OperateMode.class, SIMPLE);
+      Operation operation = BeanFunctionUtils
+          .convert(OperationConverter.class, operateMeta, tags.toArray());
       // 处理操作日志
       List<OperationProcessor> processors = beanCache.tagBeans(OperationProcessor.class);
       Assert.notEmpty(processors, "请注册操作日志处理器：" + OperationProcessor.class.getName());
@@ -94,8 +100,8 @@ public class OperateAspect {
 
     // 构建操作日志元数据
     OperateMetaBuilder builder = OperateMeta.builder().actionArgs(operateAction.args())
-        .codeArgs(codeArgs).methodArgs(point.getArgs()).name(operateAction.value())
-        .excepts(operateAction.excepts());
+        .codeArgs(codeArgs).excludeNames(operateAction.excludeNames()).methodArgs(point.getArgs())
+        .mode(operateAction.mode()).name(operateAction.value()).excepts(operateAction.excepts());
     if (Objects.nonNull(operateGroup)) {
       builder.module(operateGroup.value());
       builder.groupArgs(operateGroup.args());

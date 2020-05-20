@@ -39,6 +39,13 @@ public class OperateMeta implements AnnotationOperate {
   private String name;
 
   /**
+   * 记录模式
+   *
+   * @see OperateMode
+   */
+  private String mode;
+
+  /**
    * 模块参数
    */
   private Object[] groupArgs;
@@ -72,6 +79,11 @@ public class OperateMeta implements AnnotationOperate {
    * 例外异常类型
    */
   private Class<? extends Throwable>[] excepts;
+
+  /**
+   * 排除的属性名称
+   */
+  private String[] excludeNames;
 
   /**
    * 附加数据
