@@ -9,10 +9,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import site.morn.boot.data.jpa.JpaRepositoryFactoryProducer;
 import site.morn.boot.netty.annotation.EnableNettyClient;
 import site.morn.boot.netty.annotation.EnableNettyServer;
+import site.morn.boot.notify.annotation.EnableNotify;
+import site.morn.boot.template.annotation.EnableTemplate;
 
 
 @EnableAsync
+@EnableNotify
 @EnableCaching
+@EnableTemplate
 @EnableJpaRepositories(repositoryFactoryBeanClass = JpaRepositoryFactoryProducer.class)
 @EnableNettyClient
 @EnableNettyServer

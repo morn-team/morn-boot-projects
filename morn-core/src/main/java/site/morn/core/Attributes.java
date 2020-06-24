@@ -94,4 +94,15 @@ public interface Attributes<K, V> extends Map<K, V> {
     V value = get(name);
     return Optional.ofNullable(value).map(Objects::toString).map(Long::valueOf).orElse(null);
   }
+
+  /**
+   * 获取子属性
+   *
+   * @param name 属性名称
+   * @param <T>  属性类型
+   * @return 子属性
+   */
+  default <T extends Attributes<K, V>> T getAttributes(String name) {
+    return getExpect(name);
+  }
 }
