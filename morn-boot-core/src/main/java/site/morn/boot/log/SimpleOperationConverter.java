@@ -1,8 +1,10 @@
 package site.morn.boot.log;
 
+import static site.morn.log.OperateModes.SIMPLE;
+
 import java.util.Date;
-import site.morn.bean.annotation.Tag;
 import site.morn.log.OperateMeta;
+import site.morn.log.OperateMode;
 import site.morn.log.Operation;
 import site.morn.log.OperationConverter;
 import site.morn.translate.Translator;
@@ -13,15 +15,15 @@ import site.morn.translate.Translator;
  * @author timely-rain
  * @since 1.0.0, 2018/12/4
  */
-@Tag
-public class DefaultOperationConverter implements OperationConverter {
+@OperateMode(SIMPLE)
+public class SimpleOperationConverter implements OperationConverter {
 
   /**
    * 翻译器
    */
   private final Translator translator;
 
-  public DefaultOperationConverter(Translator translator) {
+  public SimpleOperationConverter(Translator translator) {
     this.translator = translator;
   }
 

@@ -30,13 +30,13 @@ public class CacheGroups {
   /**
    * 获取缓存组
    *
-   * @param groupName 组名称
+   * @param cacheName 缓存名称
    * @return 缓存组
    */
-  public static CacheGroup cacheGroup(String groupName) {
+  public static CacheGroup cacheGroup(String cacheName) {
     CacheManager cacheManager = BeanCaches.getBean(CACHE_MANAGER_NAME_PRIMARY, CacheManager.class);
     SimpleCacheGroup cacheGroup = new SimpleCacheGroup(cacheManager);
-    cacheGroup.setCacheName(groupName);
+    cacheGroup.setCacheName(cacheName);
     return cacheGroup;
   }
 }

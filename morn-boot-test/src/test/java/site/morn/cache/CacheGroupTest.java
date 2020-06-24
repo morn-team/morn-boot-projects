@@ -34,23 +34,23 @@ public class CacheGroupTest {
     cacheGroup.put("name", "1", "Timely");
     cacheGroup.put("name", "2", "Rain");
     cacheGroup.put("name", "3", "Milk");
-    cacheGroup.put("number", "1", 1);
-    cacheGroup.put("number", "2", 2);
-    cacheGroup.put("number", "3", 3);
+    cacheGroup.put("iconUrl", "1", 1);
+    cacheGroup.put("iconUrl", "2", 2);
+    cacheGroup.put("iconUrl", "3", 3);
 
     Object name1 = cacheGroup.get("name", "1");
     Object name2 = cacheGroup.get("name", "2");
     Object name3 = cacheGroup.get("name", "3");
-    Object number1 = cacheGroup.get("number", "1");
-    Object number2 = cacheGroup.get("number", "2");
-    Object number3 = cacheGroup.get("number", "3");
+    Object iconUrl1 = cacheGroup.get("iconUrl", "1");
+    Object iconUrl2 = cacheGroup.get("iconUrl", "2");
+    Object iconUrl3 = cacheGroup.get("iconUrl", "3");
 
     Assert.assertNotNull(name1);
     Assert.assertNotNull(name2);
     Assert.assertNotNull(name3);
-    Assert.assertNotNull(number1);
-    Assert.assertNotNull(number2);
-    Assert.assertNotNull(number3);
+    Assert.assertNotNull(iconUrl1);
+    Assert.assertNotNull(iconUrl2);
+    Assert.assertNotNull(iconUrl3);
   }
 
   @Test
@@ -58,10 +58,9 @@ public class CacheGroupTest {
     String name1 = cacheGroup.get("name", "1", String.class);
     Assert.assertEquals("Timely", name1);
 
-    Integer number1 = cacheGroup.get("number", "1", Integer.class);
-    Assert.assertNotNull(number1);
-    int value = number1.intValue();
-    Assert.assertEquals(1, value);
+    Integer iconUrl1 = cacheGroup.get("iconUrl", "1", Integer.class);
+    Assert.assertNotNull(iconUrl1);
+    Assert.assertEquals(1, iconUrl1.intValue());
   }
 
   @Test
@@ -70,11 +69,10 @@ public class CacheGroupTest {
     String name1 = cacheGroup.get("name", "1", String.class);
     Assert.assertEquals("Timely", name1);
 
-    cacheGroup.put("number", "2", 200);
-    Integer number2 = cacheGroup.get("number", "2", Integer.class);
-    Assert.assertNotNull(number2);
-    int value = number2.intValue();
-    Assert.assertEquals(200, value);
+    cacheGroup.put("iconUrl", "2", 200);
+    Integer iconUrl2 = cacheGroup.get("iconUrl", "2", Integer.class);
+    Assert.assertNotNull(iconUrl2);
+    Assert.assertEquals(200, iconUrl2.intValue());
   }
 
   @Test
@@ -85,15 +83,15 @@ public class CacheGroupTest {
 
     cacheGroup.clearKey("2");
     Object name2 = cacheGroup.get("name", "2");
-    Object number2 = cacheGroup.get("number", "2");
+    Object iconUrl2 = cacheGroup.get("iconUrl", "2");
     Assert.assertNull(name2);
-    Assert.assertNull(number2);
+    Assert.assertNull(iconUrl2);
 
-    cacheGroup.clearGroup("number");
-    Object number1 = cacheGroup.get("number", "1");
-    Object number3 = cacheGroup.get("number", "3");
-    Assert.assertNull(number1);
-    Assert.assertNull(number3);
+    cacheGroup.clearGroup("iconUrl");
+    Object iconUrl1 = cacheGroup.get("iconUrl", "1");
+    Object iconUrl3 = cacheGroup.get("iconUrl", "3");
+    Assert.assertNull(iconUrl1);
+    Assert.assertNull(iconUrl3);
 
     cacheGroup.clearAll();
     Object name3 = cacheGroup.get("name", "3");

@@ -1,5 +1,6 @@
 package site.morn.bean.support;
 
+import java.lang.annotation.Annotation;
 import lombok.ToString;
 import site.morn.bean.AnnotationFeature;
 
@@ -25,7 +26,7 @@ public class AnnotationFeatureBuilder {
    *
    * @see site.morn.bean.annotation.Tag
    */
-  private String[] tags;
+  private final Tags tags;
 
   /**
    * 源类型
@@ -42,15 +43,35 @@ public class AnnotationFeatureBuilder {
   private Class<?> target;
 
   private AnnotationFeatureBuilder() {
+    this.tags = Tags.empty();
   }
 
+  /**
+   * 设置名称
+   */
   public AnnotationFeatureBuilder name(String name) {
     this.name = name;
     return this;
   }
 
-  public AnnotationFeatureBuilder tags(String[] tags) {
-    this.tags = tags;
+  /**
+   * 添加注解标签
+   *
+   * @param annotation 注解类
+   * @param value 注解值
+   */
+  public AnnotationFeatureBuilder tag(Class<? extends Annotation> annotation, Object value) {
+    this.tags.add(annotation, value);
+    return this;
+  }
+
+  /**
+   * 设置标签
+   *
+   * @param tags 标签数组
+   */
+  public AnnotationFeatureBuilder tags(String... tags) {
+    this.tags.set(tags);
     return this;
   }
 
@@ -65,13 +86,11 @@ public class AnnotationFeatureBuilder {
   }
 
   public AnnotationFeature build() {
-    return new SimpleAnnotationFeature(name, tags, source, target);
+    return new SimpleAnnotationFeature(name, tags.toArray(), source, target);
   }
 
   /**
-   * 获取注解特征构建器
-   *
-   * @return 注解特征构建器
+   * 创建空的注解特征构建器
    */
   public static AnnotationFeatureBuilder empty() {
     return new AnnotationFeatureBuilder();
@@ -87,6 +106,11 @@ public class AnnotationFeatureBuilder {
 
   public static AnnotationFeatureBuilder withName(String name) {
     return new AnnotationFeatureBuilder().name(name);
+  }
+
+  public static AnnotationFeatureBuilder withTag(Class<? extends Annotation> annotation,
+      Object value) {
+    return new AnnotationFeatureBuilder().tag(annotation, value);
   }
 
   public static AnnotationFeatureBuilder withTags(String... tags) {

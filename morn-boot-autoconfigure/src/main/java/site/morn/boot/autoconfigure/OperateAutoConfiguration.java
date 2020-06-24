@@ -4,9 +4,12 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import site.morn.bean.AnnotationFieldRegistry;
 import site.morn.bean.BeanCache;
-import site.morn.boot.log.DefaultOperationConverter;
+import site.morn.bean.BeanConfigurer;
 import site.morn.boot.log.OperateAspect;
+import site.morn.boot.log.SimpleOperationConverter;
+import site.morn.log.OperateMode;
 import site.morn.log.OperationConverter;
 import site.morn.translate.Translator;
 
@@ -18,7 +21,12 @@ import site.morn.translate.Translator;
  */
 @Configuration
 @ConditionalOnProperty(prefix = "morn.operate", value = "enabled", havingValue = "true")
-public class OperateAutoConfiguration {
+public class OperateAutoConfiguration implements BeanConfigurer {
+
+  @Override
+  public void addBeanAnnotations(AnnotationFieldRegistry registry) {
+    registry.add(OperateMode.class);
+  }
 
   /**
    * 注册操作日志切面
@@ -34,6 +42,6 @@ public class OperateAutoConfiguration {
   @Bean
   @ConditionalOnMissingBean
   public OperationConverter operationConverter(Translator translator) {
-    return new DefaultOperationConverter(translator);
+    return new SimpleOperationConverter(translator);
   }
 }

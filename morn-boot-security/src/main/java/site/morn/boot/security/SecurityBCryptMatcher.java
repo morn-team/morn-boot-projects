@@ -4,8 +4,8 @@ import static site.morn.constant.DigestConstant.Algorithms.SPRING_B_CRYPT;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import site.morn.bean.annotation.Tag;
 import site.morn.digest.DigestMatcher;
+import site.morn.digest.annotation.DigestAlgorithm;
 
 /**
  * BCrypt加密
@@ -16,7 +16,7 @@ import site.morn.digest.DigestMatcher;
  * @since 1.2.0, 2019/8/30
  */
 @Slf4j
-@Tag(SPRING_B_CRYPT)
+@DigestAlgorithm(SPRING_B_CRYPT)
 public class SecurityBCryptMatcher implements DigestMatcher {
 
   @Override

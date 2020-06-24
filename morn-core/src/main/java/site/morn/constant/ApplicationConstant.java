@@ -12,6 +12,11 @@ import lombok.experimental.UtilityClass;
 public class ApplicationConstant {
 
   /**
+   * 内建参数标识
+   */
+  public static final String BUILTIN = "_builtin";
+
+  /**
    * 缓存常量
    */
   @UtilityClass
@@ -93,5 +98,49 @@ public class ApplicationConstant {
      * 任务-尚未完成
      */
     public static final String TASK_NOT_DONE = "task.not-done";
+  }
+
+  /**
+   * 系统通知
+   */
+  @UtilityClass
+  public class Notify {
+
+    /**
+     * 注解式通知元数据初始化适配器
+     */
+    public static final String ANNOTATION_NOTIFY_META_INITIAL_ADAPTER_NAME = "annotationNotifyMetaInitialAdapter";
+
+    /**
+     * 通知日志处理者
+     */
+    public static final String NOTIFY_LOG_PROCESSOR_NAME = "notifyMetaLogProcessor";
+
+    /**
+     * 内置参数 - 通知注解
+     */
+    public static final String BUILTIN_NOTIFY_ANNOTATION = "_notifyAnnotation";
+
+    /**
+     * 内置参数 - 通知标识
+     */
+    public static final String BUILTIN_NOTIFY_KEY = "_notifyKey";
+
+    /**
+     * 内置参数 - 通知接收人标识
+     */
+    public static final String NOTIFY_RECEIVER_VALUE = "_notifyReceiverValue";
+  }
+
+  /**
+   * 模板类型
+   */
+  @UtilityClass
+  public class TemplateType {
+
+    /**
+     * 资源模板名称
+     */
+    public static final String RESOURCE = "resource";
   }
 }

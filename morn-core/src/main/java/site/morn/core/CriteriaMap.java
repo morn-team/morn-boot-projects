@@ -18,4 +18,14 @@ public class CriteriaMap extends HashMap<String, Object> implements CriteriaAttr
   public CriteriaMap(Map<String, Object> map) {
     super(map);
   }
+
+  /**
+   * 获取子集
+   *
+   * @param key 键
+   * @return 值
+   */
+  public CriteriaMap getCriteriaMap(String key) {
+    return getExpect(key);
+  }
 }

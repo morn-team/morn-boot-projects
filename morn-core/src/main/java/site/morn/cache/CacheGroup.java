@@ -53,6 +53,8 @@ public interface CacheGroup {
    *
    * @param group 组
    * @param key 键
+   * @param <T> 值泛型
+   * @param type 值类型
    * @return 值
    */
   @Nullable

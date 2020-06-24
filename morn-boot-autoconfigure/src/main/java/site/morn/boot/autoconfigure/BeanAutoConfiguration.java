@@ -91,9 +91,9 @@ public class BeanAutoConfiguration implements BeanConfigurer {
    *
    * <p>识别实例注解并缓存
    *
-   * @param configurers 实例配置
+   * @param configurers            实例配置
    * @param beanAnnotationRegistry 实例注解注册表
-   * @param beanCache 标识实例缓存
+   * @param beanCache              标识实例缓存
    * @return 标识实例后置处理器
    */
   @Bean
@@ -125,8 +125,8 @@ public class BeanAutoConfiguration implements BeanConfigurer {
   /**
    * 初始化实例注解
    *
-   * @param configurers 实例配置
-   * @param beanRegistry 实例注解注册表
+   * @param configurers      实例配置
+   * @param beanRegistry     实例注解注册表
    * @param functionRegistry 函数注解注册表
    */
   private void registeredAnnotations(Collection<BeanConfigurer> configurers,
