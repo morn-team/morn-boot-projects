@@ -22,23 +22,21 @@ MornBoot是基于SpringBoot的标准API框架，致力于为JavaWeb项目提供�
 
 ## Getting Help
 
-MornBoot没有强制依赖SpringBoot，你必须在项目中引入SpringBoot相关包，好处是你可以自由选择依赖版本。建议SpringBoot版本为2.1.X，尚未测试最低兼容版本。
-[MornBoot]:https://github.com/morn-team/morn-boot-projects
-[SpringBoot]:https://spring.io/projects/spring-boot
+MornBoot没有强制依赖SpringBoot，你必须在项目中引入SpringBoot相关包，好处是你可以自由选择依赖版本。建议SpringBoot版本为2.1.X。
 
 [ApplicationMessage]:https://github.com/morn-team/morn-boot-projects/wiki/ApplicationMessage-%E5%BA%94%E7%94%A8%E6%B6%88%E6%81%AF
-[CacheGroup]:https://github.com/morn-team/morn-boot-projects/wiki/CacheGroup-%E5%88%86%E7%BB%84%E7%BC%93%E5%AD%98
-[OperationLog]:https://github.com/morn-team/morn-boot-projects/wiki/OperationLog-%E6%93%8D%E4%BD%9C%E6%97%A5%E5%BF%97
-[RestMessage]:https://github.com/morn-team/morn-boot-projects/wiki/RestMessage-REST%E6%B6%88%E6%81%AF
-
-[ParamsValidation]:https://github.com/morn-team/morn-boot-projects/wiki/ParamsValidation-%E6%95%B0%E6%8D%AE%E6%A0%A1%E9%AA%8C
-[PersistFunction]:https://github.com/morn-team/morn-boot-projects/wiki/PersistFunction-%E6%8C%81%E4%B9%85%E5%8C%96%E5%87%BD%E6%95%B0
-
 [BeanEnhance]:https://github.com/morn-team/morn-boot-projects/wiki/BeanEnhance-%E5%AE%9E%E4%BE%8B%E5%A2%9E%E5%BC%BA
+[CacheGroup]:https://github.com/morn-team/morn-boot-projects/wiki/CacheGroup-%E5%88%86%E7%BB%84%E7%BC%93%E5%AD%98
 [ExceptionInterpreter]:https://github.com/morn-team/morn-boot-projects/wiki/ExceptionInterpreter-%E5%BC%82%E5%B8%B8%E8%A7%A3%E9%87%8A
-
 [JpaAssist]:https://github.com/morn-team/morn-boot-projects/wiki/JpaAssist-JPA%E8%BE%85%E5%8A%A9
 [MessageQueue]:https://github.com/morn-team/morn-boot-projects/wiki/MessageQueue-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97
+[MornBoot]:https://github.com/morn-team/morn-boot-projects
+[Notify]:https://github.com/morn-team/morn-boot-projects/wiki/Notify-%E7%B3%BB%E7%BB%9F%E9%80%9A%E7%9F%A5
+[OperationLog]:https://github.com/morn-team/morn-boot-projects/wiki/OperationLog-%E6%93%8D%E4%BD%9C%E6%97%A5%E5%BF%97
+[ParamsValidation]:https://github.com/morn-team/morn-boot-projects/wiki/ParamsValidation-%E6%95%B0%E6%8D%AE%E6%A0%A1%E9%AA%8C
+[PersistFunction]:https://github.com/morn-team/morn-boot-projects/wiki/PersistFunction-%E6%8C%81%E4%B9%85%E5%8C%96%E5%87%BD%E6%95%B0
+[RestMessage]:https://github.com/morn-team/morn-boot-projects/wiki/RestMessage-REST%E6%B6%88%E6%81%AF
+[SpringBoot]:https://spring.io/projects/spring-boot
 
 
 ## Quick Start
@@ -81,6 +79,7 @@ SpringBootApplication
 [MornBoot][MornBoot]设计的初衷就是提供标准组件，替代这些业务组件，并提供足够高的扩展性以包容各种业务场景。
 
 * [ApplicationMessage][ApplicationMessage]：应用消息
+* [Notify][Notify]：系统通知
 * [OperationLog][OperationLog]：操作日志
 * [RestMessage][RestMessage]：REST消息
 
