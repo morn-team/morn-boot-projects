@@ -18,10 +18,10 @@ import site.morn.test.TestUser;
  */
 class Constant {
 
-  static final List<TestUser> USERS = new ArrayList<>();
+  protected static final List<TestUser> USERS = new ArrayList<>();
 
   //language=JSON
-  static final String USERS_STRING = "[\n"
+  protected static final String USERS_STRING = "[\n"
       + "  {\n"
       + "    \"id\": 1,\n"
       + "    \"username\": \"Caramel\"\n"
@@ -32,23 +32,21 @@ class Constant {
       + "  }\n"
       + "]";
 
-  static final TestUser USER1 = new TestUser(1L, "Caramel");
+  protected static final TestUser USER1 = new TestUser(1L, "Caramel");
 
   //language=JSON
-  static final String USER1_STRING = "{\n"
+  protected static final String USER1_STRING = "{\n"
       + "  \"id\": 1,\n"
       + "  \"username\": \"Caramel\"\n"
-      +
-      "}";
+      + "}";
 
-  static final TestUser USER2 = new TestUser(2L, "Mocha");
+  protected static final TestUser USER2 = new TestUser(2L, "Mocha");
 
   //language=JSON
-  static final String USER2_STRING = "{\n"
+  protected static final String USER2_STRING = "{\n"
       + "  \"id\": 2,\n"
       + "  \"username\": \"Mocha\"\n"
-      +
-      "}";
+      + "}";
 
   static {
     USERS.add(USER1);
