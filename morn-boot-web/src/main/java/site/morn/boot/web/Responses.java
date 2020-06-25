@@ -1,7 +1,5 @@
 package site.morn.boot.web;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
@@ -10,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
+import site.morn.boot.json.util.JsonParsers;
 
 /**
  * 响应工具类
@@ -57,13 +56,8 @@ public final class Responses {
    * @param object 报文
    */
   public void respond(Object object) {
-    ObjectMapper objectMapper = new ObjectMapper();
-    try {
-      String s = objectMapper.writeValueAsString(object);
-      respond(s);
-    } catch (JsonProcessingException e) {
-      log.error(e.getMessage(), e);
-    }
+    String s = JsonParsers.parseString(object);
+    respond(s);
   }
 
   /**

@@ -19,6 +19,10 @@
     </dependency>
     <dependency>
       <groupId>site.morn.boot</groupId>
+      <artifactId>morn-boot-json</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>site.morn.boot</groupId>
       <artifactId>morn-messaging</artifactId>
     </dependency>
     <!--Rocket-->

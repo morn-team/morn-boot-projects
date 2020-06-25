@@ -9,39 +9,25 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>morn-boot-netty</artifactId>
+  <artifactId>morn-boot-json</artifactId>
 
   <dependencies>
-    <!--Commons-->
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-lang3</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>commons-codec</groupId>
-      <artifactId>commons-codec</artifactId>
-    </dependency>
     <!--Morn-->
     <dependency>
       <groupId>site.morn.boot</groupId>
       <artifactId>morn-boot-core</artifactId>
     </dependency>
-    <!--Netty-->
-    <dependency>
-      <groupId>io.netty</groupId>
-      <artifactId>netty-all</artifactId>
-      <optional>true</optional>
-    </dependency>
-    <!--SpringBoot-->
+    <!--[Spring]-->
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter</artifactId>
+      <artifactId>spring-boot-starter-json</artifactId>
       <optional>true</optional>
     </dependency>
-    <!--<dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-configuration-processor</artifactId>
+    <!--[FastJson]-->
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
       <optional>true</optional>
-    </dependency>-->
+    </dependency>
   </dependencies>
 </project>

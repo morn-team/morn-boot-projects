@@ -13,7 +13,9 @@ import site.morn.core.CriteriaMap;
  *
  * @author timely-rain
  * @since 1.0.0, 2019/9/5
+ * @deprecated 为了和FastJson解耦，相关功能在morn-boot-json中重构
  */
+@Deprecated
 @UtilityClass
 public class JsonUtils {
 
