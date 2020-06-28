@@ -50,6 +50,10 @@
     </dependency>
     <dependency>
       <groupId>site.morn.boot</groupId>
+      <artifactId>morn-boot-json</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>site.morn.boot</groupId>
       <artifactId>morn-boot-netty</artifactId>
     </dependency>
     <dependency>

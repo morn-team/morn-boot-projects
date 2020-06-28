@@ -41,12 +41,12 @@
     <!--Morn Boot-->
     <dependency>
       <groupId>site.morn.boot</groupId>
-      <artifactId>morn-boot-core</artifactId>
+      <artifactId>morn-boot-interpreter</artifactId>
       <optional>true</optional>
     </dependency>
     <dependency>
       <groupId>site.morn.boot</groupId>
-      <artifactId>morn-boot-interpreter</artifactId>
+      <artifactId>morn-boot-json</artifactId>
       <optional>true</optional>
     </dependency>
     <dependency>
@@ -62,11 +62,6 @@
     <dependency>
       <groupId>site.morn.boot</groupId>
       <artifactId>morn-boot-security</artifactId>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
-      <groupId>site.morn.boot</groupId>
-      <artifactId>morn-boot-web</artifactId>
       <optional>true</optional>
     </dependency>
     <!--Netty-->

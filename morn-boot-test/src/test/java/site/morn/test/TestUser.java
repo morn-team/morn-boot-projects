@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import site.morn.data.group.Add;
@@ -19,6 +20,7 @@ import site.morn.data.group.Add;
 @Data
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 public class TestUser implements Serializable {
 
 
@@ -41,4 +43,9 @@ public class TestUser implements Serializable {
   @Column
   @NotNull(groups = Add.class)
   private String password;
+
+  public TestUser(Long id, @NotNull String username) {
+    this.id = id;
+    this.username = username;
+  }
 }

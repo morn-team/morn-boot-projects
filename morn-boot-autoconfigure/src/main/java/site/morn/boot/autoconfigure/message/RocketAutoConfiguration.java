@@ -1,6 +1,5 @@
 package site.morn.boot.autoconfigure.message;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import org.apache.rocketmq.client.MQAdmin;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
@@ -33,7 +32,7 @@ import site.morn.boot.message.rocket.support.SimpleRocketSendingOperations;
  * @since 1.2.1, 2020/4/10
  */
 @Configuration
-@ConditionalOnClass({MQAdmin.class, ObjectMapper.class, RocketMessageHandler.class})
+@ConditionalOnClass({MQAdmin.class, RocketMessageHandler.class})
 @ConditionalOnProperty(prefix = "rocketmq", value = "name-server", matchIfMissing = true)
 public class RocketAutoConfiguration {
 
@@ -77,8 +76,8 @@ public class RocketAutoConfiguration {
    */
   @Bean
   @ConditionalOnMissingBean
-  public RocketMessagePayloadResolver rocketMessagePayloadResolver(ObjectMapper objectMapper) {
-    return new SimpleRocketMessagePayloadResolver(objectMapper);
+  public RocketMessagePayloadResolver<Object> rocketMessagePayloadResolver() {
+    return new SimpleRocketMessagePayloadResolver();
   }
 
   /**

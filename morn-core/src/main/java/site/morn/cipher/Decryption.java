@@ -1,4 +1,4 @@
-package site.morn.digest;
+package site.morn.cipher;
 
 /**
  * 解密者
@@ -12,5 +12,5 @@ public interface Decryption {
   /**
    * 解密
    */
-  String decrypt(String text);
+  String decrypt(CharSequence text);
 }
