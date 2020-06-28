@@ -1,11 +1,12 @@
 package site.morn.boot.security;
 
-import static site.morn.constant.DigestConstant.Algorithms.SPRING_B_CRYPT;
+import static site.morn.cipher.support.AlgorithmNames.SPRING_B_CRYPT;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import site.morn.digest.DigestMatcher;
-import site.morn.digest.annotation.DigestAlgorithm;
+import site.morn.cipher.AlgorithmMatcher;
+import site.morn.cipher.annotation.AlgorithmName;
+import site.morn.cipher.support.SimpleAlgorithmHolder;
 
 /**
  * BCrypt加密
@@ -16,14 +17,14 @@ import site.morn.digest.annotation.DigestAlgorithm;
  * @since 1.2.0, 2019/8/30
  */
 @Slf4j
-@DigestAlgorithm(SPRING_B_CRYPT)
-public class SecurityBCryptMatcher implements DigestMatcher {
+@AlgorithmName(SPRING_B_CRYPT)
+public class SecurityBCryptMatcher extends SimpleAlgorithmHolder implements AlgorithmMatcher {
 
   @Override
-  public boolean matches(CharSequence rawText, String encodedText) {
+  public boolean matches(CharSequence rawText, CharSequence encodedText) {
     try {
       return PasswordEncoderFactories.createDelegatingPasswordEncoder()
-          .matches(rawText, encodedText);
+          .matches(rawText, encodedText.toString());
     } catch (Exception e) {
       log.warn(e.getMessage(), e);
       return false;

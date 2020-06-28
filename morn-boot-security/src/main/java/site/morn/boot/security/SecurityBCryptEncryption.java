@@ -1,10 +1,11 @@
 package site.morn.boot.security;
 
-import static site.morn.constant.DigestConstant.Algorithms.SPRING_B_CRYPT;
+import static site.morn.cipher.support.AlgorithmNames.SPRING_B_CRYPT;
 
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import site.morn.digest.Encryption;
-import site.morn.digest.annotation.DigestAlgorithm;
+import site.morn.cipher.AlgorithmEncryption;
+import site.morn.cipher.annotation.AlgorithmName;
+import site.morn.cipher.support.SimpleAlgorithmHolder;
 
 /**
  * BCrypt加密
@@ -14,8 +15,8 @@ import site.morn.digest.annotation.DigestAlgorithm;
  * @author timely-rain
  * @since 1.2.0, 2019/8/30
  */
-@DigestAlgorithm(SPRING_B_CRYPT)
-public class SecurityBCryptEncryption implements Encryption {
+@AlgorithmName(SPRING_B_CRYPT)
+public class SecurityBCryptEncryption extends SimpleAlgorithmHolder implements AlgorithmEncryption {
 
   @Override
   public String encrypt(CharSequence text) {

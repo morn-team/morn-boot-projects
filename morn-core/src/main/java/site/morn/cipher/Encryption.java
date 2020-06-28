@@ -1,4 +1,4 @@
-package site.morn.digest;
+package site.morn.cipher;
 
 /**
  * 加密者

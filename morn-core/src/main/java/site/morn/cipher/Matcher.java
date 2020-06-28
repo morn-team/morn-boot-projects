@@ -1,12 +1,13 @@
-package site.morn.digest;
+package site.morn.cipher;
 
 /**
- * 数据加密校验
+ * 校验者
  *
  * @author timely-rain
  * @since 1.2.0, 2019/8/30
  */
-public interface DigestMatcher {
+@FunctionalInterface
+public interface Matcher {
 
   /**
    * 匹配校验
@@ -15,5 +16,5 @@ public interface DigestMatcher {
    * @param encodedText 密文
    * @return 校验是否通过
    */
-  boolean matches(CharSequence rawText, String encodedText);
+  boolean matches(CharSequence rawText, CharSequence encodedText);
 }

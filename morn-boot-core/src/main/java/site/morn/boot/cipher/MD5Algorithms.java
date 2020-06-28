@@ -1,13 +1,13 @@
-package site.morn.boot.digest;
+package site.morn.boot.cipher;
 
-import static site.morn.constant.DigestConstant.Algorithms.MD5;
+import static site.morn.cipher.support.AlgorithmNames.MD5;
 
 import java.util.Objects;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.DigestUtils;
-import site.morn.digest.DigestMatcher;
-import site.morn.digest.Encryption;
-import site.morn.digest.annotation.DigestAlgorithm;
+import site.morn.cipher.AlgorithmEncryption;
+import site.morn.cipher.AlgorithmMatcher;
+import site.morn.cipher.annotation.AlgorithmName;
+import site.morn.cipher.support.SimpleAlgorithmHolder;
 
 /**
  * MD5算法
@@ -32,13 +32,10 @@ public class MD5Algorithms {
   }
 
   /**
-   * MD5加密算法
-   *
-   * @author timely-rain
-   * @since 1.2.1, 2020/4/24
+   * MD5加密
    */
-  @DigestAlgorithm(MD5)
-  public static class MD5Encryption implements Encryption {
+  @AlgorithmName(MD5)
+  public static class MD5Encryption extends SimpleAlgorithmHolder implements AlgorithmEncryption {
 
     @Override
     public String encrypt(CharSequence text) {
@@ -47,17 +44,13 @@ public class MD5Algorithms {
   }
 
   /**
-   * MD5校验算法
-   *
-   * @author timely-rain
-   * @since 1.2.1, 2020/4/24
+   * MD5校验
    */
-  @Slf4j
-  @DigestAlgorithm(MD5)
-  public static class MD5Matcher implements DigestMatcher {
+  @AlgorithmName(MD5)
+  public static class MD5Matcher extends SimpleAlgorithmHolder implements AlgorithmMatcher {
 
     @Override
-    public boolean matches(CharSequence rawText, String encodedText) {
+    public boolean matches(CharSequence rawText, CharSequence encodedText) {
       String encrypt = encrypt(rawText);
       return Objects.equals(encrypt, encodedText);
     }

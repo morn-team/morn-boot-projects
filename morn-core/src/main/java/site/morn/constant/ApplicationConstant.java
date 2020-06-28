@@ -90,6 +90,21 @@ public class ApplicationConstant {
     public static final String JSON_SERIALIZE_FAILURE = "json.serialize-failure";
 
     /**
+     * 解密失败
+     */
+    public static final String DIGEST_DECRYPT_FAILURE = "digest.decrypt-failure";
+
+    /**
+     * 加密失败
+     */
+    public static final String DIGEST_ENCRYPT_FAILURE = "digest.encrypt-failure";
+
+    /**
+     * 密钥创建失败
+     */
+    public static final String DIGEST_SECRET_KEY_FAILURE = "digest.secret-key-failure";
+
+    /**
      * 任务-尚未注册发布者
      */
     public static final String TASK_NO_PUBLISHER = "task.no-publisher";
