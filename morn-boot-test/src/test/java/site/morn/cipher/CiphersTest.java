@@ -1,10 +1,10 @@
 package site.morn.cipher;
 
+import static site.morn.cipher.support.AlgorithmModes.AES_ECB_PKCS5PADDING;
+import static site.morn.cipher.support.AlgorithmModes.AES_GCM_NO_PADDING;
 import static site.morn.cipher.support.AlgorithmNames.AES;
 import static site.morn.cipher.support.AlgorithmNames.MD5;
 import static site.morn.cipher.support.AlgorithmNames.SPRING_B_CRYPT;
-import static site.morn.cipher.support.AlgorithmModes.AES_ECB_PKCS5PADDING;
-import static site.morn.cipher.support.AlgorithmModes.AES_GCM_NO_PADDING;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
@@ -12,9 +12,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import site.morn.cipher.Algorithm;
-import site.morn.cipher.util.Ciphers;
 import site.morn.cipher.support.AlgorithmBuilder;
+import site.morn.cipher.util.Ciphers;
 
 /**
  * 数据加密单元测试
@@ -62,18 +61,18 @@ public class CiphersTest {
 
   @Test
   public void encryptBCrypt() {
-    String password = Ciphers.encrypt(SPRING_B_CRYPT, "password");
-    Assert.assertNotEquals("password", password);
-    Assert.assertTrue(Ciphers.matches(SPRING_B_CRYPT, "password",
-        "{bcrypt}$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM/BG"));
+    String password = Ciphers.encrypt(SPRING_B_CRYPT, PLAIN_TEXT);
+    Assert.assertNotEquals(PLAIN_TEXT, password);
+    boolean matches = Ciphers.matches(SPRING_B_CRYPT, PLAIN_TEXT,
+        "{bcrypt}$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM/BG");
+    Assert.assertTrue(matches);
   }
 
   @Test
   public void encryptMD5() {
-    String password = Ciphers.encrypt(MD5, "password");
-    Assert.assertNotEquals("password", password);
-    boolean matches = Ciphers
-        .matches(MD5, "password", "5f4dcc3b5aa765d61d8327deb882cf99");
+    String password = Ciphers.encrypt(MD5, PLAIN_TEXT);
+    Assert.assertNotEquals(PLAIN_TEXT, password);
+    boolean matches = Ciphers.matches(MD5, PLAIN_TEXT, "5f4dcc3b5aa765d61d8327deb882cf99");
     Assert.assertTrue(matches);
   }
 }
