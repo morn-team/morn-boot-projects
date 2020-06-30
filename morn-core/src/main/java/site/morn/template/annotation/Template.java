@@ -28,7 +28,7 @@ public @interface Template {
   /**
    * 模板类型
    */
-  @AliasFor("type")
+  @AliasFor("name")
   String value() default "";
 
   /**
