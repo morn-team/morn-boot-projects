@@ -45,7 +45,7 @@ MornBoot没有强制依赖SpringBoot，你必须在项目中引入SpringBoot相�
 
 ### Maven Dependency
 
-最新版本: `1.2.0`
+最新版本: `1.2.1`
 
 ```
 <!--自动化配置-->
