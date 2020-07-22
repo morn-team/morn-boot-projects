@@ -27,8 +27,10 @@ MornBoot没有强制依赖SpringBoot，你必须在项目中引入SpringBoot相�
 [ApplicationMessage]:https://github.com/morn-team/morn-boot-projects/wiki/ApplicationMessage-%E5%BA%94%E7%94%A8%E6%B6%88%E6%81%AF
 [BeanEnhance]:https://github.com/morn-team/morn-boot-projects/wiki/BeanEnhance-%E5%AE%9E%E4%BE%8B%E5%A2%9E%E5%BC%BA
 [CacheGroup]:https://github.com/morn-team/morn-boot-projects/wiki/CacheGroup-%E5%88%86%E7%BB%84%E7%BC%93%E5%AD%98
+[Cipher]:https://github.com/morn-team/morn-boot-projects/wiki/Cipher-%E6%B6%88%E6%81%AF%E5%8A%A0%E5%AF%86
 [ExceptionInterpreter]:https://github.com/morn-team/morn-boot-projects/wiki/ExceptionInterpreter-%E5%BC%82%E5%B8%B8%E8%A7%A3%E9%87%8A
 [JpaAssist]:https://github.com/morn-team/morn-boot-projects/wiki/JpaAssist-JPA%E8%BE%85%E5%8A%A9
+[JSON]:https://github.com/morn-team/morn-boot-projects/wiki/JSON-%E5%BA%8F%E5%88%97%E5%8C%96
 [MessageQueue]:https://github.com/morn-team/morn-boot-projects/wiki/MessageQueue-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97
 [MornBoot]:https://github.com/morn-team/morn-boot-projects
 [Notify]:https://github.com/morn-team/morn-boot-projects/wiki/Notify-%E7%B3%BB%E7%BB%9F%E9%80%9A%E7%9F%A5
@@ -88,6 +90,8 @@ SpringBootApplication
 主要提供`MVC`、`ORM`业务中，较为常见和基础的组件、规范。
 
 * [CacheGroup][CacheGroup]：分组缓存
+* [Cipher][Cipher]：消息加密
+* [JSON][JSON]：序列化
 * [ParamsValidation][ParamsValidation]：参数校验
 * [PersistFunction][PersistFunction]：持久化函数
 
