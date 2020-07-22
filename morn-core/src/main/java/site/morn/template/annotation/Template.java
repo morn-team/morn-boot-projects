@@ -22,17 +22,17 @@ public @interface Template {
   /**
    * 模板类型
    */
-  @AliasFor("value")
   String type() default "";
 
   /**
    * 模板类型
    */
-  @AliasFor("type")
+  @AliasFor("name")
   String value() default "";
 
   /**
    * 模板名称
    */
+  @AliasFor("value")
   String name() default "";
 }

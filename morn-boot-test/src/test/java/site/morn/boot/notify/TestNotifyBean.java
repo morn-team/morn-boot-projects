@@ -33,7 +33,7 @@ public class TestNotifyBean {
   /**
    * 向角色发送邮箱验证码
    */
-  @Template(RESOURCE)
+  @Template(type = RESOURCE)
   @Notify(type = "email", name = "captcha")
   @NotifyReceiver(type = "role", value = {"r1", "r2"})
   public void captchaToRole() {
@@ -46,7 +46,7 @@ public class TestNotifyBean {
   /**
    * 向用户发送短信验证码
    */
-  @Template(RESOURCE)
+  @Template(type = RESOURCE)
   @Notify(type = "sms", name = "captcha")
   @NotifyReceiver(type = "user")
   public void captchaToUser() {

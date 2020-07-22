@@ -47,7 +47,7 @@ public class NettyClient {
   /**
    * 通道
    */
-  private volatile Channel channel;
+  private Channel channel;
 
   public NettyClient(NettyClientProperties properties) {
     this.properties = properties;

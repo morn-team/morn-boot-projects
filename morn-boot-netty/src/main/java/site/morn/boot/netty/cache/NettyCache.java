@@ -23,8 +23,6 @@ public interface NettyCache {
   /**
    * 获取通道编号
    *
-   * <p>Cache
-   *
    * @param identify 通道标识
    * @return 通道编号
    */
@@ -50,46 +48,16 @@ public interface NettyCache {
    * 缓存消息通道
    *
    * @param identify 通道标识
-   * @param channel 消息通道
+   * @param channel  消息通道
    */
   <T extends NettyCache> T putChannel(ChannelIdentify identify, Channel channel);
 
   /**
-   * 缓存通道编号
-   *
-   * @param identify 通道标识
-   * @param channelId 通道编号
-   * @return 通道编号
-   */
-  ChannelId putChannelId(ChannelIdentify identify, ChannelId channelId);
-
-  /**
-   * 移除通道标识
-   *
-   * @param channelId 通道编号
-   */
-  <T extends NettyCache> T remove(ChannelId channelId);
-
-  /**
-   * 移除缓存
-   *
-   * @param identify 通道标识
-   */
-  <T extends NettyCache> T remove(ChannelIdentify identify);
-
-  /**
-   * 移除通道编号
-   *
-   * @param identify 通道标识
-   */
-  <T extends NettyCache> T removeChannelId(ChannelIdentify identify);
-
-  /**
-   * 新增消息通道
+   * 缓存消息通道
    *
    * @param businessGroup 业务分组
-   * @param businessKey 业务编号
-   * @param channel 消息通道
+   * @param businessKey   业务编号
+   * @param channel       消息通道
    */
   default <T extends NettyCache> T putChannel(String businessGroup, String businessKey,
       Channel channel) {
@@ -97,4 +65,58 @@ public interface NettyCache {
         .businessKey(businessKey).build();
     return putChannel(identify, channel);
   }
+
+  /**
+   * 缓存通道编号
+   *
+   * @param identify  通道标识
+   * @param channelId 通道编号
+   * @return 通道编号
+   */
+  ChannelId putChannelId(ChannelIdentify identify, ChannelId channelId);
+
+  /**
+   * 缓存通道标识
+   *
+   * @param channelId 通道编号
+   * @param identify  通道标识
+   * @return 通道标识
+   */
+  ChannelIdentify putIdentify(ChannelId channelId, ChannelIdentify identify);
+
+  /**
+   * 移除通道编号、通道标识的缓存信息，并从{@link ChannelGroup}中移除{@link Channel}
+   *
+   * @param channelId 通道编号
+   */
+  <T extends NettyCache> T removeAll(ChannelId channelId);
+
+  /**
+   * 移除通道编号、通道标识的缓存信息，并从{@link ChannelGroup}中移除{@link Channel}
+   *
+   * @param identify 通道标识
+   */
+  <T extends NettyCache> T removeAll(ChannelIdentify identify);
+
+  /**
+   * 移除通道，即从{@link ChannelGroup}中移除{@link Channel}
+   *
+   * @param identify  通道标识
+   * @param channelId 通道编号
+   */
+  <T extends NettyCache> T removeChannel(ChannelIdentify identify, ChannelId channelId);
+
+  /**
+   * 移除通道编号的缓存信息
+   *
+   * @param identify 通道标识
+   */
+  <T extends NettyCache> T removeChannelId(ChannelIdentify identify);
+
+  /**
+   * 移除通道标识的缓存信息
+   *
+   * @param channelId 通道编号
+   */
+  <T extends NettyCache> T removeIdentify(ChannelId channelId);
 }

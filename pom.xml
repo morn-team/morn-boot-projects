@@ -283,4 +283,34 @@
       </plugin>
     </plugins>
   </build>
+
+  <!--多环境配置-->
+  <profiles>
+    <profile>
+      <!--发布配置-->
+      <id>sonatype-oss-release</id>
+      <build>
+        <plugins>
+          <!--Javadoc-->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>2.7</version>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+                <configuration>
+                  <!--不校验-->
+                  <additionalparam>-Xdoclint:none</additionalparam>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
