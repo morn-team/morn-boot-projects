@@ -1,6 +1,7 @@
 package site.morn.boot.netty.cache;
 
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelId;
 import io.netty.channel.local.LocalChannel;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
@@ -57,11 +58,10 @@ public class NettyCachesTest {
 
   @Test
   public void test3RemoveById() {
-    NettyCaches.remove(idA);
+    NettyCaches.removeAll(idA);
     Channel channel = NettyCaches.getChannel(idA);
     Assert.assertNull(channel);
   }
-
 
   @Test
   public void test4PutChannelById() {
@@ -72,5 +72,14 @@ public class NettyCachesTest {
       Assert.fail();
     }
     Assert.assertNotNull(localChannel);
+  }
+
+  @Test
+  public void test5RemoveById() {
+    Channel channel = NettyCaches.getChannel(idB);
+    ChannelId id = channel.id();
+    NettyCaches.removeAll(id);
+    channel = NettyCaches.getChannel(idB);
+    Assert.assertNull(channel);
   }
 }

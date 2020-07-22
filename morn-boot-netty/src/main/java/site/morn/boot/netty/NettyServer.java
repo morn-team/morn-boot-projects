@@ -34,17 +34,17 @@ public class NettyServer {
    * 创建bootstrap
    */
   @Delegate
-  private ServerBootstrap serverBootstrap;
+  private final ServerBootstrap serverBootstrap;
 
   /**
    * BOSS
    */
-  private EventLoopGroup boss;
+  private final EventLoopGroup boss;
 
   /**
    * Worker
    */
-  private EventLoopGroup work;
+  private final EventLoopGroup work;
 
 
   public NettyServer(NettyServerProperties properties) {

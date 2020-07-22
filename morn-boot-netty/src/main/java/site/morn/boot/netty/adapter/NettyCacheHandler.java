@@ -42,6 +42,6 @@ public class NettyCacheHandler extends SimpleChannelInboundHandler<ChannelIdenti
     super.channelUnregistered(ctx);
     ChannelId id = ctx.channel().id();
     log.info("Netty|注销：{}", id);
-    NettyCaches.remove(id);
+    NettyCaches.removeAll(id);
   }
 }
