@@ -72,10 +72,6 @@
     </dependency>
     <dependency>
       <groupId>site.morn.boot</groupId>
-      <artifactId>morn-fastjson</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>site.morn.boot</groupId>
       <artifactId>morn-messaging</artifactId>
     </dependency>
     <!--SpringBoot-->
