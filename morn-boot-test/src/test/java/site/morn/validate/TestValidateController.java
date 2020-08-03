@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import site.morn.data.group.Add;
 import site.morn.data.group.Update;
-import site.morn.rest.RestBuilders;
-import site.morn.rest.RestMessage;
 import site.morn.rest.RestModel;
 import site.morn.test.TestUser;
 
@@ -27,21 +25,17 @@ public class TestValidateController {
    * 新增用户
    *
    * @param restModel REST模型
-   * @return REST消息
    */
   @PostMapping
-  public RestMessage add(@Validated(Add.class) @RequestBody RestModel<TestUser> restModel) {
-    return RestBuilders.successMessage();
+  public void add(@Validated(Add.class) @RequestBody RestModel<TestUser> restModel) {
   }
 
   /**
    * 更新用户
    *
    * @param restModel REST模型
-   * @return REST消息
    */
   @PutMapping
-  public RestMessage update(@Validated(Update.class) @RequestBody RestModel<TestUser> restModel) {
-    return RestBuilders.successMessage();
+  public void update(@Validated(Update.class) @RequestBody RestModel<TestUser> restModel) {
   }
 }

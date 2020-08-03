@@ -1,4 +1,4 @@
-package site.morn.rest;
+package site.morn.boot.rest;
 
 import lombok.experimental.UtilityClass;
 

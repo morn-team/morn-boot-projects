@@ -3,7 +3,6 @@ package site.morn.boot.rest;
 import io.swagger.annotations.ApiModel;
 import site.morn.core.CriteriaMap;
 import site.morn.rest.RestModel;
-import site.morn.rest.RestPageable;
 import site.morn.util.GenericUtils;
 
 /**

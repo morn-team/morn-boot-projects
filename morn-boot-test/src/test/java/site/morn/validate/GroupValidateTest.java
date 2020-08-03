@@ -1,7 +1,5 @@
 package site.morn.validate;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-
 import net.minidev.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -46,7 +44,6 @@ public class GroupValidateTest {
   @Before
   public void setUp() {
     noModel = new CriteriaMap();
-
     noPassword = new CriteriaMap();
     TestUser testUser = new TestUser();
     testUser.setUsername("Timely");
@@ -62,7 +59,7 @@ public class GroupValidateTest {
     mvc.perform(requestBuilder)
         .andDo(MockMvcResultHandlers.print())
         .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(jsonPath("success").value(true));
+        .andExpect(MockMvcResultMatchers.content().string(""));
   }
 
   @Test
@@ -74,7 +71,7 @@ public class GroupValidateTest {
     mvc.perform(requestBuilder)
         .andDo(MockMvcResultHandlers.print())
         .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(jsonPath("success").value(false));
+        .andExpect(MockMvcResultMatchers.content().string("model.password 不能为null"));
   }
 
   @Test
@@ -86,6 +83,6 @@ public class GroupValidateTest {
     mvc.perform(requestBuilder)
         .andDo(MockMvcResultHandlers.print())
         .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(jsonPath("success").value(true));
+        .andExpect(MockMvcResultMatchers.content().string(""));
   }
 }

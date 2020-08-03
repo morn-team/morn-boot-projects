@@ -8,14 +8,14 @@ import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import site.morn.bean.BeanCache;
-import site.morn.boot.exception.DefaultExceptionProcessor;
+import site.morn.boot.exception.DefaultExceptionInterpreterService;
 import site.morn.boot.exception.interpreter.ApplicationExceptionInterpreter;
 import site.morn.boot.exception.interpreter.MethodValidateExceptionInterpreter;
 import site.morn.boot.exception.interpreter.ShiroExceptionInterpreter;
 import site.morn.boot.exception.interpreter.ValidateExceptionInterpreter;
 import site.morn.boot.exception.interpreter.ValidationExceptionInterpreter;
 import site.morn.exception.ExceptionInterpreter;
-import site.morn.exception.ExceptionProcessor;
+import site.morn.exception.ExceptionInterpreterService;
 
 /**
  * 异常解析器自动化配置
@@ -36,8 +36,8 @@ public class ExceptionInterpreterAutoConfiguration {
    */
   @Bean
   @ConditionalOnMissingBean
-  public ExceptionProcessor exceptionProcessor(BeanCache beanCache) {
-    return new DefaultExceptionProcessor(beanCache);
+  public ExceptionInterpreterService exceptionProcessor(BeanCache beanCache) {
+    return new DefaultExceptionInterpreterService(beanCache);
   }
 
   /**

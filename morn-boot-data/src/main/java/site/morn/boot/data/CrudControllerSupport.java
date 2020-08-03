@@ -20,7 +20,7 @@ import site.morn.data.group.Search;
 import site.morn.data.group.Update;
 import site.morn.log.OperateAction;
 import site.morn.log.OperateAction.Actions;
-import site.morn.rest.RestBuilders;
+import site.morn.boot.rest.RestBuilders;
 import site.morn.rest.RestMessage;
 import site.morn.rest.RestModel;
 import site.morn.util.GenericUtils;

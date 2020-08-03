@@ -3,6 +3,7 @@ package site.morn.boot.data;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static site.morn.rest.constant.RestMessageStatus.SUCCESS;
 
 import lombok.extern.slf4j.Slf4j;
 import net.minidev.json.JSONObject;
@@ -71,7 +72,7 @@ public class CrudControllerTest {
     MvcResult mvcResult = mvc.perform(requestBuilder)
         .andDo(print())
         .andExpect(status().isOk())
-        .andExpect(jsonPath("success").value(true))
+        .andExpect(jsonPath("status").value(SUCCESS))
         .andExpect(jsonPath("data.username").value("timely"))
         .andReturn();
     MockHttpServletResponse response = mvcResult.getResponse();
@@ -93,7 +94,7 @@ public class CrudControllerTest {
     mvc.perform(requestBuilder)
         .andDo(print())
         .andExpect(status().isOk())
-        .andExpect(jsonPath("success").value(true))
+        .andExpect(jsonPath("status").value(SUCCESS))
         .andExpect(jsonPath("data.username").value("ct-mika"));
   }
 
@@ -110,7 +111,7 @@ public class CrudControllerTest {
     mvc.perform(requestBuilder)
         .andDo(print())
         .andExpect(status().isOk())
-        .andExpect(jsonPath("success").value(true));
+        .andExpect(jsonPath("status").value(SUCCESS));
   }
 
   /**
@@ -124,6 +125,6 @@ public class CrudControllerTest {
     mvc.perform(requestBuilder)
         .andDo(print())
         .andExpect(status().isOk())
-        .andExpect(jsonPath("success").value(true));
+        .andExpect(jsonPath("status").value(SUCCESS));
   }
 }

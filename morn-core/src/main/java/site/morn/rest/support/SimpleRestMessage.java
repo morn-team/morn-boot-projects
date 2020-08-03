@@ -1,9 +1,10 @@
-package site.morn.rest;
+package site.morn.rest.support;
 
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.experimental.Accessors;
+import site.morn.rest.RestMessage;
+import site.morn.rest.constant.RestMessageLevel;
 
 /**
  * REST消息
@@ -11,7 +12,6 @@ import lombok.experimental.Accessors;
  * @author timely-rain
  * @since 1.0.0, 2018/8/8
  */
-@Accessors(chain = true)
 @Getter
 @Setter
 @ToString
@@ -20,7 +20,7 @@ public class SimpleRestMessage implements RestMessage {
   /**
    * 成功标识
    */
-  private boolean success;
+  private int status;
 
   /**
    * 状态码
@@ -30,7 +30,7 @@ public class SimpleRestMessage implements RestMessage {
   /**
    * 消息级别
    *
-   * @see Level 级别枚举
+   * @see RestMessageLevel 级别枚举
    */
   private String level;
 
@@ -48,12 +48,9 @@ public class SimpleRestMessage implements RestMessage {
    * 设置消息级别
    *
    * @param level 消息级别枚举
-   * @return REST消息
    */
   @Override
-  @SuppressWarnings("unchecked")
-  public <T extends RestMessage> T setLevel(Level level) {
-    this.level = level.value;
-    return (T) this;
+  public void setLevel(RestMessageLevel level) {
+    this.level = level.getValue();
   }
 }

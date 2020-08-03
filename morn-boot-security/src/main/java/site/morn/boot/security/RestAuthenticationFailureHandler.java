@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import site.morn.boot.web.Responses;
-import site.morn.rest.RestBuilders;
+import site.morn.boot.rest.RestBuilders;
 import site.morn.rest.RestMessage;
 
 /**

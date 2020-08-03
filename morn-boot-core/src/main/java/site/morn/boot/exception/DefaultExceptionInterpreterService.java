@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import site.morn.bean.BeanCache;
 import site.morn.exception.ApplicationMessage;
 import site.morn.exception.ExceptionInterpreter;
-import site.morn.exception.ExceptionProcessor;
+import site.morn.exception.ExceptionInterpreterService;
 
 /**
  * 默认异常处理器
@@ -16,7 +16,7 @@ import site.morn.exception.ExceptionProcessor;
  */
 @AllArgsConstructor
 @Slf4j
-public class DefaultExceptionProcessor implements ExceptionProcessor {
+public class DefaultExceptionInterpreterService implements ExceptionInterpreterService {
 
   /**
    * 异常解释器缓存
@@ -24,7 +24,7 @@ public class DefaultExceptionProcessor implements ExceptionProcessor {
   private final BeanCache beanCache;
 
   @Override
-  public <T extends Exception> ApplicationMessage process(T exception) {
+  public <T extends Exception> ApplicationMessage interpret(T exception) {
     // 从缓存中获取异常解释器
     ExceptionInterpreter exceptionInterpreter = beanCache
         .targetBean(ExceptionInterpreter.class, exception.getClass());
@@ -32,6 +32,6 @@ public class DefaultExceptionProcessor implements ExceptionProcessor {
       log.debug("异常处理失败：尚未发现处理{}的异常解释器", exception.getClass().getSimpleName());
       return null;
     }
-    return exceptionInterpreter.resolve(exception);
+    return exceptionInterpreter.interpret(exception);
   }
 }

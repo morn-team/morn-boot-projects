@@ -1,13 +1,16 @@
 package site.morn.boot.autoconfigure;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import site.morn.bean.BeanCache;
 import site.morn.boot.rest.RestInitializer;
-import site.morn.rest.RestProperties;
+import site.morn.boot.rest.RestProperties;
+import site.morn.rest.RestConverterService;
+import site.morn.rest.support.SimpleRestConverterService;
 import site.morn.translate.Translator;
 
 /**
@@ -18,17 +21,16 @@ import site.morn.translate.Translator;
  */
 @Configuration
 @ConditionalOnClass(CacheManager.class)
+@EnableConfigurationProperties(RestProperties.class)
 public class RestAutoConfiguration {
 
   /**
-   * 注册REST配置项
-   *
-   * @return REST配置项
+   * 注册REST消息转换器服务
    */
   @Bean
-  @ConfigurationProperties("morn.rest")
-  public RestProperties restProperties() {
-    return new RestProperties();
+  @ConditionalOnMissingBean
+  public RestConverterService restConverterService() {
+    return new SimpleRestConverterService();
   }
 
   /**

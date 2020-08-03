@@ -1,6 +1,10 @@
-package site.morn.rest;
+package site.morn.boot.rest;
 
-import site.morn.rest.RestMessage.Level;
+import static site.morn.rest.constant.RestMessageStatus.FAILURE;
+import static site.morn.rest.constant.RestMessageStatus.SUCCESS;
+
+import site.morn.rest.RestMessage;
+import site.morn.rest.constant.RestMessageLevel;
 
 /**
  * REST构建器工具类
@@ -30,7 +34,7 @@ public class RestBuilders {
    * @return 信息构建器
    */
   public static RestBuilder infoBuilder() {
-    return builder().success(true).level(Level.INFO);
+    return builder().status(SUCCESS).level(RestMessageLevel.INFO);
   }
 
   /**
@@ -41,7 +45,7 @@ public class RestBuilders {
    * @return 错误构建器
    */
   public static RestBuilder errorBuilder() {
-    return builder().success(false).level(Level.ERROR);
+    return builder().status(FAILURE).level(RestMessageLevel.ERROR);
   }
 
   /**

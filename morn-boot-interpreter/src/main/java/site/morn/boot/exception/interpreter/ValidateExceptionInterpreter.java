@@ -20,7 +20,7 @@ import site.morn.exception.ExceptionInterpreter;
 public class ValidateExceptionInterpreter implements ExceptionInterpreter {
 
   @Override
-  public ApplicationMessage resolve(Throwable throwable, Object... args) {
+  public ApplicationMessage interpret(Throwable throwable, Object... args) {
     BindException bindException = (BindException) throwable;
     // 生成错误消息文本
     List<FieldError> errors = bindException.getFieldErrors();

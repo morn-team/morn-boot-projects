@@ -23,7 +23,7 @@ import site.morn.util.GenericUtils;
 public class ValidationExceptionInterpreter implements ExceptionInterpreter {
 
   @Override
-  public ApplicationMessage resolve(Throwable throwable, Object... args) {
+  public ApplicationMessage interpret(Throwable throwable, Object... args) {
     ConstraintViolationException exception = GenericUtils.castFrom(throwable);
     List<String> messages = exception.getConstraintViolations().stream()
         .map(constraintViolation -> {

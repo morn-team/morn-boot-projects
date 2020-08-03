@@ -1,12 +1,14 @@
-package site.morn.rest;
+package site.morn.boot.rest;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import site.morn.bean.BeanCache;
 import site.morn.exception.ApplicationMessages;
-import site.morn.rest.RestMessage.Level;
-import site.morn.rest.convert.RestConverter;
+import site.morn.rest.RestMessage;
+import site.morn.rest.RestMessageConverter;
+import site.morn.rest.constant.RestMessageLevel;
+import site.morn.rest.support.SimpleRestMessage;
 import site.morn.translate.Transfer;
 import site.morn.translate.Transfer.TransferBuilder;
 import site.morn.translate.Translator;
@@ -85,17 +87,18 @@ public class RestBuilder {
    * 根据外来消息生成REST消息
    *
    * @param foreign 外来消息
-   * @param <T> 外来消息类型
+   * @param <T>     外来消息类型
    * @return REST消息
-   * @see RestConverter REST消息转换器
+   * @see RestMessageConverter REST消息转换器
    */
   @SuppressWarnings("unchecked")
   public static <T> RestMessage from(T foreign) {
-    RestConverter<T> restConverter = beanCache.targetBean(RestConverter.class, foreign.getClass());
-    if (Objects.isNull(restConverter)) {
+    RestMessageConverter<T> restMessageConverter = beanCache
+        .targetBean(RestMessageConverter.class, foreign.getClass());
+    if (Objects.isNull(restMessageConverter)) {
       return null;
     }
-    return restConverter.revert(foreign);
+    return restMessageConverter.revert(foreign);
   }
 
   /**
@@ -105,10 +108,10 @@ public class RestBuilder {
    * @param foreign 外来消息
    * @param <T> 外来消息类型
    * @return 外来消息
-   * @see RestConverter REST消息转换器
+   * @see RestMessageConverter REST消息转换器
    */
   public static <T> T to(RestMessage restMessage, Class<T> foreign) {
-    return BeanFunctionUtils.convert(RestConverter.class, restMessage, foreign);
+    return BeanFunctionUtils.convert(RestMessageConverter.class, restMessage, foreign);
   }
 
   /**
@@ -142,7 +145,7 @@ public class RestBuilder {
    * @return 外来消息
    */
   public <T> T to(Class<T> foreign) {
-    return BeanFunctionUtils.convert(RestConverter.class, build(), foreign);
+    return BeanFunctionUtils.convert(RestMessageConverter.class, build(), foreign);
   }
 
   /**
@@ -198,13 +201,13 @@ public class RestBuilder {
   }
 
   /**
-   * 设置成功标识
+   * 设置状态码
    *
-   * @param value 成功标识
+   * @param value 状态码
    * @return REST构建器
    */
-  public RestBuilder success(boolean value) {
-    restMessage.setSuccess(value);
+  public RestBuilder status(int value) {
+    restMessage.setStatus(value);
     return this;
   }
 
@@ -214,7 +217,7 @@ public class RestBuilder {
    * @param level 消息级别
    * @return REST构建器
    */
-  public RestBuilder level(Level level) {
+  public RestBuilder level(RestMessageLevel level) {
     restMessage.setLevel(level);
     return this;
   }
