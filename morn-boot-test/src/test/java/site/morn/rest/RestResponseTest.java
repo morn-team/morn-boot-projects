@@ -41,7 +41,7 @@ public class RestResponseTest {
 
   @Test
   @WithMockUser
-  public void testData() throws Exception {
+  public void returnData() throws Exception {
     MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(BASE_URL + "data");
     performSuccess(mvc, requestBuilder)
         .andExpect(jsonPath("status").value(SUCCESS))
@@ -94,7 +94,7 @@ public class RestResponseTest {
         .get(BASE_URL + "resolvable/ex");
     performSuccess(mvc, requestBuilder)
         .andExpect(jsonPath("status").value(FAILURE))
-        .andExpect(jsonPath("message").value("username 不能为null"));
+        .andExpect(jsonPath("message").value("username must not be null"));
   }
 
   /**

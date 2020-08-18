@@ -48,10 +48,9 @@ public class RestResponseUtils {
    */
   public Class<?> getResponseClass(Class<?>... responseClasses) {
     for (Class<?> responseClass : responseClasses) {
-      if (None.class.isAssignableFrom(responseClass)) {
-        continue;
+      if (!None.class.isAssignableFrom(responseClass)) {
+        return responseClass;
       }
-      return responseClass;
     }
     return RestMessage.class;
   }

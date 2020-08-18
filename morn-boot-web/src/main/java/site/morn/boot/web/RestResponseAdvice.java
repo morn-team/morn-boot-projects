@@ -4,7 +4,6 @@ import java.lang.reflect.Method;
 import java.util.Objects;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -37,7 +36,6 @@ import site.morn.rest.support.RestResponseUtils;
  * @since 1.2.2, 2020/7/25
  */
 @Slf4j
-@Setter
 @ControllerAdvice
 @RequiredArgsConstructor
 public class RestResponseAdvice implements ResponseBodyAdvice<Object> {
@@ -72,25 +70,26 @@ public class RestResponseAdvice implements ResponseBodyAdvice<Object> {
   public Object beforeBodyWrite(Object body, MethodParameter returnType,
       MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType,
       ServerHttpRequest request, ServerHttpResponse response) {
+    Object responseBody = body;
     Method method = returnType.getMethod(); // 获取当前执行的方法
     Assert.notNull(method, "REST|Failure:执行方法不能为空");
     ExceptionHandler exceptionHandler = AnnotationUtils
         .findAnnotation(method, ExceptionHandler.class);
     if (Objects.nonNull(exceptionHandler)) { // 全局异常处理方法，REST消息已经处理过了
-      return body;
+      return responseBody;
     }
     RestResponse restResponse = RestResponseUtils.getRestResponse(method);
-    if (needSerial(restResponse, body)) { // 将非序列消息组装为REST消息
-      body = RestBuilders.successMessage(body);
+    if (needSerial(restResponse, responseBody)) { // 将非序列消息组装为REST消息
+      responseBody = RestBuilders.successMessage(responseBody);
     }
-    if (Objects.isNull(body)) {
+    if (Objects.isNull(responseBody)) {
       return null;
     }
     // 从REST方法和REST配置项中推断响应类
     Class<?> responseClass = RestResponseUtils
         .getResponseClass(restResponse, properties.getResponseClass());
     // 将响应消息转换为指定类型的响应消息
-    return converterService.deduce(body, responseClass);
+    return converterService.deduce(responseBody, responseClass);
   }
 
   /**

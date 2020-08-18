@@ -71,7 +71,7 @@ public class GroupValidateTest {
     mvc.perform(requestBuilder)
         .andDo(MockMvcResultHandlers.print())
         .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().string("model.password 不能为null"));
+        .andExpect(MockMvcResultMatchers.content().string("model.password must not be null"));
   }
 
   @Test
