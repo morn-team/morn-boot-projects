@@ -1,5 +1,6 @@
 package site.morn.boot.data.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -20,7 +21,7 @@ import org.springframework.util.StringUtils;
 @Getter
 @Setter
 @MappedSuperclass
-public class TreeEntity<M extends TreeEntity<M, I>, I> {
+public class TreeEntity<M extends TreeEntity<M, I>, I extends Serializable> {
 
   /**
    * 主键

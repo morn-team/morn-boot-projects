@@ -32,11 +32,11 @@ import site.morn.test.TestUser;
  * @author timely-rain
  * @since 1.0.0, 2019/5/14
  */
-@AutoConfigureMockMvc
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
-@RunWith(SpringRunner.class)
 @Slf4j
 @SpringBootTest
+@AutoConfigureMockMvc
+@RunWith(SpringRunner.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CrudControllerTest {
 
   /**
@@ -55,6 +55,7 @@ public class CrudControllerTest {
   @Before
   public void setUp() {
     testUser = new TestUser();
+    testUser.setId(1L);
     testUser.setUsername("timely");
     testUser.setPassword("123456");
   }
@@ -104,6 +105,7 @@ public class CrudControllerTest {
   @Test
   @WithMockUser
   public void test3() throws Exception {
+    testUser.setUsername("ct-mika");
     CriteriaMap restModel = new CriteriaMap().set("model", testUser);
     String content = JSONObject.toJSONString(restModel);
     MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post(BASE_URL + "/search")

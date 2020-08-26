@@ -17,7 +17,7 @@ import lombok.experimental.FieldNameConstants;
 @Setter
 @FieldNameConstants
 @MappedSuperclass
-public class OrganizedEntity extends ReviserEntity {
+public class OrganizedEntity extends CreatorEntity {
 
   /**
    * 组织编号

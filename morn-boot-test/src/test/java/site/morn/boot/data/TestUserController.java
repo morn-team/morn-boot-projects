@@ -12,6 +12,6 @@ import site.morn.test.TestUser;
  */
 @RequestMapping("test/user")
 @RestController
-public class TestUserController extends CrudControllerSupport<TestUser, Long, TestUserService> {
+public class TestUserController extends CrudController<TestUser, Long, TestUserService> {
 
 }
