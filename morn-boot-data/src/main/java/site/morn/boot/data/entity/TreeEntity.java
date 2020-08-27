@@ -21,7 +21,7 @@ import org.springframework.util.StringUtils;
 @Getter
 @Setter
 @MappedSuperclass
-public class TreeEntity<M extends TreeEntity<M, I>, I extends Serializable> {
+public abstract class TreeEntity<M extends TreeEntity<M, I>, I extends Serializable> {
 
   /**
    * 主键
@@ -37,6 +37,12 @@ public class TreeEntity<M extends TreeEntity<M, I>, I extends Serializable> {
   protected I parentId;
 
   /**
+   * 名称
+   */
+  @Column
+  protected String name;
+
+  /**
    * 层级
    */
   @Column
@@ -46,7 +52,7 @@ public class TreeEntity<M extends TreeEntity<M, I>, I extends Serializable> {
    * 检索编码
    */
   @Column
-  protected String searchCode;
+  protected String levelCode;
 
   /**
    * 父级节点
@@ -60,7 +66,7 @@ public class TreeEntity<M extends TreeEntity<M, I>, I extends Serializable> {
   @PrePersist
   public void beforeSave() {
     generateParentId();
-    generateSearchCode();
+    generateLevelCode();
   }
 
   /**
@@ -76,14 +82,14 @@ public class TreeEntity<M extends TreeEntity<M, I>, I extends Serializable> {
   /**
    * 生成检索编码
    */
-  private void generateSearchCode() {
-    if (!StringUtils.isEmpty(searchCode)) {
+  private void generateLevelCode() {
+    if (!StringUtils.isEmpty(levelCode)) {
       return;
     }
-    if (Objects.isNull(parent) || StringUtils.isEmpty(parent.searchCode)) {
-      searchCode = String.format("|%s|", id);
+    if (Objects.isNull(parent) || StringUtils.isEmpty(parent.levelCode)) {
+      levelCode = String.format("|%s|", id);
     } else {
-      searchCode = String.format("%s|%s|", parent.searchCode, id);
+      levelCode = String.format("%s%s|", parent.levelCode, id);
     }
   }
 }

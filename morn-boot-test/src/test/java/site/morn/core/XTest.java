@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 import site.morn.test.TestUser;
 
 /**
  * 任意类型单元测试
  */
+@RunWith(JUnit4.class)
 public class XTest {
 
   @Test

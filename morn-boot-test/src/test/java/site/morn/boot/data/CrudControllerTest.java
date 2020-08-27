@@ -55,7 +55,7 @@ public class CrudControllerTest {
   @Before
   public void setUp() {
     testUser = new TestUser();
-    testUser.setId(1L);
+    testUser.setId(2L);
     testUser.setUsername("timely");
     testUser.setPassword("123456");
   }
@@ -117,12 +117,27 @@ public class CrudControllerTest {
   }
 
   /**
-   * 删除测试
+   * 获取测试
    */
   @Test
   @WithMockUser
   public void test4() throws Exception {
-    MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete(BASE_URL + "/" + 1)
+    MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(BASE_URL + "/2");
+    mvc.perform(requestBuilder)
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("status").value(SUCCESS))
+        .andExpect(jsonPath("data.id").value(2));
+  }
+
+
+  /**
+   * 删除测试
+   */
+  @Test
+  @WithMockUser
+  public void test5() throws Exception {
+    MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete(BASE_URL + "/2")
         .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
     mvc.perform(requestBuilder)
         .andDo(print())

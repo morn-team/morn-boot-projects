@@ -10,8 +10,8 @@ import site.morn.test.TestUser;
  * @author timely-rain
  * @since 1.0.0, 2019/5/14
  */
-@RequestMapping("test/user")
 @RestController
-public class TestUserController extends CrudController<TestUser, Long, TestUserService> {
+@RequestMapping("test/user")
+public class TestUserController extends DisplayableController<TestUser, Long, TestUserService> {
 
 }

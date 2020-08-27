@@ -10,14 +10,14 @@ import org.springframework.util.CollectionUtils;
  * @author timely-rain
  * @since 2.1.1, 2019/8/14
  */
-public interface DisplayableService<T, I extends Serializable> {
+public interface DisplayableService<T, I extends Serializable> extends CrudService<T, I> {
 
   /**
    * 切换显示状态
    *
-   * @param id 主键
+   * @param id        主键
    * @param isDisplay 显示状态
-   * @param <S> 实体类型
+   * @param <S>       实体类型
    * @return 持久化对象
    */
   <S extends T> S toggleDisplay(I id, boolean isDisplay);

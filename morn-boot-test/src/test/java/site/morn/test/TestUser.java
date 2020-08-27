@@ -3,12 +3,14 @@ package site.morn.test;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import site.morn.boot.data.entity.OrganizedEntity;
+import site.morn.data.Displayable;
 import site.morn.data.group.Add;
 
 /**
@@ -21,20 +23,12 @@ import site.morn.data.group.Add;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class TestUser implements Serializable {
+@EqualsAndHashCode(callSuper = true)
+public class TestUser extends OrganizedEntity implements Displayable, Serializable {
 
 
   @Id
-  @GeneratedValue
   private Long id;
-
-  /**
-   * 部门编号
-   *
-   * @see TestDepartment#getId()
-   */
-  @Column
-  private Long departmentId;
 
   @Column
   @NotNull
@@ -43,6 +37,9 @@ public class TestUser implements Serializable {
   @Column
   @NotNull(groups = Add.class)
   private String password;
+
+  @Column
+  private Boolean display;
 
   public TestUser(Long id, @NotNull String username) {
     this.id = id;

@@ -40,11 +40,11 @@
     </dependency>
     <dependency>
       <groupId>site.morn.boot</groupId>
-      <artifactId>morn-boot-interpreter</artifactId>
+      <artifactId>morn-boot-data-jpa</artifactId>
     </dependency>
     <dependency>
       <groupId>site.morn.boot</groupId>
-      <artifactId>morn-boot-data-jpa</artifactId>
+      <artifactId>morn-boot-interpreter</artifactId>
     </dependency>
     <dependency>
       <groupId>site.morn.boot</groupId>
