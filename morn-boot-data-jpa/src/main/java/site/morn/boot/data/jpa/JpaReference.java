@@ -1,9 +1,7 @@
 package site.morn.boot.data.jpa;
 
 
-import java.util.Objects;
 import java.util.Set;
-import java.util.function.Predicate;
 import java.util.stream.Stream;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -55,16 +53,5 @@ public class JpaReference<M> {
    */
   public Stream<Attribute<? super M, ?>> attributeStream() {
     return attributes().stream();
-  }
-
-  /**
-   * 获得实体类属性Stream
-   *
-   * @return Stream<Attribute>
-   */
-  public Stream<Attribute<? super M, ?>> attributeStreamIncludes(String... names) {
-    Predicate<Attribute<? super M, ?>> includes = attribute -> Stream.of(names)
-        .anyMatch(s -> Objects.equals(s, attribute.getName()));
-    return attributes().stream().filter(includes);
   }
 }

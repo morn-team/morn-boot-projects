@@ -34,6 +34,12 @@ public class TestCommodity {
   private String name;
 
   /**
+   * 配料
+   */
+  @Column
+  private String ingredients;
+
+  /**
    * 商品价格
    */
   @Column

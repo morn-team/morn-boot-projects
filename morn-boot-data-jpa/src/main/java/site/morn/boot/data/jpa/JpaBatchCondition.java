@@ -44,13 +44,18 @@ public interface JpaBatchCondition extends JpaCondition {
     return JpaPredicate.array(predicateStream);
   }
 
+  default Predicate[] startWithes(String[] names, String valueName) {
+    Stream<Predicate> predicateStream = Arrays.stream(names).map(s -> this.startWith(s, valueName));
+    return JpaPredicate.array(predicateStream);
+  }
+
   default Predicate[] endWithes(String... names) {
     Stream<Predicate> predicateStream = Arrays.stream(names).map(this::endWith);
     return JpaPredicate.array(predicateStream);
   }
 
-  default Predicate[] ins(String... names) {
-    Stream<Predicate> predicateStream = Arrays.stream(names).map(this::in);
+  default Predicate[] endWithes(String[] names, String valueName) {
+    Stream<Predicate> predicateStream = Arrays.stream(names).map(s -> this.endWith(s, valueName));
     return JpaPredicate.array(predicateStream);
   }
 }
