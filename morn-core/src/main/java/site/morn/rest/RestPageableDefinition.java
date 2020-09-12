@@ -1,4 +1,4 @@
-package site.morn.boot.rest;
+package site.morn.rest;
 
 
 import site.morn.core.CriteriaAttributes;

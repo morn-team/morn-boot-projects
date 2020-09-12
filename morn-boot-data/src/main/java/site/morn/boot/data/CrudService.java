@@ -3,8 +3,8 @@ package site.morn.boot.data;
 import java.io.Serializable;
 import java.util.List;
 import org.springframework.data.domain.Page;
-import site.morn.boot.rest.RestPage;
 import site.morn.rest.RestModel;
+import site.morn.rest.RestPage;
 
 /**
  * 基础服务

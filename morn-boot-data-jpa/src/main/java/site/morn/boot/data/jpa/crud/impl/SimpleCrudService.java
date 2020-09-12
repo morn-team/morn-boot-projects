@@ -18,10 +18,11 @@ import site.morn.boot.data.CrudService;
 import site.morn.boot.data.jpa.SpecificationFunction;
 import site.morn.boot.data.jpa.crud.SpecificationRepository;
 import site.morn.boot.data.jpa.support.SpecificationBuilder;
+import site.morn.boot.data.rest.RestPageUtils;
 import site.morn.boot.data.util.EntityUtils;
-import site.morn.boot.rest.RestPage;
 import site.morn.core.CriteriaMap;
 import site.morn.rest.RestModel;
+import site.morn.rest.RestPage;
 import site.morn.util.GenericUtils;
 import site.morn.util.PersistFunctionUtils;
 
@@ -66,7 +67,7 @@ public class SimpleCrudService<T, I extends Serializable, R extends Specificatio
   @Override
   public Page<T> search(RestPage<T> restPage) {
     log.info("分页搜索");
-    PageRequest pageRequest = restPage.generatePageRequest();// 分页请求
+    PageRequest pageRequest = RestPageUtils.generatePageRequest(restPage);// 分页请求
     CriteriaMap attach = restPage.getAttach(); // 附加数据
     T model = restPage.getModel(); // 数据模型
     Specification<T> specification = searchSpecification(model, attach);// 查询条件

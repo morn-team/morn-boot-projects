@@ -28,12 +28,6 @@
       <artifactId>spring-boot-starter-web</artifactId>
       <optional>true</optional>
     </dependency>
-    <!--Spring Boot Data-->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-jpa</artifactId>
-      <optional>true</optional>
-    </dependency>
     <!--Morn Boot-->
     <dependency>
       <groupId>site.morn.boot</groupId>

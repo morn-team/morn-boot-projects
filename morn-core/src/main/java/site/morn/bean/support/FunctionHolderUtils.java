@@ -19,14 +19,14 @@ import site.morn.bean.FunctionHolder;
  */
 @Slf4j
 @UtilityClass
-public class BeanFunctions {
+public class FunctionHolderUtils {
 
   /**
    * 调用方法
    *
    * @param holders 函数持有者
-   * @param args 实参
-   * @param <T> 返回类型
+   * @param args    实参
+   * @param <T>     返回类型
    * @return 返回值
    */
   @SuppressWarnings("unchecked")

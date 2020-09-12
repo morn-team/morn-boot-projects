@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import site.morn.bean.support.AnnotationFeatureBuilder;
 import site.morn.bean.support.BeanCaches;
-import site.morn.bean.support.BeanFunctions;
+import site.morn.bean.support.FunctionHolderUtils;
 import site.morn.bean.support.Tags;
 import site.morn.test.TestAnnotationBeans.Animal;
 import site.morn.test.TestAnnotationBeans.Food;
@@ -23,7 +23,7 @@ import site.morn.test.TestAnnotationBeans.Food;
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class BeanFunctionsTest {
+public class FunctionHolderUtilsTest {
 
   @Test
   public void catPlay() {
@@ -32,7 +32,7 @@ public class BeanFunctionsTest {
     AnnotationFeature functionId = AnnotationFeatureBuilder.withName("play").build();
     List<FunctionHolder> functions = BeanCaches.functions(beanId, functionId);
     try {
-      List<String> call = BeanFunctions.call(functions);
+      List<String> call = FunctionHolderUtils.call(functions);
       log.info(call.toString());
       Assert.assertEquals("catPlay", 2, call.size());
     } catch (Exception e) {
@@ -48,7 +48,7 @@ public class BeanFunctionsTest {
     AnnotationFeature functionId = AnnotationFeatureBuilder.withName("eat").build();
     List<FunctionHolder> functions = BeanCaches.functions(functionId);
     try {
-      List<String> call = BeanFunctions.call(functions, food, meat);
+      List<String> call = FunctionHolderUtils.call(functions, food, meat);
       log.info(call.toString());
       Assert.assertEquals("call", 4, call.size());
     } catch (Exception e) {

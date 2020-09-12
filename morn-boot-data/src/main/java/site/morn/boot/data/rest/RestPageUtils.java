@@ -1,13 +1,17 @@
-package site.morn.boot.rest;
+package site.morn.boot.data.rest;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import lombok.experimental.UtilityClass;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.domain.Sort.Order;
 import org.springframework.util.StringUtils;
+import site.morn.core.CriteriaAttributes;
+import site.morn.rest.RestPageDefinition;
+import site.morn.rest.RestPageableDefinition;
 
 /**
  * 分页工具类
@@ -48,6 +52,30 @@ public class RestPageUtils {
     return Objects.equals(direction.toLowerCase(), DESC);
   }
 
+  /**
+   * 生成JPA分页请求
+   *
+   * @return JPA分页请求
+   */
+  public static <P extends RestPageableDefinition, M, A extends CriteriaAttributes> PageRequest generatePageRequest(
+      RestPageDefinition<P, M, A> restPage) {
+    P pageable = restPage.getPageable();
+    return generatePageRequest(pageable);
+  }
+
+  /**
+   * 生成JPA分页请求
+   *
+   * @return JPA分页请求
+   */
+  public static PageRequest generatePageRequest(RestPageableDefinition pageable) {
+    String sortString = pageable.getSort();
+    if (StringUtils.isEmpty(sortString)) {
+      return PageRequest.of(pageable.getPage(), pageable.getSize());
+    }
+    Sort sort = generateSort(sortString);
+    return PageRequest.of(pageable.getPage(), pageable.getSize(), sort);
+  }
 
   /**
    * 生成排序信息
