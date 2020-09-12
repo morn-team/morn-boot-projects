@@ -13,7 +13,7 @@ import site.morn.bean.AnnotationFeature;
 import site.morn.bean.FunctionHolder;
 import site.morn.bean.support.AnnotationFeatureBuilder;
 import site.morn.bean.support.BeanCaches;
-import site.morn.bean.support.BeanFunctions;
+import site.morn.bean.support.FunctionHolderUtils;
 import site.morn.bean.support.Tags;
 import site.morn.boot.message.BroadcastMessage;
 import site.morn.boot.message.BroadcastMessageHeaders;
@@ -53,7 +53,7 @@ public abstract class AbstractAnnotationBroadcastMessageHandler<T> implements
           .translateException(MESSAGE_RESOLVE_FAILURE, messageTopic, messageType);
     }
     BroadcastMessage<Object> broadcastMessage = new SimpleBroadcastMessage<>(payload, headers);
-    BeanFunctions.call(functionHolder, payload, headers, broadcastMessage);
+    FunctionHolderUtils.call(functionHolder, payload, headers, broadcastMessage);
   }
 
   @Override
@@ -67,7 +67,7 @@ public abstract class AbstractAnnotationBroadcastMessageHandler<T> implements
           messageType);
       return;
     }
-    BeanFunctions.call(functionHolder, message.getPayload(), headers, message);
+    FunctionHolderUtils.call(functionHolder, message.getPayload(), headers, message);
   }
 
   /**
