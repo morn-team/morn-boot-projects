@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>JpaAssist JPA工具 | MornBoot 中文文档</title>
+    <meta name="generator" content="VuePress 1.5.4">
+    
+    <meta name="description" content="MornBoot是基于SpringBoot的标准API框架，致力于为JavaWeb项目提供标准化API。">
+    <link rel="preload" href="/assets/css/0.styles.ccac5a78.css" as="style"><link rel="preload" href="/assets/js/app.7381136a.js" as="script"><link rel="preload" href="/assets/js/2.b4b84c12.js" as="script"><link rel="preload" href="/assets/js/12.3aa59008.js" as="script"><link rel="prefetch" href="/assets/js/10.67ccd72c.js"><link rel="prefetch" href="/assets/js/11.298ac0e4.js"><link rel="prefetch" href="/assets/js/13.04a6431d.js"><link rel="prefetch" href="/assets/js/14.388b0dfc.js"><link rel="prefetch" href="/assets/js/15.fa80aad5.js"><link rel="prefetch" href="/assets/js/16.b4481dc8.js"><link rel="prefetch" href="/assets/js/17.a8b56927.js"><link rel="prefetch" href="/assets/js/18.a05a5dd9.js"><link rel="prefetch" href="/assets/js/19.8875e5de.js"><link rel="prefetch" href="/assets/js/20.1b772cd3.js"><link rel="prefetch" href="/assets/js/21.94f9edaa.js"><link rel="prefetch" href="/assets/js/3.e0637fce.js"><link rel="prefetch" href="/assets/js/4.5ed19beb.js"><link rel="prefetch" href="/assets/js/5.f82cfa2b.js"><link rel="prefetch" href="/assets/js/6.06c80272.js"><link rel="prefetch" href="/assets/js/7.86934db9.js"><link rel="prefetch" href="/assets/js/8.c6545cd9.js"><link rel="prefetch" href="/assets/js/9.c2b6ee9d.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.ccac5a78.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">MornBoot 中文文档</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="https://github.com/morn-team/morn-boot-projects" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="https://github.com/morn-team/morn-boot-projects" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/guide/" class="sidebar-link">介绍</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Specification 规范</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>CRUD 搬砖</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Features 特性</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>Framework 框架</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/jpa-assist.html" aria-current="page" class="active sidebar-link">JpaAssist JPA工具</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/message-queue.html" class="sidebar-link">MessageQueue 消息队列</a></li><li><a href="/netty.html" class="sidebar-link">Netty NIO</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="jpaassist-jpa工具"><a href="#jpaassist-jpa工具" class="header-anchor">#</a> JpaAssist JPA工具</h1> <p>MornBoot提供JPA相关辅助功能，以简化JPA标准查询的开发工作。JPA标准查询封装度很高，有利于封装和重用，但代码冗长，可读性较低，而JPA Assist使JPA变得简洁、高效。</p> <blockquote><p>Since：v1.0.0</p></blockquote> <blockquote><p>SpringDataJPA标准查询围绕关键接口<code>JpaSpecificationExecutor&lt;T&gt;</code>和<code>Specification&lt;T&gt;</code>进行，主要构建<code>Specification&lt;T&gt;</code>对象后，调用<code>JpaSpecificationExecutor&lt;T&gt;</code>相关查询接口完成。JPA Assist的主要职责就是<strong>极简方式</strong>构建<code>Specification&lt;T&gt;</code>对象。</p></blockquote> <h3 id="必要配置"><a href="#必要配置" class="header-anchor">#</a> 必要配置</h3> <p>Maven</p> <div class="language- extra-class"><pre class="language-text"><code>&lt;!--Spring Boot Data JPA--&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;spring-boot-starter-data-jpa&lt;/artifactId&gt;
+  &lt;version&gt;${boot.version}&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;!--Morn JPA Assist--&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;site.morn.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;morn-boot-jpa&lt;/artifactId&gt;
+  &lt;version&gt;${morn.version}&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre></div><h3 id="test-entity-repository"><a href="#test-entity-repository" class="header-anchor">#</a> Test Entity &amp; Repository</h3> <div class="language- extra-class"><pre class="language-text"><code>@Data
+@Entity
+public class TestUser {
+
+  @Id
+  @GeneratedValue
+  private Long id;
+
+  @Column
+  private String username;
+
+  @Column
+  private String password;
+}
+
+public interface TestUserRepository extends CrudRepository&lt;TestUser, Long&gt;,
+    JpaSpecificationExecutor&lt;TestUser&gt; {
+
+}
+</code></pre></div><h3 id="model-query"><a href="#model-query" class="header-anchor">#</a> Model Query</h3> <p>基于实体模型获取属性和值，生成查询条件</p> <h4 id="test-user-data"><a href="#test-user-data" class="header-anchor">#</a> Test User Data</h4> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;id&quot;</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;username&quot;</span><span class="token operator">:</span> <span class="token string">&quot;timely-rain&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;password&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h4 id="equal-all"><a href="#equal-all" class="header-anchor">#</a> Equal All</h4> <blockquote><p><code>JpaBatchCondition#equalAll()</code>会检索实体类中的所有属性和值，并生成两者的<code>equal</code>条件。若无法属性/值中的一者，则忽略该属性。</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>@Autowired
+private TestUserRepository repository;
+
+private List&lt;TestUser&gt; equalAll(TestUser user) {
+  // 构建查询条件
+  SpecificationFunction specificationFunction = (reference, restrain, condition) -&gt; {
+
+    // WHERE id = 1 AND username = 'timely-rain'
+    // password为空，所以忽略
+    Predicate[] equalAll = condition.equalAll();
+
+    restrain.appendAnd(equalAll);
+  };
+  Specification&lt;TestUser&gt; specification = SpecificationBuilder.withParameter(user)
+      .specification(specificationFunction);
+  return repository.findAll(specification);
+}
+</code></pre></div><h3 id="data-query"><a href="#data-query" class="header-anchor">#</a> Data Query</h3> <p>很多情况下，<code>Entity</code>无法携带特殊的数据格式，而<code>@Transient</code>会让实体类变得冗长。因此，<code>JPA Assist</code>提供Map的传参形式。</p> <h4 id="test-attach-data"><a href="#test-attach-data" class="header-anchor">#</a> Test Attach Data</h4> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;keywords&quot;</span><span class="token operator">:</span> <span class="token string">&quot;timely&quot;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h4 id="contain"><a href="#contain" class="header-anchor">#</a> Contain</h4> <blockquote><p><code>JpaCondition#contain(String name, String valueName)</code>对应SQL的<code>LIKE %something%</code>，<code>name</code>引用实体类属性，而<code>valueName</code>引用<code>model</code>中的值，若<code>model</code>中不存在该值时，则从<code>attach</code>中获取。</p></blockquote> <div class="language- extra-class"><pre class="language-text"><code>@Autowired
+private TestUserRepository repository;
+
+private List&lt;TestUser&gt; contains(TestUser user, CriteriaMap attach) {
+  SpecificationFunction specificationFunction = (reference, restrain, condition) -&gt; {
+
+    // WHERE id = 1
+    // password为空，所以忽略
+    Predicate[] equals = condition.equals(&quot;id&quot;, &quot;password&quot;);
+
+    // AND username LIKE '%timely%'
+    Predicate keywords = condition.contain(&quot;username&quot;, &quot;keywords&quot;);
+
+    restrain.appendAnd(restrain.mergeAnd(equals), keywords);
+  };
+  Specification&lt;TestUser&gt; specification = SpecificationBuilder.withParameter(user, attach)
+      .specification(specificationFunction);
+  return repository.findAll(specification);
+}
+</code></pre></div><h3 id="jpa-query"><a href="#jpa-query" class="header-anchor">#</a> JPA Query</h3> <p><code>JPA Assist</code>目前的API并不多，有些时候仍需要使用JPA原生API。对比<code>Model Query</code>，这里的代码明显多了不少。</p> <div class="language- extra-class"><pre class="language-text"><code>public void equals() {
+  // 构建查询条件
+  SpecificationFunction specificationFunction = (reference, restrain, condition) -&gt; {
+
+    Root root = reference.root();
+    CriteriaBuilder builder = reference.builder();
+
+    // WHERE id = 1
+    if (Objects.nonNull(user.getId())) {
+      Predicate id = builder.equal(root.get(&quot;id&quot;), user.getId());
+      restrain.appendAnd(id);
+    }
+
+    // AND username = 'timely-rain'
+    if (!StringUtils.isEmpty(user.getUsername())) {
+      Predicate username = builder.equal(root.get(&quot;username&quot;), user.getUsername());
+      restrain.appendAnd(username);
+    }
+  };
+  Specification&lt;TestUser&gt; specification = SpecificationBuilder.withParameter(user)
+      .specification(specificationFunction);
+  repository.findAll(specification);
+}
+</code></pre></div><h3 id="api-condition"><a href="#api-condition" class="header-anchor">#</a> API Condition</h3> <div class="language- extra-class"><pre class="language-text"><code>/**
+ * 等于
+ *
+ * @param name 实体属性名称，数据属性名称
+ * @return 查询断言
+ * @see javax.persistence.criteria.CriteriaBuilder#equal(Expression, Object)
+ */
+Predicate equal(String name);
+
+/**
+ * 等于
+ *
+ * @param name 实体属性名称
+ * @param valueName 数据属性名称
+ * @return 查询断言
+ * @see javax.persistence.criteria.CriteriaBuilder#equal(Expression, Object)
+ */
+Predicate equal(String name, String valueName);
+
+/**
+ * 不等
+ *
+ * @param name 实体属性名称，数据属性名称
+ * @return 查询断言
+ * @see javax.persistence.criteria.CriteriaBuilder#notEqual(Expression, Object)
+ */
+Predicate notEqual(String name);
+
+/**
+ * 不等
+ *
+ * @param name 实体属性名称
+ * @param valueName 数据属性名称
+ * @return 查询断言
+ * @see javax.persistence.criteria.CriteriaBuilder#notEqual(Expression, Object)
+ */
+Predicate notEqual(String name, String valueName);
+
+/**
+ * 在...内
+ *
+ * @param name 实体属性名称，数据属性名称
+ * @return 查询断言
+ * @see Expression#in(Object...)
+ */
+Predicate in(String name);
+
+/**
+ * 包含
+ *
+ * @param name 实体属性名称，数据属性名称
+ * @return 查询断言
+ * @see javax.persistence.criteria.CriteriaBuilder#like(Expression, String)
+ */
+Predicate contain(String name);
+
+/**
+ * 包含
+ *
+ * @param name 实体属性名称
+ * @param valueName 数据属性名称
+ * @return 查询断言
+ * @see javax.persistence.criteria.CriteriaBuilder#like(Expression, String)
+ */
+Predicate contain(String name, String valueName);
+
+/**
+ * 以...开始
+ *
+ * @param name 实体属性名称，数据属性名称
+ * @return 查询断言
+ * @see javax.persistence.criteria.CriteriaBuilder#like(Expression, String)
+ */
+Predicate startWith(String name);
+
+/**
+ * 以...结束
+ *
+ * @param name 实体属性名称，数据属性名称
+ * @return 查询断言
+ * @see javax.persistence.criteria.CriteriaBuilder#like(Expression, String)
+ */
+Predicate endWith(String name);
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/exception-interpreter.html" class="prev">
+        ExceptionInterpreter 异常解释
+      </a></span> <span class="next"><a href="/message-queue.html">
+        MessageQueue 消息队列
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.7381136a.js" defer></script><script src="/assets/js/2.b4b84c12.js" defer></script><script src="/assets/js/12.3aa59008.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>BeanEnhance 实例增强 | MornBoot 中文文档</title>
+    <meta name="generator" content="VuePress 1.5.4">
+    
+    <meta name="description" content="MornBoot是基于SpringBoot的标准API框架，致力于为JavaWeb项目提供标准化API。">
+    <link rel="preload" href="/assets/css/0.styles.ccac5a78.css" as="style"><link rel="preload" href="/assets/js/app.7381136a.js" as="script"><link rel="preload" href="/assets/js/2.b4b84c12.js" as="script"><link rel="preload" href="/assets/js/7.86934db9.js" as="script"><link rel="prefetch" href="/assets/js/10.67ccd72c.js"><link rel="prefetch" href="/assets/js/11.298ac0e4.js"><link rel="prefetch" href="/assets/js/12.3aa59008.js"><link rel="prefetch" href="/assets/js/13.04a6431d.js"><link rel="prefetch" href="/assets/js/14.388b0dfc.js"><link rel="prefetch" href="/assets/js/15.fa80aad5.js"><link rel="prefetch" href="/assets/js/16.b4481dc8.js"><link rel="prefetch" href="/assets/js/17.a8b56927.js"><link rel="prefetch" href="/assets/js/18.a05a5dd9.js"><link rel="prefetch" href="/assets/js/19.8875e5de.js"><link rel="prefetch" href="/assets/js/20.1b772cd3.js"><link rel="prefetch" href="/assets/js/21.94f9edaa.js"><link rel="prefetch" href="/assets/js/3.e0637fce.js"><link rel="prefetch" href="/assets/js/4.5ed19beb.js"><link rel="prefetch" href="/assets/js/5.f82cfa2b.js"><link rel="prefetch" href="/assets/js/6.06c80272.js"><link rel="prefetch" href="/assets/js/8.c6545cd9.js"><link rel="prefetch" href="/assets/js/9.c2b6ee9d.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.ccac5a78.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">MornBoot 中文文档</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="https://github.com/morn-team/morn-boot-projects" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="https://github.com/morn-team/morn-boot-projects" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/guide/" class="sidebar-link">介绍</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Specification 规范</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>CRUD 搬砖</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>Features 特性</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/bean-enhance.html" aria-current="page" class="active sidebar-link">BeanEnhance 实例增强</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/exception-interpreter.html" class="sidebar-link">ExceptionInterpreter 异常解释</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Framework 框架</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="beanenhance-实例增强"><a href="#beanenhance-实例增强" class="header-anchor">#</a> BeanEnhance 实例增强</h1> <p>MornBoot提供更多的注解对实例进行描述，使用<code>BeanCaches</code>实例缓存<strong>批量检索</strong>需要的实例。在<code>1.2.0+</code>版本中，实例增强还支持对方法的缓存、检索和调用。</p> <blockquote><p>Since：v1.0.0</p></blockquote> <h3 id="functions"><a href="#functions" class="header-anchor">#</a> Functions</h3> <ul><li>实例缓存、检索、事件回调</li> <li>方法缓存、检索、调用</li> <li>快速自定义注解</li></ul> <h3 id="实例注解"><a href="#实例注解" class="header-anchor">#</a> <a name="实例注解">实例注解</a></h3> <p>使用<code>@Name</code>、<code>@Tag</code>、<code>@Target</code>为实例设置名称、标签、目标，以便在需要的时候检索这些实例。</p> <h4 id="示例"><a href="#示例" class="header-anchor">#</a> 示例</h4> <div class="language- extra-class"><pre class="language-text"><code>@Slf4j
+@Component
+@Name(&quot;caramel&quot;) // 为实例命名
+@Tag(&quot;small&quot;) // 标签，描述实例的特征
+@Target(Food.class) // 目标，描述实例的作用目标
+public class Caramel implements Pet {
+
+  @Override
+  public String eat(Food food) {
+    log.info(&quot;{}在吃{}...&quot;, &quot;caramel&quot;, food.getName());
+    return &quot;fishBone&quot;;
+  }
+}
+</code></pre></div><h3 id="实例缓存"><a href="#实例缓存" class="header-anchor">#</a> 实例缓存</h3> <p>实例增强设计的使用场景是频繁的检索有共性的Bean。为了避免检索耗费时间，检索操作默认使用<code>BeanCaches</code>完成。</p> <blockquote><p><code>BeanCaches</code>依赖SpringBoot的缓存机制，因此必须开启缓存注解<code>@EnableCaching</code>。</p></blockquote> <h4 id="示例-2"><a href="#示例-2" class="header-anchor">#</a> 示例</h4> <div class="language- extra-class"><pre class="language-text"><code>// 获取名为`caramel`的宠物
+Pet caramel = BeanCaches.nameBean(Pet.class, &quot;caramel&quot;);
+
+// 获取标签为`small`的宠物
+// 注意：此例中，BeanCaches会尝试检索所有标签为`small`的实例，而不限于`Pet`的子类
+Pet small = (Pet) BeanCaches.tagBean(null, &quot;small&quot;); 
+
+// 获取所有目标为`Food`的宠物
+List&lt;Pet&gt; foods = BeanCaches.targetBeans(Pet.class, Food.class);
+
+caramel.eat(new Food(&quot;fish&quot;)); // log：caramel在吃fish...
+</code></pre></div><h4 id="示例-观察者模式"><a href="#示例-观察者模式" class="header-anchor">#</a> 示例：观察者模式</h4> <p>基于<code>BeanCaches</code>编写观察者模式极为简洁，你甚至不需要在被观察者中，维护观察者的列表。因为<code>BeanCaches</code>会配合Spring容器检索所有的观察者实例。利用<code>@Name</code>、<code>@Tag</code>等注解，你还可以更为灵活的指定特定的观察者。</p> <div class="language- extra-class"><pre class="language-text"><code>// 被观察者
+public class Subject {
+
+  /**
+   * 状态
+   */
+  private int state;
+
+  public int getState() {
+    return state;
+  }
+
+  public void setState(int state) {
+    this.state = state;
+    notifyObservers();
+  }
+
+  /**
+   * 通知全部观察者
+   */
+  private void notifyObservers() {
+    List&lt;Observer&gt; observers = BeanCaches.targetBeans(Observer.class, Subject.class);
+    for (Observer observer : observers) {
+      observer.update(state);
+    }
+  }
+}
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>// 观察者
+public interface Observer {
+
+  /**
+   * 更新
+   *
+   * @param state 被观察者状态
+   */
+  void update(int state);
+}
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>// 状态观察者
+@Slf4j
+@Component
+@Target(Subject.class)
+public class StateObserver implements Observer {
+
+  @Override
+  public void update(int state) {
+    log.info(&quot;Subject's state is {}&quot;, state);
+  }
+}
+</code></pre></div><h4 id="示例-beanprocessor"><a href="#示例-beanprocessor" class="header-anchor">#</a> 示例：BeanProcessor</h4> <p>基于MornBoot内置的函数式接口，我们可以将代码进一步简化。</p> <div class="language- extra-class"><pre class="language-text"><code>// 被观察者
+public class Subject {
+
+  /**
+   * 状态
+   */
+  private int state;
+
+  public int getState() {
+    return state;
+  }
+
+  public void setState(int state) {
+    this.state = state;
+    notifyObservers();
+  }
+
+  /**
+   * 通知全部观察者
+   */
+  private void notifyObservers() {
+    BeanFunctionUtils.processes(StateProcessor.class, this);
+  }
+}
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>// 状态观察者
+@Slf4j
+@Component
+@Tag
+public class StateObserver implements BeanProcessor&lt;Subject&gt; {
+
+  @Override
+  public void handle(Subject source) {
+    log.info(&quot;Subject's state is {}&quot;, source.getState());
+  }
+}
+</code></pre></div><h4 id="函数式接口"><a href="#函数式接口" class="header-anchor">#</a> 函数式接口</h4> <p>MornBoot提供多种函数式接口，同时也支持JDK内置的函数式接口，如：<code>Consumer</code>、<code>Runable</code>等。</p> <ul><li>BeanAdapter</li> <li>BeanConverter</li> <li>BeanProcessor</li> <li>BeanProducer</li></ul> <h4 id="示例-混合检索"><a href="#示例-混合检索" class="header-anchor">#</a> 示例：混合检索</h4> <p><code>BeanCaches</code>支持同时按多种条件检索Bean。</p> <div class="language- extra-class"><pre class="language-text"><code>// 构建检索条件，按标签和目标检索
+String[] tags = Tags.from(Color.class, &quot;yellow&quot;).add(&quot;big&quot;).toArray();
+AnnotationIdentifyCase identifyCase = AnnotationIdentifyCase.builder()
+    .tags(tags).target(Toy.class).build();
+Dog dog = BeanCaches.bean(Dog.class, identifyCase);
+</code></pre></div><h3 id="方法增强"><a href="#方法增强" class="header-anchor">#</a> <a name="方法增强">方法增强</a></h3> <p>类似于实例增强，我们可以使用<code>@Function</code>注解为方法命名，以便在需要的时候调用它。</p> <blockquote><p><code>@Function</code>默认使用方法名作为调用名称。</p></blockquote> <h4 id="方法描述"><a href="#方法描述" class="header-anchor">#</a> 方法描述</h4> <div class="language- extra-class"><pre class="language-text"><code>@Slf4j
+@Component
+@Tag
+public class Dog {
+
+  @Function
+  public String eat(String food) {
+    log.info(&quot;狗在吃{}...&quot;, food);
+    return &quot;bone&quot;;
+  }
+
+  @Function
+  public void play() {
+    log.info(&quot;狗在玩...&quot;);
+  }
+}
+</code></pre></div><h4 id="方法调用"><a href="#方法调用" class="header-anchor">#</a> 方法调用</h4> <p>方法增强适用于调用多个类中的相似方法，而且支持不同类、不同参数、不同返回值的多个方法，<code>BeanFunctions</code>会尽量调整参数传入顺序、数目，以便正确调用这些方法。</p> <div class="language- extra-class"><pre class="language-text"><code>// 构建检索条件，检索名为`eat`的方法
+AnnotationIdentifyCase functionId = AnnotationIdentifyCase.builder().name(&quot;eat&quot;).build();
+List&lt;FunctionHolder&gt; functions = BeanCaches.functions(functionId);
+// 调用`eat`方法
+List&lt;String&gt; returns = BeanFunctions.call(functions, &quot;meat&quot;); // log：狗在吃meat
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/persist-function.html" class="prev">
+        PersistFunction 持久化函数
+      </a></span> <span class="next"><a href="/exception-interpreter.html">
+        ExceptionInterpreter 异常解释
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.7381136a.js" defer></script><script src="/assets/js/2.b4b84c12.js" defer></script><script src="/assets/js/7.86934db9.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>RestMessage REST消息 | MornBoot 中文文档</title>
+    <meta name="generator" content="VuePress 1.5.4">
+    
+    <meta name="description" content="MornBoot是基于SpringBoot的标准API框架，致力于为JavaWeb项目提供标准化API。">
+    <link rel="preload" href="/assets/css/0.styles.ccac5a78.css" as="style"><link rel="preload" href="/assets/js/app.7381136a.js" as="script"><link rel="preload" href="/assets/js/2.b4b84c12.js" as="script"><link rel="preload" href="/assets/js/20.1b772cd3.js" as="script"><link rel="prefetch" href="/assets/js/10.67ccd72c.js"><link rel="prefetch" href="/assets/js/11.298ac0e4.js"><link rel="prefetch" href="/assets/js/12.3aa59008.js"><link rel="prefetch" href="/assets/js/13.04a6431d.js"><link rel="prefetch" href="/assets/js/14.388b0dfc.js"><link rel="prefetch" href="/assets/js/15.fa80aad5.js"><link rel="prefetch" href="/assets/js/16.b4481dc8.js"><link rel="prefetch" href="/assets/js/17.a8b56927.js"><link rel="prefetch" href="/assets/js/18.a05a5dd9.js"><link rel="prefetch" href="/assets/js/19.8875e5de.js"><link rel="prefetch" href="/assets/js/21.94f9edaa.js"><link rel="prefetch" href="/assets/js/3.e0637fce.js"><link rel="prefetch" href="/assets/js/4.5ed19beb.js"><link rel="prefetch" href="/assets/js/5.f82cfa2b.js"><link rel="prefetch" href="/assets/js/6.06c80272.js"><link rel="prefetch" href="/assets/js/7.86934db9.js"><link rel="prefetch" href="/assets/js/8.c6545cd9.js"><link rel="prefetch" href="/assets/js/9.c2b6ee9d.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.ccac5a78.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">MornBoot 中文文档</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="https://github.com/morn-team/morn-boot-projects" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="https://github.com/morn-team/morn-boot-projects" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/guide/" class="sidebar-link">介绍</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>Specification 规范</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/application-message.html" class="sidebar-link">ApplicationMessage 应用消息</a></li><li><a href="/notify.html" class="sidebar-link">Notify 系统通知</a></li><li><a href="/operation-log.html" class="sidebar-link">OperationLog 操作日志</a></li><li><a href="/rest-message.html" aria-current="page" class="active sidebar-link">RestMessage REST消息</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/rest-message.html#推荐配置" class="sidebar-link">推荐配置</a></li><li class="sidebar-sub-header"><a href="/rest-message.html#build-standard-message" class="sidebar-link">Build Standard Message</a></li><li class="sidebar-sub-header"><a href="/rest-message.html#消息转换" class="sidebar-link">消息转换</a></li></ul></li><li><a href="/rest-response.html" class="sidebar-link">RestResponse REST响应服务</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>CRUD 搬砖</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Features 特性</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Framework 框架</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="restmessage-rest消息"><a href="#restmessage-rest消息" class="header-anchor">#</a> RestMessage REST消息</h1> <p>MornBoot提供全局REST模型，用于系统内部/第三方系统进行交互。支持REST模型与第三方模型相互转换，从而屏蔽数据模型造成的交互障碍。</p> <blockquote><p>Since：v1.0.0</p></blockquote> <h2 id="推荐配置"><a href="#推荐配置" class="header-anchor">#</a> 推荐配置</h2> <div class="language- extra-class"><pre class="language-text"><code>#开启国际化（默认）
+morn.translator.enabled=true
+#国际化资源文件
+spring.messages.basename=morn/message
+</code></pre></div><h2 id="build-standard-message"><a href="#build-standard-message" class="header-anchor">#</a> Build Standard Message</h2> <p>使用<code>RestBuilders</code>构建REST模型，响应JSON格式的消息。</p> <h3 id="default-success-message"><a href="#default-success-message" class="header-anchor">#</a> Default Success Message</h3> <p>构建一个<code>success</code>消息</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token annotation punctuation">@RestController</span>
+<span class="token annotation punctuation">@RequestMapping</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">LoginController</span> <span class="token punctuation">{</span>
+
+  <span class="token annotation punctuation">@PostMapping</span><span class="token punctuation">(</span><span class="token string">&quot;/login&quot;</span><span class="token punctuation">)</span>
+  <span class="token keyword">public</span> <span class="token class-name">RestMessage</span> <span class="token function">login</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token class-name">RestBuilders</span><span class="token punctuation">.</span><span class="token function">successMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>Response Body</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+    <span class="token property">&quot;code&quot;</span><span class="token operator">:</span> <span class="token string">&quot;success&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;data&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;level&quot;</span><span class="token operator">:</span> <span class="token string">&quot;info&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;message&quot;</span><span class="token operator">:</span> <span class="token string">&quot;操作成功&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;success&quot;</span><span class="token operator">:</span> <span class="token boolean">true</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>在<code>morn/message.properties</code>中录入国际化信息</p> <div class="language-properties extra-class"><pre class="language-properties"><code><span class="token attr-name">rest.success.message</span><span class="token punctuation">=</span><span class="token attr-value">操作成功</span>
+<span class="token attr-name">rest.failure.message</span><span class="token punctuation">=</span><span class="token attr-value">操作失败</span>
+<span class="token attr-name">rest.test.message</span><span class="token punctuation">=</span><span class="token attr-value">测试消息</span>
+</code></pre></div><h3 id="custom-success-message"><a href="#custom-success-message" class="header-anchor">#</a> Custom Success Message</h3> <p>构建一个<code>success</code>消息，并自定义消息内容</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token class-name">RestMessage</span> restMessage <span class="token operator">=</span> <span class="token class-name">RestBuilders</span><span class="token punctuation">.</span><span class="token function">successMessage</span><span class="token punctuation">(</span><span class="token string">&quot;test&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p>Response Body</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+    <span class="token property">&quot;code&quot;</span><span class="token operator">:</span> <span class="token string">&quot;success&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;data&quot;</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;level&quot;</span><span class="token operator">:</span> <span class="token string">&quot;info&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;message&quot;</span><span class="token operator">:</span> <span class="token string">&quot;测试消息&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;success&quot;</span><span class="token operator">:</span> <span class="token boolean">true</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="complete-success-message"><a href="#complete-success-message" class="header-anchor">#</a> Complete Success Message</h3> <p>构建一个<code>success</code>消息，并自定义所有内容</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">Object</span><span class="token punctuation">,</span> <span class="token class-name">Object</span><span class="token punctuation">&gt;</span></span> data <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+data<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">&quot;Foo&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;Foo value&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+data<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">&quot;Bar&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;Bar value&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">RestMessage</span> restMessage <span class="token operator">=</span> <span class="token class-name">RestBuilders</span><span class="token punctuation">.</span><span class="token function">infoBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">code</span><span class="token punctuation">(</span><span class="token string">&quot;test&quot;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">level</span><span class="token punctuation">(</span><span class="token class-name">Level</span><span class="token punctuation">.</span>WARNING<span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">message</span><span class="token punctuation">(</span><span class="token string">&quot;This is test message.&quot;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">data</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p>Response Body</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+    <span class="token property">&quot;code&quot;</span><span class="token operator">:</span> <span class="token string">&quot;test&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;data&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">&quot;Bar&quot;</span><span class="token operator">:</span> <span class="token string">&quot;Bar value&quot;</span><span class="token punctuation">,</span>
+        <span class="token property">&quot;Foo&quot;</span><span class="token operator">:</span> <span class="token string">&quot;Foo value&quot;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;level&quot;</span><span class="token operator">:</span> <span class="token string">&quot;warning&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;message&quot;</span><span class="token operator">:</span> <span class="token string">&quot;This is test message.&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;success&quot;</span><span class="token operator">:</span> <span class="token boolean">true</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="data-success-message"><a href="#data-success-message" class="header-anchor">#</a> Data Success Message</h3> <p>构建一个<code>success</code>消息，并携带数据</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token class-name">Object</span> data <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">RestMessage</span> restMessage <span class="token operator">=</span> <span class="token class-name">RestBuilders</span><span class="token punctuation">.</span><span class="token function">successMessage</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><p>Response Body</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+    <span class="token property">&quot;code&quot;</span><span class="token operator">:</span> <span class="token string">&quot;success&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;data&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;level&quot;</span><span class="token operator">:</span> <span class="token string">&quot;info&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;message&quot;</span><span class="token operator">:</span> <span class="token string">&quot;操作成功&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;success&quot;</span><span class="token operator">:</span> <span class="token boolean">true</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="default-failure-message"><a href="#default-failure-message" class="header-anchor">#</a> Default Failure Message</h3> <div class="language-java extra-class"><pre class="language-java"><code><span class="token class-name">RestMessage</span> restMessage <span class="token operator">=</span> <span class="token class-name">RestBuilders</span><span class="token punctuation">.</span><span class="token function">failureMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><h2 id="消息转换"><a href="#消息转换" class="header-anchor">#</a> 消息转换</h2> <h3 id="模拟三方交互"><a href="#模拟三方交互" class="header-anchor">#</a> 模拟三方交互</h3> <div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+* 百度REST消息
+*/</span>
+<span class="token annotation punctuation">@Getter</span>
+<span class="token annotation punctuation">@Setter</span>
+<span class="token annotation punctuation">@ToString</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BaiduMessage</span> <span class="token punctuation">{</span>
+
+  <span class="token comment">/**
+   * 状态码
+   */</span>
+  <span class="token keyword">private</span> <span class="token class-name">String</span> error<span class="token punctuation">;</span>
+  
+  <span class="token comment">/**
+   * 消息内容
+   */</span>
+  <span class="token keyword">private</span> <span class="token class-name">String</span> msg<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="百度消息转为morn消息"><a href="#百度消息转为morn消息" class="header-anchor">#</a> 百度消息转为Morn消息</h3> <div class="language-java extra-class"><pre class="language-java"><code><span class="token class-name">BaiduMessage</span> baiduMessage <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BaiduMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+baiduMessage<span class="token punctuation">.</span><span class="token function">setError</span><span class="token punctuation">(</span><span class="token string">&quot;0&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+baiduMessage<span class="token punctuation">.</span><span class="token function">setMsg</span><span class="token punctuation">(</span><span class="token string">&quot;操作成功&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">RestMessage</span> restMessage <span class="token operator">=</span> <span class="token class-name">RestBuilder</span><span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>baiduMessage<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// success=true, code=0, level=null, message=操作成功, data=null</span>
+</code></pre></div><h3 id="morn消息转为百度消息"><a href="#morn消息转为百度消息" class="header-anchor">#</a> Morn消息转为百度消息</h3> <div class="language-java extra-class"><pre class="language-java"><code><span class="token class-name">BaiduMessage</span> baiduMessage <span class="token operator">=</span> <span class="token class-name">RestBuilders</span><span class="token punctuation">.</span><span class="token function">successBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">to</span><span class="token punctuation">(</span><span class="token class-name">BaiduMessage</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// error=0, msg=操作成功</span>
+</code></pre></div><h3 id="创建消息转换器"><a href="#创建消息转换器" class="header-anchor">#</a> 创建消息转换器</h3> <p>消息转换工作在转换器中完成，这从根本上杜绝了与第三方系统交互时，极易产生的不健康代码。 <br>
+开发人员不需要关心第三方系统的数据模型，使用标准REST模型，完成业务开发即可。</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+* 百度REST消息
+*/</span>
+<span class="token annotation punctuation">@Getter</span>
+<span class="token annotation punctuation">@Setter</span>
+<span class="token annotation punctuation">@ToString</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BaiduMessage</span> <span class="token punctuation">{</span>
+
+  <span class="token comment">/**
+   * 状态码
+   */</span>
+  <span class="token keyword">private</span> <span class="token class-name">String</span> error<span class="token punctuation">;</span>
+  
+  <span class="token comment">/**
+   * 消息内容
+   */</span>
+  <span class="token keyword">private</span> <span class="token class-name">String</span> msg<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+* 百度消息转换器
+*/</span>
+<span class="token annotation punctuation">@Target</span><span class="token punctuation">(</span><span class="token class-name">BaiduMessage</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BaiduConverter</span> <span class="token keyword">implements</span> <span class="token class-name">RestConverter</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">BaiduMessage</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">{</span>
+
+<span class="token annotation punctuation">@Override</span>
+<span class="token keyword">public</span> <span class="token class-name">BaiduMessage</span> <span class="token function">convert</span><span class="token punctuation">(</span><span class="token class-name">RestMessage</span> restMessage<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token class-name">BaiduMessage</span> baiduMessage <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BaiduMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  baiduMessage<span class="token punctuation">.</span><span class="token function">setError</span><span class="token punctuation">(</span>restMessage<span class="token punctuation">.</span><span class="token function">isSuccess</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">?</span> <span class="token string">&quot;0&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;-1&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  baiduMessage<span class="token punctuation">.</span><span class="token function">setMsg</span><span class="token punctuation">(</span>restMessage<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> baiduMessage<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token annotation punctuation">@Override</span>
+<span class="token keyword">public</span> <span class="token class-name">RestMessage</span> <span class="token function">revert</span><span class="token punctuation">(</span><span class="token class-name">BaiduMessage</span> baiduMessage<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token class-name">RestMessage</span> restMessage <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SimpleRestMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">boolean</span> success <span class="token operator">=</span> <span class="token function">isSuccess</span><span class="token punctuation">(</span>baiduMessage<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  restMessage<span class="token punctuation">.</span><span class="token function">setSuccess</span><span class="token punctuation">(</span>success<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  restMessage<span class="token punctuation">.</span><span class="token function">setLevel</span><span class="token punctuation">(</span>success <span class="token operator">?</span> <span class="token class-name">Level</span><span class="token punctuation">.</span>INFO <span class="token operator">:</span> <span class="token class-name">Level</span><span class="token punctuation">.</span>ERROR<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  restMessage<span class="token punctuation">.</span><span class="token function">setCode</span><span class="token punctuation">(</span>baiduMessage<span class="token punctuation">.</span><span class="token function">getError</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  restMessage<span class="token punctuation">.</span><span class="token function">setMessage</span><span class="token punctuation">(</span>baiduMessage<span class="token punctuation">.</span><span class="token function">getMsg</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> restMessage<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">private</span> <span class="token keyword">boolean</span> <span class="token function">isSuccess</span><span class="token punctuation">(</span><span class="token class-name">BaiduMessage</span> baiduMessage<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token class-name">Objects</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>baiduMessage<span class="token punctuation">.</span><span class="token function">getError</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">&quot;0&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/operation-log.html" class="prev">
+        OperationLog 操作日志
+      </a></span> <span class="next"><a href="/rest-response.html">
+        RestResponse REST响应服务
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.7381136a.js" defer></script><script src="/assets/js/2.b4b84c12.js" defer></script><script src="/assets/js/20.1b772cd3.js" defer></script>
+  </body>
+</html>

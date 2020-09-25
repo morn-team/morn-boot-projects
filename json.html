@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>JSON 序列化 | MornBoot 中文文档</title>
+    <meta name="generator" content="VuePress 1.5.4">
+    
+    <meta name="description" content="MornBoot是基于SpringBoot的标准API框架，致力于为JavaWeb项目提供标准化API。">
+    <link rel="preload" href="/assets/css/0.styles.ccac5a78.css" as="style"><link rel="preload" href="/assets/js/app.7381136a.js" as="script"><link rel="preload" href="/assets/js/2.b4b84c12.js" as="script"><link rel="preload" href="/assets/js/13.04a6431d.js" as="script"><link rel="prefetch" href="/assets/js/10.67ccd72c.js"><link rel="prefetch" href="/assets/js/11.298ac0e4.js"><link rel="prefetch" href="/assets/js/12.3aa59008.js"><link rel="prefetch" href="/assets/js/14.388b0dfc.js"><link rel="prefetch" href="/assets/js/15.fa80aad5.js"><link rel="prefetch" href="/assets/js/16.b4481dc8.js"><link rel="prefetch" href="/assets/js/17.a8b56927.js"><link rel="prefetch" href="/assets/js/18.a05a5dd9.js"><link rel="prefetch" href="/assets/js/19.8875e5de.js"><link rel="prefetch" href="/assets/js/20.1b772cd3.js"><link rel="prefetch" href="/assets/js/21.94f9edaa.js"><link rel="prefetch" href="/assets/js/3.e0637fce.js"><link rel="prefetch" href="/assets/js/4.5ed19beb.js"><link rel="prefetch" href="/assets/js/5.f82cfa2b.js"><link rel="prefetch" href="/assets/js/6.06c80272.js"><link rel="prefetch" href="/assets/js/7.86934db9.js"><link rel="prefetch" href="/assets/js/8.c6545cd9.js"><link rel="prefetch" href="/assets/js/9.c2b6ee9d.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.ccac5a78.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">MornBoot 中文文档</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="https://github.com/morn-team/morn-boot-projects" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="https://github.com/morn-team/morn-boot-projects" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/guide/" class="sidebar-link">介绍</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Specification 规范</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>CRUD 搬砖</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/cache-group.html" class="sidebar-link">CacheGroup 分组缓存</a></li><li><a href="/cipher.html" class="sidebar-link">Cipher 消息加密</a></li><li><a href="/json.html" aria-current="page" class="active sidebar-link">JSON 序列化</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/params-validation.html" class="sidebar-link">ParamsValidation 参数校验</a></li><li><a href="/persist-function.html" class="sidebar-link">PersistFunction 持久化函数</a></li></ul></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Features 特性</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Framework 框架</span> <span class="arrow right"></span></p> <!----></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="json-序列化"><a href="#json-序列化" class="header-anchor">#</a> JSON 序列化</h1> <p>MornBoot提供JSON格式的序列化/反序列化组件，使开发人员不必关注业务框架中使用的是哪一款JSON库，MornBoot会自动选择可支持的JSON库运行，即使业务框架中集成了多套JSON库，MornBoot也能良好运行。</p> <blockquote><p>Since：v1.2.1</p></blockquote> <p>当前支持：</p> <ul><li>FastJson</li> <li>Jackson</li></ul> <p>适用场景：</p> <ul><li>编写业务框架，需要支持多种JSON库</li> <li>编写项目代码，不清楚JSON库之间的优劣</li> <li>用FastJson的API调用灵活配置的Jackson</li></ul> <h3 id="maven-dependency"><a href="#maven-dependency" class="header-anchor">#</a> Maven Dependency</h3> <div class="language- extra-class"><pre class="language-text"><code>&lt;!--自动化配置--&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;site.morn.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;morn-boot-autoconfigure&lt;/artifactId&gt;
+  &lt;version&gt;${morn.version}&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;!--JSON--&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;site.morn.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;morn-boot-json&lt;/artifactId&gt;
+  &lt;version&gt;${morn.version}&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre></div><blockquote><p>注意：MornBoot默认没有主动加载任何JSON库，因此必须额外引入<code>FastJson</code>/<code>Jackson</code>的依赖。如果项目中已经集成了JSON库，则不用关注。</p></blockquote> <h3 id="global-utils"><a href="#global-utils" class="header-anchor">#</a> Global Utils</h3> <p><code>JsonParsers</code>的用法非常基础，不作赘述。<code>JsonParsers</code>会使用<code>FastJson</code>作为首选JSON库。</p> <blockquote><p>避免泛型擦除时，需使用<code>Spring</code>的<code>ParameterizedTypeReference</code>消除对第三方JSON库的强依赖，而不是<code>FastJson</code>/<code>Jackson</code>的<code>TypeReference</code>。也可以使用<code>JDK</code>中的<code>Type</code>。</p></blockquote> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">JsonParsersTest</span> <span class="token punctuation">{</span>
+  
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">deserializeToMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">CriteriaMap</span> user <span class="token operator">=</span> <span class="token class-name">JsonParsers</span><span class="token punctuation">.</span><span class="token function">parseMap</span><span class="token punctuation">(</span>USER1_STRING<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">deserializeToObject1</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">TestUser</span> user <span class="token operator">=</span> <span class="token class-name">JsonParsers</span><span class="token punctuation">.</span><span class="token function">parseObject</span><span class="token punctuation">(</span>USER2_STRING<span class="token punctuation">,</span> <span class="token class-name">TestUser</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">deserializeToObject2</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">TestUser</span><span class="token punctuation">&gt;</span></span> users <span class="token operator">=</span> <span class="token class-name">JsonParsers</span>
+        <span class="token punctuation">.</span><span class="token function">parseObject</span><span class="token punctuation">(</span>USERS_STRING<span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ParameterizedTypeReference</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">List</span><span class="token punctuation">&lt;</span><span class="token class-name">TestUser</span><span class="token punctuation">&gt;</span><span class="token punctuation">&gt;</span></span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">serializeToString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token class-name">String</span> userString <span class="token operator">=</span> <span class="token class-name">JsonParsers</span><span class="token punctuation">.</span><span class="token function">parseString</span><span class="token punctuation">(</span>USER1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="select-json-parser"><a href="#select-json-parser" class="header-anchor">#</a> Select Json Parser</h3> <p>集成多个JSON库时，若有必要，可以主动选择JSON库进行解析。</p> <ol><li><code>JsonParser</code>的集成方式依然是无入侵的，因此对<code>FastJson</code>/<code>Jackson</code>的全局配置，同时会对<code>JsonParser</code>生效。</li> <li>因业务需要而切换JSON库的代价非常高，而MornBoot显然避免了这个问题。</li></ol> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">JsonParserTest</span> <span class="token punctuation">{</span>
+  <span class="token class-name">JsonParser</span> parser1 <span class="token operator">=</span> <span class="token class-name">JsonParsers</span><span class="token punctuation">.</span><span class="token function">getParser</span><span class="token punctuation">(</span>FAST_JSON<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token class-name">JsonParser</span> parser2 <span class="token operator">=</span> <span class="token class-name">JsonParsers</span><span class="token punctuation">.</span><span class="token function">getParser</span><span class="token punctuation">(</span>JACKSON<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p><code>JsonParser</code>对象和<code>JsonParsers</code>工具类用法完全一致，不作赘述。</p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/cipher.html" class="prev">
+        Cipher 消息加密
+      </a></span> <span class="next"><a href="/params-validation.html">
+        ParamsValidation 参数校验
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.7381136a.js" defer></script><script src="/assets/js/2.b4b84c12.js" defer></script><script src="/assets/js/13.04a6431d.js" defer></script>
+  </body>
+</html>

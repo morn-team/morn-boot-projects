@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>MessageQueue 消息队列 | MornBoot 中文文档</title>
+    <meta name="generator" content="VuePress 1.5.4">
+    
+    <meta name="description" content="MornBoot是基于SpringBoot的标准API框架，致力于为JavaWeb项目提供标准化API。">
+    <link rel="preload" href="/assets/css/0.styles.ccac5a78.css" as="style"><link rel="preload" href="/assets/js/app.7381136a.js" as="script"><link rel="preload" href="/assets/js/2.b4b84c12.js" as="script"><link rel="preload" href="/assets/js/14.388b0dfc.js" as="script"><link rel="prefetch" href="/assets/js/10.67ccd72c.js"><link rel="prefetch" href="/assets/js/11.298ac0e4.js"><link rel="prefetch" href="/assets/js/12.3aa59008.js"><link rel="prefetch" href="/assets/js/13.04a6431d.js"><link rel="prefetch" href="/assets/js/15.fa80aad5.js"><link rel="prefetch" href="/assets/js/16.b4481dc8.js"><link rel="prefetch" href="/assets/js/17.a8b56927.js"><link rel="prefetch" href="/assets/js/18.a05a5dd9.js"><link rel="prefetch" href="/assets/js/19.8875e5de.js"><link rel="prefetch" href="/assets/js/20.1b772cd3.js"><link rel="prefetch" href="/assets/js/21.94f9edaa.js"><link rel="prefetch" href="/assets/js/3.e0637fce.js"><link rel="prefetch" href="/assets/js/4.5ed19beb.js"><link rel="prefetch" href="/assets/js/5.f82cfa2b.js"><link rel="prefetch" href="/assets/js/6.06c80272.js"><link rel="prefetch" href="/assets/js/7.86934db9.js"><link rel="prefetch" href="/assets/js/8.c6545cd9.js"><link rel="prefetch" href="/assets/js/9.c2b6ee9d.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.ccac5a78.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">MornBoot 中文文档</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="https://github.com/morn-team/morn-boot-projects" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="https://github.com/morn-team/morn-boot-projects" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  GitHub
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/guide/" class="sidebar-link">介绍</a></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Specification 规范</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>CRUD 搬砖</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>Features 特性</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>Framework 框架</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/jpa-assist.html" class="sidebar-link">JpaAssist JPA工具</a></li><li><a href="/message-queue.html" aria-current="page" class="active sidebar-link">MessageQueue 消息队列</a><ul class="sidebar-sub-headers"></ul></li><li><a href="/netty.html" class="sidebar-link">Netty NIO</a></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="messagequeue-消息队列"><a href="#messagequeue-消息队列" class="header-anchor">#</a> MessageQueue 消息队列</h1> <p>MornBoot支持通用API操作多种消息队列中间件，同时提供了基于注解的本地消息分发策略。</p> <blockquote><p>Since：v1.2.1</p></blockquote> <p>目前支持：</p> <ul><li><s>Kafka</s></li> <li>RocketMQ</li></ul> <blockquote><p>开始使用MornBoot前，请确保应用与MQ中间件已经连通</p></blockquote> <h3 id="必要配置"><a href="#必要配置" class="header-anchor">#</a> 必要配置</h3> <p>SpringBootApplication</p> <div class="language- extra-class"><pre class="language-text"><code>@EnableCaching // 开启缓存
+</code></pre></div><h3 id="推荐配置"><a href="#推荐配置" class="header-anchor">#</a> 推荐配置</h3> <div class="language- extra-class"><pre class="language-text"><code>无
+</code></pre></div><h3 id="maven-of-rocketmq"><a href="#maven-of-rocketmq" class="header-anchor">#</a> Maven of RocketMQ</h3> <div class="language-maven extra-class"><pre class="language-text"><code>&lt;!--Morn--&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;site.morn.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;morn-boot-rocket&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;!--Rocket--&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;org.apache.rocketmq&lt;/groupId&gt;
+  &lt;artifactId&gt;rocketmq-spring-boot-starter&lt;/artifactId&gt;
+  &lt;version&gt;${rocket.version}&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre></div><h3 id="reference"><a href="#reference" class="header-anchor">#</a> Reference</h3> <h4 id="send-message"><a href="#send-message" class="header-anchor">#</a> Send Message</h4> <p>使用<code>BroadcastMessageBuilder</code>构建消息，
+使用<code>BroadcastMessageSendingOperations</code>发送消息。</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token annotation punctuation">@Slf4j</span>
+<span class="token annotation punctuation">@SpringBootTest</span>
+<span class="token annotation punctuation">@RunWith</span><span class="token punctuation">(</span><span class="token class-name">SpringRunner</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RocketSendingOperationsTest</span> <span class="token punctuation">{</span>
+
+  <span class="token annotation punctuation">@Autowired</span>
+  <span class="token keyword">private</span> <span class="token class-name">BroadcastMessageSendingOperations</span> sendingOperations<span class="token punctuation">;</span>
+
+  <span class="token annotation punctuation">@Test</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">syncSend</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 创建消息内容</span>
+    <span class="token class-name">TestUser</span> user <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">TestUser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    user<span class="token punctuation">.</span><span class="token function">setId</span><span class="token punctuation">(</span><span class="token number">2L</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    user<span class="token punctuation">.</span><span class="token function">setUsername</span><span class="token punctuation">(</span><span class="token string">&quot;bar&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 构建消息</span>
+    <span class="token class-name">BroadcastMessage</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">TestUser</span><span class="token punctuation">&gt;</span></span> message <span class="token operator">=</span> <span class="token class-name">BroadcastMessageBuilder</span><span class="token punctuation">.</span><span class="token function">withPayload</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">setTopic</span><span class="token punctuation">(</span><span class="token string">&quot;userData&quot;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">setType</span><span class="token punctuation">(</span><span class="token string">&quot;add&quot;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// 同步发送消息</span>
+    <span class="token class-name">MessageResult</span> messageResult <span class="token operator">=</span> sendingOperations<span class="token punctuation">.</span><span class="token function">syncSend</span><span class="token punctuation">(</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">Assert</span><span class="token punctuation">.</span><span class="token function">assertNotNull</span><span class="token punctuation">(</span>messageResult<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token class-name">Assert</span><span class="token punctuation">.</span><span class="token function">assertTrue</span><span class="token punctuation">(</span>messageResult<span class="token punctuation">.</span><span class="token function">isSuccess</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><blockquote><p>原生结果（如<code>SendResult</code>）转成<code>MessageResult</code>的过程是隐式的，
+可以通过注册<code>MessageResultConverter</code>覆盖现有实现。</p></blockquote> <h4 id="consume-message"><a href="#consume-message" class="header-anchor">#</a> Consume Message</h4> <p>消息消费使用原生框架，示例为<code>RocketMQ</code>。
+使用<code>BroadcastMessageResolvingOperations</code>进行本地消息分发。</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token annotation punctuation">@Slf4j</span>
+<span class="token annotation punctuation">@Component</span>
+<span class="token annotation punctuation">@RocketMQMessageListener</span><span class="token punctuation">(</span>consumerGroup <span class="token operator">=</span> <span class="token string">&quot;testGroup&quot;</span><span class="token punctuation">,</span> topic <span class="token operator">=</span> <span class="token string">&quot;userData&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserMessageConsumer</span> <span class="token keyword">implements</span> <span class="token class-name">RocketMQListener</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">MessageExt</span><span class="token punctuation">&gt;</span></span> <span class="token punctuation">{</span>
+
+  <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">BroadcastMessageResolvingOperations</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">MessageExt</span><span class="token punctuation">&gt;</span></span> resolvingOperations<span class="token punctuation">;</span>
+
+  <span class="token keyword">public</span> <span class="token class-name">UserMessageConsumer</span><span class="token punctuation">(</span><span class="token class-name">BroadcastMessageResolvingOperations</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">MessageExt</span><span class="token punctuation">&gt;</span></span> resolvingOperations<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>resolvingOperations <span class="token operator">=</span> resolvingOperations<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token annotation punctuation">@Override</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">onMessage</span><span class="token punctuation">(</span><span class="token class-name">MessageExt</span> message<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    resolvingOperations<span class="token punctuation">.</span><span class="token function">syncResolve</span><span class="token punctuation">(</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h4 id="handle-message"><a href="#handle-message" class="header-anchor">#</a> Handle Message</h4> <p>基于注解编写消息处理类和方法。
+消息处理类的<code>@MessageTopic</code>注解对应消息的主题<code>Topic</code>，
+消息处理方法的<code>@MessageType</code>注解对应消息的类型<code>Type</code>。</p> <blockquote><p>消息处理方法允许3种类型的参数，分别为消息体类型、<code>BroadcastMessage</code>、<code>BroadcastMessageHeaders</code>。
+参数顺序不限，消息体必选，且必须使用<code>@Payload</code>注解。
+<code>BroadcastMessage</code>和<code>BroadcastMessageHeaders</code>可选。
+注意：消息体会反序列化为<code>@Payload</code>参数类型（即<code>TestUser</code>），务必确保二者类型一致。</p></blockquote> <div class="language-java extra-class"><pre class="language-java"><code><span class="token annotation punctuation">@Slf4j</span>
+<span class="token annotation punctuation">@Component</span>
+<span class="token annotation punctuation">@MessageTopic</span><span class="token punctuation">(</span><span class="token string">&quot;userData&quot;</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserMessageHandler</span> <span class="token punctuation">{</span>
+
+  <span class="token annotation punctuation">@MessageType</span><span class="token punctuation">(</span><span class="token string">&quot;add&quot;</span><span class="token punctuation">)</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">addUser</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Payload</span> <span class="token class-name">TestUser</span> user<span class="token punctuation">,</span> <span class="token class-name">BroadcastMessageHeaders</span> headers<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">&quot;Message id {}&quot;</span><span class="token punctuation">,</span> headers<span class="token punctuation">.</span><span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">&quot;Add user: {}&quot;</span><span class="token punctuation">,</span> user<span class="token punctuation">.</span><span class="token function">getUsername</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token annotation punctuation">@MessageType</span><span class="token punctuation">(</span><span class="token string">&quot;update&quot;</span><span class="token punctuation">)</span>
+  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">updateUser</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Payload</span> <span class="token class-name">TestUser</span> user<span class="token punctuation">,</span> <span class="token class-name">BroadcastMessageHeaders</span> headers<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">&quot;Message id {}&quot;</span><span class="token punctuation">,</span> headers<span class="token punctuation">.</span><span class="token function">getId</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">&quot;Update user: {}&quot;</span><span class="token punctuation">,</span> user<span class="token punctuation">.</span><span class="token function">getUsername</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><blockquote><p>原生消息（如<code>MessageExt</code>）解析成<code>BroadcastMessage</code>的过程是隐式的，
+可以通过注册<code>BroadcastMessageHeaderResolver</code>、<code>BroadcastMessagePayloadResolver</code>覆盖现有实现。</p></blockquote> <h4 id="async-send-message"><a href="#async-send-message" class="header-anchor">#</a> Async Send Message</h4> <p>异步发送示例。</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token class-name">ListenableFuture</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">MessageResult</span><span class="token punctuation">&gt;</span></span> future <span class="token operator">=</span> sendingOperations<span class="token punctuation">.</span><span class="token function">asyncSend</span><span class="token punctuation">(</span>message<span class="token punctuation">)</span><span class="token punctuation">;</span>
+future<span class="token punctuation">.</span><span class="token function">addCallback</span><span class="token punctuation">(</span>result <span class="token operator">-&gt;</span> log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">&quot;Rocket send success.&quot;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    ex <span class="token operator">-&gt;</span> log<span class="token punctuation">.</span><span class="token function">info</span><span class="token punctuation">(</span><span class="token string">&quot;Rocket send failure.&quot;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><blockquote><p>更多自定义配置及实现参考<code>MessageAutoConfiguration</code>、<code>RocketAutoConfiguration</code>。</p></blockquote></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/jpa-assist.html" class="prev">
+        JpaAssist JPA工具
+      </a></span> <span class="next"><a href="/netty.html">
+        Netty NIO
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.7381136a.js" defer></script><script src="/assets/js/2.b4b84c12.js" defer></script><script src="/assets/js/14.388b0dfc.js" defer></script>
+  </body>
+</html>
