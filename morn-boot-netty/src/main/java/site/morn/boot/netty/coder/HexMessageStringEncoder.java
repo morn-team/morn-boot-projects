@@ -1,4 +1,4 @@
-package site.morn.boot.netty.adapter;
+package site.morn.boot.netty.coder;
 
 import io.netty.buffer.ByteBufUtil;
 import io.netty.channel.ChannelHandler.Sharable;
@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Objects;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
+import site.morn.boot.netty.adapter.HexMessage;
 
 /**
  * Hex消息编码器
@@ -18,18 +19,18 @@ import org.springframework.util.StringUtils;
  * @since 1.2.0, 2019/6/27
  */
 @Sharable
-public class HexMessageEncoder extends MessageToMessageEncoder<HexMessage> {
+public class HexMessageStringEncoder extends MessageToMessageEncoder<HexMessage> {
 
   /**
    * 字符编码
    */
   private final Charset charset;
 
-  public HexMessageEncoder() {
+  public HexMessageStringEncoder() {
     this(Charset.defaultCharset());
   }
 
-  public HexMessageEncoder(Charset charset) {
+  public HexMessageStringEncoder(Charset charset) {
     Assert.notNull(charset, "charset");
     this.charset = charset;
   }

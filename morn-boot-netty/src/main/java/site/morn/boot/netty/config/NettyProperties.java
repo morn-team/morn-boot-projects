@@ -2,33 +2,32 @@ package site.morn.boot.netty.config;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * Netty配置项
+ * Netty通用配置项
  *
  * @author timely-rain
- * @since 1.2.0, 2019/5/15
+ * @since 1.2.2, 2020/9/15
  */
 @Getter
 @Setter
+@ConfigurationProperties("morn.netty")
 public class NettyProperties {
 
-  /**
-   * 默认端口
-   */
-  public static final int DEFAULT_PORT = 18008;
+  private final Coders coders = new Coders();
 
   /**
-   * Automatic start.
-   *
-   * @apiNote 自动启动
+   * 编码器配置项
    */
-  private boolean autoStart = true;
+  @Getter
+  @Setter
+  public static class Coders {
 
-  /**
-   * Reconnection interval.
-   *
-   * @apiNote 重连间隔
-   */
-  private long connectDelay = 1L;
+    public static final String HEX_BYTES = "hexBytes";
+
+    public static final String HEX_STRING = "hexString";
+
+    private String name = HEX_STRING;
+  }
 }

@@ -5,23 +5,23 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import site.morn.boot.netty.constant.TerminalType;
+import site.morn.boot.netty.constant.HandlerType;
 
 /**
- * 终端
+ * Netty处理者注解
  *
  * @author timely-rain
  * @since 1.2.0, 2019/6/5
  */
 @Documented
-@Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface Terminal {
+@Retention(RetentionPolicy.RUNTIME)
+public @interface NettyHandler {
 
   /**
-   * 终端类型
+   * 处理类型
    *
-   * @see TerminalType
+   * @see HandlerType
    */
   String value();
 }

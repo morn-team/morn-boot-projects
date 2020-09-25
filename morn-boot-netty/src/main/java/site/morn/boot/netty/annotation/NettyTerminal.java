@@ -5,25 +5,23 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import site.morn.boot.netty.constant.BoundType;
+import site.morn.boot.netty.constant.TerminalType;
 
 /**
- * 出界
- *
- * <p>表示数据输出
+ * Netty终端注解
  *
  * @author timely-rain
  * @since 1.2.0, 2019/6/5
  */
 @Documented
-@Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface Outbound {
+@Retention(RetentionPolicy.RUNTIME)
+public @interface NettyTerminal {
 
   /**
-   * 获取边界类型
+   * 终端类型
    *
-   * @see BoundType 边界类型
+   * @see TerminalType
    */
   String value();
 }

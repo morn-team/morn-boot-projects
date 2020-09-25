@@ -1,5 +1,7 @@
 package site.morn.boot.netty.config;
 
+import static site.morn.boot.netty.config.NettyConfig.DEFAULT_PORT;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +13,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class NettyServerProperties extends NettyProperties {
+public class NettyServerProperties {
 
   /**
    * Listening port.
@@ -19,4 +21,11 @@ public class NettyServerProperties extends NettyProperties {
    * @apiNote 监听端口
    */
   private int port = DEFAULT_PORT;
+
+  /**
+   * Automatic start.
+   *
+   * @apiNote 自动启动
+   */
+  private boolean autoStart = true;
 }

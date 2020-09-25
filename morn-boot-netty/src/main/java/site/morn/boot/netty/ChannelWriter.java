@@ -13,10 +13,12 @@ import lombok.extern.slf4j.Slf4j;
  *
  * @author timely-rain
  * @since 1.2.0, 2019/6/18
+ * @deprecated {@link NettyChannelOperations}
  */
 @Slf4j
 @Getter
 @Setter
+@Deprecated
 @NoArgsConstructor
 public class ChannelWriter {
 
