@@ -129,9 +129,12 @@ public class RestResponseAdvice implements ResponseBodyAdvice<Object> {
    * @return 是否需要序列处理
    */
   private boolean needSerial(RestResponse restResponse, Object returnObject) {
+    if (RestResponseUtils.isSerialMessage(returnObject, registry.getSerialMessageClasses())){
+      return false;
+    }
     if (Objects.isNull(restResponse)) {
       return properties.isForceSerial();
     }
-    return !RestResponseUtils.isSerialMessage(returnObject, registry.getSerialMessageClasses());
+    return true;
   }
 }
