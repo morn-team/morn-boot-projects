@@ -4,6 +4,7 @@ import javax.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import site.morn.exception.ApplicationMessages;
 import site.morn.rest.annotation.RestResponse;
 import site.morn.test.TestUser;
 
@@ -32,6 +33,14 @@ public class TestRestController {
   @GetMapping("ex")
   public SerialMessage returnException() {
     throw new RuntimeException("This is exception.");
+  }
+
+  /**
+   * 抛异常 - ApplicationException
+   */
+  @GetMapping("morn/ex")
+  public SerialMessage returnMornException() {
+    throw ApplicationMessages.translateException("failure");
   }
 
   /**

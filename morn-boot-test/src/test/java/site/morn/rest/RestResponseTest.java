@@ -26,6 +26,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
  * @author timely-rain
  * @since 1.2.2, 2020/7/26
  */
+@WithMockUser
 @SpringBootTest
 @AutoConfigureMockMvc
 @RunWith(SpringRunner.class)
@@ -40,7 +41,6 @@ public class RestResponseTest {
   private MockMvc mvc;
 
   @Test
-  @WithMockUser
   public void returnData() throws Exception {
     MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(BASE_URL + "data");
     performSuccess(mvc, requestBuilder)
@@ -49,7 +49,6 @@ public class RestResponseTest {
   }
 
   @Test
-  @WithMockUser
   public void returnException() throws Exception {
     MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(BASE_URL + "ex");
     performFailure(mvc, requestBuilder)
@@ -58,7 +57,14 @@ public class RestResponseTest {
   }
 
   @Test
-  @WithMockUser
+  public void returnMornException() throws Exception {
+    MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(BASE_URL + "morn/ex");
+    performFailure(mvc, requestBuilder)
+        .andExpect(jsonPath("status").value(FAILURE))
+        .andExpect(jsonPath("message").value("Operation failed."));
+  }
+
+  @Test
   public void returnBaiduData() throws Exception {
     MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
         .get(BASE_URL + "baidu/data");
@@ -68,7 +74,6 @@ public class RestResponseTest {
   }
 
   @Test
-  @WithMockUser
   public void returnBaiduException() throws Exception {
     MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
         .get(BASE_URL + "baidu/ex");
@@ -78,7 +83,6 @@ public class RestResponseTest {
   }
 
   @Test
-  @WithMockUser
   public void returnMornData() throws Exception {
     MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
         .get(BASE_URL + "morn/data");
@@ -88,7 +92,6 @@ public class RestResponseTest {
   }
 
   @Test
-  @WithMockUser
   public void returnResolvableException() throws Exception {
     MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
         .get(BASE_URL + "resolvable/ex");

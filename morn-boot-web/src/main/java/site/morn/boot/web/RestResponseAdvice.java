@@ -75,11 +75,14 @@ public class RestResponseAdvice implements ResponseBodyAdvice<Object> {
     Assert.notNull(method, "REST|Failure:执行方法不能为空");
     ExceptionHandler exceptionHandler = AnnotationUtils
         .findAnnotation(method, ExceptionHandler.class);
-    if (Objects.nonNull(exceptionHandler)) { // 全局异常处理方法，REST消息已经处理过了
+    if (Objects.nonNull(exceptionHandler)) { // 全局异常处理方法中，REST消息已经处理过了
       return responseBody;
     }
     RestResponse restResponse = RestResponseUtils.getRestResponse(method);
-    if (needSerial(restResponse, responseBody)) { // 将非序列消息组装为REST消息
+    if (!needConvert(restResponse)) {
+      return responseBody;
+    }
+    if (needSerial(responseBody)) { // 将非序列消息组装为REST消息
       responseBody = RestBuilders.successMessage(responseBody);
     }
     if (Objects.isNull(responseBody)) {
@@ -103,8 +106,8 @@ public class RestResponseAdvice implements ResponseBodyAdvice<Object> {
     // 将异常解释为应用消息
     ApplicationMessage am = interpreterService.interpret(e);
     RestResponse restResponse = RestResponseUtils.getRestResponse(handlerMethod.getMethod());
-    if (!needSerial(restResponse, am)) { // 判断异常消息是否需要转义为序列消息
-      // 不需要序列处理，则直接返回异常信息
+    if (!needConvert(restResponse)) { // 判断异常消息是否需要转义为序列消息
+      // 直接返回异常信息
       return Optional.ofNullable(am).map(ApplicationMessage::getMessage)
           .orElse(StringUtils.isEmpty(e.getMessage()) ? e.toString() : e.getMessage());
     }
@@ -121,20 +124,17 @@ public class RestResponseAdvice implements ResponseBodyAdvice<Object> {
     return converterService.deduce(restMessage, responseClass);
   }
 
+  private boolean needConvert(RestResponse restResponse) {
+    return Objects.nonNull(restResponse) || properties.isForceSerial();
+  }
+
   /**
    * 判断是否需要序列处理，即将方法返回值包装为{@link SerialMessage}
    *
-   * @param restResponse REST响应注解
    * @param returnObject REST方法返回值
    * @return 是否需要序列处理
    */
-  private boolean needSerial(RestResponse restResponse, Object returnObject) {
-    if (RestResponseUtils.isSerialMessage(returnObject, registry.getSerialMessageClasses())){
-      return false;
-    }
-    if (Objects.isNull(restResponse)) {
-      return properties.isForceSerial();
-    }
-    return true;
+  private boolean needSerial(Object returnObject) {
+    return !RestResponseUtils.isSerialMessage(returnObject, registry.getSerialMessageClasses());
   }
 }
