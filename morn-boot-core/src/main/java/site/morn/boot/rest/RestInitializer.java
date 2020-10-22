@@ -3,8 +3,6 @@ package site.morn.boot.rest;
 import javax.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import site.morn.bean.BeanCache;
-import site.morn.rest.RestBuilder;
-import site.morn.rest.RestProperties;
 import site.morn.translate.Translator;
 
 /**

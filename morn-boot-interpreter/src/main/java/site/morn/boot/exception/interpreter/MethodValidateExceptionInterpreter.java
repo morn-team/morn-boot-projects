@@ -21,7 +21,7 @@ import site.morn.util.GenericUtils;
 public class MethodValidateExceptionInterpreter implements ExceptionInterpreter {
 
   @Override
-  public ApplicationMessage resolve(Throwable throwable, Object... args) {
+  public ApplicationMessage interpret(Throwable throwable, Object... args) {
     MethodArgumentNotValidException exception = GenericUtils.castFrom(throwable);
     // 生成错误消息文本
     List<FieldError> errors = exception.getBindingResult().getFieldErrors();

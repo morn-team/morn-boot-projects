@@ -28,7 +28,7 @@ public class SimpleBeanCache implements BeanCache {
   /**
    * 实例持有者
    */
-  private final List<BeanHolder> holders = Collections
+  private final List<BeanHolder<?>> holders = Collections
       .synchronizedList(new ArrayList<>());
 
   @Override

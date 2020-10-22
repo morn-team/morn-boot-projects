@@ -6,11 +6,11 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelId;
 import io.netty.channel.SimpleChannelInboundHandler;
 import lombok.extern.slf4j.Slf4j;
-import site.morn.boot.netty.annotation.Inbound;
-import site.morn.boot.netty.annotation.Terminal;
+import site.morn.boot.netty.annotation.NettyHandler;
+import site.morn.boot.netty.annotation.NettyTerminal;
 import site.morn.boot.netty.cache.ChannelIdentify;
 import site.morn.boot.netty.cache.NettyCaches;
-import site.morn.boot.netty.constant.BoundType;
+import site.morn.boot.netty.constant.HandlerType;
 import site.morn.boot.netty.constant.TerminalType;
 
 /**
@@ -21,8 +21,8 @@ import site.morn.boot.netty.constant.TerminalType;
  */
 @Slf4j
 @Sharable
-@Inbound(BoundType.READER)
-@Terminal(TerminalType.SERVER)
+@NettyHandler(HandlerType.HANDLER)
+@NettyTerminal(TerminalType.SERVER)
 public class NettyCacheHandler extends SimpleChannelInboundHandler<ChannelIdentify> {
 
   @Override
@@ -34,14 +34,14 @@ public class NettyCacheHandler extends SimpleChannelInboundHandler<ChannelIdenti
   @Override
   public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
     super.channelRegistered(ctx);
-    log.info("Netty|注册：{}", ctx.channel().id());
+    log.info("NettyServer|注册：{}", ctx.channel().id());
   }
 
   @Override
   public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
     super.channelUnregistered(ctx);
     ChannelId id = ctx.channel().id();
-    log.info("Netty|注销：{}", id);
+    log.info("NettyServer|注销：{}", id);
     NettyCaches.removeAll(id);
   }
 }

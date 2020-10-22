@@ -2,6 +2,7 @@ package site.morn.bean.support;
 
 import java.lang.annotation.Annotation;
 import lombok.ToString;
+import org.springframework.util.Assert;
 import site.morn.bean.AnnotationFeature;
 
 /**
@@ -121,7 +122,17 @@ public class AnnotationFeatureBuilder {
     return new AnnotationFeatureBuilder().source(source);
   }
 
+  public static AnnotationFeatureBuilder withSource(Object source) {
+    Assert.notNull(source, "源类型对象不能为空");
+    return new AnnotationFeatureBuilder().source(source.getClass());
+  }
+
   public static AnnotationFeatureBuilder withTarget(Class<?> target) {
     return new AnnotationFeatureBuilder().target(target);
+  }
+
+  public static AnnotationFeatureBuilder withTarget(Object target) {
+    Assert.notNull(target, "目标类型对象不能为空");
+    return new AnnotationFeatureBuilder().target(target.getClass());
   }
 }

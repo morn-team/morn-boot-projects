@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.MimeTypeUtils;
-import site.morn.support.fastjson.JsonUtils;
+import site.morn.boot.json.util.JsonParsers;
 import site.morn.test.TestUser;
 
 /**
@@ -37,7 +37,7 @@ public class RocketMessageHandlerTest {
     messageExt.setTopic("userData");
     messageExt.putUserProperty(TYPE, "add");
     messageExt.putUserProperty(CONTENT_TYPE, MimeTypeUtils.APPLICATION_JSON_VALUE);
-    String json = JsonUtils.toString(testUser);
+    String json = JsonParsers.parseString(testUser);
     byte[] bytes = json.getBytes(StandardCharsets.UTF_8);
     messageExt.setBody(bytes);
     try {

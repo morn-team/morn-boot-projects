@@ -40,11 +40,11 @@
     </dependency>
     <dependency>
       <groupId>site.morn.boot</groupId>
-      <artifactId>morn-boot-interpreter</artifactId>
+      <artifactId>morn-boot-data-jpa</artifactId>
     </dependency>
     <dependency>
       <groupId>site.morn.boot</groupId>
-      <artifactId>morn-boot-jpa</artifactId>
+      <artifactId>morn-boot-interpreter</artifactId>
     </dependency>
     <dependency>
       <groupId>site.morn.boot</groupId>
@@ -69,10 +69,6 @@
     <dependency>
       <groupId>site.morn.boot</groupId>
       <artifactId>morn-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>site.morn.boot</groupId>
-      <artifactId>morn-fastjson</artifactId>
     </dependency>
     <dependency>
       <groupId>site.morn.boot</groupId>

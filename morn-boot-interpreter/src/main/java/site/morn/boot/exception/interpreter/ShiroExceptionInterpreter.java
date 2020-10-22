@@ -22,7 +22,7 @@ import site.morn.exception.ExceptionInterpreter;
 public class ShiroExceptionInterpreter implements ExceptionInterpreter {
 
   @Override
-  public ApplicationMessage resolve(Throwable throwable, Object... args) {
+  public ApplicationMessage interpret(Throwable throwable, Object... args) {
     AuthenticationException exception = (AuthenticationException) throwable;
     if (exception instanceof UnknownAccountException) {
       log.debug("登录失败，账号不存在。");

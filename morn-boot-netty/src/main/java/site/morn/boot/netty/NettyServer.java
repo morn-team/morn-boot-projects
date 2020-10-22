@@ -12,6 +12,7 @@ import lombok.experimental.Delegate;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
+import site.morn.boot.netty.adapter.TerminalChannelAdapters.TerminalChannelInitializer;
 import site.morn.boot.netty.config.NettyServerProperties;
 import site.morn.boot.netty.constant.TerminalType;
 
@@ -72,7 +73,7 @@ public class NettyServer {
         .group(boss, work)
         .channel(NioServerSocketChannel.class)
         .handler(new LoggingHandler(LogLevel.INFO))
-        .childHandler(new NettyChannelInitializer(TerminalType.SERVER));
+        .childHandler(new TerminalChannelInitializer(TerminalType.SERVER));
 
     if (properties.isAutoStart()) {
       start();
@@ -85,9 +86,9 @@ public class NettyServer {
   public void start() {
     serverBootstrap.bind(properties.getPort()).addListener(future -> {
       if (future.isSuccess()) {
-        log.info("Netty|启动成功...");
+        log.info("NettyServer|启动成功...");
       } else {
-        log.info("Netty|启动失败...");
+        log.info("NettyServer|启动失败...");
       }
     });
   }

@@ -15,10 +15,10 @@
       <groupId>site.morn.boot</groupId>
       <artifactId>morn-boot-web</artifactId>
     </dependency>
-    <dependency>
+    <!--<dependency>
       <groupId>site.morn.boot</groupId>
-      <artifactId>morn-boot-jpa</artifactId>
-    </dependency>
+      <artifactId>morn-boot-data-jpa</artifactId>
+    </dependency>-->
 
     <!--Web-->
     <dependency>

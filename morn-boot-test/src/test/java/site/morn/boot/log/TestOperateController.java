@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import site.morn.log.OperateAction;
 import site.morn.log.OperateArguments;
 import site.morn.log.OperateGroup;
-import site.morn.rest.RestBuilders;
+import site.morn.boot.rest.RestBuilders;
 import site.morn.rest.RestMessage;
 
 /**

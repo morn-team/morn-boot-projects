@@ -3,6 +3,7 @@ package site.morn.boot.netty.cache;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelId;
 import io.netty.channel.group.ChannelGroup;
+import site.morn.boot.netty.ChannelPoolIdentify;
 
 /**
  * Netty缓存
@@ -35,6 +36,16 @@ public interface NettyCache {
    * @return 通道分组
    */
   ChannelGroup getGroup(String name);
+
+  /**
+   * 获取通道分组
+   *
+   * @param poolIdentify 连接池标识
+   * @return 通道分组
+   */
+  default ChannelGroup getGroup(ChannelPoolIdentify poolIdentify) {
+    return getGroup(String.valueOf(poolIdentify.hashCode()));
+  }
 
   /**
    * 获取通道标识

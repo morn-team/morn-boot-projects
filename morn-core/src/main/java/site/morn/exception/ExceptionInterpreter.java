@@ -13,7 +13,8 @@ public interface ExceptionInterpreter {
    * 解释异常
    *
    * @param throwable 异常
-   * @param args 参数
+   * @param args      参数
+   * @return 应用消息
    */
-  ApplicationMessage resolve(Throwable throwable, Object... args);
+  ApplicationMessage interpret(Throwable throwable, Object... args);
 }

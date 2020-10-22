@@ -1,12 +1,14 @@
 package site.morn.boot.netty;
 
 import static org.awaitility.Awaitility.await;
+import static site.morn.boot.netty.config.NettyConfig.DEFAULT_HOST;
+import static site.morn.boot.netty.config.NettyConfig.DEFAULT_PORT;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
-import java.util.Objects;
+import io.netty.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import javax.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
@@ -17,7 +19,10 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import site.morn.boot.netty.config.NettyClientProperties;
+import site.morn.boot.netty.adapter.HexMessage;
+import site.morn.boot.netty.config.NettyClientConfig;
+import site.morn.boot.netty.support.FutureAccessor;
+import site.morn.boot.netty.support.RemoteAddressChannelPoolIdentify;
 
 
 /**
@@ -32,31 +37,28 @@ import site.morn.boot.netty.config.NettyClientProperties;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class NettyClientTest {
 
-  @Resource
   private NettyClient client;
 
   @Resource
   private NettyServer server;
 
   @Before
-  public void setUp() throws Exception {
-    client.connect().get();
+  public void setUp() {
+    client = NettyClientPool
+        .createClient(new RemoteAddressChannelPoolIdentify(DEFAULT_HOST, DEFAULT_PORT));
   }
 
   @Test
-  public void test1Write() {
-    String msg = "123456";
-    Channel channel = client.getChannel();
-    Assert.assertNotNull(channel);
-    ChannelFuture channelFuture = channel.writeAndFlush(msg).addListener(f -> {
-      Throwable cause = f.cause();
-      if (Objects.nonNull(cause)) {
-        log.warn(cause.getMessage(), cause);
-      }
-    });
-    await().until(() -> {
-      ChannelFuture future = channelFuture.await();
-      return future.isDone() && future.isSuccess();
+  public void test1Write() throws InterruptedException {
+    HexMessage hexMessage = new HexMessage("f1f1f0f0");
+    RemoteAddressChannelPoolIdentify identify = new RemoteAddressChannelPoolIdentify(DEFAULT_HOST,
+        DEFAULT_PORT);
+    FutureAccessor<Channel> accessor = NettyChannelOperations
+        .writeAndFlush(identify, hexMessage)
+        .failureThen(throwable -> log.warn(throwable.getMessage(), throwable));
+    await().timeout(10, TimeUnit.MINUTES).until(() -> {
+      Future<Channel> f = accessor.getFuture().await();
+      return f.isDone() && f.isSuccess();
     });
   }
 
@@ -66,8 +68,8 @@ public class NettyClientTest {
     Assert.assertNotNull(bootstrap);
     EventLoopGroup group = client.getGroup();
     Assert.assertNotNull(group);
-    NettyClientProperties properties = client.getProperties();
-    Assert.assertNotNull(properties);
+    NettyClientConfig config = client.getConfig();
+    Assert.assertNotNull(config);
     try {
       client.close();
       server.close();

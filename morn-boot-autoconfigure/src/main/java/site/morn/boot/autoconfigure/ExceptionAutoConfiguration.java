@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import site.morn.boot.exception.ApplicationMessageConverter;
 import site.morn.boot.exception.DefaultApplicationMessageConverter;
+import site.morn.exception.ApplicationMessage;
 import site.morn.exception.ExceptionProperties;
-import site.morn.rest.convert.RestConverter;
 import site.morn.translate.TranslateConverter;
 import site.morn.translate.Translator;
 
@@ -44,19 +44,17 @@ public class ExceptionAutoConfiguration {
    */
   @Bean
   @ConditionalOnMissingBean
-  public TranslateConverter translateChanger(Translator translator,
-      ExceptionProperties exceptionProperties) {
+  public TranslateConverter<ApplicationMessage> applicationMessageTranslateConverter(
+      Translator translator, ExceptionProperties exceptionProperties) {
     return new DefaultApplicationMessageConverter(translator, exceptionProperties);
   }
 
   /**
    * 注册应用消息转换器
-   *
-   * @return 应用消息转换器
    */
   @Bean
   @ConditionalOnMissingBean
-  public RestConverter restConverter() {
+  public ApplicationMessageConverter applicationMessageConverter() {
     return new ApplicationMessageConverter();
   }
 }

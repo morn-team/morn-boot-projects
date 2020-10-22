@@ -12,6 +12,8 @@ import lombok.Setter;
 import lombok.experimental.FieldNameConstants;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 /**
@@ -43,4 +45,21 @@ public class CreatorEntity {
   @CreatedDate
   @Temporal(TemporalType.TIMESTAMP)
   protected Date createTime;
+
+  /**
+   * 修改人
+   */
+  @ApiModelProperty("修改人")
+  @Column(length = 32)
+  @LastModifiedBy
+  protected String modifier;
+
+  /**
+   * 修改时间
+   */
+  @ApiModelProperty("修改时间")
+  @Column
+  @LastModifiedDate
+  @Temporal(TemporalType.TIMESTAMP)
+  protected Date modifyTime;
 }

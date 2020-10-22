@@ -10,7 +10,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import site.morn.rest.RestMessage.Level;
+import site.morn.boot.rest.RestBuilder;
+import site.morn.boot.rest.RestBuilders;
+import site.morn.rest.constant.RestMessageLevel;
 
 /**
  * REST工具类单元测试
@@ -51,7 +53,7 @@ public class RestBuilderTest {
     Map<Object, Object> data = new HashMap<>();
     data.put("Foo", "Foo value");
     data.put("Bar", "Bar value");
-    RestMessage restMessage = RestBuilders.infoBuilder().code("test").level(Level.WARNING)
+    RestMessage restMessage = RestBuilders.infoBuilder().code("test").level(RestMessageLevel.WARNING)
         .message("This is test message.").data(data).build();
     log.info(restMessage.toString());
     Assert.assertEquals("This is test message.", restMessage.getMessage());

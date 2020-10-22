@@ -88,20 +88,6 @@ public class ApplicationMessages {
   }
 
   /**
-   * 翻译应用消息
-   *
-   * @param code 消息编码
-   * @param args 消息参数
-   * @return 应用消息
-   * @deprecated {@link #translateMessage(String, Object...)}
-   */
-  @Deprecated
-  public static ApplicationMessage translate(String code, Object... args) {
-    return translateMessage(code, args);
-  }
-
-
-  /**
    * 翻译应用异常
    *
    * @param code 消息编码

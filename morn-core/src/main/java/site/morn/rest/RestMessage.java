@@ -2,6 +2,8 @@ package site.morn.rest;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import site.morn.rest.constant.RestMessageLevel;
+import site.morn.rest.constant.RestMessageStatus;
 
 /**
  * REST消息体
@@ -10,24 +12,26 @@ import io.swagger.annotations.ApiModelProperty;
  * @since 1.0.0, 2018/7/25
  */
 @ApiModel(value = "REST消息", description = "统一消息模型，通常用于数据响应")
-public interface RestMessage {
-
-  /**
-   * 成功标识
-   */
-  @ApiModelProperty("成功标识")
-  boolean isSuccess();
+public interface RestMessage extends SerialMessage {
 
   /**
    * 状态码
+   *
+   * @see RestMessageStatus
    */
   @ApiModelProperty("状态码")
+  int getStatus();
+
+  /**
+   * 错误码
+   */
+  @ApiModelProperty("错误码")
   String getCode();
 
   /**
    * 消息级别
    *
-   * @see Level 级别枚举
+   * @see RestMessageLevel 级别枚举
    */
   @ApiModelProperty("消息级别")
   String getLevel();
@@ -45,64 +49,29 @@ public interface RestMessage {
   <T> T getData();
 
   /**
-   * 成功标识
-   */
-  <T extends RestMessage> T setSuccess(boolean value);
-
-  /**
    * 状态码
    */
-  <T extends RestMessage> T setCode(String value);
+  void setStatus(int value);
+
+  /**
+   * 错误码
+   */
+  void setCode(String value);
 
   /**
    * 消息级别
    *
-   * @see Level 级别枚举
+   * @see RestMessageLevel 级别枚举
    */
-  <T extends RestMessage> T setLevel(Level level);
+  void setLevel(RestMessageLevel level);
 
   /**
    * 消息内容
    */
-  <T extends RestMessage> T setMessage(String value);
+  void setMessage(String value);
 
   /**
    * 数据
    */
-  <T extends RestMessage> T setData(Object value);
-
-  /**
-   * 消息级别
-   *
-   * @author timely-rain
-   * @version 1.0.0, 2018/8/6
-   * @since 1.0
-   */
-  enum Level {
-    /**
-     * 调试
-     */
-    DEBUG("debug"),
-    /**
-     * 信息
-     */
-    INFO("info"),
-    /**
-     * 警告
-     */
-    WARNING("warning"),
-    /**
-     * 错误
-     */
-    ERROR("error");
-
-    /**
-     * 值
-     */
-    String value;
-
-    Level(String value) {
-      this.value = value;
-    }
-  }
+  void setData(Object value);
 }

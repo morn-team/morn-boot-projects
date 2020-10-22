@@ -9,8 +9,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import site.morn.boot.data.CrudService;
-import site.morn.boot.rest.RestPage;
+import site.morn.boot.data.rest.RestPageUtils;
 import site.morn.rest.RestModel;
+import site.morn.rest.RestPage;
 import site.morn.util.GenericUtils;
 import site.morn.util.PersistFunctionUtils;
 
@@ -56,7 +57,7 @@ public class MongoCrudService<T, I extends Serializable, R extends MongoReposito
   @Override
   public Page<T> search(RestPage<T> restPage) {
     log.info("分页搜索");
-    PageRequest pageRequest = restPage.generatePageRequest();// 分页请求
+    PageRequest pageRequest = RestPageUtils.generatePageRequest(restPage);// 分页请求
     return repository.findAll(pageRequest); // 分页查询
   }
 

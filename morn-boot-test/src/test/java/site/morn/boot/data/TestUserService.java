@@ -8,6 +8,6 @@ import site.morn.test.TestUser;
  * @author timely-rain
  * @since 1.2.0, 2019/5/14
  */
-public interface TestUserService extends CrudService<TestUser, Long> {
+public interface TestUserService extends DisplayableService<TestUser, Long> {
 
 }
