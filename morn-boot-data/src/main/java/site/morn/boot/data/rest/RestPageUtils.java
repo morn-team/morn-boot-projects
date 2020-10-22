@@ -2,7 +2,6 @@ package site.morn.boot.data.rest;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import lombok.experimental.UtilityClass;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -39,7 +38,7 @@ public class RestPageUtils {
     if (StringUtils.isEmpty(direction)) {
       return true;
     }
-    return Objects.equals(direction.toLowerCase(), ASC);
+    return ASC.equalsIgnoreCase(direction);
   }
 
   /**
@@ -49,7 +48,7 @@ public class RestPageUtils {
     if (StringUtils.isEmpty(direction)) {
       return false;
     }
-    return Objects.equals(direction.toLowerCase(), DESC);
+    return DESC.equalsIgnoreCase(direction);
   }
 
   /**

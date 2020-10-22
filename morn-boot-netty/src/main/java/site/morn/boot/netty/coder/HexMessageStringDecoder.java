@@ -6,6 +6,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageDecoder;
 import java.nio.charset.Charset;
 import java.util.List;
+import org.springframework.util.Assert;
 import site.morn.boot.netty.adapter.HexMessage;
 
 /**
@@ -30,14 +31,12 @@ public class HexMessageStringDecoder extends MessageToMessageDecoder<ByteBuf> {
    * Creates a new instance with the specified character set.
    */
   public HexMessageStringDecoder(Charset charset) {
-    if (charset == null) {
-      throw new NullPointerException("charset");
-    }
+    Assert.notNull(charset, "Netty|Decoder|Charset不能为空。");
     this.charset = charset;
   }
 
   @Override
-  protected void decode(ChannelHandlerContext ctx, ByteBuf msg, List<Object> out) throws Exception {
+  protected void decode(ChannelHandlerContext ctx, ByteBuf msg, List<Object> out) {
     String s = msg.toString(charset);
     out.add(new HexMessage(s));
   }
