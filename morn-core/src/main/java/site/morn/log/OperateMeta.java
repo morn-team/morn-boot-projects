@@ -76,6 +76,21 @@ public class OperateMeta implements AnnotationOperate {
   private Throwable throwable;
 
   /**
+   * 操作起始时间
+   */
+  private long startTime;
+
+  /**
+   * 操作结束时间
+   */
+  private long endTime;
+
+  /**
+   * 操作消耗时间
+   */
+  private long duration;
+
+  /**
    * 例外异常类型
    */
   private Class<? extends Throwable>[] excepts;

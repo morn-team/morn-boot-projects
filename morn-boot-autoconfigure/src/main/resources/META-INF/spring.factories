@@ -8,7 +8,6 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   site.morn.boot.autoconfigure.JsonAutoConfiguration,\
   site.morn.boot.autoconfigure.MultipartCacheAutoConfiguration,\
   site.morn.boot.autoconfigure.NettyAutoConfiguration,\
-  site.morn.boot.autoconfigure.OperateAutoConfiguration,\
   site.morn.boot.autoconfigure.RestAutoConfiguration,\
   site.morn.boot.autoconfigure.TaskAutoConfiguration,\
   site.morn.boot.autoconfigure.TranslatorAutoConfiguration,\

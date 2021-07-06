@@ -23,6 +23,19 @@ public class ListenableFutureDispatcher {
    * @param <V> 结果类型
    * @return 异步结果
    */
+  public static <V> ListenableFuture<V> submit(Runnable task) {
+    ListenableFuturePublisher publisher = BeanCaches.bean(ListenableFuturePublisher.class);
+    Assert.notNull(publisher, "尚未注册任务发布者");
+    return publisher.submit(task);
+  }
+
+  /**
+   * 发布任务
+   *
+   * @param task 任务
+   * @param <V> 结果类型
+   * @return 异步结果
+   */
   public static <V> ListenableFuture<V> submit(Callable<V> task) {
     ListenableFuturePublisher publisher = BeanCaches.bean(ListenableFuturePublisher.class);
     Assert.notNull(publisher, "尚未注册任务发布者");
