@@ -37,6 +37,8 @@
     <dependency>
       <groupId>io.swagger</groupId>
       <artifactId>swagger-annotations</artifactId>
+      <version>${swagger-annotations.version}</version>
+      <optional>true</optional>
     </dependency>
     <!--Validation-->
     <dependency>
