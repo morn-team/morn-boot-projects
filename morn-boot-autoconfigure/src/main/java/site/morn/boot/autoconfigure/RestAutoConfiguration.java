@@ -1,5 +1,7 @@
 package site.morn.boot.autoconfigure;
 
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -22,6 +24,7 @@ import site.morn.translate.Translator;
 @Configuration
 @ConditionalOnClass(CacheManager.class)
 @EnableConfigurationProperties(RestProperties.class)
+@AutoConfigureAfter(TranslatorAutoConfiguration.class)
 public class RestAutoConfiguration {
 
   /**
@@ -41,8 +44,9 @@ public class RestAutoConfiguration {
    * @return REST初始化器
    */
   @Bean
-  public RestInitializer restInitializer(BeanCache beanCache,
-      Translator translator, RestProperties restProperties) {
+  @ConditionalOnBean(Translator.class)
+  public RestInitializer restInitializer(BeanCache beanCache, Translator translator,
+      RestProperties restProperties) {
     return new RestInitializer(beanCache, translator, restProperties);
   }
 }

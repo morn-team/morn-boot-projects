@@ -72,7 +72,7 @@ public class OperateAspectTest {
   @Test
   public void i18nAddTest() {
     String[] args = {"Latte"};
-    OperateMeta operateMeta = OperateMeta.builder().module("user").name("add").actionArgs(args)
+    OperateMeta operateMeta = OperateMeta.builder().groupName("user").actionName("add").actionArgs(args)
         .build();
     Operation operation = i18nOperationConverter.convert(operateMeta);
     Assert.assertNotNull(operation);
@@ -82,7 +82,7 @@ public class OperateAspectTest {
   @Test
   public void i18nUpdateTest() {
     String[] args = {"Latte", "19"};
-    OperateMeta operateMeta = OperateMeta.builder().module("user").name("update").actionArgs(args)
+    OperateMeta operateMeta = OperateMeta.builder().groupName("user").actionName("update").actionArgs(args)
         .build();
     Operation operation = i18nOperationConverter.convert(operateMeta);
     Assert.assertNotNull(operation);

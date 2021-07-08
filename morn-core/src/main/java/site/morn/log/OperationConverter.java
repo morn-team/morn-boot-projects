@@ -22,7 +22,8 @@ public interface OperationConverter extends BeanConverter<OperateMeta, Operation
     // 构建操作日志实例
     Operation operation = new Operation();
     operation.setSuccess(operateMeta.isSuccess());
-    operation.setModule(operateMeta.getModule());
+    operation.setModule(operateMeta.getGroupName());
+    operation.setName(operateMeta.getActionName());
     operation.setContent(content);
     operation.setDate(new Date(operateMeta.getStartTime()));
     operation.setDuration((int) operateMeta.getDuration());

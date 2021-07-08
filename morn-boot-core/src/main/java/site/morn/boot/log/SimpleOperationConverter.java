@@ -29,7 +29,7 @@ public class SimpleOperationConverter implements OperationConverter {
   @Override
   public Operation convert(OperateMeta operateMeta) {
     // 生成操作内容
-    StringBuilder builder = new StringBuilder(operateMeta.getName());
+    StringBuilder builder = new StringBuilder(operateMeta.getActionName());
     Object[] actionArgs = operateMeta.getActionArgs();
     Simple simple = properties.getSimple(); // 简易模式配置项
     for (int i = 0; i < actionArgs.length; i++) {

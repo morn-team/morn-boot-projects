@@ -93,22 +93,26 @@ public class OperateAspect {
    */
   private OperateMetaBuilder resolveOperatePoint(ProceedingJoinPoint point) {
     Class<?> targetClass = point.getTarget().getClass();
+    MethodSignature methodSignature = (MethodSignature) point.getSignature();
+    String className = targetClass.getName();
+    String methodName = methodSignature.getName();
+    log.debug("Operate|Method:{}#{}", className, methodName);
     // 获取操作组注解
     OperateGroup operateGroup = AnnotationUtils.findAnnotation(targetClass, OperateGroup.class);
     // 获取操作行为注解
-    MethodSignature methodSignature = (MethodSignature) point.getSignature();
     OperateAction operateAction = AnnotationUtils
         .findAnnotation(methodSignature.getMethod(), OperateAction.class);
-    Assert.notNull(operateAction, "无法获取操作行为：" + targetClass.getSimpleName());
+    Assert.notNull(operateAction, "Operate|无法获取[@OperateAction]:" + targetClass.getSimpleName());
     // 获取实时参数
     Object[] codeArgs = OperateArguments.getAll().toArray();
 
     // 构建操作日志元数据
     OperateMetaBuilder builder = OperateMeta.builder().actionArgs(operateAction.args())
         .codeArgs(codeArgs).excludeNames(operateAction.excludeNames()).methodArgs(point.getArgs())
-        .mode(operateAction.mode()).name(operateAction.value()).excepts(operateAction.excepts());
+        .mode(operateAction.mode()).actionName(operateAction.value())
+        .excepts(operateAction.excepts());
     if (Objects.nonNull(operateGroup)) {
-      builder.module(operateGroup.value());
+      builder.groupName(operateGroup.value());
       builder.groupArgs(operateGroup.args());
     }
     return builder;
@@ -121,7 +125,9 @@ public class OperateAspect {
     ListenableFuture<Object> future = ListenableFutureDispatcher
         .submit(() -> extractOperation(operateMetaBuilder));
     future.completable().exceptionally(throwable -> {
-      log.warn(throwable.getMessage(), throwable);
+      log.warn(
+          "Operate|Error|Async:" + throwable.getClass().getName() + ":" + throwable.getMessage(),
+          throwable);
       return throwable;
     });
   }
@@ -149,7 +155,7 @@ public class OperateAspect {
   private Supplier<String> getStringSupplier(Tags tags) {
     return () -> {
       String tagString = StringUtils.arrayToCommaDelimitedString(tags.toArray());
-      return "请注册操作日志处理器：" + OperationProcessor.class.getName() + tagString;
+      return "Operate|Error|请注册操作日志处理器:" + OperationProcessor.class.getName() + tagString;
     };
   }
 }

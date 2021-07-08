@@ -39,8 +39,8 @@ public class I18nOperationConverter implements OperationConverter {
     // 拼接国际化编码
     I18n i18n = properties.getI18n();
     String messageCode =
-        i18n.getPrefix() + i18n.getDelimiter() + operateMeta.getModule() + i18n.getDelimiter()
-            + operateMeta.getName();
+        i18n.getPrefix() + i18n.getDelimiter() + operateMeta.getGroupName() + i18n.getDelimiter()
+            + operateMeta.getActionName();
     // 生成操作内容
     String content = translator.translate(messageCode, operateMeta.getActionArgs());
     return buildOperation(operateMeta, content);

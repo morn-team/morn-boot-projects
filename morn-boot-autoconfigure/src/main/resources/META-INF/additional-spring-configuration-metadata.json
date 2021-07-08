@@ -7,46 +7,10 @@
       "defaultValue": true
     },
     {
-      "name": "morn.exception-interpreter.enabled",
-      "type": "java.lang.Boolean",
-      "description": "Enable exception interpreter features for the application.",
-      "defaultValue": false
-    },
-    {
-      "name": "morn.exception-interpreter.validate.enabled",
-      "type": "java.lang.Boolean",
-      "description": "Enable validate exception interpreter features for the application.",
-      "defaultValue": false
-    },
-    {
-      "name": "morn.exception-interpreter.shiro.enabled",
-      "type": "java.lang.Boolean",
-      "description": "Enable Shiro exception interpreter features for the application.",
-      "defaultValue": false
-    },
-    {
       "name": "morn.translator.enabled",
       "type": "java.lang.Boolean",
       "description": "Enable translator features for the application.",
       "defaultValue": true
-    },
-    {
-      "name": "morn.translator.language",
-      "type": "java.lang.String",
-      "description": "The default i18n language.",
-      "defaultValue": "zh"
-    },
-    {
-      "name": "morn.translator.country",
-      "type": "java.lang.String",
-      "description": "The default i18n country.",
-      "defaultValue": ""
-    },
-    {
-      "name": "morn.validator.enabled",
-      "type": "java.lang.Boolean",
-      "description": "Enable validator features for the application.",
-      "defaultValue": false
     }
   ]
 }

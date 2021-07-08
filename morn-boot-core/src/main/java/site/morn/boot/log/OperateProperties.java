@@ -5,6 +5,7 @@ import static site.morn.log.OperateModes.SIMPLE;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import site.morn.boot.translate.TranslateProperties;
 import site.morn.log.OperateModes;
 import site.morn.translate.Translator;
 
@@ -42,7 +43,7 @@ public class OperateProperties {
    * <p>使用国际化日志时，将沿用{@link Translator}相关组件和配置</p>
    *
    * @see site.morn.translate.Translator
-   * @see site.morn.translate.TranslateProperties
+   * @see TranslateProperties
    */
   private I18n i18n = new I18n();
 
