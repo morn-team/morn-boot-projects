@@ -5,7 +5,7 @@ import java.util.Optional;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +14,7 @@ import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import site.morn.bean.BeanCache;
 import site.morn.boot.translate.DefaultSpringTranslator;
 import site.morn.boot.translate.TranslateInitializer;
-import site.morn.translate.TranslateProperties;
+import site.morn.boot.translate.TranslateProperties;
 import site.morn.translate.Translator;
 
 /**
@@ -25,21 +25,10 @@ import site.morn.translate.Translator;
  * @since 1.0
  */
 @Configuration
-@ConditionalOnClass({Translator.class})
+@EnableConfigurationProperties(TranslateProperties.class)
+@ConditionalOnClass({Translator.class, LocaleResolver.class})
 @ConditionalOnProperty(prefix = "morn.translator", value = "enabled", havingValue = "true")
 public class TranslatorAutoConfiguration {
-
-
-  /**
-   * 注册国际化配置项
-   *
-   * @return 国际化配置项
-   */
-  @Bean
-  @ConfigurationProperties("morn.translator")
-  public TranslateProperties translateProperties() {
-    return new TranslateProperties();
-  }
 
   /**
    * 注册翻译器

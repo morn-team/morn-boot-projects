@@ -92,7 +92,7 @@ public class RestResponseAdvice implements ResponseBodyAdvice<Object> {
     Class<?> responseClass = RestResponseUtils
         .getResponseClass(restResponse, properties.getResponseClass());
     // 将响应消息转换为指定类型的响应消息
-    return converterService.deduce(responseBody, responseClass);
+    return deduce(responseBody, responseClass);
   }
 
   /**
@@ -112,7 +112,7 @@ public class RestResponseAdvice implements ResponseBodyAdvice<Object> {
           .orElse(StringUtils.isEmpty(e.getMessage()) ? e.toString() : e.getMessage());
     }
     if (Objects.isNull(am)) { // 无法将异常解释为ApplicationMessage，则构建一个默认REST消息
-      log.debug("REST|ErrorMiss:{}", e.getClass().getSimpleName());
+      log.error("REST|ErrorMiss:{}", e.getClass().getSimpleName());
       String message = Optional.ofNullable(e.getMessage()).orElse(e.toString());
       restMessage = RestBuilders.failureBuilder().message(message).build();
     } else {
@@ -121,9 +121,12 @@ public class RestResponseAdvice implements ResponseBodyAdvice<Object> {
     }
     Class<?> responseClass = RestResponseUtils
         .getResponseClass(restResponse, properties.getResponseClass());
-    return converterService.deduce(restMessage, responseClass);
+    return deduce(restMessage, responseClass);
   }
 
+  /**
+   * 判断是否继续转换
+   */
   private boolean needConvert(RestResponse restResponse) {
     return Objects.nonNull(restResponse) || properties.isForceSerial();
   }
@@ -136,5 +139,19 @@ public class RestResponseAdvice implements ResponseBodyAdvice<Object> {
    */
   private boolean needSerial(Object returnObject) {
     return !RestResponseUtils.isSerialMessage(returnObject, registry.getSerialMessageClasses());
+  }
+
+  /**
+   * 按预期类型转换REST消息
+   */
+  private Object deduce(Object responseMessage, Class<?> responseClass) {
+    Object deduce = converterService.deduce(responseMessage, responseClass);
+    if (!responseClass.isAssignableFrom(deduce.getClass())) {
+      log.warn(
+          "REST|ErrorConvert:计划响应类型为[{}]，当前响应类型为[{}]，请按提示注册合适的转换器/解析器。若当前响应类型符合预期，请全局配置{}或修改{}",
+          responseClass.getSimpleName(), deduce.getClass().getSimpleName(),
+          "\"morn.rest.response-class\"", "\"@RestResponse.value()\"");
+    }
+    return deduce;
   }
 }

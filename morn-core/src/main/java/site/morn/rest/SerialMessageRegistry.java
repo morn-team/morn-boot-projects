@@ -20,6 +20,8 @@ public class SerialMessageRegistry {
   /**
    * 注册序列消息类
    *
+   * <p>注册为序列消息的对象，系统不会对其进行二次包装。否则，该对象通常置入{@link RestMessage#setData(Object)}进行传输</p>
+   *
    * @param messageClass 序列消息类
    */
   public void register(Class<?> messageClass) {

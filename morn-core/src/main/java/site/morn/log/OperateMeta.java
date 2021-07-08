@@ -16,7 +16,7 @@ import site.morn.core.CriteriaMap;
 @Getter
 @Setter
 @ToString
-public class OperateMeta implements AnnotationOperate {
+public class OperateMeta {
 
   /**
    * 日志来源，通常是切点
@@ -31,12 +31,12 @@ public class OperateMeta implements AnnotationOperate {
   /**
    * 操作模块
    */
-  private String module;
+  private String groupName;
 
   /**
    * 操作名称
    */
-  private String name;
+  private String actionName;
 
   /**
    * 记录模式
@@ -74,6 +74,21 @@ public class OperateMeta implements AnnotationOperate {
    * 异常
    */
   private Throwable throwable;
+
+  /**
+   * 操作起始时间
+   */
+  private long startTime;
+
+  /**
+   * 操作结束时间
+   */
+  private long endTime;
+
+  /**
+   * 操作消耗时间
+   */
+  private long duration;
 
   /**
    * 例外异常类型

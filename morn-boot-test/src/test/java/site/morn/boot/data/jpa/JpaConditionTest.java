@@ -52,7 +52,7 @@ public class JpaConditionTest {
     Assert.assertEquals(1, commodities.size());
     TestCommodity testCommodity = commodities.get(0);
     Assert.assertNotNull(testCommodity);
-    Assert.assertEquals("蜂蜜蛋糕", testCommodity.getName());
+    Assert.assertEquals("HoneyCake", testCommodity.getName());
   }
 
   @Test
@@ -74,7 +74,7 @@ public class JpaConditionTest {
   @Test
   public void contains() {
     commodity.setType(1);
-    attach.put("keywords", "肉松");
+    attach.put("keywords", "PorkFloss");
     SpecificationFunction specificationFunction = (reference, restrain, condition) -> {
       // WHERE type = 1
       // id为空，所以忽略
@@ -87,13 +87,13 @@ public class JpaConditionTest {
     Assert.assertEquals(1, commodities.size());
     TestCommodity testCommodity = commodities.get(0);
     Assert.assertNotNull(testCommodity);
-    Assert.assertEquals("肉松蛋糕", testCommodity.getName());
+    Assert.assertEquals("PorkFlossCake", testCommodity.getName());
   }
 
   @Test
   public void containNames() {
-    commodity.setName("蛋糕");
-    commodity.setIngredients("肉");
+    commodity.setName("Cake");
+    commodity.setIngredients("Pork");
     SpecificationFunction specificationFunction = (reference, restrain, condition) -> {
       // WHERE name LIKE '%蛋糕%' AND ingredients LIKE '%肉%'
       Predicate[] contains = condition.contains("name", "ingredients");
@@ -103,12 +103,12 @@ public class JpaConditionTest {
     Assert.assertEquals(1, commodities.size());
     TestCommodity testCommodity = commodities.get(0);
     Assert.assertNotNull(testCommodity);
-    Assert.assertEquals("肉松蛋糕", testCommodity.getName());
+    Assert.assertEquals("PorkFlossCake", testCommodity.getName());
   }
 
   @Test
   public void startWithes() {
-    attach.put("keywords", "蜂蜜");
+    attach.put("keywords", "Honey");
     // 构建查询条件
     List<TestCommodity> commodities = findAll((reference, restrain, condition) -> {
       // WHERE name LIKE '蜂蜜%'
@@ -116,14 +116,14 @@ public class JpaConditionTest {
       restrain.appendAnd(startWithes);
     });
     Assert.assertEquals(2, commodities.size());
-    Assert.assertTrue(commodities.get(0).getName().startsWith("蜂蜜"));
-    Assert.assertTrue(commodities.get(1).getName().startsWith("蜂蜜"));
+    Assert.assertTrue(commodities.get(0).getName().startsWith("Honey"));
+    Assert.assertTrue(commodities.get(1).getName().startsWith("Honey"));
   }
 
   @Test
   public void startWithNames() {
-    commodity.setName("蜂蜜");
-    commodity.setIngredients("蜂");
+    commodity.setName("Honey");
+    commodity.setIngredients("Hon");
     // 构建查询条件
     List<TestCommodity> commodities = findAll((reference, restrain, condition) -> {
       // WHERE name LIKE '蜂蜜%' AND ingredients LIKE '蜂%'
@@ -131,15 +131,15 @@ public class JpaConditionTest {
       restrain.appendAnd(startWithes);
     });
     Assert.assertEquals(2, commodities.size());
-    Assert.assertTrue(commodities.get(0).getName().startsWith("蜂蜜"));
-    Assert.assertTrue(commodities.get(0).getIngredients().startsWith("蜂"));
-    Assert.assertTrue(commodities.get(1).getName().startsWith("蜂蜜"));
-    Assert.assertTrue(commodities.get(1).getIngredients().startsWith("蜂"));
+    Assert.assertTrue(commodities.get(0).getName().startsWith("Honey"));
+    Assert.assertTrue(commodities.get(0).getIngredients().startsWith("Hon"));
+    Assert.assertTrue(commodities.get(1).getName().startsWith("Honey"));
+    Assert.assertTrue(commodities.get(1).getIngredients().startsWith("Hon"));
   }
 
   @Test
   public void endWithes() {
-    attach.put("keywords", "蛋挞");
+    attach.put("keywords", "EggTart");
     // 构建查询条件
     List<TestCommodity> commodities = findAll((reference, restrain, condition) -> {
       // WHERE name LIKE '%蛋挞'
@@ -153,8 +153,8 @@ public class JpaConditionTest {
 
   @Test
   public void endWithNames() {
-    commodity.setName("蛋糕");
-    commodity.setIngredients("蜜");
+    commodity.setName("Cake");
+    commodity.setIngredients("ney");
     // 构建查询条件
     List<TestCommodity> commodities = findAll((reference, restrain, condition) -> {
       // WHERE name LIKE '%蛋挞'
@@ -162,8 +162,8 @@ public class JpaConditionTest {
       restrain.appendAnd(endWithes);
     });
     Assert.assertEquals(1, commodities.size());
-    Assert.assertTrue(commodities.get(0).getName().endsWith("蛋糕"));
-    Assert.assertTrue(commodities.get(0).getIngredients().endsWith("蜜"));
+    Assert.assertTrue(commodities.get(0).getName().endsWith("Cake"));
+    Assert.assertTrue(commodities.get(0).getIngredients().endsWith("ney"));
   }
 
   @Test

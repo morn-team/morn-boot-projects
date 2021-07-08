@@ -22,17 +22,17 @@ public class Operation {
   private boolean success;
 
   /**
-   * 访问者ip
-   */
-  private String ip;
-
-  /**
    * 访问url
    */
   private String url;
 
   /**
-   * 操作系统
+   * 访问者ip
+   */
+  private String ip;
+
+  /**
+   * 所属系统
    */
   private String system;
 
@@ -45,11 +45,6 @@ public class Operation {
    * 操作名称
    */
   private String name;
-
-  /**
-   * 操作描述
-   */
-  private String description;
 
   /**
    * 操作内容
@@ -65,4 +60,9 @@ public class Operation {
    * 操作时间
    */
   private Date date;
+
+  /**
+   * 消耗时间
+   */
+  private int duration;
 }

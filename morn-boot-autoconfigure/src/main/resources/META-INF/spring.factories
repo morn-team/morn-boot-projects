@@ -4,7 +4,6 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   site.morn.boot.autoconfigure.BeanAutoConfiguration,\
   site.morn.boot.autoconfigure.CipherAutoConfiguration,\
   site.morn.boot.autoconfigure.ExceptionAutoConfiguration,\
-  site.morn.boot.autoconfigure.ExceptionInterpreterAutoConfiguration,\
   site.morn.boot.autoconfigure.JsonAutoConfiguration,\
   site.morn.boot.autoconfigure.MultipartCacheAutoConfiguration,\
   site.morn.boot.autoconfigure.NettyAutoConfiguration,\
@@ -12,7 +11,6 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   site.morn.boot.autoconfigure.RestAutoConfiguration,\
   site.morn.boot.autoconfigure.TaskAutoConfiguration,\
   site.morn.boot.autoconfigure.TranslatorAutoConfiguration,\
-  site.morn.boot.autoconfigure.ValidatorAutoConfiguration,\
   site.morn.boot.autoconfigure.WebAutoConfiguration,\
   site.morn.boot.autoconfigure.message.MessageAutoConfiguration,\
   site.morn.boot.autoconfigure.message.RocketAutoConfiguration

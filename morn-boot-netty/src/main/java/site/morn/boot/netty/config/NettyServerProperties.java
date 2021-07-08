@@ -4,6 +4,7 @@ import static site.morn.boot.netty.config.NettyConfig.DEFAULT_PORT;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * Netty服务端配置项
@@ -13,6 +14,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@ConfigurationProperties("morn.netty.server")
 public class NettyServerProperties {
 
   /**

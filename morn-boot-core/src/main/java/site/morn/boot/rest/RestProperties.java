@@ -21,22 +21,22 @@ public class RestProperties {
   /**
    * 前缀
    */
-  private String prefix;
+  private String prefix = "rest";
 
   /**
    * 消息后缀
    */
-  private String messageSuffix;
+  private String messageSuffix = "message";
 
   /**
    * 成功编码
    */
-  private String successCode;
+  private String successCode = "success";
 
   /**
    * 失败编码
    */
-  private String failureCode;
+  private String failureCode = "failure";
 
   /**
    * 全局响应类型

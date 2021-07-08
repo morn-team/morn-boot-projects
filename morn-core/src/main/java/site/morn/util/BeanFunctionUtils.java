@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import lombok.experimental.UtilityClass;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 import site.morn.bean.support.BeanCaches;
 import site.morn.core.BeanAdapter;
 import site.morn.core.BeanConverter;
@@ -27,10 +28,10 @@ public class BeanFunctionUtils {
    * 实例适配
    *
    * @param functionClass 转换反射类
-   * @param source 源对象
-   * @param tags 检索标签
-   * @param <F> 适配类型
-   * @param <S> 源类型
+   * @param source        源对象
+   * @param tags          检索标签
+   * @param <F>           适配类型
+   * @param <S>           源类型
    * @return 目标实例
    */
   public <F extends BeanAdapter<S>, S> S adaption(Class<F> functionClass, S source,
@@ -44,10 +45,10 @@ public class BeanFunctionUtils {
    * 实例适配
    *
    * @param functionClass 转换反射类
-   * @param source 源对象
-   * @param target 检索目标
-   * @param <F> 适配类型
-   * @param <S> 源类型
+   * @param source        源对象
+   * @param target        检索目标
+   * @param <F>           适配类型
+   * @param <S>           源类型
    * @return 目标实例
    */
   public <F extends BeanAdapter<S>, S> S adaption(Class<F> functionClass, S source,
@@ -61,10 +62,10 @@ public class BeanFunctionUtils {
    * 实例适配
    *
    * @param functionClass 转换反射类
-   * @param source 源对象
-   * @param tags 检索标签
-   * @param <F> 适配类型
-   * @param <S> 源类型
+   * @param source        源对象
+   * @param tags          检索标签
+   * @param <F>           适配类型
+   * @param <S>           源类型
    * @return 目标实例
    */
   public <F extends BeanAdapter<S>, S> S adaptions(Class<F> functionClass, S source,
@@ -84,17 +85,20 @@ public class BeanFunctionUtils {
    * 实例转换
    *
    * @param functionClass 转换反射类
-   * @param source 源对象
-   * @param tags 检索标签
-   * @param <F> 转换类型
-   * @param <S> 源类型
-   * @param <T> 目标类型
+   * @param source        源对象
+   * @param tags          检索标签
+   * @param <F>           转换类型
+   * @param <S>           源类型
+   * @param <T>           目标类型
    * @return 目标实例
    */
   public <F extends BeanConverter<S, T>, S, T> T convert(Class<F> functionClass, S source,
       String... tags) {
     F converter = BeanCaches.tagBean(functionClass, tags);
-    Assert.notNull(converter, "尚未注册可用转换器：" + functionClass.getSimpleName());
+    Assert.notNull(converter, () -> {
+      String tagString = StringUtils.arrayToCommaDelimitedString(tags);
+      return String.format("尚未注册可用转换器：%s，标签：%s", functionClass.getSimpleName(), tagString);
+    });
     return converter.convert(source);
   }
 
@@ -102,11 +106,11 @@ public class BeanFunctionUtils {
    * 实例转换
    *
    * @param functionClass 转换反射类
-   * @param source 源对象
-   * @param target 检索目标
-   * @param <F> 转换类型
-   * @param <S> 源类型
-   * @param <T> 目标类型
+   * @param source        源对象
+   * @param target        检索目标
+   * @param <F>           转换类型
+   * @param <S>           源类型
+   * @param <T>           目标类型
    * @return 目标实例
    */
   public <F extends BeanConverter, S, T> T convert(Class<F> functionClass, S source,
@@ -121,11 +125,11 @@ public class BeanFunctionUtils {
    * 实例转换
    *
    * @param functionClass 转换反射类
-   * @param source 源对象
-   * @param tags 检索标签
-   * @param <F> 转换类型
-   * @param <S> 源类型
-   * @param <T> 目标类型
+   * @param source        源对象
+   * @param tags          检索标签
+   * @param <F>           转换类型
+   * @param <S>           源类型
+   * @param <T>           目标类型
    * @return 目标实例集合
    */
   public <F extends BeanConverter<S, T>, S, T> List<T> converts(Class<F> functionClass, S source,
@@ -138,10 +142,10 @@ public class BeanFunctionUtils {
    * 实例转换
    *
    * @param converters 实例转换器
-   * @param source 源对象
-   * @param <F> 转换类型
-   * @param <S> 源类型
-   * @param <T> 目标类型
+   * @param source     源对象
+   * @param <F>        转换类型
+   * @param <S>        源类型
+   * @param <T>        目标类型
    * @return 目标实例集合
    */
   private <F extends BeanConverter<S, T>, S, T> List<T> converts(List<F> converters, S source) {
@@ -159,10 +163,10 @@ public class BeanFunctionUtils {
    * 实例处理
    *
    * @param functionClass 转换反射类
-   * @param source 源对象
-   * @param target 检索目标
-   * @param <F> 适配类型
-   * @param <S> 源类型
+   * @param source        源对象
+   * @param target        检索目标
+   * @param <F>           适配类型
+   * @param <S>           源类型
    */
   public <F extends BeanProcessor<S>, S> void process(Class<F> functionClass, S source,
       Class<?> target) {
@@ -175,10 +179,10 @@ public class BeanFunctionUtils {
    * 实例处理
    *
    * @param functionClass 转换反射类
-   * @param source 源对象
-   * @param target 检索目标
-   * @param <F> 适配类型
-   * @param <S> 源类型
+   * @param source        源对象
+   * @param target        检索目标
+   * @param <F>           适配类型
+   * @param <S>           源类型
    * @return 是否完成
    */
   public <F extends BeanProcessor<S>, S> boolean processes(Class<F> functionClass, S source,
@@ -191,10 +195,10 @@ public class BeanFunctionUtils {
    * 实例处理
    *
    * @param functionClass 转换反射类
-   * @param source 源对象
-   * @param tags 检索标签
-   * @param <F> 适配类型
-   * @param <S> 源类型
+   * @param source        源对象
+   * @param tags          检索标签
+   * @param <F>           适配类型
+   * @param <S>           源类型
    * @return 是否完成
    */
   public <F extends BeanProcessor<S>, S> boolean processes(Class<F> functionClass, S source,
@@ -207,9 +211,9 @@ public class BeanFunctionUtils {
    * 实例处理
    *
    * @param processors 处理者集合
-   * @param source 源对象
-   * @param <F> 适配类型
-   * @param <S> 源类型
+   * @param source     源对象
+   * @param <F>        适配类型
+   * @param <S>        源类型
    * @return 是否完成
    */
   public <F extends BeanProcessor<S>, S> boolean processes(List<F> processors, S source) {
@@ -226,9 +230,9 @@ public class BeanFunctionUtils {
    * 实例生产
    *
    * @param functionClass 函数类
-   * @param tags 检索标签
-   * @param <F> 函数类型
-   * @param <T> 目标类型
+   * @param tags          检索标签
+   * @param <F>           函数类型
+   * @param <T>           目标类型
    * @return 实例
    */
   public <F extends BeanProducer<T>, T> T product(Class<F> functionClass, String... tags) {
@@ -241,9 +245,9 @@ public class BeanFunctionUtils {
    * 实例生产
    *
    * @param functionClass 函数类
-   * @param target 检索目标
-   * @param <F> 函数类型
-   * @param <T> 目标类型
+   * @param target        检索目标
+   * @param <F>           函数类型
+   * @param <T>           目标类型
    * @return 实例
    */
   public <F extends BeanProducer<T>, T> T product(Class<F> functionClass, Class<T> target) {
@@ -256,9 +260,9 @@ public class BeanFunctionUtils {
    * 批量生产
    *
    * @param functionClass 函数类
-   * @param tags 检索标签
-   * @param <F> 函数类型
-   * @param <T> 目标类型
+   * @param tags          检索标签
+   * @param <F>           函数类型
+   * @param <T>           目标类型
    * @return 实例集合
    */
   public <F extends BeanProducers<T>, T> List<T> batchProducts(Class<F> functionClass,
@@ -272,9 +276,9 @@ public class BeanFunctionUtils {
    * 实例校验
    *
    * @param validatorClass 校验类
-   * @param data 校验数据
-   * @param <V> 校验类型
-   * @param <T> 数据类型
+   * @param data           校验数据
+   * @param <V>            校验类型
+   * @param <T>            数据类型
    * @return 校验全部通过
    */
   public static <V extends BeanValidator<T>, T> boolean validates(Class<V> validatorClass, T data) {

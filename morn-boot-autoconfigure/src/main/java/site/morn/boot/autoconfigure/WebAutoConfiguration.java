@@ -4,6 +4,8 @@ import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module.Feature;
 import java.util.List;
 import javax.servlet.Servlet;
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
@@ -46,23 +48,33 @@ public class WebAutoConfiguration {
   }
 
   /**
-   * 注册REST响应处理者
+   * Web模块配置
    */
-  @Bean
-  @ConditionalOnMissingBean
-  public RestResponseAdvice restResponseAdvice(RestProperties properties,
-      RestConverterService converterService, ExceptionInterpreterService interpreterService,
-      SerialMessageRegistry registry) {
-    return new RestResponseAdvice(properties, converterService, interpreterService, registry);
+  @Configuration
+  @EnableConfigurationProperties(WebProperties.class)
+  @AutoConfigureAfter(ExceptionAutoConfiguration.class)
+  @ConditionalOnClass({WebProperties.class, RestResponseAdvice.class})
+  public static class WebConfiguration {
+
+    /**
+     * 注册REST响应处理者
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    @ConditionalOnBean(ExceptionInterpreterService.class)
+    public RestResponseAdvice restResponseAdvice(RestProperties properties,
+        RestConverterService converterService, ExceptionInterpreterService interpreterService,
+        SerialMessageRegistry registry) {
+      return new RestResponseAdvice(properties, converterService, interpreterService, registry);
+    }
   }
 
   /**
-   * Web常规配置
+   * Jackson配置
    */
   @Configuration
   @ConditionalOnClass(Hibernate5Module.class)
-  @EnableConfigurationProperties(WebProperties.class)
-  public static class WebConfiguration {
+  public static class JacksonConfiguration {
 
     /**
      * 注册Hibernate5Module模块
