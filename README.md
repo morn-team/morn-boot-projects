@@ -1,5 +1,6 @@
 # Morn Boot Projects
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/098d606325cd4fbc8d895f27901c9964)](https://app.codacy.com/gh/morn-team/morn-boot-projects?utm_source=github.com&utm_medium=referral&utm_content=morn-team/morn-boot-projects&utm_campaign=Badge_Grade_Settings)
 [![996.icu](https://img.shields.io/badge/link-996.icu-red.svg)](https://996.icu)
 [![Build Status](https://travis-ci.com/morn-team/morn-boot-projects.svg?branch=master)](https://travis-ci.com/morn-team/morn-boot-projects)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/973f6c34502a461f86aecdf88d8b989f)](https://app.codacy.com/app/morn-team/morn-boot-projects?utm_source=github.com&utm_medium=referral&utm_content=morn-team/morn-boot-projects&utm_campaign=Badge_Grade_Dashboard)
