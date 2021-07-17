@@ -50,10 +50,7 @@ public class ListenableFutureDispatcher {
    * @return 任务组
    */
   public static <V> ListenableFutureGroup<V> submit(List<Callable<V>> tasks) {
-    ListenableFutureGroup<V> futureGroup = ListenableFutureGroup.build();
-    for (Callable<V> task : tasks) {
-      futureGroup.addTask(task);
-    }
+    ListenableFutureGroup<V> futureGroup = ListenableFutureGroup.withTasks(tasks);
     ListenableFuturePublisher dispatcher = BeanCaches.bean(ListenableFuturePublisher.class);
     dispatcher.submit(futureGroup);
     return futureGroup;

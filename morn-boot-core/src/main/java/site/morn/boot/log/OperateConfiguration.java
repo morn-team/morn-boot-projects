@@ -45,4 +45,13 @@ public class OperateConfiguration implements BeanConfigurer {
   public SimpleOperationConverter simpleOperationConverter(OperateProperties properties) {
     return new SimpleOperationConverter(properties);
   }
+
+  /**
+   * 注册基础操作日志适配器
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  public SimpleOperationAdapter simpleOperationAdapter() {
+    return new SimpleOperationAdapter();
+  }
 }

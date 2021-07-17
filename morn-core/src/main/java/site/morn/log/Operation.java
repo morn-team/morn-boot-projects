@@ -22,22 +22,12 @@ public class Operation {
   private boolean success;
 
   /**
-   * 访问url
-   */
-  private String url;
-
-  /**
-   * 访问者ip
-   */
-  private String ip;
-
-  /**
    * 所属系统
    */
   private String system;
 
   /**
-   * 操作模块
+   * 所属模块
    */
   private String module;
 
@@ -52,11 +42,6 @@ public class Operation {
   private String content;
 
   /**
-   * 操作人
-   */
-  private String operator;
-
-  /**
    * 操作时间
    */
   private Date date;
@@ -65,4 +50,34 @@ public class Operation {
    * 消耗时间
    */
   private int duration;
+
+  /**
+   * 请求地址
+   */
+  private String requestUrl;
+
+  /**
+   * 请求方法
+   */
+  private String requestMethod;
+
+  /**
+   * 请求内容类型
+   */
+  private String requestContentType;
+
+  /**
+   * 操作人唯一标识
+   */
+  private String operatorName;
+
+  /**
+   * 操作人IP
+   */
+  private String operatorIp;
+
+  /**
+   * 操作人客户端
+   */
+  private String operatorAgent;
 }

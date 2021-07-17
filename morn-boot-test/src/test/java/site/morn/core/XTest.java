@@ -19,7 +19,7 @@ public class XTest {
     ArrayList<String> list = new ArrayList<>();
     list.add("foo");
     list.add("bar");
-    X x = new X(list);
+    X x = X.from(list);
     Collection<String> objects = x.asCollection();
     Assert.assertEquals("Test x, cast success.", list, objects);
     Assert.assertTrue("Test x, asCollection success.", objects.containsAll(list));
@@ -27,14 +27,14 @@ public class XTest {
 
   @Test
   public void asLong() {
-    X x = new X(1L);
+    X x = X.from(1L);
     Long longNumber = x.asLong();
     Assert.assertEquals(Long.valueOf(1L), longNumber);
   }
 
   @Test
   public void asString() {
-    X x = new X("foo");
+    X x = X.from("foo");
     String s = x.asString();
     Assert.assertEquals("foo", s);
   }
@@ -43,7 +43,7 @@ public class XTest {
   public void value() {
     TestUser testUser = new TestUser();
     testUser.setUsername("timely-rain");
-    X x = new X(testUser);
+    X x = X.from(testUser);
     TestUser value = x.value(TestUser.class);
     Assert.assertEquals(testUser, value);
     Assert.assertEquals("timely-rain", value.getUsername());

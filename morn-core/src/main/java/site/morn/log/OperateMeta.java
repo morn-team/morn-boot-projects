@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import site.morn.core.CriteriaMap;
+import site.morn.core.X;
 
 /**
  * 操作元数据
@@ -22,6 +23,16 @@ public class OperateMeta {
    * 日志来源，通常是切点
    */
   private Object source;
+
+  /**
+   * 请求对象
+   */
+  private X request;
+
+  /**
+   * 响应对象
+   */
+  private X response;
 
   /**
    * 操作成功标识

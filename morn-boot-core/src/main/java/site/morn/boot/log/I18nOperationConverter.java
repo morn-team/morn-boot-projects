@@ -43,6 +43,9 @@ public class I18nOperationConverter implements OperationConverter {
             + operateMeta.getActionName();
     // 生成操作内容
     String content = translator.translate(messageCode, operateMeta.getActionArgs());
-    return buildOperation(operateMeta, content);
+    // 构建操作实例
+    Operation operation = new Operation();
+    operation.setContent(content);
+    return operation;
   }
 }

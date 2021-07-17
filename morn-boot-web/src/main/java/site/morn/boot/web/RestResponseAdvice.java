@@ -13,9 +13,9 @@ import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import site.morn.boot.rest.RestBuilders;
@@ -36,7 +36,7 @@ import site.morn.rest.support.RestResponseUtils;
  * @since 1.2.2, 2020/7/25
  */
 @Slf4j
-@ControllerAdvice
+@RestControllerAdvice
 @RequiredArgsConstructor
 public class RestResponseAdvice implements ResponseBodyAdvice<Object> {
 

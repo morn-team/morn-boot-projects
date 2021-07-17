@@ -43,6 +43,9 @@ public class SimpleOperationConverter implements OperationConverter {
       }
       builder.replace(index, index + pl, actionArg.toString());
     }
-    return buildOperation(operateMeta, builder.toString());
+    // 构建操作实例
+    Operation operation = new Operation();
+    operation.setContent(builder.toString());
+    return operation;
   }
 }

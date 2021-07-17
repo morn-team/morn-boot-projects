@@ -2,7 +2,6 @@ package site.morn.boot.log;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Supplier;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -10,7 +9,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.Assert;
-import org.springframework.util.StringUtils;
 import org.springframework.util.concurrent.ListenableFuture;
 import site.morn.bean.BeanCache;
 import site.morn.bean.support.Tags;
@@ -21,6 +19,8 @@ import site.morn.log.OperateMeta;
 import site.morn.log.OperateMeta.OperateMetaBuilder;
 import site.morn.log.OperateMode;
 import site.morn.log.Operation;
+import site.morn.log.OperationAdapter;
+import site.morn.log.OperationContext;
 import site.morn.log.OperationConverter;
 import site.morn.log.OperationProcessor;
 import site.morn.task.ListenableFutureDispatcher;
@@ -54,7 +54,6 @@ public class OperateAspect {
   @Around("@annotation(site.morn.log.OperateAction)")
   public Object aroundOperate(ProceedingJoinPoint point) throws Throwable {
     OperateMetaBuilder operateMetaBuilder = resolveOperatePoint(point);
-    operateMetaBuilder.source(point); // 记录日志来源
     long startTime = System.currentTimeMillis(); // 起始时间
     try {
       // 执行目标方法，并记录执行结果
@@ -77,10 +76,11 @@ public class OperateAspect {
           .duration(duration)
           .actionArgs(OperateArguments.getAll().toArray());
       OperateArguments.clear();
+      OperationContext context = buildContext(operateMetaBuilder.build());
       if (properties.isAsync()) {
-        extractOperationAsync(operateMetaBuilder);
+        extractOperationAsync(context);
       } else {
-        extractOperation(operateMetaBuilder);
+        extractOperation(context);
       }
     }
   }
@@ -105,10 +105,10 @@ public class OperateAspect {
     Assert.notNull(operateAction, "Operate|无法获取[@OperateAction]:" + targetClass.getSimpleName());
     // 获取实时参数
     Object[] codeArgs = OperateArguments.getAll().toArray();
-
     // 构建操作日志元数据
-    OperateMetaBuilder builder = OperateMeta.builder().actionArgs(operateAction.args())
-        .codeArgs(codeArgs).excludeNames(operateAction.excludeNames()).methodArgs(point.getArgs())
+    OperateMetaBuilder builder = OperateMeta.builder().source(point)
+        .actionArgs(operateAction.args()).codeArgs(codeArgs)
+        .excludeNames(operateAction.excludeNames()).methodArgs(point.getArgs())
         .mode(operateAction.mode()).actionName(operateAction.value())
         .excepts(operateAction.excepts());
     if (Objects.nonNull(operateGroup)) {
@@ -119,11 +119,28 @@ public class OperateAspect {
   }
 
   /**
+   * 构建操作日志上下文
+   *
+   * @param operateMeta 操作日志元数据
+   * @return 操作日志上下文
+   */
+  private OperationContext buildContext(OperateMeta operateMeta) {
+    // 将操作日志元数据，转换为操作日志实例
+    String[] tags = Tags.from(OperateMode.class, properties.getMode()).toArray();
+    Operation operation = BeanFunctionUtils
+        .convert(OperationConverter.class, operateMeta, tags);
+    // 对操作上下文进行场景适配
+    OperationContext context = new OperationContext(operateMeta, operation);
+    context = BeanFunctionUtils.adaptions(OperationAdapter.class, context, tags);
+    return context;
+  }
+
+  /**
    * 提取操作信息-异步
    */
-  private void extractOperationAsync(OperateMetaBuilder operateMetaBuilder) {
+  private void extractOperationAsync(OperationContext context) {
     ListenableFuture<Object> future = ListenableFutureDispatcher
-        .submit(() -> extractOperation(operateMetaBuilder));
+        .submit(() -> extractOperation(context));
     future.completable().exceptionally(throwable -> {
       log.warn(
           "Operate|Error|Async:" + throwable.getClass().getName() + ":" + throwable.getMessage(),
@@ -135,27 +152,12 @@ public class OperateAspect {
   /**
    * 提取操作信息
    */
-  private void extractOperation(OperateMetaBuilder operateMetaBuilder) {
-    // 将操作日志元数据，转换为操作日志实例
-    OperateMeta operateMeta = operateMetaBuilder.build();
-    Tags tags = Tags.from(OperateMode.class, properties.getMode());
-    Operation operation = BeanFunctionUtils
-        .convert(OperationConverter.class, operateMeta, tags.toArray());
+  private void extractOperation(OperationContext context) {
     // 处理操作日志
     List<OperationProcessor> processors = beanCache.tagBeans(OperationProcessor.class);
-    Assert.notEmpty(processors, getStringSupplier(tags));
+    Assert.notEmpty(processors, "Operate|Error|请注册操作日志处理器:" + OperationProcessor.class.getName());
     for (OperationProcessor processor : processors) {
-      processor.handle(operateMeta, operation);
+      processor.handle(context.getMeta(), context.getOperation());
     }
-  }
-
-  /**
-   * 提示信息
-   */
-  private Supplier<String> getStringSupplier(Tags tags) {
-    return () -> {
-      String tagString = StringUtils.arrayToCommaDelimitedString(tags.toArray());
-      return "Operate|Error|请注册操作日志处理器:" + OperationProcessor.class.getName() + tagString;
-    };
   }
 }

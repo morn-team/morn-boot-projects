@@ -2,6 +2,7 @@ package site.morn.boot.log;
 
 import static site.morn.boot.log.OperateAspectTest.DONE;
 
+import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import site.morn.bean.annotation.Objective;
@@ -23,6 +24,8 @@ public class TestOperationProcessor implements OperationProcessor {
 
   @Override
   public void handle(OperateMeta operateMeta, Operation operation) {
+    HttpServletRequest request = operateMeta.getRequest().value(HttpServletRequest.class);
+    log.info("请求地址：{}", request.getRequestURI());
     log.info("{}，消耗时间：{}ms", operation.getContent(), operation.getDuration());
     log.info("方法参数：" + JsonParsers.parseString(operateMeta.getMethodArgs()));
     log.info("方法返回值：" + JsonParsers.parseString(operateMeta.getMethodReturned()));

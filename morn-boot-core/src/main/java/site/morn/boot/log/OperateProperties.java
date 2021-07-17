@@ -23,7 +23,7 @@ public class OperateProperties {
   /**
    * 设置异步执行操作日志，否则为同步执行
    */
-  private boolean isAsync = true;
+  private boolean async = true;
 
   /**
    * 操作日志记录模式
