@@ -1,6 +1,5 @@
 package site.morn.log;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -13,7 +12,6 @@ import site.morn.core.X;
  * @author timely-rain
  * @since 1.0.0, 2018/12/4
  */
-@Builder
 @Getter
 @Setter
 @ToString
@@ -48,13 +46,6 @@ public class OperateMeta {
    * 操作名称
    */
   private String actionName;
-
-  /**
-   * 记录模式
-   *
-   * @see OperateMode
-   */
-  private String mode;
 
   /**
    * 模块参数

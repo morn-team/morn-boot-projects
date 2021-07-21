@@ -6,13 +6,13 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.pool.AbstractChannelPoolHandler;
 import java.util.List;
-import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import site.morn.bean.support.BeanCaches;
 import site.morn.bean.support.Tags;
 import site.morn.boot.netty.annotation.NettyHandler;
 import site.morn.boot.netty.annotation.NettyTerminal;
-import site.morn.boot.netty.constant.HandlerType;
+import site.morn.boot.netty.constant.HandlerTypeConstants;
+import site.morn.boot.netty.constant.TerminalTypeConstants;
 import site.morn.util.BeanFunctionUtils;
 
 
@@ -22,8 +22,11 @@ import site.morn.util.BeanFunctionUtils;
  * @author timely-rain
  * @since 1.2.2, 2020/9/14
  */
-@UtilityClass
 public class TerminalChannelAdapters {
+
+  private TerminalChannelAdapters() {
+    throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
+  }
 
   /**
    * 注册通道处理者
@@ -60,7 +63,7 @@ public class TerminalChannelAdapters {
     /**
      * 终端类型
      *
-     * @see site.morn.boot.netty.constant.TerminalType
+     * @see TerminalTypeConstants
      */
     private final String terminal;
 
@@ -72,10 +75,10 @@ public class TerminalChannelAdapters {
     protected void initChannel(Channel ch) {
       ChannelPipeline pipeline = ch.pipeline();
 
-      registerChannelHandler(terminal, pipeline, HandlerType.SPLITTER); // 注册截断器
-      registerChannelHandler(terminal, pipeline, HandlerType.DECODER); // 注册解码器
-      registerChannelHandler(terminal, pipeline, HandlerType.ENCODER); // 注册编码器
-      registerChannelHandler(terminal, pipeline, HandlerType.HANDLER); // 注册处理者
+      registerChannelHandler(terminal, pipeline, HandlerTypeConstants.SPLITTER); // 注册截断器
+      registerChannelHandler(terminal, pipeline, HandlerTypeConstants.DECODER); // 注册解码器
+      registerChannelHandler(terminal, pipeline, HandlerTypeConstants.ENCODER); // 注册编码器
+      registerChannelHandler(terminal, pipeline, HandlerTypeConstants.HANDLER); // 注册处理者
     }
 
   }
@@ -92,7 +95,7 @@ public class TerminalChannelAdapters {
     /**
      * 终端类型
      *
-     * @see site.morn.boot.netty.constant.TerminalType
+     * @see TerminalTypeConstants
      */
     private final String terminal;
 
@@ -104,10 +107,10 @@ public class TerminalChannelAdapters {
     public void channelCreated(Channel ch) {
       ChannelPipeline pipeline = ch.pipeline();
 
-      registerChannelHandler(terminal, pipeline, HandlerType.SPLITTER); // 注册截断器
-      registerChannelHandler(terminal, pipeline, HandlerType.DECODER); // 注册解码器
-      registerChannelHandler(terminal, pipeline, HandlerType.ENCODER); // 注册编码器
-      registerChannelHandler(terminal, pipeline, HandlerType.HANDLER); // 注册处理者
+      registerChannelHandler(terminal, pipeline, HandlerTypeConstants.SPLITTER); // 注册截断器
+      registerChannelHandler(terminal, pipeline, HandlerTypeConstants.DECODER); // 注册解码器
+      registerChannelHandler(terminal, pipeline, HandlerTypeConstants.ENCODER); // 注册编码器
+      registerChannelHandler(terminal, pipeline, HandlerTypeConstants.HANDLER); // 注册处理者
     }
 
     @Override

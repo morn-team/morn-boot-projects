@@ -3,7 +3,7 @@ package site.morn.validate;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static site.morn.rest.constant.RestMessageStatus.SUCCESS;
+import static site.morn.rest.constant.RestMessageConstants.SUCCESS;
 
 import net.minidev.json.JSONObject;
 import org.junit.Before;
@@ -18,8 +18,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import site.morn.core.CriteriaMap;
 import site.morn.test.TestUser;
 

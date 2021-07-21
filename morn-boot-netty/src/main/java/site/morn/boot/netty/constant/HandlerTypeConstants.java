@@ -9,7 +9,7 @@ import lombok.experimental.UtilityClass;
  * @since 1.2.0, 2019/6/5
  */
 @UtilityClass
-public class HandlerType {
+public class HandlerTypeConstants {
 
   /**
    * 分离器

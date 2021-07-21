@@ -9,7 +9,7 @@ import lombok.experimental.UtilityClass;
  * @since 1.2.0, 2019/7/10
  */
 @UtilityClass
-public class PersistTypes {
+public class PersistTypeConstants {
 
   /**
    * 新增

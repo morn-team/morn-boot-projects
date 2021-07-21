@@ -13,7 +13,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  * @author timely-rain
  * @since 1.0.0, 2018/12/27
  */
-public final class Servlets {
+public class Servlets {
 
   private Servlets() {
   }

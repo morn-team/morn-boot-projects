@@ -15,7 +15,7 @@ import site.morn.boot.json.util.JsonParsers;
  * @since 1.0.0, 2018/12/27
  */
 @Slf4j
-public final class Responses {
+public class Responses {
 
   /**
    * 响应对象

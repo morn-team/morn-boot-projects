@@ -1,7 +1,6 @@
 package site.morn.boot.netty.config;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.experimental.UtilityClass;
 
 /**
  * Netty配置项
@@ -9,9 +8,8 @@ import lombok.Setter;
  * @author timely-rain
  * @since 1.2.0, 2019/5/15
  */
-@Getter
-@Setter
-public class NettyConfig {
+@UtilityClass
+public class NettyConfigConstants {
 
   /**
    * 默认地址

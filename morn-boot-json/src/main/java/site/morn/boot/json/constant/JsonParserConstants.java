@@ -9,7 +9,7 @@ import lombok.experimental.UtilityClass;
  * @since 1.2.1, 2020/6/25
  */
 @UtilityClass
-public class JsonParserTypes {
+public class JsonParserConstants {
 
   /**
    * FastJson

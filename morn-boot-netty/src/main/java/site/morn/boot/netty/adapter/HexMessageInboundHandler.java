@@ -6,8 +6,8 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import lombok.extern.slf4j.Slf4j;
 import site.morn.boot.netty.annotation.NettyHandler;
 import site.morn.boot.netty.annotation.NettyTerminal;
-import site.morn.boot.netty.constant.HandlerType;
-import site.morn.boot.netty.constant.TerminalType;
+import site.morn.boot.netty.constant.HandlerTypeConstants;
+import site.morn.boot.netty.constant.TerminalTypeConstants;
 
 /**
  * 十六进制消息日志
@@ -17,8 +17,8 @@ import site.morn.boot.netty.constant.TerminalType;
  */
 @Slf4j
 @Sharable
-@NettyHandler(HandlerType.HANDLER)
-@NettyTerminal(TerminalType.BOTH)
+@NettyHandler(HandlerTypeConstants.HANDLER)
+@NettyTerminal(TerminalTypeConstants.BOTH)
 public class HexMessageInboundHandler extends SimpleChannelInboundHandler<HexMessage> {
 
   @Override

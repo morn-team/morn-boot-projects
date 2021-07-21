@@ -23,10 +23,10 @@ import site.morn.core.CriteriaMap;
  * @author timely-rain
  * @since 1.0.0, 2019/1/13
  */
-@Accessors(chain = true, fluent = true)
 @Getter
 @Setter
-public final class SpecificationBuilder<M> {
+@Accessors(chain = true, fluent = true)
+public class SpecificationBuilder<M> {
 
   private JpaCommon<M> common;
 

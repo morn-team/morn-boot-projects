@@ -5,8 +5,8 @@ import static site.morn.boot.json.Constant.USER1_STRING;
 import static site.morn.boot.json.Constant.USER2;
 import static site.morn.boot.json.Constant.USER2_STRING;
 import static site.morn.boot.json.Constant.USERS_STRING;
-import static site.morn.boot.json.constant.JsonParserTypes.FAST_JSON;
-import static site.morn.boot.json.constant.JsonParserTypes.JACKSON;
+import static site.morn.boot.json.constant.JsonParserConstants.FAST_JSON;
+import static site.morn.boot.json.constant.JsonParserConstants.JACKSON;
 
 import java.util.Arrays;
 import java.util.List;

@@ -63,15 +63,16 @@ public class SpareHttpUtils {
    * @return 第一个非unknown IP地址
    */
   public static String getMultistageReverseProxyIp(String ip) {
-    if (ip != null && ip.contains(",")) {
-      final String[] ips = ip.trim().split(",");
+    String s = ip;
+    if (s != null && s.contains(",")) {
+      final String[] ips = s.trim().split(",");
       for (String subIp : ips) {
         if (isUnknown(subIp)) {
-          ip = subIp;
+          s = subIp;
           break;
         }
       }
     }
-    return ip;
+    return s;
   }
 }

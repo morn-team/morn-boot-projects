@@ -9,15 +9,15 @@ import lombok.experimental.UtilityClass;
  * @since 1.2.1, 2020/5/8
  */
 @UtilityClass
-public class AlgorithmModes {
+public class AlgorithmModeConstants {
 
   /**
    * ECB算法
    */
-  public final String AES_ECB_PKCS5PADDING = "AES/ECB/PKCS5Padding";
+  public static final String AES_ECB_PKCS5PADDING = "AES/ECB/PKCS5Padding";
 
   /**
    * GCM算法
    */
-  public final String AES_GCM_NO_PADDING = "AES/GCM/NoPadding";
+  public static final String AES_GCM_NO_PADDING = "AES/GCM/NoPadding";
 }

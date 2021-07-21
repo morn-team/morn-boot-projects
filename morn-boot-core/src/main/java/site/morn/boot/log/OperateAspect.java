@@ -2,6 +2,7 @@ package site.morn.boot.log;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -9,21 +10,19 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.Assert;
-import org.springframework.util.concurrent.ListenableFuture;
 import site.morn.bean.BeanCache;
 import site.morn.bean.support.Tags;
 import site.morn.log.OperateAction;
 import site.morn.log.OperateArguments;
 import site.morn.log.OperateGroup;
 import site.morn.log.OperateMeta;
-import site.morn.log.OperateMeta.OperateMetaBuilder;
 import site.morn.log.OperateMode;
 import site.morn.log.Operation;
 import site.morn.log.OperationAdapter;
 import site.morn.log.OperationContext;
 import site.morn.log.OperationConverter;
 import site.morn.log.OperationProcessor;
-import site.morn.task.ListenableFutureDispatcher;
+import site.morn.task.TaskExecutors;
 import site.morn.util.BeanFunctionUtils;
 
 /**
@@ -53,30 +52,30 @@ public class OperateAspect {
    */
   @Around("@annotation(site.morn.log.OperateAction)")
   public Object aroundOperate(ProceedingJoinPoint point) throws Throwable {
-    OperateMetaBuilder operateMetaBuilder = resolveOperatePoint(point);
+    OperateMeta meta = resolveOperatePoint(point);
     long startTime = System.currentTimeMillis(); // 起始时间
     try {
       // 执行目标方法，并记录执行结果
       Object returned = point.proceed();
-      operateMetaBuilder.methodReturned(returned);
-      operateMetaBuilder.success(true);
+      meta.setMethodReturned(returned);
+      meta.setSuccess(true);
       return returned;
     } catch (Throwable throwable) {
       // 执行失败，记录异常信息
-      operateMetaBuilder.success(false);
-      operateMetaBuilder.throwable(throwable);
+      meta.setSuccess(false);
+      meta.setThrowable(throwable);
       throw throwable;
     } finally {
       long endTime = System.currentTimeMillis(); // 结束时间
       long duration = endTime - startTime; // 消耗时间
       // 读取操作日志参数
-      operateMetaBuilder
-          .startTime(startTime)
-          .endTime(endTime)
-          .duration(duration)
-          .actionArgs(OperateArguments.getAll().toArray());
+      meta.setStartTime(startTime);
+      meta.setEndTime(endTime);
+      meta.setDuration(duration);
+      // 获取实时参数
+      meta.setCodeArgs(OperateArguments.getAll().toArray());
       OperateArguments.clear();
-      OperationContext context = buildContext(operateMetaBuilder.build());
+      OperationContext context = buildContext(meta);
       if (properties.isAsync()) {
         extractOperationAsync(context);
       } else {
@@ -91,7 +90,7 @@ public class OperateAspect {
    * @param point 切点
    * @return 操作日志构建器
    */
-  private OperateMetaBuilder resolveOperatePoint(ProceedingJoinPoint point) {
+  private OperateMeta resolveOperatePoint(ProceedingJoinPoint point) {
     Class<?> targetClass = point.getTarget().getClass();
     MethodSignature methodSignature = (MethodSignature) point.getSignature();
     String className = targetClass.getName();
@@ -103,19 +102,19 @@ public class OperateAspect {
     OperateAction operateAction = AnnotationUtils
         .findAnnotation(methodSignature.getMethod(), OperateAction.class);
     Assert.notNull(operateAction, "Operate|无法获取[@OperateAction]:" + targetClass.getSimpleName());
-    // 获取实时参数
-    Object[] codeArgs = OperateArguments.getAll().toArray();
     // 构建操作日志元数据
-    OperateMetaBuilder builder = OperateMeta.builder().source(point)
-        .actionArgs(operateAction.args()).codeArgs(codeArgs)
-        .excludeNames(operateAction.excludeNames()).methodArgs(point.getArgs())
-        .mode(operateAction.mode()).actionName(operateAction.value())
-        .excepts(operateAction.excepts());
+    OperateMeta meta = new OperateMeta();
+    meta.setSource(point);
+    meta.setMethodArgs(point.getArgs());
     if (Objects.nonNull(operateGroup)) {
-      builder.groupName(operateGroup.value());
-      builder.groupArgs(operateGroup.args());
+      meta.setGroupName(operateGroup.value());
+      meta.setGroupArgs(operateGroup.args());
     }
-    return builder;
+    meta.setActionName(operateAction.value());
+    meta.setActionArgs(operateAction.args());
+    meta.setExcludeNames(operateAction.excludeNames());
+    meta.setExcepts(operateAction.excepts());
+    return meta;
   }
 
   /**
@@ -139,13 +138,13 @@ public class OperateAspect {
    * 提取操作信息-异步
    */
   private void extractOperationAsync(OperationContext context) {
-    ListenableFuture<Object> future = ListenableFutureDispatcher
+    CompletableFuture<?> future = TaskExecutors
         .submit(() -> extractOperation(context));
-    future.completable().exceptionally(throwable -> {
+    future.exceptionally(throwable -> {
       log.warn(
           "Operate|Error|Async:" + throwable.getClass().getName() + ":" + throwable.getMessage(),
           throwable);
-      return throwable;
+      return null;
     });
   }
 

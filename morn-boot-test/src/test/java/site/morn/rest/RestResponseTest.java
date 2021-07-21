@@ -1,9 +1,10 @@
 package site.morn.rest;
 
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static site.morn.rest.constant.RestMessageStatus.FAILURE;
-import static site.morn.rest.constant.RestMessageStatus.SUCCESS;
+import static site.morn.rest.constant.RestMessageConstants.FAILURE;
+import static site.morn.rest.constant.RestMessageConstants.SUCCESS;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,6 +42,13 @@ public class RestResponseTest {
   private MockMvc mvc;
 
   @Test
+  public void returnNull() throws Exception {
+    MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(BASE_URL + "null");
+    performSuccess(mvc, requestBuilder)
+        .andExpect(jsonPath("status").value(SUCCESS));
+  }
+
+  @Test
   public void returnData() throws Exception {
     MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(BASE_URL + "data");
     performSuccess(mvc, requestBuilder)
@@ -54,6 +62,22 @@ public class RestResponseTest {
     performFailure(mvc, requestBuilder)
         .andExpect(jsonPath("status").value(FAILURE))
         .andExpect(jsonPath("message").value("This is exception."));
+  }
+
+  @Test
+  public void returnMissData() throws Exception {
+    MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+        .get(BASE_URL + "miss/data");
+    performSuccess(mvc, requestBuilder)
+        .andExpect(jsonPath("status").value(FAILURE))
+        .andExpect(jsonPath("code").value("rest.convert-error"));
+  }
+
+  @Test
+  public void returnMissException() throws Exception {
+    MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get(BASE_URL + "miss/ex");
+    performFailure(mvc, requestBuilder)
+        .andExpect(content().string("This is exception."));
   }
 
   @Test

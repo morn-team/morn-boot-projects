@@ -1,8 +1,7 @@
 package site.morn.cache;
 
-import static site.morn.constant.ApplicationConstant.Cache.CACHE_MANAGER_NAME_PRIMARY;
+import static site.morn.constant.ApplicationConstants.Caches.CACHE_MANAGER_NAME_PRIMARY;
 
-import lombok.experimental.UtilityClass;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import site.morn.bean.support.BeanCaches;
@@ -13,8 +12,11 @@ import site.morn.bean.support.BeanCaches;
  * @author timely-rain
  * @since 1.2.1, 2019/9/5
  */
-@UtilityClass
 public class CacheGroups {
+
+  private CacheGroups() {
+    throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
+  }
 
   /**
    * 获取缓存池

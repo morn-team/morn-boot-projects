@@ -9,7 +9,7 @@ import lombok.experimental.UtilityClass;
  * @since 1.0.2, 2019/4/30
  */
 @UtilityClass
-public class ApplicationConstant {
+public class ApplicationConstants {
 
   /**
    * 内建参数标识
@@ -19,8 +19,7 @@ public class ApplicationConstant {
   /**
    * 缓存常量
    */
-  @UtilityClass
-  public class Cache {
+  public static class Caches {
 
     /**
      * 主缓存管理器
@@ -66,13 +65,16 @@ public class ApplicationConstant {
      * Netty分组缓存
      */
     public static final String NETTY_GROUP = "netty.group";
+
+    private Caches() {
+      throw new UnsupportedOperationException();
+    }
   }
 
   /**
    * 异常常量
    */
-  @UtilityClass
-  public class Errors {
+  public static class Errors {
 
     /**
      * 默认实例缓存名称
@@ -123,13 +125,16 @@ public class ApplicationConstant {
      * 任务-尚未完成
      */
     public static final String TASK_NOT_DONE = "task.not-done";
+
+    private Errors() {
+      throw new UnsupportedOperationException();
+    }
   }
 
   /**
    * 系统通知
    */
-  @UtilityClass
-  public class Notify {
+  public static class Notifies {
 
     /**
      * 注解式通知元数据初始化适配器
@@ -155,17 +160,24 @@ public class ApplicationConstant {
      * 内置参数 - 通知接收人标识
      */
     public static final String NOTIFY_RECEIVER_VALUE = "_notifyReceiverValue";
+
+    private Notifies() {
+      throw new UnsupportedOperationException();
+    }
   }
 
   /**
    * 模板类型
    */
-  @UtilityClass
-  public class TemplateType {
+  public static class TemplateTypes {
 
     /**
      * 资源模板名称
      */
     public static final String RESOURCE = "resource";
+
+    private TemplateTypes() {
+      throw new UnsupportedOperationException();
+    }
   }
 }

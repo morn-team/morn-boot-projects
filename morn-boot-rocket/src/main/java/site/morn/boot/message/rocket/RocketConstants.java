@@ -9,7 +9,7 @@ import lombok.experimental.UtilityClass;
  * @since 1.2.1, 2020/4/10
  */
 @UtilityClass
-public class RocketConstant {
+public class RocketConstants {
 
   /**
    * Rocket标识

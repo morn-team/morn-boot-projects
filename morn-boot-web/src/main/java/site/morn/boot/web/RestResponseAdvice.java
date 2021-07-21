@@ -147,10 +147,12 @@ public class RestResponseAdvice implements ResponseBodyAdvice<Object> {
   private Object deduce(Object responseMessage, Class<?> responseClass) {
     Object deduce = converterService.deduce(responseMessage, responseClass);
     if (!responseClass.isAssignableFrom(deduce.getClass())) {
-      log.warn(
-          "REST|ErrorConvert:计划响应类型为[{}]，当前响应类型为[{}]，请按提示注册合适的转换器/解析器。若当前响应类型符合预期，请全局配置{}或修改{}",
+      String msg = String.format(
+          "计划响应类型为[%s]，当前响应类型为[%s]，请按提示注册合适的转换器/解析器。若当前响应类型符合预期，请全局配置%s或修改%s",
           responseClass.getSimpleName(), deduce.getClass().getSimpleName(),
           "\"morn.rest.response-class\"", "\"@RestResponse.value()\"");
+      log.warn("REST|ErrorConvert:{}", msg);
+      return RestBuilders.failureBuilder().code("rest.convert-error").message(msg).build();
     }
     return deduce;
   }

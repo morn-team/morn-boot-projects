@@ -1,11 +1,11 @@
 package site.morn.boot.json.util;
 
 import java.lang.reflect.Type;
-import lombok.experimental.UtilityClass;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.util.Assert;
 import site.morn.bean.support.BeanCaches;
 import site.morn.boot.json.JsonParser;
+import site.morn.boot.json.constant.JsonParserConstants;
 import site.morn.core.CriteriaMap;
 
 /**
@@ -14,8 +14,11 @@ import site.morn.core.CriteriaMap;
  * @author timely-rain
  * @since 1.2.1, 2020/6/25
  */
-@UtilityClass
 public class JsonParsers {
+
+  private JsonParsers() {
+    throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
+  }
 
   /**
    * 获取默认解析器
@@ -33,7 +36,7 @@ public class JsonParsers {
    *
    * @param type 解析器类型
    * @return JSON解析器
-   * @see site.morn.boot.json.constant.JsonParserTypes 解析器类型
+   * @see JsonParserConstants 解析器类型
    */
   public static JsonParser getParser(String type) {
     JsonParser parser = BeanCaches.tagBean(JsonParser.class, type);

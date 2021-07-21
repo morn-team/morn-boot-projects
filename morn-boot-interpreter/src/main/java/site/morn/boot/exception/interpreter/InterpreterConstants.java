@@ -9,14 +9,12 @@ import lombok.experimental.UtilityClass;
  * @since 1.2.0, 2019/5/23
  */
 @UtilityClass
-public class InterpreterConstant {
-
+public class InterpreterConstants {
 
   /**
    * 异常常量
    */
-  @UtilityClass
-  public class Errors {
+  public static class Errors {
 
     /**
      * 登录失败-未知错误
@@ -37,5 +35,10 @@ public class InterpreterConstant {
      * 账户已锁定
      */
     public static final String LOGIN_ACCOUNT_LOCKED = "login.account-locked";
+
+    private Errors() {
+      throw new UnsupportedOperationException(
+          "This is a constant class and cannot be instantiated");
+    }
   }
 }

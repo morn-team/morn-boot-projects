@@ -1,7 +1,7 @@
 package site.morn.boot.rest;
 
-import static site.morn.rest.constant.RestMessageStatus.FAILURE;
-import static site.morn.rest.constant.RestMessageStatus.SUCCESS;
+import static site.morn.rest.constant.RestMessageConstants.FAILURE;
+import static site.morn.rest.constant.RestMessageConstants.SUCCESS;
 
 import site.morn.rest.RestMessage;
 import site.morn.rest.constant.RestMessageLevel;

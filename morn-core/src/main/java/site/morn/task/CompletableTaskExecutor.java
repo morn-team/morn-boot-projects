@@ -1,31 +1,30 @@
 package site.morn.task;
 
 import java.util.concurrent.Callable;
-import org.springframework.util.concurrent.ListenableFuture;
+import java.util.concurrent.CompletableFuture;
 
 /**
- * 异步任务发布者
+ * 异步任务执行器
  *
  * @author timely-rain
  * @since 1.2.0, 2019/7/24
  */
-public interface ListenableFuturePublisher {
+public interface CompletableTaskExecutor {
 
   /**
    * 发布任务
    *
    * @param task 任务
-   * @param <V> 结果类型
    * @return 异步结果
    */
-  <V> ListenableFuture<V> submit(Callable<V> task);
+  CompletableFuture<Void> submit(Runnable task);
 
   /**
    * 发布任务
    *
    * @param task 任务
-   * @param <V> 结果类型
+   * @param <V>  结果类型
    * @return 异步结果
    */
-  <V> ListenableFuture<V> submit(Runnable task);
+  <V> CompletableFuture<V> submit(Callable<V> task);
 }

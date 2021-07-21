@@ -10,7 +10,7 @@ import lombok.experimental.UtilityClass;
  * @since 1.2.2, 2020/7/25
  */
 @UtilityClass
-public class RestMessageStatus {
+public class RestMessageConstants {
 
   public static final int SUCCESS = 200;
   public static final int FAILURE = 500;

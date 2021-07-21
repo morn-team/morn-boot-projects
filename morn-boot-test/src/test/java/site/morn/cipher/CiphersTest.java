@@ -1,10 +1,10 @@
 package site.morn.cipher;
 
-import static site.morn.cipher.support.AlgorithmModes.AES_ECB_PKCS5PADDING;
-import static site.morn.cipher.support.AlgorithmModes.AES_GCM_NO_PADDING;
-import static site.morn.cipher.support.AlgorithmNames.AES;
-import static site.morn.cipher.support.AlgorithmNames.MD5;
-import static site.morn.cipher.support.AlgorithmNames.SPRING_B_CRYPT;
+import static site.morn.cipher.support.AlgorithmModeConstants.AES_ECB_PKCS5PADDING;
+import static site.morn.cipher.support.AlgorithmModeConstants.AES_GCM_NO_PADDING;
+import static site.morn.cipher.support.AlgorithmNameConstants.AES;
+import static site.morn.cipher.support.AlgorithmNameConstants.MD5;
+import static site.morn.cipher.support.AlgorithmNameConstants.SPRING_B_CRYPT;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;

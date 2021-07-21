@@ -1,7 +1,7 @@
 package site.morn.notify.support;
 
-import static site.morn.constant.ApplicationConstant.BUILTIN;
-import static site.morn.constant.ApplicationConstant.Notify.BUILTIN_NOTIFY_KEY;
+import static site.morn.constant.ApplicationConstants.BUILTIN;
+import static site.morn.constant.ApplicationConstants.Notifies.BUILTIN_NOTIFY_KEY;
 
 import java.util.Objects;
 import site.morn.core.CriteriaMap;

@@ -6,7 +6,6 @@ import io.netty.channel.pool.ChannelPoolMap;
 import io.netty.channel.pool.FixedChannelPool;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import lombok.experimental.UtilityClass;
 import org.springframework.util.Assert;
 import site.morn.bean.support.BeanCaches;
 import site.morn.boot.netty.adapter.NettyClientProducer;
@@ -17,8 +16,7 @@ import site.morn.boot.netty.adapter.NettyClientProducer;
  * @author timely-rain
  * @since 1.2.2, 2020/9/14
  */
-@UtilityClass
-public class NettyClientPool {
+public class NettyClientPools {
 
   /**
    * 客户端字典
@@ -37,6 +35,10 @@ public class NettyClientPool {
       return getClient(key).getChannelPool();
     }
   };
+
+  private NettyClientPools() {
+    throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
+  }
 
   /**
    * 获取连接池

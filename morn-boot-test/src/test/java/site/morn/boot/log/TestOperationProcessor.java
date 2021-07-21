@@ -3,10 +3,12 @@ package site.morn.boot.log;
 import static site.morn.boot.log.OperateAspectTest.DONE;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import site.morn.bean.annotation.Objective;
-import site.morn.boot.json.util.JsonParsers;
+import site.morn.boot.web.Servlets;
 import site.morn.log.OperateMeta;
 import site.morn.log.Operation;
 import site.morn.log.OperationProcessor;
@@ -24,14 +26,14 @@ public class TestOperationProcessor implements OperationProcessor {
 
   @Override
   public void handle(OperateMeta operateMeta, Operation operation) {
-    HttpServletRequest request = operateMeta.getRequest().value(HttpServletRequest.class);
-    log.info("请求地址：{}", request.getRequestURI());
-    log.info("{}，消耗时间：{}ms", operation.getContent(), operation.getDuration());
-    log.info("方法参数：" + JsonParsers.parseString(operateMeta.getMethodArgs()));
-    log.info("方法返回值：" + JsonParsers.parseString(operateMeta.getMethodReturned()));
-    if (operateMeta.getThrowable() != null) {
-      log.info("异常信息：" + JsonParsers.parseString(operateMeta.getThrowable().getMessage()));
-    }
+    log.info("Operate|元数据：{}", operateMeta.toString());
+    log.info("Operate|操作日志：{}", operation.toString());
+    HttpSession session = Servlets.session();
+    HttpServletRequest request = Servlets.request();
+    HttpServletResponse response = Servlets.response();
+    log.info("Operate|Session：{}", session);
+    log.info("Operate|Request：{}", request);
+    log.info("Operate|Response：{}", response);
     DONE.set(true);
   }
 }

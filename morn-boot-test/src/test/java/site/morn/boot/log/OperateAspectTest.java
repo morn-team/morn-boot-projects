@@ -72,8 +72,10 @@ public class OperateAspectTest {
   @Test
   public void i18nAddTest() {
     String[] args = {"Latte"};
-    OperateMeta operateMeta = OperateMeta.builder().groupName("user").actionName("add").actionArgs(args)
-        .build();
+    OperateMeta operateMeta = new OperateMeta();
+    operateMeta.setGroupName("user");
+    operateMeta.setActionName("add");
+    operateMeta.setActionArgs(args);
     Operation operation = i18nOperationConverter.convert(operateMeta);
     Assert.assertNotNull(operation);
     Assert.assertEquals("新增用户：Latte", operation.getContent());
@@ -82,8 +84,10 @@ public class OperateAspectTest {
   @Test
   public void i18nUpdateTest() {
     String[] args = {"Latte", "19"};
-    OperateMeta operateMeta = OperateMeta.builder().groupName("user").actionName("update").actionArgs(args)
-        .build();
+    OperateMeta operateMeta = new OperateMeta();
+    operateMeta.setGroupName("user");
+    operateMeta.setActionName("update");
+    operateMeta.setActionArgs(args);
     Operation operation = i18nOperationConverter.convert(operateMeta);
     Assert.assertNotNull(operation);
     Assert.assertEquals("更新用户：Latte，年龄：19", operation.getContent());

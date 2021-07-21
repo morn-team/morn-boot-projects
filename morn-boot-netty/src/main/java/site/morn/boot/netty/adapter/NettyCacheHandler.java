@@ -10,8 +10,8 @@ import site.morn.boot.netty.annotation.NettyHandler;
 import site.morn.boot.netty.annotation.NettyTerminal;
 import site.morn.boot.netty.cache.ChannelIdentify;
 import site.morn.boot.netty.cache.NettyCaches;
-import site.morn.boot.netty.constant.HandlerType;
-import site.morn.boot.netty.constant.TerminalType;
+import site.morn.boot.netty.constant.HandlerTypeConstants;
+import site.morn.boot.netty.constant.TerminalTypeConstants;
 
 /**
  * 缓存处理者
@@ -21,8 +21,8 @@ import site.morn.boot.netty.constant.TerminalType;
  */
 @Slf4j
 @Sharable
-@NettyHandler(HandlerType.HANDLER)
-@NettyTerminal(TerminalType.SERVER)
+@NettyHandler(HandlerTypeConstants.HANDLER)
+@NettyTerminal(TerminalTypeConstants.SERVER)
 public class NettyCacheHandler extends SimpleChannelInboundHandler<ChannelIdentify> {
 
   @Override

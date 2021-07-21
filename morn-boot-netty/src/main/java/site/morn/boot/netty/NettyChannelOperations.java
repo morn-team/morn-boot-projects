@@ -4,7 +4,6 @@ import io.netty.channel.Channel;
 import io.netty.channel.pool.ChannelPool;
 import io.netty.util.concurrent.Future;
 import io.netty.util.internal.shaded.org.jctools.queues.MessagePassingQueue.Consumer;
-import lombok.experimental.UtilityClass;
 import org.springframework.util.Assert;
 import site.morn.boot.netty.support.FutureAccessor;
 
@@ -14,8 +13,11 @@ import site.morn.boot.netty.support.FutureAccessor;
  * @author timely-rain
  * @since 1.2.2, 2020/9/15
  */
-@UtilityClass
 public class NettyChannelOperations {
+
+  private NettyChannelOperations() {
+    throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
+  }
 
   /**
    * 获取通道
@@ -24,7 +26,7 @@ public class NettyChannelOperations {
    * @return 异步连接通道
    */
   public static FutureAccessor<Channel> acquireChannel(ChannelPoolIdentify identify) {
-    ChannelPool channelPool = NettyClientPool.getChannelPool(identify);
+    ChannelPool channelPool = NettyClientPools.getChannelPool(identify);
     Assert.notNull(channelPool, "无法获取Netty连接池，identify：" + identify);
     return FutureAccessor.from(channelPool.acquire());
   }
@@ -36,7 +38,7 @@ public class NettyChannelOperations {
    * @return 异步操作对象
    */
   public static FutureAccessor<Void> releaseChannel(ChannelPoolIdentify identify, Channel channel) {
-    ChannelPool channelPool = NettyClientPool.getChannelPool(identify);
+    ChannelPool channelPool = NettyClientPools.getChannelPool(identify);
     Assert.notNull(channelPool, "无法获取Netty连接池，identify：" + identify);
     return FutureAccessor.from(channelPool.release(channel));
   }
@@ -50,7 +52,7 @@ public class NettyChannelOperations {
    */
   public static FutureAccessor<Void> flush(ChannelPoolIdentify identify, Channel channel) {
     channel.flush();
-    Future<Void> future = NettyClientPool.getChannelPool(identify).release(channel);
+    Future<Void> future = NettyClientPools.getChannelPool(identify).release(channel);
     return FutureAccessor.from(future);
   }
 
@@ -86,7 +88,7 @@ public class NettyChannelOperations {
    */
   private static FutureAccessor<Channel> useChannel(ChannelPoolIdentify identify,
       Consumer<Channel> consumer) {
-    ChannelPool channelPool = NettyClientPool.getChannelPool(identify);
+    ChannelPool channelPool = NettyClientPools.getChannelPool(identify);
     return FutureAccessor.from(channelPool.acquire()).completeThen(channel -> {
       consumer.accept(channel);
       channelPool.release(channel);

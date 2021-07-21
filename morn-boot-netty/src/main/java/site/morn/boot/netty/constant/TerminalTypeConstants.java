@@ -9,7 +9,7 @@ import lombok.experimental.UtilityClass;
  * @since 1.2.0, 2019/6/5
  */
 @UtilityClass
-public class TerminalType {
+public class TerminalTypeConstants {
 
   /**
    * 既适用客户端，也适用服务端
