@@ -34,9 +34,10 @@
   </modules>
 
   <scm>
-    <url>https://github.com/morn-team/morn-boot-projects</url>
-    <connection>scm:git:https://github.com/morn-team/morn-boot-projects.git</connection>
-    <developerConnection>scm:git:https://github.com/morn-team/morn-boot-projects.git
+    <url>https://morn-team.github.io/morn-boot-projects/</url>
+    <connection>scm:git:https://gitee.com/morn-team/morn-boot-projects.git</connection>
+    <developerConnection>
+      scm:git:https://gitee.com/morn-team/morn-boot-projects.git
     </developerConnection>
     <tag>HEAD</tag>
   </scm>
