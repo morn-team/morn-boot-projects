@@ -2,7 +2,7 @@ package site.morn.boot.netty.config;
 
 import io.netty.bootstrap.Bootstrap;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import site.morn.boot.netty.support.RemoteAddressClientProducer;
@@ -15,17 +15,8 @@ import site.morn.boot.netty.support.RemoteAddressClientProducer;
  */
 @Configuration
 @ConditionalOnClass(Bootstrap.class)
+@EnableConfigurationProperties(NettyClientProperties.class)
 public class NettyClientConfiguration {
-
-
-  /**
-   * 注册客户端配置项
-   */
-  @Bean
-  @ConfigurationProperties("morn.netty.client")
-  public NettyClientProperties nettyClientProperties() {
-    return new NettyClientProperties();
-  }
 
   /**
    * 注册远程连接客户端生产者

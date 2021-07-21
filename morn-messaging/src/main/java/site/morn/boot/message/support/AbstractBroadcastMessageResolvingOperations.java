@@ -1,13 +1,13 @@
 package site.morn.boot.message.support;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import lombok.Getter;
 import org.springframework.core.convert.support.ConfigurableConversionService;
 import org.springframework.core.convert.support.GenericConversionService;
-import org.springframework.util.concurrent.ListenableFuture;
 import site.morn.boot.message.BroadcastMessageHeaderResolver;
 import site.morn.boot.message.BroadcastMessageResolvingOperations;
-import site.morn.task.ListenableFutureDispatcher;
+import site.morn.task.TaskExecutors;
 
 /**
  * 抽象消息解析操作类
@@ -24,7 +24,7 @@ public abstract class AbstractBroadcastMessageResolvingOperations<T> implements
 
   private final ConfigurableConversionService conversionService;
 
-  public AbstractBroadcastMessageResolvingOperations(
+  protected AbstractBroadcastMessageResolvingOperations(
       AnnotationBroadcastMessageHandler<T> messageHandler,
       List<BroadcastMessageHeaderResolver<?>> headerResolvers) {
     this.messageHandler = messageHandler;
@@ -38,7 +38,7 @@ public abstract class AbstractBroadcastMessageResolvingOperations<T> implements
   }
 
   @Override
-  public ListenableFuture<Boolean> asyncResolve(T message) {
-    return ListenableFutureDispatcher.submit(() -> syncResolve(message));
+  public CompletableFuture<Boolean> asyncResolve(T message) {
+    return TaskExecutors.submit(() -> syncResolve(message));
   }
 }

@@ -1,6 +1,6 @@
 package site.morn.boot.json.support;
 
-import static site.morn.boot.json.constant.JsonParserTypes.FAST_JSON;
+import static site.morn.boot.json.constant.JsonParserConstants.FAST_JSON;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;

@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import site.morn.boot.json.JsonParser;
 import site.morn.boot.json.support.FastJsonParser;
 import site.morn.boot.json.support.JacksonParser;
 
@@ -16,6 +17,7 @@ import site.morn.boot.json.support.JacksonParser;
  * @since 1.2.1, 2020/6/24
  */
 @Configuration
+@ConditionalOnClass(JsonParser.class)
 public class JsonAutoConfiguration {
 
   /**

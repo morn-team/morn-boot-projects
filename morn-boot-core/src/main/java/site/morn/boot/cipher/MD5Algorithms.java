@@ -1,6 +1,6 @@
 package site.morn.boot.cipher;
 
-import static site.morn.cipher.support.AlgorithmNames.MD5;
+import static site.morn.cipher.support.AlgorithmNameConstants.MD5;
 
 import java.util.Objects;
 import org.springframework.util.DigestUtils;
@@ -52,7 +52,7 @@ public class MD5Algorithms {
     @Override
     public boolean matches(CharSequence rawText, CharSequence encodedText) {
       String encrypt = encrypt(rawText);
-      return Objects.equals(encrypt, encodedText);
+      return Objects.equals(encrypt, encodedText.toString());
     }
   }
 }

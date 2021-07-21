@@ -1,6 +1,6 @@
 package site.morn.boot.security;
 
-import static site.morn.cipher.support.AlgorithmNames.SPRING_B_CRYPT;
+import static site.morn.cipher.support.AlgorithmNameConstants.SPRING_B_CRYPT;
 
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import site.morn.cipher.AlgorithmEncryption;

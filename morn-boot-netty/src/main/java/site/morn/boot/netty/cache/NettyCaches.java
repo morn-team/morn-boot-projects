@@ -3,7 +3,6 @@ package site.morn.boot.netty.cache;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelId;
 import io.netty.channel.group.ChannelGroup;
-import lombok.experimental.UtilityClass;
 import org.springframework.util.Assert;
 import site.morn.bean.support.BeanCaches;
 import site.morn.util.GenericUtils;
@@ -14,8 +13,11 @@ import site.morn.util.GenericUtils;
  * @author timely-rain
  * @since 1.2.0, 2019/6/5
  */
-@UtilityClass
 public class NettyCaches {
+
+  private NettyCaches() {
+    throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
+  }
 
   /**
    * 获取消息通道

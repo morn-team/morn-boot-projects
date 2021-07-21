@@ -1,6 +1,6 @@
 package site.morn.boot.bean;
 
-import static site.morn.constant.ApplicationConstant.Cache.CACHE_MANAGER_NAME_SIMPLE;
+import static site.morn.constant.ApplicationConstants.Caches.CACHE_MANAGER_NAME_SIMPLE;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,7 +13,7 @@ import site.morn.bean.AnnotationFeature;
 import site.morn.bean.BeanCache;
 import site.morn.bean.BeanHolder;
 import site.morn.bean.FunctionHolder;
-import site.morn.constant.ApplicationConstant.Cache;
+import site.morn.constant.ApplicationConstants.Caches;
 import site.morn.util.AnnotationFeatureUtils;
 
 /**
@@ -36,7 +36,7 @@ public class SimpleBeanCache implements BeanCache {
     holders.add(holder);
   }
 
-  @Cacheable(value = Cache.BEAN_DEFAULT, key = "#limitIdentify.toString()")
+  @Cacheable(value = Caches.BEAN_DEFAULT, key = "#limitIdentify.toString()")
   @Override
   public <T> List<T> beans(Class<T> suitType, AnnotationFeature limitIdentify) {
     Stream<BeanHolder<T>> stream = beanHolderStream(suitType, limitIdentify);
@@ -44,7 +44,7 @@ public class SimpleBeanCache implements BeanCache {
     return stream.map(BeanHolder::getBean).collect(Collectors.toList());
   }
 
-  @Cacheable(value = Cache.BEAN_HOLDER, key = "#limitIdentify.toString()")
+  @Cacheable(value = Caches.BEAN_HOLDER, key = "#limitIdentify.toString()")
   @Override
   public <T> List<BeanHolder<T>> beanHolders(Class<T> suitType,
       AnnotationFeature limitIdentify) {
@@ -77,7 +77,7 @@ public class SimpleBeanCache implements BeanCache {
     return holders.stream().filter(
         holder -> AnnotationFeatureUtils.isInstance(holder.getBean().getClass(), limitType))
         .filter(holder -> AnnotationFeatureUtils.isSuitable(holder, limitIdentify))
-        .map(beanHolder -> (BeanHolder<T>) beanHolder);
+        .map(BeanHolder.class::cast);
   }
 
   /**

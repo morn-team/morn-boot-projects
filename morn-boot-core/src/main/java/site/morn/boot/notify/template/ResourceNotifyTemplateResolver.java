@@ -1,6 +1,6 @@
 package site.morn.boot.notify.template;
 
-import static site.morn.constant.ApplicationConstant.TemplateType.RESOURCE;
+import static site.morn.constant.ApplicationConstants.TemplateTypes.RESOURCE;
 
 import site.morn.bean.annotation.Target;
 import site.morn.boot.template.TemplateProperties;

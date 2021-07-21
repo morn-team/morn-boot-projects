@@ -1,6 +1,6 @@
 package site.morn.boot.message.rocket;
 
-import static site.morn.boot.message.rocket.RocketConstant.ROCKET;
+import static site.morn.boot.message.rocket.RocketConstants.ROCKET;
 
 import site.morn.boot.message.BroadcastMessage;
 import site.morn.boot.message.BroadcastMessageConverter;

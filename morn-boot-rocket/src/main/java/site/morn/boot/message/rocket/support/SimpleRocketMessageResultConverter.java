@@ -3,7 +3,7 @@ package site.morn.boot.message.rocket.support;
 import static site.morn.boot.message.constant.MessageConstant.MessageResultStatus.FAILURE;
 import static site.morn.boot.message.constant.MessageConstant.MessageResultStatus.SUCCESS;
 import static site.morn.boot.message.constant.MessageConstant.MessageResultStatus.UNKNOWN;
-import static site.morn.boot.message.rocket.RocketConstant.ROCKET;
+import static site.morn.boot.message.rocket.RocketConstants.ROCKET;
 
 import org.apache.rocketmq.client.producer.SendResult;
 import site.morn.bean.annotation.Tag;

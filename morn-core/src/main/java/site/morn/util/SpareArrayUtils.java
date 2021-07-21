@@ -13,7 +13,7 @@ import lombok.experimental.UtilityClass;
  * @since 1.0.2, 2019/5/9
  */
 @UtilityClass
-public final class SpareArrayUtils {
+public class SpareArrayUtils {
 
   /**
    * The index value when an element is not found in a list or array: {@code -1}. This value is
@@ -57,7 +57,7 @@ public final class SpareArrayUtils {
    * Double.valueOf(Math.PI))</code>, there is no real advantage when compared to
    * <code>new Number[] {Integer.valueOf(42), Double.valueOf(Math.PI)}</code>.
    *
-   * @param <T> the array's element type
+   * @param <T>   the array's element type
    * @param items the varargs array items, null allowed
    * @return the array, not null unless a null array is passed in
    * @since 3.0
@@ -104,7 +104,7 @@ public final class SpareArrayUtils {
    *
    * <p>This method returns {@link #INDEX_NOT_FOUND} ({@code -1}) for a {@code null} input array.
    *
-   * @param array the array to search through for the object, may be {@code null}
+   * @param array        the array to search through for the object, may be {@code null}
    * @param objectToFind the object to find, may be {@code null}
    * @return the index of the object within the array, {@link #INDEX_NOT_FOUND} ({@code -1}) if not
    * found or {@code null} array input
@@ -121,9 +121,9 @@ public final class SpareArrayUtils {
    * <p>A negative startIndex is treated as zero. A startIndex larger than the array
    * length will return {@link #INDEX_NOT_FOUND} ({@code -1}).
    *
-   * @param array the array to search through for the object, may be {@code null}
+   * @param array        the array to search through for the object, may be {@code null}
    * @param objectToFind the object to find, may be {@code null}
-   * @param startIndex the index to start searching at
+   * @param startIndex   the index to start searching at
    * @return the index of the object within the array starting at the index, {@link
    * #INDEX_NOT_FOUND} ({@code -1}) if not found or {@code null} array input
    */
@@ -144,7 +144,7 @@ public final class SpareArrayUtils {
    *
    * <p>The method returns {@code false} if a {@code null} array is passed in.
    *
-   * @param array the array to search through
+   * @param array        the array to search through
    * @param objectToFind the object to find
    * @return {@code true} if the array contains the object
    */
@@ -280,8 +280,8 @@ public final class SpareArrayUtils {
    * 获取一个目标类型的子类值
    *
    * @param array 源数组
-   * @param cls 父类
-   * @param <T> 父类类型
+   * @param cls   父类
+   * @param <T>   父类类型
    * @return 目标类型的子类
    */
   @SuppressWarnings("unchecked")

@@ -32,13 +32,22 @@ public class TestAdapterBeans {
   }
 
   /**
+   * 测试适配器接口
+   */
+  public interface TestAdapter extends BeanAdapter<Integer> {
+
+    @Override
+    Integer adaption(Integer source);
+  }
+
+  /**
    * 加法适配器
    *
    * @apiNote 加1
    */
   @Tag({ARITHMETIC, ADD})
   @Component
-  public static class AdditionOneAdapter implements BeanAdapter<Integer> {
+  public static class AdditionOneAdapter implements TestAdapter {
 
     @Override
     public Integer adaption(Integer source) {
@@ -54,7 +63,7 @@ public class TestAdapterBeans {
   @Tag(ARITHMETIC)
   @Target(Sub.class)
   @Component
-  public static class SubtractionTwoAdapter implements BeanAdapter<Integer> {
+  public static class SubtractionTwoAdapter implements TestAdapter {
 
     @Override
     public Integer adaption(Integer source) {

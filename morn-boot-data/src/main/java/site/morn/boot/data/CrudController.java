@@ -19,7 +19,7 @@ import site.morn.data.group.Put;
 import site.morn.data.group.Search;
 import site.morn.data.group.Update;
 import site.morn.log.OperateAction;
-import site.morn.log.OperateAction.Actions;
+import site.morn.log.OperateAction.ActionConstants;
 import site.morn.rest.RestMessage;
 import site.morn.rest.RestModel;
 import site.morn.rest.RestPage;
@@ -58,7 +58,7 @@ public class CrudController<T, I extends Serializable, S extends CrudService<T, 
    * 新增
    */
   @ApiOperation("新增")
-  @OperateAction(Actions.ADD)
+  @OperateAction(ActionConstants.ADD)
   @PostMapping
   public RestMessage add(@Validated(Add.class) @RequestBody RestModel<T> restModel) {
     T model = service().add(restModel);
@@ -69,7 +69,7 @@ public class CrudController<T, I extends Serializable, S extends CrudService<T, 
    * 修改
    */
   @ApiOperation("修改")
-  @OperateAction(Actions.UPDATE)
+  @OperateAction(ActionConstants.UPDATE)
   @PutMapping
   public RestMessage update(
       @Validated({Update.class, Put.class}) @RequestBody RestModel<T> restModel) {
@@ -95,7 +95,7 @@ public class CrudController<T, I extends Serializable, S extends CrudService<T, 
    */
   @ApiOperation("删除")
   @ApiImplicitParam(name = "id", value = "主键")
-  @OperateAction(Actions.DELETE)
+  @OperateAction(ActionConstants.DELETE)
   @DeleteMapping("/{id}")
   public RestMessage delete(@Validated({Delete.class}) @PathVariable I id) {
     service().delete(id);

@@ -5,7 +5,7 @@ import site.morn.boot.netty.NettyClient;
 import site.morn.boot.netty.adapter.NettyClientProducer;
 import site.morn.boot.netty.adapter.TerminalChannelAdapters.TerminalChannelPoolHandler;
 import site.morn.boot.netty.config.NettyClientConfig;
-import site.morn.boot.netty.constant.TerminalType;
+import site.morn.boot.netty.constant.TerminalTypeConstants;
 
 /**
  * 远程连接客户端生产者
@@ -23,7 +23,7 @@ public class RemoteAddressClientProducer implements
     clientConfig.setServerHost(identify.getRemoteHost());
     clientConfig.setServerPort(identify.getRemotePort());
     TerminalChannelPoolHandler channelPoolHandler = new TerminalChannelPoolHandler(
-        TerminalType.CLIENT);
+        TerminalTypeConstants.CLIENT);
     return new NettyClient(clientConfig, channelPoolHandler);
   }
 }

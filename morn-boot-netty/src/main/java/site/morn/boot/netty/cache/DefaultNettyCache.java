@@ -1,6 +1,6 @@
 package site.morn.boot.netty.cache;
 
-import static site.morn.constant.ApplicationConstant.Cache.CACHE_MANAGER_NAME_SIMPLE;
+import static site.morn.constant.ApplicationConstants.Caches.CACHE_MANAGER_NAME_SIMPLE;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelId;
@@ -14,7 +14,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import site.morn.bean.annotation.Objective;
-import site.morn.constant.ApplicationConstant.Cache;
+import site.morn.constant.ApplicationConstants.Caches;
 import site.morn.util.GenericUtils;
 
 /**
@@ -25,7 +25,7 @@ import site.morn.util.GenericUtils;
  */
 @Slf4j
 @Objective
-@CacheConfig(cacheNames = Cache.NETTY)
+@CacheConfig(cacheNames = Caches.NETTY)
 public class DefaultNettyCache implements NettyCache {
 
   @Override
@@ -39,20 +39,20 @@ public class DefaultNettyCache implements NettyCache {
   }
 
   @Override
-  @Cacheable(cacheNames = Cache.NETTY_CHANNEL_ID, key = "#identify.toString()")
+  @Cacheable(cacheNames = Caches.NETTY_CHANNEL_ID, key = "#identify.toString()")
   public ChannelId getChannelId(ChannelIdentify identify) {
     log.info("NettyServer|NoChannelId at {}", getChannelPath(identify));
     return null;
   }
 
   @Override
-  @Cacheable(cacheNames = Cache.NETTY_GROUP, cacheManager = CACHE_MANAGER_NAME_SIMPLE)
+  @Cacheable(cacheNames = Caches.NETTY_GROUP, cacheManager = CACHE_MANAGER_NAME_SIMPLE)
   public ChannelGroup getGroup(String name) {
     return new DefaultChannelGroup(name, GlobalEventExecutor.INSTANCE);
   }
 
   @Override
-  @Cacheable(cacheNames = Cache.NETTY_CHANNEL_IDENTIFY, key = "#channelId.asShortText()")
+  @Cacheable(cacheNames = Caches.NETTY_CHANNEL_IDENTIFY, key = "#channelId.asShortText()")
   public ChannelIdentify getIdentify(ChannelId channelId) {
     log.info("NettyServer|NoChannelIdentify with {}", channelId.asShortText());
     return null;
@@ -75,7 +75,7 @@ public class DefaultNettyCache implements NettyCache {
   }
 
   @Override
-  @CachePut(cacheNames = Cache.NETTY_CHANNEL_ID, key = "#identify.toString()")
+  @CachePut(cacheNames = Caches.NETTY_CHANNEL_ID, key = "#identify.toString()")
   public ChannelId putChannelId(ChannelIdentify identify, ChannelId channelId) {
     log.info("NettyServer|UpdateChannelId：{} at {}.{}", channelId, identify.getBusinessGroup(),
         identify.getBusinessKey());
@@ -83,7 +83,7 @@ public class DefaultNettyCache implements NettyCache {
   }
 
   @Override
-  @CachePut(cacheNames = Cache.NETTY_CHANNEL_IDENTIFY, key = "#channelId.asShortText()")
+  @CachePut(cacheNames = Caches.NETTY_CHANNEL_IDENTIFY, key = "#channelId.asShortText()")
   public ChannelIdentify putIdentify(ChannelId channelId, ChannelIdentify identify) {
     log.info("NettyServer|UpdateChannelIdentify：{} at {}.{}", channelId, identify.getBusinessGroup(),
         identify.getBusinessKey());
@@ -144,7 +144,7 @@ public class DefaultNettyCache implements NettyCache {
    * @param identify 通道标识
    */
   @Override
-  @CacheEvict(cacheNames = Cache.NETTY_CHANNEL_ID, key = "#identify.toString()")
+  @CacheEvict(cacheNames = Caches.NETTY_CHANNEL_ID, key = "#identify.toString()")
   public <T extends NettyCache> T removeChannelId(ChannelIdentify identify) {
     log.info("NettyServer|RemoveChannelId at {}.{}", identify.getBusinessGroup(),
         identify.getBusinessKey());
@@ -157,7 +157,7 @@ public class DefaultNettyCache implements NettyCache {
    * @param channelId 通道编号
    */
   @Override
-  @CacheEvict(cacheNames = Cache.NETTY_CHANNEL_IDENTIFY, key = "#channelId.asShortText()")
+  @CacheEvict(cacheNames = Caches.NETTY_CHANNEL_IDENTIFY, key = "#channelId.asShortText()")
   public <T extends NettyCache> T removeIdentify(ChannelId channelId) {
     log.info("NettyServer|RemoveChannelIdentify at {}", channelId.asShortText());
     return GenericUtils.castFrom(this);

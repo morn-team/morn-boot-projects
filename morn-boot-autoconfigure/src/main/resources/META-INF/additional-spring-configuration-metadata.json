@@ -7,106 +7,10 @@
       "defaultValue": true
     },
     {
-      "name": "morn.exception.prefix",
-      "type": "java.lang.String",
-      "description": "The default prefix for Exception Message.",
-      "defaultValue": "error"
-    },
-    {
-      "name": "morn.exception.default-code",
-      "type": "java.lang.String",
-      "description": "The default code for Exception Message.",
-      "defaultValue": "failure"
-    },
-    {
-      "name": "morn.exception.solution-suffix",
-      "type": "java.lang.String",
-      "description": "The default solution suffix for Exception Message.",
-      "defaultValue": "solution"
-    },
-    {
-      "name": "morn.exception.message-suffix",
-      "type": "java.lang.String",
-      "description": "The default message suffix for Exception Message.",
-      "defaultValue": "message"
-    },
-    {
-      "name": "morn.exception-aspect.enabled",
-      "type": "java.lang.Boolean",
-      "description": "Enable exception global aspect features for the application.",
-      "defaultValue": false
-    },
-    {
-      "name": "morn.exception-interpreter.enabled",
-      "type": "java.lang.Boolean",
-      "description": "Enable exception interpreter features for the application.",
-      "defaultValue": false
-    },
-    {
-      "name": "morn.exception-interpreter.validate.enabled",
-      "type": "java.lang.Boolean",
-      "description": "Enable validate exception interpreter features for the application.",
-      "defaultValue": false
-    },
-    {
-      "name": "morn.exception-interpreter.shiro.enabled",
-      "type": "java.lang.Boolean",
-      "description": "Enable Shiro exception interpreter features for the application.",
-      "defaultValue": false
-    },
-    {
-      "name": "morn.operate.enabled",
-      "type": "java.lang.Boolean",
-      "description": "Enable operation log features for the application.",
-      "defaultValue": false
-    },
-    {
-      "name": "morn.rest.prefix",
-      "type": "java.lang.String",
-      "description": "The default prefix for REST Message.",
-      "defaultValue": "rest"
-    },
-    {
-      "name": "morn.rest.success-code",
-      "type": "java.lang.String",
-      "description": "The default success code for REST Message.",
-      "defaultValue": "success"
-    },
-    {
-      "name": "morn.rest.failure-code",
-      "type": "java.lang.String",
-      "description": "The default failure code for REST Message.",
-      "defaultValue": "failure"
-    },
-    {
-      "name": "morn.rest.message-suffix",
-      "type": "java.lang.String",
-      "description": "The default message suffix for REST Message.",
-      "defaultValue": "message"
-    },
-    {
       "name": "morn.translator.enabled",
       "type": "java.lang.Boolean",
       "description": "Enable translator features for the application.",
       "defaultValue": true
-    },
-    {
-      "name": "morn.translator.language",
-      "type": "java.lang.String",
-      "description": "The default i18n language.",
-      "defaultValue": "zh"
-    },
-    {
-      "name": "morn.translator.country",
-      "type": "java.lang.String",
-      "description": "The default i18n country.",
-      "defaultValue": ""
-    },
-    {
-      "name": "morn.validator.enabled",
-      "type": "java.lang.Boolean",
-      "description": "Enable validator features for the application.",
-      "defaultValue": false
     }
   ]
 }

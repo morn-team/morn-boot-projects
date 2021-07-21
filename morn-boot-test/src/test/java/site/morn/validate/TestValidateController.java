@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import site.morn.data.group.Add;
 import site.morn.data.group.Update;
 import site.morn.rest.RestModel;
+import site.morn.rest.annotation.RestResponse;
 import site.morn.test.TestUser;
 
 /**
@@ -17,6 +18,7 @@ import site.morn.test.TestUser;
  * @author timely-rain
  * @since 1.0.2, 2019/5/12
  */
+@RestResponse
 @RestController
 @RequestMapping("test/validate")
 public class TestValidateController {

@@ -14,6 +14,7 @@ import site.morn.test.TestAnnotationBeans.Cat;
 import site.morn.test.TestAnnotationBeans.Color;
 import site.morn.test.TestAnnotationBeans.Dog;
 import site.morn.test.TestAnnotationBeans.Food;
+import site.morn.test.TestAnnotationBeans.Mammal;
 import site.morn.test.TestAnnotationBeans.Toy;
 
 /**
@@ -64,7 +65,7 @@ public class BeanCachesTest {
 
   @Test
   public void tagBeans() { // bean test
-    List<Object> small = BeanCaches.tagBeans(Object.class, "small");
+    List<Mammal> small = BeanCaches.tagBeans(Mammal.class, "small");
     Assert.assertEquals("tagBeans", 3, small.size());
   }
 

@@ -1,7 +1,7 @@
 package site.morn.boot.notify;
 
-import static site.morn.constant.ApplicationConstant.Notify.ANNOTATION_NOTIFY_META_INITIAL_ADAPTER_NAME;
-import static site.morn.constant.ApplicationConstant.Notify.NOTIFY_LOG_PROCESSOR_NAME;
+import static site.morn.constant.ApplicationConstants.Notifies.ANNOTATION_NOTIFY_META_INITIAL_ADAPTER_NAME;
+import static site.morn.constant.ApplicationConstants.Notifies.NOTIFY_LOG_PROCESSOR_NAME;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

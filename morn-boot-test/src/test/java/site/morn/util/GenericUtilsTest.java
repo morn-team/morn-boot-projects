@@ -26,9 +26,16 @@ import site.morn.test.TestAnnotationBeans.RagDoll;
 public class GenericUtilsTest {
 
   @Test
-  public void testCatToCat() {
+  public void testCatToCat1() {
     Cat source = new RagDoll();
     RagDoll target = GenericUtils.castFrom(source);
+    Assert.assertNotNull(target);
+  }
+
+  @Test
+  public void testCatToCat2() {
+    Cat source = new RagDoll();
+    RagDoll target = GenericUtils.castFrom(source, RagDoll.class);
     Assert.assertNotNull(target);
   }
 
@@ -38,7 +45,6 @@ public class GenericUtilsTest {
     try {
       Dog target = GenericUtils.castFrom(source);
       Assert.assertNotNull(target);
-      Assert.assertEquals(source, target);
       Assert.fail();
     } catch (Exception e) {
       log.error(e.getMessage(), e);
@@ -101,7 +107,8 @@ public class GenericUtilsTest {
     private String name;
 
     @Override
-    protected CloneableObject clone() {
+    protected CloneableObject clone() throws CloneNotSupportedException {
+      super.clone();
       CloneableObject cloneableObject = new CloneableObject();
       cloneableObject.setName(name);
       return cloneableObject;

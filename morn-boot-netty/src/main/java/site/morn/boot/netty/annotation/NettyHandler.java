@@ -5,7 +5,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import site.morn.boot.netty.constant.HandlerType;
+import site.morn.boot.netty.constant.HandlerTypeConstants;
 
 /**
  * Netty处理者注解
@@ -21,7 +21,7 @@ public @interface NettyHandler {
   /**
    * 处理类型
    *
-   * @see HandlerType
+   * @see HandlerTypeConstants
    */
   String value();
 }

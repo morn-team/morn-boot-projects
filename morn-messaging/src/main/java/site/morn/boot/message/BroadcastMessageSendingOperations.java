@@ -1,7 +1,7 @@
 package site.morn.boot.message;
 
-import org.springframework.util.concurrent.ListenableFuture;
-import site.morn.task.ListenableFutureDispatcher;
+import java.util.concurrent.CompletableFuture;
+import site.morn.task.TaskExecutors;
 
 /**
  * 消息发送操作
@@ -17,8 +17,8 @@ public interface BroadcastMessageSendingOperations {
    * @param message 消息
    * @return 发送结果
    */
-  default ListenableFuture<MessageResult> asyncSend(BroadcastMessage<?> message) {
-    return ListenableFutureDispatcher.submit(() -> syncSend(message));
+  default CompletableFuture<MessageResult> asyncSend(BroadcastMessage<?> message) {
+    return TaskExecutors.submit(() -> syncSend(message));
   }
 
   /**

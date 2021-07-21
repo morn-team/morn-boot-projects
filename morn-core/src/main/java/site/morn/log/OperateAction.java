@@ -1,7 +1,5 @@
 package site.morn.log;
 
-import static site.morn.log.OperateModes.SIMPLE;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
@@ -28,14 +26,6 @@ public @interface OperateAction {
   String value();
 
   /**
-   * 模式
-   * <p>用于区分如何解析、处理日志</p>
-   *
-   * @see OperateModes
-   */
-  String mode() default SIMPLE;
-
-  /**
    * 操作参数
    */
   String[] args() default {};
@@ -51,7 +41,7 @@ public @interface OperateAction {
   String[] excludeNames() default {};
 
   @UtilityClass
-  class Actions {
+  class ActionConstants {
 
     /**
      * 新增

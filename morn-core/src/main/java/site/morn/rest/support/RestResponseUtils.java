@@ -58,18 +58,6 @@ public class RestResponseUtils {
   /**
    * 获取REST响应类
    *
-   * @param method      REST方法
-   * @param globalClass 全局响应类
-   * @return REST响应类
-   */
-  public Class<?> getResponseClass(Method method, Class<?> globalClass) {
-    RestResponse restResponse = getRestResponse(method);
-    return getResponseClass(restResponse, globalClass);
-  }
-
-  /**
-   * 获取REST响应类
-   *
    * @param restResponse REST响应注解
    * @param globalClass  全局响应类
    * @return REST响应类

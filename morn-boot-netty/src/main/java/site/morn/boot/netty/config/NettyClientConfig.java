@@ -1,7 +1,7 @@
 package site.morn.boot.netty.config;
 
-import static site.morn.boot.netty.config.NettyConfig.DEFAULT_HOST;
-import static site.morn.boot.netty.config.NettyConfig.DEFAULT_PORT;
+import static site.morn.boot.netty.config.NettyConfigConstants.DEFAULT_HOST;
+import static site.morn.boot.netty.config.NettyConfigConstants.DEFAULT_PORT;
 
 import lombok.Getter;
 import lombok.Setter;

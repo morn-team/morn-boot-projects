@@ -1,6 +1,6 @@
 package site.morn.boot.message.rocket.support;
 
-import static site.morn.boot.message.rocket.RocketConstant.ROCKET;
+import static site.morn.boot.message.rocket.RocketConstants.ROCKET;
 
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;

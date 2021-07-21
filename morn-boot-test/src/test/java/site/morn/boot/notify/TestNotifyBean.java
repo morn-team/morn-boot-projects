@@ -1,6 +1,6 @@
 package site.morn.boot.notify;
 
-import static site.morn.constant.ApplicationConstant.TemplateType.RESOURCE;
+import static site.morn.constant.ApplicationConstants.TemplateTypes.RESOURCE;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

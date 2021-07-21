@@ -1,5 +1,7 @@
 package site.morn.log;
 
+import site.morn.translate.Translator;
+
 /**
  * 操作日志记录模式
  *
@@ -9,10 +11,18 @@ package site.morn.log;
 public class OperateModes {
 
   /**
-   * 简易记录
-   * <p>默认使用简易记录，并且内置的日志切面也是基于简易记录构建日志的</p>
+   * 简易模式
+   * <p>默认使用简易模式构建日志</p>
    */
   public static final String SIMPLE = "simple";
+
+  /**
+   * 国际化模式
+   * <p>基于国际化组件构建日志</p>
+   *
+   * @see Translator
+   */
+  public static final String I18N = "i18n";
 
   /**
    * 详细记录

@@ -1,6 +1,6 @@
 package site.morn.notify.support;
 
-import static site.morn.constant.ApplicationConstant.Notify.NOTIFY_RECEIVER_VALUE;
+import static site.morn.constant.ApplicationConstants.Notifies.NOTIFY_RECEIVER_VALUE;
 
 import java.util.ArrayList;
 import java.util.List;
