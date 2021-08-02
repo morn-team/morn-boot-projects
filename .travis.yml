@@ -19,3 +19,6 @@ notifications:
   email:
     on_failure: always
     on_success: never
+cache:
+  directories:
+  - $HOME/.m2
