@@ -21,7 +21,7 @@ import org.springframework.util.StringUtils;
 @Getter
 @Setter
 @MappedSuperclass
-public abstract class TreeEntity<M extends TreeEntity<M, I>, I extends Serializable> {
+public class TreeEntity<M extends TreeEntity<M, I>, I extends Serializable> {
 
   /**
    * 主键
@@ -35,12 +35,6 @@ public abstract class TreeEntity<M extends TreeEntity<M, I>, I extends Serializa
    */
   @Column
   protected I parentId;
-
-  /**
-   * 名称
-   */
-  @Column
-  protected String name;
 
   /**
    * 层级
@@ -66,7 +60,7 @@ public abstract class TreeEntity<M extends TreeEntity<M, I>, I extends Serializa
   @PrePersist
   public void beforeSave() {
     generateParentId();
-    generateLevelCode();
+    generateSearchCode();
   }
 
   /**
@@ -82,14 +76,14 @@ public abstract class TreeEntity<M extends TreeEntity<M, I>, I extends Serializa
   /**
    * 生成检索编码
    */
-  private void generateLevelCode() {
+  private void generateSearchCode() {
     if (!StringUtils.isEmpty(levelCode)) {
       return;
     }
     if (Objects.isNull(parent) || StringUtils.isEmpty(parent.levelCode)) {
       levelCode = String.format("|%s|", id);
     } else {
-      levelCode = String.format("%s%s|", parent.levelCode, id);
+      levelCode = String.format("%s|%s|", parent.levelCode, id);
     }
   }
 }
