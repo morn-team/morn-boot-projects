@@ -4,8 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import site.morn.boot.web.Responses;
 import site.morn.boot.rest.RestBuilders;
+import site.morn.boot.web.Responses;
 import site.morn.rest.RestMessage;
 
 /**
@@ -20,6 +20,6 @@ public class RestAuthenticationSuccessHandler implements AuthenticationSuccessHa
   public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
       Authentication authentication) {
     RestMessage message = RestBuilders.successMessage("login.success");
-    Responses.standard(response).respond(message);
+    Responses.from(response).json().respond(message);
   }
 }

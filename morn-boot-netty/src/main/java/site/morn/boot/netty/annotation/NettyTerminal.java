@@ -5,7 +5,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import site.morn.boot.netty.constant.TerminalType;
+import site.morn.boot.netty.constant.TerminalTypeConstants;
 
 /**
  * Netty终端注解
@@ -21,7 +21,7 @@ public @interface NettyTerminal {
   /**
    * 终端类型
    *
-   * @see TerminalType
+   * @see TerminalTypeConstants
    */
   String value();
 }

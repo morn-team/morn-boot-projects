@@ -13,7 +13,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  * @author timely-rain
  * @since 1.0.0, 2018/12/27
  */
-public final class Servlets {
+public class Servlets {
 
   private Servlets() {
   }
@@ -43,6 +43,13 @@ public final class Servlets {
   }
 
   /**
+   * 获取请求工具类
+   */
+  public static Requests requests() {
+    return Requests.from(request());
+  }
+
+  /**
    * 获取响应对象
    *
    * @return 响应对象
@@ -54,5 +61,12 @@ public final class Servlets {
       return null;
     }
     return attributes.getResponse();
+  }
+
+  /**
+   * 获取响应工具类
+   */
+  public static Responses responses() {
+    return Responses.from(response());
   }
 }

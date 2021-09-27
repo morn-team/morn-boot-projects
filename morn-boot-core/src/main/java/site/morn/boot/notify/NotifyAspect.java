@@ -1,7 +1,7 @@
 package site.morn.boot.notify;
 
-import static site.morn.constant.ApplicationConstant.Notify.BUILTIN_NOTIFY_ANNOTATION;
-import static site.morn.constant.ApplicationConstant.Notify.BUILTIN_NOTIFY_KEY;
+import static site.morn.constant.ApplicationConstants.Notifies.BUILTIN_NOTIFY_ANNOTATION;
+import static site.morn.constant.ApplicationConstants.Notifies.BUILTIN_NOTIFY_KEY;
 
 import java.util.List;
 import java.util.Objects;

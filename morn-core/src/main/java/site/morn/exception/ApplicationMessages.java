@@ -15,6 +15,11 @@ import site.morn.translate.Translators;
 public class ApplicationMessages {
 
   /**
+   * 默认异常编码
+   */
+  public static final String FAILURE = "failure";
+
+  /**
    * 翻译载体
    */
   private final Transfer transfer;
@@ -32,22 +37,26 @@ public class ApplicationMessages {
   /**
    * 构建应用消息
    *
-   * @param code 消息编码
+   * @param code    消息编码
    * @param message 消息内容
    * @return 应用消息
+   * @deprecated {@link #buildMessage(String, String)}
    */
+  @Deprecated
   public static ApplicationMessage build(String code, String message) {
-    return buildMessage(code, message, "");
+    return buildMessage(code, message, null);
   }
 
   /**
    * 构建应用消息
    *
-   * @param code 消息编码
-   * @param message 消息内容
+   * @param code     消息编码
+   * @param message  消息内容
    * @param solution 解决方案
    * @return 应用消息
+   * @deprecated {@link #buildMessage(String, String, String)}
    */
+  @Deprecated
   public static ApplicationMessage build(String code, String message, String solution) {
     return buildMessage(code, message, solution);
   }
@@ -55,7 +64,17 @@ public class ApplicationMessages {
   /**
    * 构建应用异常
    *
-   * @param code 消息编码
+   * @param message 消息内容
+   * @return 应用消息
+   */
+  public static ApplicationException buildException(String message) {
+    return buildMessage(null, message, null).exception();
+  }
+
+  /**
+   * 构建应用异常
+   *
+   * @param code    消息编码
    * @param message 消息内容
    * @return 应用消息
    */
@@ -64,27 +83,48 @@ public class ApplicationMessages {
   }
 
   /**
-   * 构建应用消息
-   *
-   * @param code 消息编码
-   * @param message 消息内容
-   * @param solution 解决方案
-   * @return 应用消息
-   */
-  public static ApplicationMessage buildMessage(String code, String message, String solution) {
-    return withMessage(code, message).solution(solution).build();
-  }
-
-  /**
    * 构建应用异常
    *
-   * @param code 消息编码
-   * @param message 消息内容
+   * @param code     消息编码
+   * @param message  消息内容
    * @param solution 解决方案
    * @return 应用消息
    */
   public static ApplicationException buildException(String code, String message, String solution) {
     return buildMessage(code, message, solution).exception();
+  }
+
+  /**
+   * 构建应用消息
+   *
+   * @param message 消息内容
+   * @return 应用消息
+   */
+  public static ApplicationMessage buildMessage(String message) {
+    return buildMessage(null, message, null);
+  }
+
+  /**
+   * 构建应用消息
+   *
+   * @param code    消息编码
+   * @param message 消息内容
+   * @return 应用消息
+   */
+  public static ApplicationMessage buildMessage(String code, String message) {
+    return buildMessage(code, message, null);
+  }
+
+  /**
+   * 构建应用消息
+   *
+   * @param code     消息编码
+   * @param message  消息内容
+   * @param solution 解决方案
+   * @return 应用消息
+   */
+  public static ApplicationMessage buildMessage(String code, String message, String solution) {
+    return withMessage(code, message).solution(solution).build();
   }
 
   /**
@@ -111,9 +151,9 @@ public class ApplicationMessages {
   /**
    * 翻译应用异常，支持缺省值
    *
-   * @param code 消息编码
+   * @param code           消息编码
    * @param defaultExpress 默认消息表达式
-   * @param args 消息参数
+   * @param args           消息参数
    * @return 应用异常
    */
   public static ApplicationException translateDefaultException(String code, String defaultExpress,
@@ -124,9 +164,9 @@ public class ApplicationMessages {
   /**
    * 翻译应用消息，支持缺省值
    *
-   * @param code 消息编码
+   * @param code           消息编码
    * @param defaultExpress 默认消息表达式
-   * @param args 消息参数
+   * @param args           消息参数
    * @return 应用消息
    */
   public static ApplicationMessage translateDefaultMessage(String code, String defaultExpress,
@@ -143,19 +183,21 @@ public class ApplicationMessages {
    * @return 应用消息构建器
    */
   public static ApplicationMessages withTransfer(String code, Object... args) {
-    return builder().code(code).arguments(args);
+    String c = StringUtils.isEmpty(code) ? FAILURE : code;
+    return builder().code(c).arguments(args);
   }
 
   /**
    * 生成构建器，用于直接生成应用消息
    *
-   * @param code 消息编码
+   * @param code    消息编码
    * @param message 消息内容
    * @return 应用消息构建器
    */
   public static ApplicationMessages withMessage(String code, String message) {
-    String s = StringUtils.isEmpty(message) ? code : message;
-    return builder().code(code).message(s);
+    String c = StringUtils.isEmpty(code) ? FAILURE : code;
+    String m = StringUtils.isEmpty(message) ? code : message;
+    return builder().code(c).message(m);
   }
 
   /**

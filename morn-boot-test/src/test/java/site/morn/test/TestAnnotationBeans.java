@@ -28,7 +28,7 @@ public class TestAnnotationBeans {
   @Color("yellow")
   @Tag("big")
   @Target(Toy.class)
-  public static class Dog {
+  public static class Dog implements Mammal {
 
     @Function
     public String eat(String food) {
@@ -87,7 +87,7 @@ public class TestAnnotationBeans {
   @Animal
   @Tag("small")
   @Target(Food.class)
-  public static class Rabbit {
+  public static class Rabbit implements Mammal {
 
     @Function
     public void eat(String food) {
@@ -115,7 +115,11 @@ public class TestAnnotationBeans {
     String value() default "";
   }
 
-  public interface Cat {
+  public interface Mammal {
+
+  }
+
+  public interface Cat extends Mammal {
 
   }
 

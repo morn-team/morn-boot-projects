@@ -14,7 +14,7 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import site.morn.boot.netty.adapter.TerminalChannelAdapters.TerminalChannelInitializer;
 import site.morn.boot.netty.config.NettyServerProperties;
-import site.morn.boot.netty.constant.TerminalType;
+import site.morn.boot.netty.constant.TerminalTypeConstants;
 
 /**
  * Netty服务端
@@ -73,7 +73,7 @@ public class NettyServer {
         .group(boss, work)
         .channel(NioServerSocketChannel.class)
         .handler(new LoggingHandler(LogLevel.INFO))
-        .childHandler(new TerminalChannelInitializer(TerminalType.SERVER));
+        .childHandler(new TerminalChannelInitializer(TerminalTypeConstants.SERVER));
 
     if (properties.isAutoStart()) {
       start();

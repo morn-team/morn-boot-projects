@@ -23,10 +23,19 @@ public class TestProcessorBeans {
 
   }
 
+  /**
+   * 测试处理者接口
+   */
+  public interface TestProcessor extends BeanProcessor<StringBuilder> {
+
+    @Override
+    void handle(StringBuilder source);
+  }
+
   @Order(1)
   @Component
   @Tag({BEAN_PROCESSOR, HANDLE_ONE})
-  public static class OneProcessor implements BeanProcessor<StringBuilder> {
+  public static class OneProcessor implements TestProcessor {
 
     @Override
     public void handle(StringBuilder source) {
@@ -38,7 +47,7 @@ public class TestProcessorBeans {
   @Component
   @Tag(BEAN_PROCESSOR)
   @Target(ProcessorTwo.class)
-  public static class TwoProcessor implements BeanProcessor<StringBuilder> {
+  public static class TwoProcessor implements TestProcessor {
 
     @Override
     public void handle(StringBuilder source) {

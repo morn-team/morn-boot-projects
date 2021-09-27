@@ -17,7 +17,7 @@ import site.morn.cipher.AlgorithmDecryption;
 import site.morn.cipher.AlgorithmEncryption;
 import site.morn.cipher.AlgorithmMatcher;
 import site.morn.cipher.annotation.AlgorithmName;
-import site.morn.cipher.support.AlgorithmNames;
+import site.morn.cipher.support.AlgorithmNameConstants;
 import site.morn.cipher.support.SimpleAlgorithmHolder;
 import site.morn.cipher.util.Ciphers;
 import site.morn.util.SpareCipherUtils;
@@ -54,7 +54,7 @@ public class AESAlgorithms {
    * AES算法
    */
   @Slf4j
-  @AlgorithmName(AlgorithmNames.AES)
+  @AlgorithmName(AlgorithmNameConstants.AES)
   public static class AESAlgorithm extends SimpleAlgorithmHolder implements AlgorithmDecryption,
       AlgorithmEncryption, AlgorithmMatcher {
 
@@ -111,7 +111,7 @@ public class AESAlgorithms {
      */
     protected final SecureRandom secureRandom;
 
-    public AbstractAESAlgorithm(CipherProperties properties) {
+    protected AbstractAESAlgorithm(CipherProperties properties) {
       this.properties = properties;
       this.secureRandom = new SecureRandom();
     }

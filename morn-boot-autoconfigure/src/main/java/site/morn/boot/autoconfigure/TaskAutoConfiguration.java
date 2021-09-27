@@ -9,8 +9,8 @@ import org.springframework.boot.task.TaskExecutorBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.AsyncListenableTaskExecutor;
-import site.morn.task.ListenableFuturePublisher;
-import site.morn.task.SimpleListenableFuturePublisher;
+import site.morn.task.CompletableTaskExecutor;
+import site.morn.task.SimpleCompletableTaskExecutor;
 
 /**
  * 异步任务自动化配置
@@ -27,8 +27,8 @@ public class TaskAutoConfiguration {
    */
   @Bean
   @ConditionalOnMissingBean
-  public ListenableFuturePublisher taskPublisher(
+  public CompletableTaskExecutor taskPublisher(
       @Qualifier(APPLICATION_TASK_EXECUTOR_BEAN_NAME) AsyncListenableTaskExecutor taskExecutor) {
-    return new SimpleListenableFuturePublisher(taskExecutor);
+    return new SimpleCompletableTaskExecutor(taskExecutor);
   }
 }

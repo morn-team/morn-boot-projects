@@ -1,6 +1,6 @@
 package site.morn.boot.autoconfigure;
 
-import static site.morn.constant.ApplicationConstant.Cache.CACHE_MANAGER_NAME_PRIMARY;
+import static site.morn.constant.ApplicationConstants.Caches.CACHE_MANAGER_NAME_PRIMARY;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Qualifier;

@@ -1,6 +1,6 @@
 package site.morn.boot.message;
 
-import org.springframework.util.concurrent.ListenableFuture;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * 消息解析操作
@@ -16,7 +16,7 @@ public interface BroadcastMessageResolvingOperations<T> {
    * @param message 消息
    * @return 是否解析成功
    */
-  ListenableFuture<Boolean> asyncResolve(T message);
+  CompletableFuture<Boolean> asyncResolve(T message);
 
   /**
    * 同步解析消息

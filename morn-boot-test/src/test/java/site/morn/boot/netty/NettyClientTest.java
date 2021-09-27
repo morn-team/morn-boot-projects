@@ -1,8 +1,8 @@
 package site.morn.boot.netty;
 
 import static org.awaitility.Awaitility.await;
-import static site.morn.boot.netty.config.NettyConfig.DEFAULT_HOST;
-import static site.morn.boot.netty.config.NettyConfig.DEFAULT_PORT;
+import static site.morn.boot.netty.config.NettyConfigConstants.DEFAULT_HOST;
+import static site.morn.boot.netty.config.NettyConfigConstants.DEFAULT_PORT;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
@@ -44,12 +44,12 @@ public class NettyClientTest {
 
   @Before
   public void setUp() {
-    client = NettyClientPool
+    client = NettyClientPools
         .createClient(new RemoteAddressChannelPoolIdentify(DEFAULT_HOST, DEFAULT_PORT));
   }
 
   @Test
-  public void test1Write() throws InterruptedException {
+  public void test1Write() {
     HexMessage hexMessage = new HexMessage("f1f1f0f0");
     RemoteAddressChannelPoolIdentify identify = new RemoteAddressChannelPoolIdentify(DEFAULT_HOST,
         DEFAULT_PORT);

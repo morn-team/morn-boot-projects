@@ -4,8 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import site.morn.boot.web.Responses;
 import site.morn.boot.rest.RestBuilders;
+import site.morn.boot.web.Responses;
 import site.morn.rest.RestMessage;
 
 /**
@@ -21,6 +21,6 @@ public class RestAuthenticationFailureHandler implements AuthenticationFailureHa
       AuthenticationException exception) {
     RestMessage message = RestBuilders.failureBuilder().code("login.failure")
         .message(exception.getMessage()).build();
-    Responses.standard(response).respond(message);
+    Responses.from(response).json().respond(message);
   }
 }

@@ -3,7 +3,7 @@ package site.morn.boot.data;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static site.morn.rest.constant.RestMessageStatus.SUCCESS;
+import static site.morn.rest.constant.RestMessageConstants.SUCCESS;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;

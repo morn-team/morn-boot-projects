@@ -1,6 +1,6 @@
 package site.morn.boot.message.rocket.support;
 
-import static site.morn.boot.message.rocket.RocketConstant.ROCKET;
+import static site.morn.boot.message.rocket.RocketConstants.ROCKET;
 
 import site.morn.bean.annotation.Tag;
 import site.morn.boot.message.BroadcastMessage;

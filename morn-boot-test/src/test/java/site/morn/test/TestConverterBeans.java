@@ -19,11 +19,20 @@ public class TestConverterBeans {
 
   public static final String LOWER_CASE = "lowerCase";
 
+  /**
+   * 测试转换器接口
+   */
+  public interface TestConverter extends BeanConverter<String, String> {
+
+    @Override
+    String convert(String source);
+  }
+
 
   @Order(1)
   @Component
   @Tag({CONVERTER, LOWER_CASE})
-  public static class LowerCaseConverter implements BeanConverter<String, String> {
+  public static class LowerCaseConverter implements TestConverter {
 
     @Override
     public String convert(String source) {
@@ -35,7 +44,7 @@ public class TestConverterBeans {
   @Component
   @Tag(CONVERTER)
   @Target(String.class)
-  public static class UpperCaseConverter implements BeanConverter<String, String> {
+  public static class UpperCaseConverter implements TestConverter {
 
     @Override
     public String convert(String source) {

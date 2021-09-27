@@ -2,8 +2,8 @@ package site.morn.rest;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import site.morn.rest.constant.RestMessageConstants;
 import site.morn.rest.constant.RestMessageLevel;
-import site.morn.rest.constant.RestMessageStatus;
 
 /**
  * REST消息体
@@ -17,7 +17,7 @@ public interface RestMessage extends SerialMessage {
   /**
    * 状态码
    *
-   * @see RestMessageStatus
+   * @see RestMessageConstants
    */
   @ApiModelProperty("状态码")
   int getStatus();

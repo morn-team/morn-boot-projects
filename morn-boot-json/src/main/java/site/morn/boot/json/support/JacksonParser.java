@@ -1,6 +1,6 @@
 package site.morn.boot.json.support;
 
-import static site.morn.boot.json.constant.JsonParserTypes.JACKSON;
+import static site.morn.boot.json.constant.JsonParserConstants.JACKSON;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
 import site.morn.bean.annotation.Tag;
 import site.morn.boot.json.JsonParser;
-import site.morn.constant.ApplicationConstant.Errors;
+import site.morn.constant.ApplicationConstants.Errors;
 import site.morn.core.CriteriaMap;
 import site.morn.exception.ApplicationMessages;
 

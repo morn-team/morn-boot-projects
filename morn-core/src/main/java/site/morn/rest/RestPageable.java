@@ -14,6 +14,15 @@ import site.morn.util.GenericUtils;
 public class RestPageable implements RestPageableDefinition {
 
   /**
+   * 默认页数
+   */
+  public static final int DEFAULT_PAGE = 0;
+  /**
+   * 默认单页数量
+   */
+  public static final int DEFAULT_SIZE = 20;
+
+  /**
    * 当前页
    */
   @ApiModelProperty(value = "当前页", example = "0")
@@ -32,8 +41,8 @@ public class RestPageable implements RestPageableDefinition {
   private String sort;
 
   public RestPageable() {
-    this.page = RestPageableConstant.DEFAULT_PAGE;
-    this.size = RestPageableConstant.DEFAULT_SIZE;
+    this.page = DEFAULT_PAGE;
+    this.size = DEFAULT_SIZE;
   }
 
   @Override

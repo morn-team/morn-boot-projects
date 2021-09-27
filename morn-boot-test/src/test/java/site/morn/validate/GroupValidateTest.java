@@ -1,5 +1,10 @@
 package site.morn.validate;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static site.morn.rest.constant.RestMessageConstants.SUCCESS;
+
 import net.minidev.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,8 +18,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import site.morn.core.CriteriaMap;
 import site.morn.test.TestUser;
 
@@ -57,9 +60,9 @@ public class GroupValidateTest {
     MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post(BASE_URL)
         .content(content).contentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
     mvc.perform(requestBuilder)
-        .andDo(MockMvcResultHandlers.print())
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().string(""));
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("status").value(SUCCESS));
   }
 
   @Test
@@ -69,9 +72,9 @@ public class GroupValidateTest {
     MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post(BASE_URL)
         .content(content).contentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
     mvc.perform(requestBuilder)
-        .andDo(MockMvcResultHandlers.print())
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().string("model.password must not be null"));
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("message").value("model.password must not be null"));
   }
 
   @Test
@@ -81,8 +84,8 @@ public class GroupValidateTest {
     MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.put(BASE_URL)
         .content(content).contentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
     mvc.perform(requestBuilder)
-        .andDo(MockMvcResultHandlers.print())
-        .andExpect(MockMvcResultMatchers.status().isOk())
-        .andExpect(MockMvcResultMatchers.content().string(""));
+        .andDo(print())
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("status").value(SUCCESS));
   }
 }

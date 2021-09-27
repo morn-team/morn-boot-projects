@@ -1,6 +1,7 @@
 package site.morn.core;
 
 import java.util.Collection;
+import java.util.Objects;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -22,7 +23,7 @@ public class X {
    */
   private final Object value;
 
-  public X(Object value) {
+  private X(Object value) {
     this.value = value;
   }
 
@@ -63,5 +64,12 @@ public class X {
    */
   public <T> T value(Class<T> cls) {
     return GenericUtils.castFrom(value(), cls);
+  }
+
+  /**
+   * 构建“任意”类型对象
+   */
+  public static X from(Object o) {
+    return new X(Objects.requireNonNull(o));
   }
 }

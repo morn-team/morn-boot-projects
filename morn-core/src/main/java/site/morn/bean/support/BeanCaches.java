@@ -73,7 +73,7 @@ public class BeanCaches {
    * 按标识检索实例
    *
    * @param identify 标识
-   * @param <T> 实例类型
+   * @param <T>      实例类型
    * @return 实例
    */
   public static <T> T bean(Class<T> type, AnnotationFeature identify) {
@@ -85,7 +85,7 @@ public class BeanCaches {
    *
    * @param type 实例类
    * @param name 名称
-   * @param <T> 实例类型
+   * @param <T>  实例类型
    * @return 实例
    */
   public static <T> T nameBean(Class<T> type, String name) {
@@ -96,7 +96,7 @@ public class BeanCaches {
    * 按标签检索实例
    *
    * @param tags 标签
-   * @param <T> 实例类型
+   * @param <T>  实例类型
    * @return 实例
    */
   public static <T> T tagBean(Class<T> type, String... tags) {
@@ -106,9 +106,9 @@ public class BeanCaches {
   /**
    * 按目标检索实例
    *
-   * @param type 实例类
+   * @param type   实例类
    * @param target 目标
-   * @param <T> 实例类型
+   * @param <T>    实例类型
    * @return 实例对象
    */
   public static <T> T targetBean(Class<T> type, Class<?> target) {
@@ -119,7 +119,7 @@ public class BeanCaches {
    * 按标识检索实例
    *
    * @param type 实例类
-   * @param <T> 实例类型
+   * @param <T>  实例类型
    * @return 实例集合
    */
   public static <T> List<T> beans(Class<T> type) {
@@ -129,9 +129,9 @@ public class BeanCaches {
   /**
    * 按标识检索实例
    *
-   * @param type 实例类
+   * @param type     实例类
    * @param identify 标识
-   * @param <T> 实例类型
+   * @param <T>      实例类型
    * @return 实例集合
    */
   public static <T> List<T> beans(Class<T> type, AnnotationFeature identify) {
@@ -141,9 +141,9 @@ public class BeanCaches {
   /**
    * 按标识检索实例持有者
    *
-   * @param type 实例类
+   * @param type     实例类
    * @param identify 标识
-   * @param <T> 实例类型
+   * @param <T>      实例类型
    * @return 实例集合
    */
   public static <T> List<BeanHolder<T>> beanHolders(Class<T> type,
@@ -154,7 +154,7 @@ public class BeanCaches {
   /**
    * 按标识检索函数
    *
-   * @param beanIdentify 实例标识
+   * @param beanIdentify     实例标识
    * @param functionIdentify 函数标识
    * @return 函数集合
    */
@@ -166,7 +166,7 @@ public class BeanCaches {
   /**
    * 按标识检索函数
    *
-   * @param holders 实例持有者集合
+   * @param holders          实例持有者集合
    * @param functionIdentify 函数标识
    * @return 函数集合
    */
@@ -191,7 +191,7 @@ public class BeanCaches {
    *
    * @param type 实例类
    * @param tags 标签
-   * @param <T> 实例类型
+   * @param <T>  实例类型
    * @return 实例集合
    */
   public static <T> List<T> tagBeans(Class<T> type, String... tags) {
@@ -201,9 +201,9 @@ public class BeanCaches {
   /**
    * 按源检索实例
    *
-   * @param type 实例类
+   * @param type   实例类
    * @param source 源
-   * @param <T> 实例类型
+   * @param <T>    实例类型
    * @return 实例集合
    */
   public static <T> List<T> sourceBeans(Class<T> type, Class<?> source) {
@@ -213,9 +213,9 @@ public class BeanCaches {
   /**
    * 按目标检索实例
    *
-   * @param type 实例类
+   * @param type   实例类
    * @param target 目标
-   * @param <T> 实例类型
+   * @param <T>    实例类型
    * @return 实例集合
    */
   public static <T> List<T> targetBeans(Class<T> type, Class<?> target) {
@@ -227,9 +227,9 @@ public class BeanCaches {
    *
    * <p>不受{@link BeanCache}管理
    *
-   * @param name 实例名称
+   * @param name         实例名称
    * @param requiredType 实例类
-   * @param <T> 实例类型
+   * @param <T>          实例类型
    * @return 实例
    * @see BeanFactory#getBean(String, Class)
    */
@@ -243,7 +243,7 @@ public class BeanCaches {
    * <p>不受{@link BeanCache}管理
    *
    * @param requiredType 实例类
-   * @param <T> 实例类型
+   * @param <T>          实例类型
    * @return 实例
    * @see BeanFactory#getBean(Class)
    */
@@ -257,8 +257,8 @@ public class BeanCaches {
    * <p>不受{@link BeanCache}管理
    *
    * @param requiredType 实例类
-   * @param args 构造参数
-   * @param <T> 实例类型
+   * @param args         构造参数
+   * @param <T>          实例类型
    * @return 实例
    * @see BeanFactory#getBean(Class, Object...)
    */

@@ -1,14 +1,12 @@
 package site.morn.boot.log;
 
-import static site.morn.log.OperateModes.SIMPLE;
-
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.Assert;
@@ -18,11 +16,13 @@ import site.morn.log.OperateAction;
 import site.morn.log.OperateArguments;
 import site.morn.log.OperateGroup;
 import site.morn.log.OperateMeta;
-import site.morn.log.OperateMeta.OperateMetaBuilder;
 import site.morn.log.OperateMode;
 import site.morn.log.Operation;
+import site.morn.log.OperationAdapter;
+import site.morn.log.OperationContext;
 import site.morn.log.OperationConverter;
 import site.morn.log.OperationProcessor;
+import site.morn.task.TaskExecutors;
 import site.morn.util.BeanFunctionUtils;
 
 /**
@@ -37,45 +37,49 @@ public class OperateAspect {
 
   private final BeanCache beanCache;
 
-  public OperateAspect(BeanCache beanCache) {
+  /**
+   * 操作日志配置项
+   */
+  private final OperateProperties properties;
+
+  public OperateAspect(BeanCache beanCache, OperateProperties properties) {
     this.beanCache = beanCache;
+    this.properties = properties;
   }
 
   /**
-   * 创建切点
+   * 日志切面
    */
-  @Pointcut("@annotation(site.morn.log.OperateAction)")
-  public void pointcut() {
-  }
-
-  @Around("pointcut()")
+  @Around("@annotation(site.morn.log.OperateAction)")
   public Object aroundOperate(ProceedingJoinPoint point) throws Throwable {
-    OperateMetaBuilder operateMetaBuilder = resolveOperatePoint(point);
-    operateMetaBuilder.source(point); // 记录日志来源
+    OperateMeta meta = resolveOperatePoint(point);
+    long startTime = System.currentTimeMillis(); // 起始时间
     try {
       // 执行目标方法，并记录执行结果
       Object returned = point.proceed();
-      operateMetaBuilder.methodReturned(returned);
-      operateMetaBuilder.success(true);
+      meta.setMethodReturned(returned);
+      meta.setSuccess(true);
       return returned;
     } catch (Throwable throwable) {
-      operateMetaBuilder.success(false);
-      operateMetaBuilder.throwable(throwable);
+      // 执行失败，记录异常信息
+      meta.setSuccess(false);
+      meta.setThrowable(throwable);
       throw throwable;
     } finally {
+      long endTime = System.currentTimeMillis(); // 结束时间
+      long duration = endTime - startTime; // 消耗时间
       // 读取操作日志参数
-      operateMetaBuilder.actionArgs(OperateArguments.getAll().toArray());
+      meta.setStartTime(startTime);
+      meta.setEndTime(endTime);
+      meta.setDuration(duration);
+      // 获取实时参数
+      meta.setCodeArgs(OperateArguments.getAll().toArray());
       OperateArguments.clear();
-      // 将操作日志元数据，转换为操作日志实例
-      OperateMeta operateMeta = operateMetaBuilder.build();
-      Tags tags = Tags.from(OperateMode.class, SIMPLE);
-      Operation operation = BeanFunctionUtils
-          .convert(OperationConverter.class, operateMeta, tags.toArray());
-      // 处理操作日志
-      List<OperationProcessor> processors = beanCache.tagBeans(OperationProcessor.class);
-      Assert.notEmpty(processors, "请注册操作日志处理器：" + OperationProcessor.class.getName());
-      for (OperationProcessor processor : processors) {
-        processor.handle(operateMeta, operation);
+      OperationContext context = buildContext(meta);
+      if (properties.isAsync()) {
+        extractOperationAsync(context);
+      } else {
+        extractOperation(context);
       }
     }
   }
@@ -86,26 +90,73 @@ public class OperateAspect {
    * @param point 切点
    * @return 操作日志构建器
    */
-  private OperateMetaBuilder resolveOperatePoint(ProceedingJoinPoint point) {
+  private OperateMeta resolveOperatePoint(ProceedingJoinPoint point) {
     Class<?> targetClass = point.getTarget().getClass();
+    MethodSignature methodSignature = (MethodSignature) point.getSignature();
+    String className = targetClass.getName();
+    String methodName = methodSignature.getName();
+    log.debug("Operate|Method:{}#{}", className, methodName);
     // 获取操作组注解
     OperateGroup operateGroup = AnnotationUtils.findAnnotation(targetClass, OperateGroup.class);
     // 获取操作行为注解
-    MethodSignature methodSignature = (MethodSignature) point.getSignature();
     OperateAction operateAction = AnnotationUtils
         .findAnnotation(methodSignature.getMethod(), OperateAction.class);
-    Assert.notNull(operateAction, "无法获取操作行为：" + targetClass.getSimpleName());
-    // 获取实时参数
-    Object[] codeArgs = OperateArguments.getAll().toArray();
-
+    Assert.notNull(operateAction, "Operate|无法获取[@OperateAction]:" + targetClass.getSimpleName());
     // 构建操作日志元数据
-    OperateMetaBuilder builder = OperateMeta.builder().actionArgs(operateAction.args())
-        .codeArgs(codeArgs).excludeNames(operateAction.excludeNames()).methodArgs(point.getArgs())
-        .mode(operateAction.mode()).name(operateAction.value()).excepts(operateAction.excepts());
+    OperateMeta meta = new OperateMeta();
+    meta.setSource(point);
+    meta.setMethodArgs(point.getArgs());
     if (Objects.nonNull(operateGroup)) {
-      builder.module(operateGroup.value());
-      builder.groupArgs(operateGroup.args());
+      meta.setGroupName(operateGroup.value());
+      meta.setGroupArgs(operateGroup.args());
     }
-    return builder;
+    meta.setActionName(operateAction.value());
+    meta.setActionArgs(operateAction.args());
+    meta.setExcludeNames(operateAction.excludeNames());
+    meta.setExcepts(operateAction.excepts());
+    return meta;
+  }
+
+  /**
+   * 构建操作日志上下文
+   *
+   * @param operateMeta 操作日志元数据
+   * @return 操作日志上下文
+   */
+  private OperationContext buildContext(OperateMeta operateMeta) {
+    // 将操作日志元数据，转换为操作日志实例
+    String[] tags = Tags.from(OperateMode.class, properties.getMode()).toArray();
+    Operation operation = BeanFunctionUtils
+        .convert(OperationConverter.class, operateMeta, tags);
+    // 对操作上下文进行场景适配
+    OperationContext context = new OperationContext(operateMeta, operation);
+    context = BeanFunctionUtils.adaptions(OperationAdapter.class, context, tags);
+    return context;
+  }
+
+  /**
+   * 提取操作信息-异步
+   */
+  private void extractOperationAsync(OperationContext context) {
+    CompletableFuture<?> future = TaskExecutors
+        .submit(() -> extractOperation(context));
+    future.exceptionally(throwable -> {
+      log.warn(
+          "Operate|Error|Async:" + throwable.getClass().getName() + ":" + throwable.getMessage(),
+          throwable);
+      return null;
+    });
+  }
+
+  /**
+   * 提取操作信息
+   */
+  private void extractOperation(OperationContext context) {
+    // 处理操作日志
+    List<OperationProcessor> processors = beanCache.tagBeans(OperationProcessor.class);
+    Assert.notEmpty(processors, "Operate|Error|请注册操作日志处理器:" + OperationProcessor.class.getName());
+    for (OperationProcessor processor : processors) {
+      processor.handle(context.getMeta(), context.getOperation());
+    }
   }
 }
