@@ -8,7 +8,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import site.morn.bean.BeanCache;
+import site.morn.bean.BeanPool;
 import site.morn.boot.rest.RestInitializer;
 import site.morn.boot.rest.RestProperties;
 import site.morn.rest.RestConverterService;
@@ -39,14 +39,14 @@ public class RestAutoConfiguration {
   /**
    * 注册REST初始化器
    *
-   * @param beanCache  实例缓存
+   * @param beanPool  实例缓存
    * @param translator 翻译器
    * @return REST初始化器
    */
   @Bean
   @ConditionalOnBean(Translator.class)
-  public RestInitializer restInitializer(BeanCache beanCache, Translator translator,
+  public RestInitializer restInitializer(BeanPool beanPool, Translator translator,
       RestProperties restProperties) {
-    return new RestInitializer(beanCache, translator, restProperties);
+    return new RestInitializer(beanPool, translator, restProperties);
   }
 }

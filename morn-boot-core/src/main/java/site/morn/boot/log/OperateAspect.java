@@ -10,7 +10,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.util.Assert;
-import site.morn.bean.BeanCache;
+import site.morn.bean.BeanPool;
 import site.morn.bean.support.Tags;
 import site.morn.log.OperateAction;
 import site.morn.log.OperateArguments;
@@ -35,15 +35,15 @@ import site.morn.util.BeanFunctionUtils;
 @Slf4j
 public class OperateAspect {
 
-  private final BeanCache beanCache;
+  private final BeanPool beanPool;
 
   /**
    * 操作日志配置项
    */
   private final OperateProperties properties;
 
-  public OperateAspect(BeanCache beanCache, OperateProperties properties) {
-    this.beanCache = beanCache;
+  public OperateAspect(BeanPool beanPool, OperateProperties properties) {
+    this.beanPool = beanPool;
     this.properties = properties;
   }
 
@@ -153,7 +153,7 @@ public class OperateAspect {
    */
   private void extractOperation(OperationContext context) {
     // 处理操作日志
-    List<OperationProcessor> processors = beanCache.tagBeans(OperationProcessor.class);
+    List<OperationProcessor> processors = beanPool.tagBeans(OperationProcessor.class);
     Assert.notEmpty(processors, "Operate|Error|请注册操作日志处理器:" + OperationProcessor.class.getName());
     for (OperationProcessor processor : processors) {
       processor.handle(context.getMeta(), context.getOperation());

@@ -6,7 +6,9 @@ import org.springframework.util.Assert;
 import site.morn.bean.AnnotationFeature;
 import site.morn.bean.BeanCache;
 import site.morn.bean.BeanHolder;
+import site.morn.bean.BeanPool;
 import site.morn.bean.FunctionHolder;
+import site.morn.bean.FunctionPool;
 
 /**
  * 实例缓存工具类
@@ -22,6 +24,16 @@ public class BeanCaches {
   private static BeanCache beanCache;
 
   /**
+   * 默认实例池
+   */
+  private static BeanPool beanPool;
+
+  /**
+   * 默认函数池
+   */
+  private static FunctionPool functionPool;
+
+  /**
    * Spring实例工厂
    */
   private static BeanFactory beanFactory;
@@ -34,8 +46,11 @@ public class BeanCaches {
    *
    * @param beanCache 实例缓存
    */
-  public static void initialize(BeanCache beanCache, BeanFactory beanFactory) {
+  public static void initialize(BeanCache beanCache, BeanPool beanPool, FunctionPool functionPool,
+      BeanFactory beanFactory) {
     BeanCaches.beanCache = beanCache;
+    BeanCaches.beanPool = beanPool;
+    BeanCaches.functionPool = functionPool;
     BeanCaches.beanFactory = beanFactory;
   }
 
@@ -50,9 +65,23 @@ public class BeanCaches {
   }
 
   /**
+   * 获取默认实例池
+   */
+  public static BeanPool beanPool() {
+    Assert.notNull(beanPool, "尚未注入默认实例池");
+    return beanPool;
+  }
+
+  /**
+   * 获取默认函数池
+   */
+  public static FunctionPool functionPool() {
+    Assert.notNull(functionPool, "尚未注入默认函数池");
+    return functionPool;
+  }
+
+  /**
    * 获取默认实例工厂
-   *
-   * @return 默认实例工厂
    */
   public static BeanFactory beanFactory() {
     Assert.notNull(beanFactory, "尚未注入默认实例工厂");
@@ -66,7 +95,7 @@ public class BeanCaches {
    * @return 实例
    */
   public static <T> T bean(Class<T> type) {
-    return beanCache().tagBean(type);
+    return beanPool().tagBean(type);
   }
 
   /**
@@ -77,7 +106,7 @@ public class BeanCaches {
    * @return 实例
    */
   public static <T> T bean(Class<T> type, AnnotationFeature identify) {
-    return beanCache().bean(type, identify);
+    return beanPool().bean(type, identify);
   }
 
   /**
@@ -89,7 +118,7 @@ public class BeanCaches {
    * @return 实例
    */
   public static <T> T nameBean(Class<T> type, String name) {
-    return beanCache().nameBean(type, name);
+    return beanPool().nameBean(type, name);
   }
 
   /**
@@ -100,7 +129,7 @@ public class BeanCaches {
    * @return 实例
    */
   public static <T> T tagBean(Class<T> type, String... tags) {
-    return beanCache().tagBean(type, tags);
+    return beanPool().tagBean(type, tags);
   }
 
   /**
@@ -112,7 +141,7 @@ public class BeanCaches {
    * @return 实例对象
    */
   public static <T> T targetBean(Class<T> type, Class<?> target) {
-    return beanCache().targetBean(type, target);
+    return beanPool().targetBean(type, target);
   }
 
   /**
@@ -123,7 +152,7 @@ public class BeanCaches {
    * @return 实例集合
    */
   public static <T> List<T> beans(Class<T> type) {
-    return beanCache().tagBeans(type);
+    return beanPool().tagBeans(type);
   }
 
   /**
@@ -135,7 +164,7 @@ public class BeanCaches {
    * @return 实例集合
    */
   public static <T> List<T> beans(Class<T> type, AnnotationFeature identify) {
-    return beanCache().beans(type, identify);
+    return beanPool().beans(type, identify);
   }
 
   /**
@@ -148,19 +177,19 @@ public class BeanCaches {
    */
   public static <T> List<BeanHolder<T>> beanHolders(Class<T> type,
       AnnotationFeature identify) {
-    return beanCache().beanHolders(type, identify);
+    return beanPool().beanHolders(type, identify);
   }
 
   /**
    * 按标识检索函数
    *
-   * @param beanIdentify     实例标识
+   * @param beanFeature     实例标识
    * @param functionIdentify 函数标识
    * @return 函数集合
    */
-  public static List<FunctionHolder> functions(AnnotationFeature beanIdentify,
+  public static List<FunctionHolder> functions(AnnotationFeature beanFeature,
       AnnotationFeature functionIdentify) {
-    return beanCache().functions(beanIdentify, functionIdentify);
+    return functionPool().functions(beanFeature, functionIdentify);
   }
 
   /**
@@ -173,7 +202,7 @@ public class BeanCaches {
   public static <T> List<FunctionHolder> functions(
       List<BeanHolder<T>> holders,
       AnnotationFeature functionIdentify) {
-    return beanCache().functions(holders, functionIdentify);
+    return functionPool().functions(holders, functionIdentify);
   }
 
   /**
@@ -183,7 +212,7 @@ public class BeanCaches {
    * @return 函数集合
    */
   public static List<FunctionHolder> functions(AnnotationFeature functionIdentify) {
-    return beanCache().functions(functionIdentify);
+    return functionPool().functions(functionIdentify);
   }
 
   /**
@@ -195,7 +224,7 @@ public class BeanCaches {
    * @return 实例集合
    */
   public static <T> List<T> tagBeans(Class<T> type, String... tags) {
-    return beanCache().tagBeans(type, tags);
+    return beanPool().tagBeans(type, tags);
   }
 
   /**
@@ -207,7 +236,7 @@ public class BeanCaches {
    * @return 实例集合
    */
   public static <T> List<T> sourceBeans(Class<T> type, Class<?> source) {
-    return beanCache().sourceBeans(type, source);
+    return beanPool().sourceBeans(type, source);
   }
 
   /**
@@ -219,7 +248,7 @@ public class BeanCaches {
    * @return 实例集合
    */
   public static <T> List<T> targetBeans(Class<T> type, Class<?> target) {
-    return beanCache().targetBeans(type, target);
+    return beanPool().targetBeans(type, target);
   }
 
   /**

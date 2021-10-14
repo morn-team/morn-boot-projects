@@ -71,7 +71,7 @@ public class AnnotationBeanPostProcessor implements BeanPostProcessor {
     }
     log.info("注册标识实例：{}", beanName);
     // 缓存实例
-    beanCache.cache(beanHolder);
+    beanCache.put(beanName, beanHolder);
     return bean;
   }
 

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import site.morn.bean.BeanCache;
+import site.morn.bean.BeanPool;
+import site.morn.bean.FunctionPool;
 import site.morn.bean.support.BeanCaches;
 
 /**
@@ -23,13 +25,23 @@ public class BeanCacheInitializer implements ApplicationContextAware {
   private final BeanCache beanCache;
 
   /**
+   * 默认实例池
+   */
+  private final BeanPool beanPool;
+
+  /**
+   * 默认函数池
+   */
+  private final FunctionPool functionPool;
+
+  /**
    * 实例工厂
    */
   private BeanFactory beanFactory;
 
   @PostConstruct
   public void initialize() {
-    BeanCaches.initialize(beanCache, beanFactory);
+    BeanCaches.initialize(beanCache, beanPool, functionPool, beanFactory);
   }
 
   @Override

@@ -3,7 +3,7 @@ package site.morn.boot.rest;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import site.morn.bean.BeanCache;
+import site.morn.bean.BeanPool;
 import site.morn.exception.ApplicationMessages;
 import site.morn.rest.RestMessage;
 import site.morn.rest.RestMessageConverter;
@@ -26,7 +26,7 @@ public class RestBuilder {
   /**
    * 标识实例缓存
    */
-  private static BeanCache beanCache;
+  private static BeanPool beanPool;
 
   /**
    * 翻译器
@@ -54,13 +54,13 @@ public class RestBuilder {
   /**
    * 初始化
    *
-   * @param beanCache 标识实例缓存
-   * @param translator 翻译器
+   * @param beanPool       标识实例缓存
+   * @param translator     翻译器
    * @param restProperties REST配置项
    */
-  public static void initialize(BeanCache beanCache, Translator translator,
+  public static void initialize(BeanPool beanPool, Translator translator,
       RestProperties restProperties) {
-    RestBuilder.beanCache = beanCache;
+    RestBuilder.beanPool = beanPool;
     RestBuilder.translator = translator;
     RestBuilder.restProperties = restProperties;
   }
@@ -93,7 +93,7 @@ public class RestBuilder {
    */
   @SuppressWarnings("unchecked")
   public static <T> RestMessage from(T foreign) {
-    RestMessageConverter<T> restMessageConverter = beanCache
+    RestMessageConverter<T> restMessageConverter = beanPool
         .targetBean(RestMessageConverter.class, foreign.getClass());
     if (Objects.isNull(restMessageConverter)) {
       return null;
@@ -270,7 +270,7 @@ public class RestBuilder {
       restMessage.setData(data);
     }
     if (data instanceof Map) {
-      ((Map) data).put(key, value);
+      ((Map<String, Object>) data).put(key, value);
     } else {
       throw ApplicationMessages.buildException("rest.data-not-map", "REST数据不是Map类型",
           "请使用RestBuilder#data(Object value)");
