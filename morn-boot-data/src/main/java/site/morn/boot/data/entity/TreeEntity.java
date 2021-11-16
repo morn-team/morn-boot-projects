@@ -83,7 +83,7 @@ public class TreeEntity<M extends TreeEntity<M, I>, I extends Serializable> {
     if (Objects.isNull(parent) || StringUtils.isEmpty(parent.levelCode)) {
       levelCode = String.format("|%s|", id);
     } else {
-      levelCode = String.format("%s|%s|", parent.levelCode, id);
+      levelCode = String.format("%s%s|", parent.levelCode, id);
     }
   }
 }
