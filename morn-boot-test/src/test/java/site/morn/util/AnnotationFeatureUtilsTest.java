@@ -4,7 +4,10 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import site.morn.test.TestAnnotationBeans.Cat;
 import site.morn.test.TestAnnotationBeans.Color;
+import site.morn.test.TestAnnotationBeans.Food;
+import site.morn.test.TestAnnotationBeans.Mammal;
 
 /**
  * 注解标识工具类单元测试
@@ -95,5 +98,13 @@ public class AnnotationFeatureUtilsTest {
   public void testGetTag() {
     String tag = AnnotationFeatureUtils.getTag("", "red");
     Assert.assertEquals("red", tag);
+  }
+
+  @Test
+  public void testIsInstance() {
+    boolean instance = AnnotationFeatureUtils.isInstance(Cat.class, Mammal.class);
+    boolean notInstance = AnnotationFeatureUtils.isInstance(Food.class, Mammal.class);
+    Assert.assertTrue(instance);
+    Assert.assertFalse(notInstance);
   }
 }
