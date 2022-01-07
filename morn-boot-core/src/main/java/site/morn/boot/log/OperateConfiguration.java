@@ -5,8 +5,8 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import site.morn.bean.AnnotationFieldRegistry;
-import site.morn.bean.BeanCache;
 import site.morn.bean.BeanConfigurer;
+import site.morn.bean.BeanPool;
 import site.morn.log.OperateMode;
 
 /**
@@ -33,8 +33,8 @@ public class OperateConfiguration implements BeanConfigurer {
    */
   @Bean
   @ConditionalOnMissingBean
-  public OperateAspect operateAspect(BeanCache beanCache, OperateProperties properties) {
-    return new OperateAspect(beanCache, properties);
+  public OperateAspect operateAspect(BeanPool beanPool, OperateProperties properties) {
+    return new OperateAspect(beanPool, properties);
   }
 
   /**

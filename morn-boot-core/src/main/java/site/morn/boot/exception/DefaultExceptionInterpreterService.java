@@ -3,7 +3,7 @@ package site.morn.boot.exception;
 import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import site.morn.bean.BeanCache;
+import site.morn.bean.BeanPool;
 import site.morn.exception.ApplicationMessage;
 import site.morn.exception.ExceptionInterpreter;
 import site.morn.exception.ExceptionInterpreterService;
@@ -21,12 +21,12 @@ public class DefaultExceptionInterpreterService implements ExceptionInterpreterS
   /**
    * 异常解释器缓存
    */
-  private final BeanCache beanCache;
+  private final BeanPool beanPool;
 
   @Override
   public <T extends Exception> ApplicationMessage interpret(T exception) {
     // 从缓存中获取异常解释器
-    ExceptionInterpreter exceptionInterpreter = beanCache
+    ExceptionInterpreter exceptionInterpreter = beanPool
         .targetBean(ExceptionInterpreter.class, exception.getClass());
     if (Objects.isNull(exceptionInterpreter)) {
       log.debug("异常处理失败：尚未发现处理{}的异常解释器", exception.getClass().getSimpleName());

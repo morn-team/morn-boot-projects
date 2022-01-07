@@ -4,6 +4,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import site.morn.bean.support.AnnotationFeatureBuilder;
@@ -112,5 +113,26 @@ public class BeanCachesTest {
     AnnotationFeature functionFeature = AnnotationFeatureBuilder.withName("eat").build();
     List<FunctionHolder> functions = BeanCaches.functions(beanFeature, functionFeature);
     Assert.assertEquals("函数：" + functions.size(), 1, functions.size());
+  }
+
+  @Test
+  public void beanCache() {
+    BeanCache beanCache = BeanCaches.beanCache();
+    Assert.assertNotNull(beanCache);
+  }
+
+  @Test
+  public void beanFactory() {
+    BeanFactory beanFactory = BeanCaches.beanFactory();
+    Assert.assertNotNull(beanFactory);
+  }
+
+  @Test
+  public void featureString() {
+    AnnotationFeature feature = AnnotationFeatureBuilder.withName("ThisName").source(Object.class)
+        .target(Object.class).tags("ThisTag").build();
+    Assert.assertEquals(
+        "SimpleAnnotationFeature(name=ThisName, tags=[ThisTag], source=class java.lang.Object, target=class java.lang.Object)",
+        feature.toString());
   }
 }

@@ -6,6 +6,7 @@ import static site.morn.bean.AnnotationFieldRegistry.FUNCTION_ANNOTATION_REGISTR
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -17,6 +18,8 @@ import site.morn.bean.AnnotationFieldRegistry;
 import site.morn.bean.AnnotationFieldType;
 import site.morn.bean.BeanCache;
 import site.morn.bean.BeanConfigurer;
+import site.morn.bean.BeanPool;
+import site.morn.bean.FunctionPool;
 import site.morn.bean.annotation.Function;
 import site.morn.bean.annotation.Name;
 import site.morn.bean.annotation.Source;
@@ -25,6 +28,8 @@ import site.morn.bean.annotation.Target;
 import site.morn.boot.bean.AnnotationBeanPostProcessor;
 import site.morn.boot.bean.BeanCacheInitializer;
 import site.morn.boot.bean.SimpleBeanCache;
+import site.morn.boot.bean.SimpleBeanPool;
+import site.morn.boot.bean.SimpleFunctionPool;
 import site.morn.util.OptionalCollection;
 
 /**
@@ -74,16 +79,30 @@ public class BeanAutoConfiguration implements BeanConfigurer {
   }
 
   /**
-   * 注册标识实例缓存
-   *
-   * <p>提供实例缓存功能
-   *
-   * @return 标识实例缓存
+   * 注册实例缓存
    */
   @Bean
   @ConditionalOnMissingBean
-  public BeanCache identifiedBeanCache() {
-    return new SimpleBeanCache();
+  public BeanCache beanCache(ListableBeanFactory beanFactory) {
+    return new SimpleBeanCache(beanFactory);
+  }
+
+  /**
+   * 注册默认实例池
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  public BeanPool beanPool(BeanCache beanCache) {
+    return new SimpleBeanPool(beanCache);
+  }
+
+  /**
+   * 注册默认函数池
+   */
+  @Bean
+  @ConditionalOnMissingBean
+  public FunctionPool functionPool(BeanPool beanPool) {
+    return new SimpleFunctionPool(beanPool);
   }
 
   /**
@@ -98,7 +117,7 @@ public class BeanAutoConfiguration implements BeanConfigurer {
    */
   @Bean
   @ConditionalOnMissingBean
-  public AnnotationBeanPostProcessor identifiedBeanPostProcessor(
+  public AnnotationBeanPostProcessor annotationBeanPostProcessor(
       @Autowired(required = false) List<BeanConfigurer> configurers,
       @Qualifier(BEAN_ANNOTATION_REGISTRY) AnnotationFieldRegistry beanAnnotationRegistry,
       @Qualifier(FUNCTION_ANNOTATION_REGISTRY) AnnotationFieldRegistry functionAnnotationRegistry,
@@ -118,8 +137,9 @@ public class BeanAutoConfiguration implements BeanConfigurer {
    */
   @Bean
   @ConditionalOnMissingBean
-  public BeanCacheInitializer beanCacheInitializer(BeanCache beanCache) {
-    return new BeanCacheInitializer(beanCache);
+  public BeanCacheInitializer beanCacheInitializer(BeanCache beanCache, BeanPool beanPool,
+      FunctionPool functionPool) {
+    return new BeanCacheInitializer(beanCache, beanPool, functionPool);
   }
 
   /**

@@ -10,7 +10,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import site.morn.bean.BeanCache;
+import site.morn.bean.BeanPool;
 import site.morn.boot.exception.ApplicationMessageConverter;
 import site.morn.boot.exception.DefaultApplicationMessageConverter;
 import site.morn.boot.exception.DefaultExceptionInterpreterService;
@@ -74,8 +74,8 @@ public class ExceptionAutoConfiguration {
    */
   @Bean
   @ConditionalOnMissingBean
-  public ExceptionInterpreterService exceptionInterpreterService(BeanCache beanCache) {
-    return new DefaultExceptionInterpreterService(beanCache);
+  public ExceptionInterpreterService exceptionInterpreterService(BeanPool beanPool) {
+    return new DefaultExceptionInterpreterService(beanPool);
   }
 
   /**

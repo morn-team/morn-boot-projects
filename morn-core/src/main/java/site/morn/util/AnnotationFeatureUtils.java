@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 import site.morn.bean.AnnotationFeature;
+import site.morn.bean.support.AnnotationFeatureBuilder;
 
 /**
  * 注解标识工具类
@@ -76,7 +77,24 @@ public class AnnotationFeatureUtils {
   /**
    * 判断是否适用
    *
-   * @param suit 适用条件
+   * @param suit   适用条件
+   * @param name   限制名称
+   * @param source 限制源
+   * @param target 限制目标
+   * @param <T>    注解特征
+   * @return 是否适用
+   */
+  public static <T extends AnnotationFeature> boolean isSuitable(T suit, String name,
+      Class<?> source, Class<?> target) {
+    AnnotationFeature feature = AnnotationFeatureBuilder.withName(name).source(source)
+        .target(target).build();
+    return isSuitable(suit, feature);
+  }
+
+  /**
+   * 判断是否适用
+   *
+   * @param suit  适用条件
    * @param limit 限制条件
    * @return 是否适用
    */

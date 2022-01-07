@@ -5,7 +5,7 @@ import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
-import site.morn.bean.BeanCache;
+import site.morn.bean.BeanPool;
 import site.morn.translate.Transfer;
 import site.morn.translate.TranslateConverter;
 import site.morn.translate.Translator;
@@ -14,8 +14,7 @@ import site.morn.translate.Translator;
  * 默认Spring翻译器
  *
  * @author timely-rain
- * @version 1.0.0, 2018/8/19
- * @since 1.0
+ * @since 1.0.0, 2018/8/19
  */
 @Slf4j
 public class DefaultSpringTranslator implements Translator {
@@ -28,12 +27,12 @@ public class DefaultSpringTranslator implements Translator {
   /**
    * 实例缓存
    */
-  private final BeanCache beanCache;
+  private final BeanPool beanPool;
 
   public DefaultSpringTranslator(MessageSource messageSource,
-      BeanCache beanCache) {
+      BeanPool beanPool) {
     this.messageSource = messageSource;
-    this.beanCache = beanCache;
+    this.beanPool = beanPool;
   }
 
   @Override
@@ -54,7 +53,7 @@ public class DefaultSpringTranslator implements Translator {
   @SuppressWarnings("unchecked")
   @Override
   public <T> T translate(Transfer transfer, Class<T> cls) {
-    TranslateConverter<T> translateConverter = beanCache.targetBean(TranslateConverter.class, cls);
+    TranslateConverter<T> translateConverter = beanPool.targetBean(TranslateConverter.class, cls);
     if (Objects.isNull(translateConverter)) {
       log.debug("无法获取作用于'{}'的翻译器", cls.getSimpleName());
       return null;

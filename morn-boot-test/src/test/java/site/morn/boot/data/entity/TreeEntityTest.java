@@ -21,10 +21,8 @@ public class TreeEntityTest {
   public void setUp() throws Exception {
     province = new Area();
     province.setId(RandomUtils.nextInt());
-    province.setName("湖北省");
     town = new Area();
     town.setId(RandomUtils.nextInt());
-    town.setName("武汉市");
   }
 
   @Test
